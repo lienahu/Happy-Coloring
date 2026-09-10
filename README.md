@@ -13,3 +13,4 @@ Features:
 - Upload own picture
 - Save PNG
 - Touch/stylus/mouse support
+happy color app
