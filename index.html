@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Happy Colors</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <div class="brand">🎨 Happy Colors</div>
+  <div class="top-actions">
+    <button id="undoBtn">↩️ Undo</button>
+    <button id="redoBtn">↪️ Redo</button>
+    <button id="newBtn">✨ New</button>
+    <button id="saveBtn" class="primary">💾 Save</button>
+  </div>
+</header>
+
+<main>
+<aside class="tools">
+  <section>
+    <h2>Colors</h2>
+    <div id="palette" class="palette"></div>
+    <label class="custom-color">More <input id="colorPicker" type="color" value="#ff4f87"></label>
+  </section>
+
+  <section>
+    <h2>Brush Size</h2>
+    <div class="brushes">
+      <button class="brush active" data-size="8">S</button>
+      <button class="brush" data-size="16">M</button>
+      <button class="brush" data-size="28">L</button>
+      <button class="brush" data-size="44">XL</button>
+    </div>
+  </section>
+
+  <section class="tool-buttons">
+    <button id="brushBtn" class="active">🖌️ Brush</button>
+    <button id="sparkleBtn">✨ Sparkle</button>
+    <button id="bucketBtn">🪣 Fill</button>
+    <button id="outlineBtn">✏️ Draw Picture</button>
+    <button id="eraserBtn">🧽 Eraser</button>
+    <button id="clearBtn">🗑️ Clear</button>
+  </section>
+
+  <section>
+    <h2>Coloring Pages</h2>
+    <div class="pages">
+      <button class="pageBtn" data-page="blank">⬜ Blank</button>
+      <button class="pageBtn" data-page="unicorn">🦄 Unicorn</button>
+      <button class="pageBtn" data-page="princess">👸 Princess</button>
+      <button class="pageBtn" data-page="cat">🐱 Cat</button>
+      <button class="pageBtn" data-page="butterfly">🦋 Butterfly</button>
+      <button class="pageBtn" data-page="dino">🦖 Dinosaur</button>
+    </div>
+  </section>
+
+  <section>
+    <h2>Stickers</h2>
+    <div id="stickers" class="stickers">
+      <button data-sticker="⭐">⭐</button>
+      <button data-sticker="🌈">🌈</button>
+      <button data-sticker="❤️">❤️</button>
+      <button data-sticker="🌸">🌸</button>
+      <button data-sticker="🦄">🦄</button>
+      <button data-sticker="👑">👑</button>
+      <button data-sticker="🦋">🦋</button>
+      <button data-sticker="✨">✨</button>
+    </div>
+    <div class="tiny">Pick a sticker, then tap the picture.</div>
+  </section>
+
+  <section>
+    <h2>Background</h2>
+    <div class="backgrounds">
+      <button class="bg active" data-bg="#ffffff">⬜ White</button>
+      <button class="bg" data-bg="#fff7df">🌤️ Cream</button>
+      <button class="bg" data-bg="#dff5ff">☁️ Sky</button>
+      <button class="bg" data-bg="#ffe5ef">🌸 Pink</button>
+    </div>
+    <label class="upload">🖼️ Upload Picture
+      <input id="imageUpload" type="file" accept="image/*">
+    </label>
+  </section>
+</aside>
+
+<section class="canvas-wrap">
+  <canvas id="canvas"></canvas>
+  <div class="hint">Draw, fill, sparkle, add stickers, or make your own picture ✨</div>
+</section>
+</main>
+
+<div id="confirmModal" class="modal hidden">
+  <div class="dialog">
+    <div class="big">🎨</div>
+    <h3>Start a new picture?</h3>
+    <p>Your current drawing will be cleared.</p>
+    <button id="cancelNew">Keep drawing</button>
+    <button id="confirmNew" class="danger">Start new</button>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
