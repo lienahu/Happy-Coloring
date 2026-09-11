@@ -1,16 +1,14 @@
-# Happy Colors V3
-Features:
-- Brush colors + custom color
-- Brush sizes
-- Sparkle brush for every color
-- Paint bucket fill
-- Draw-your-own-picture outline mode
-- Eraser
-- Undo/redo up to 20 states
-- Built-in coloring pages: Unicorn, Princess, Cat, Butterfly, Dinosaur
-- Stickers
-- Background colors
-- Upload own picture
-- Save PNG
-- Touch/stylus/mouse support
-happy color app
+# Happy Colors V4
+
+Cross-platform fixes:
+- iPad/iPhone Safari dynamic viewport-height fix
+- Safe-area support for notches/home indicator
+- Smooth scrollable toolbar with touch scrolling
+- Full-surface native file input for reliable Upload Picture tapping
+- Large touch targets for coarse-pointer devices
+- Responsive iPhone/iPad/Android/desktop layouts
+- Pointer capture for smoother touch, stylus, Apple Pencil, and mouse drawing
+
+Existing features:
+brush, sparkle, paint bucket, draw-your-own-picture, eraser,
+20-step undo/redo, coloring pages, stickers, backgrounds, image upload, PNG save.

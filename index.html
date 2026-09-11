@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <title>Happy Colors</title>
 <link rel="stylesheet" href="style.css">
 </head>
@@ -70,12 +70,8 @@
     </div>
     <div class="tiny">Pick a sticker, then tap the picture.</div>
   </section>
-  <section>
-    <label class="upload">🖼️ Upload Picture
-      <input id="imageUpload" type="file" accept="image/*">
-    </label>
-  </section>
-  <section>
+
+  <section class="background-section">
     <h2>Background</h2>
     <div class="backgrounds">
       <button class="bg active" data-bg="#ffffff">⬜ White</button>
@@ -83,6 +79,11 @@
       <button class="bg" data-bg="#dff5ff">☁️ Sky</button>
       <button class="bg" data-bg="#ffe5ef">🌸 Pink</button>
     </div>
+
+    <label class="upload-control" for="imageUpload">
+      <span>🖼️ Upload Picture</span>
+      <input id="imageUpload" type="file" accept="image/*">
+    </label>
   </section>
 </aside>
 
