@@ -1,38 +1,71 @@
 const canvas=document.getElementById("canvas"),ctx=canvas.getContext("2d",{willReadFrequently:true});
 
+// Only mirror the visible viewport at normal scale. Pinch zoom must not
+// become a new document size or trigger a destructive canvas resize.
 function syncAppHeight(){
-  document.documentElement.style.setProperty("--app-height", `${window.innerHeight}px`);
+  const vv=window.visualViewport;
+  if(vv && Math.abs(vv.scale-1)>0.02)return;
+  const height=vv ? Math.min(window.innerHeight,vv.height) : window.innerHeight;
+  if(height>0)document.documentElement.style.setProperty("--app-height",`${height}px`);
 }
-syncAppHeight();
-window.addEventListener("resize", syncAppHeight, {passive:true});
-window.addEventListener("orientationchange", ()=>setTimeout(syncAppHeight, 80), {passive:true});
 
 const palette=["#ff4f87","#ff3b30","#ff9500","#ffd60a","#34c759","#00c7be","#0a84ff","#5856d6","#af52de","#8e5a3c","#111111","#ffffff","#ff9fbb","#7ee787","#72d7ff"];
 let color=palette[0],size=8,tool="brush",drawing=false,last=null,history=[],redo=[],background="#ffffff",selectedSticker=null;
 
-function W(){return canvas.width/devicePixelRatio}
-function H(){return canvas.height/devicePixelRatio}
+// Artwork coordinates are established once per page load, not per resize.
+// The bitmap and undo history survive rotation without resampling.
+const canvasStage=document.querySelector(".canvas-stage");
+let paperWidth=0,paperHeight=0;
+let activePointerId=null;
+function W(){return paperWidth}
+function H(){return paperHeight}
 function fitCanvas(){
- const r=canvas.getBoundingClientRect(),old=document.createElement("canvas");
- old.width=canvas.width;old.height=canvas.height;
- if(old.width&&old.height)old.getContext("2d").drawImage(canvas,0,0);
- canvas.width=Math.max(300,Math.floor(r.width*devicePixelRatio));
- canvas.height=Math.max(300,Math.floor(r.height*devicePixelRatio));
- ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);
- if(old.width&&old.height)ctx.drawImage(old,0,0,old.width,old.height,0,0,r.width,r.height);
+  const availableW=canvasStage.clientWidth,availableH=canvasStage.clientHeight;
+  if(availableW<1 || availableH<1)return;
+  if(!paperWidth){
+    paperWidth=Math.max(320,Math.round(availableW));
+    paperHeight=Math.max(320,Math.round(availableH));
+    // Lock resolution for this drawing. Limit mobile bitmap memory at DPR > 2.
+    const ratio=Math.min(2,Math.max(1,window.devicePixelRatio||1));
+    canvas.width=Math.round(paperWidth*ratio);
+    canvas.height=Math.round(paperHeight*ratio);
+    ctx.setTransform(canvas.width/paperWidth,0,0,canvas.height/paperHeight,0,0);
+  }
+  const scale=Math.min(availableW/W(),availableH/H());
+  const width=W()*scale,height=H()*scale;
+  // Complete a stroke before its on-screen coordinate frame changes.
+  if(drawing && (Math.abs(canvas.getBoundingClientRect().width-width)>0.5 ||
+                 Math.abs(canvas.getBoundingClientRect().height-height)>0.5))end();
+  canvas.style.width=`${width}px`;
+  canvas.style.height=`${height}px`;
 }
-function snap(){history.push(canvas.toDataURL());if(history.length>20)history.shift();redo=[];buttons()}
+function snap(){history.push(canvas.toDataURL());if(history.length>21)history.shift();redo=[];buttons()}
 function buttons(){undoBtn.disabled=history.length<2;redoBtn.disabled=!redo.length}
-function restore(src){const im=new Image();im.onload=()=>{ctx.clearRect(0,0,W(),H());ctx.drawImage(im,0,0,W(),H())};im.src=src}
-function p(e){const r=canvas.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top}}
+// Do not let an eraser's destination-out mode erase an undo snapshot.
+let restoreTicket=0;
+function restore(src){
+ const ticket=++restoreTicket,im=new Image();
+ im.onload=()=>{
+   if(ticket!==restoreTicket)return;
+   ctx.save();ctx.globalCompositeOperation="source-over";
+   ctx.clearRect(0,0,W(),H());ctx.drawImage(im,0,0,W(),H());ctx.restore();
+ };
+ im.src=src;
+}
+function p(e){
+ const r=canvas.getBoundingClientRect();
+ return {x:(e.clientX-r.left)*W()/r.width,y:(e.clientY-r.top)*H()/r.height};
+}
 
 function hex(h){h=h.replace("#","");let n=parseInt(h,16);return[(n>>16)&255,(n>>8)&255,n&255,255]}
 function floodFill(xCss,yCss,fillHex){
- const sx=canvas.width/canvas.clientWidth,sy=canvas.height/canvas.clientHeight;
+ // p(e) now returns stable artwork coordinates, not display pixels.
+ const sx=canvas.width/W(),sy=canvas.height/H();
  const x0=Math.floor(xCss*sx),y0=Math.floor(yCss*sy);
+ if(x0<0||y0<0||x0>=canvas.width||y0>=canvas.height)return;
  const im=ctx.getImageData(0,0,canvas.width,canvas.height),d=im.data,w=im.width,h=im.height;
  const ii=(y0*w+x0)*4,target=[d[ii],d[ii+1],d[ii+2],d[ii+3]],fill=hex(fillHex),tol=45;
- if(Math.abs(target[0]-fill[0])+Math.abs(target[1]-fill[1])+Math.abs(target[2]-fill[2])<10)return;
+ if(Math.abs(target[0]-fill[0])+Math.abs(target[1]-fill[1])+Math.abs(target[2]-fill[2])+Math.abs(target[3]-fill[3])<10)return;
  const seen=new Uint8Array(w*h),q=[[x0,y0]];
  while(q.length){
   const [x,y]=q.pop();
@@ -55,18 +88,24 @@ function sparkle(a,b){
  }
 }
 function start(e){
+ if(!paperWidth || activePointerId!==null || e.isPrimary===false || e.button!==0)return;
+ if(e.cancelable)e.preventDefault();
  const pt=p(e);
+ if(pt.x<0||pt.y<0||pt.x>=W()||pt.y>=H())return;
+ ++restoreTicket;
+ // A previous eraser stroke must not erase a subsequent sticker.
+ ctx.globalCompositeOperation="source-over";
  if(selectedSticker){
    ctx.save();ctx.font="48px serif";ctx.textAlign="center";ctx.textBaseline="middle";
    ctx.fillText(selectedSticker,pt.x,pt.y);ctx.restore();snap();return;
  }
  if(tool==="bucket"){floodFill(pt.x,pt.y,color);snap();return}
- drawing=true;last=pt;ctx.beginPath();ctx.moveTo(pt.x,pt.y);
+ activePointerId=e.pointerId;drawing=true;last=pt;ctx.beginPath();ctx.moveTo(pt.x,pt.y);
  if(canvas.setPointerCapture){try{canvas.setPointerCapture(e.pointerId)}catch(_){}}
  e.preventDefault()
 }
 function move(e){
- if(!drawing)return;
+ if(!drawing || e.pointerId!==activePointerId)return;
  const pt=p(e);
  ctx.lineCap="round";ctx.lineJoin="round";
  ctx.globalCompositeOperation=tool==="eraser"?"destination-out":"source-over";
@@ -77,14 +116,42 @@ function move(e){
  ctx.beginPath();ctx.moveTo(pt.x,pt.y);last=pt;e.preventDefault()
 }
 function end(e){
+ if(e && activePointerId!==null && e.pointerId!==activePointerId)return;
+ const pointerId=activePointerId;
+ activePointerId=null;
  if(drawing){drawing=false;ctx.beginPath();snap()}
- if(e&&canvas.releasePointerCapture){try{canvas.releasePointerCapture(e.pointerId)}catch(_){}}
+ if(pointerId!==null && canvas.hasPointerCapture(pointerId)){
+   canvas.releasePointerCapture(pointerId);
+ }
 }
 
 canvas.addEventListener("pointerdown",start);
 canvas.addEventListener("pointermove",move);
 canvas.addEventListener("pointerup",end);
 canvas.addEventListener("pointercancel",end);
+canvas.addEventListener("lostpointercapture",end);
+window.addEventListener("blur",()=>end());
+document.addEventListener("visibilitychange",()=>{if(document.hidden)end()});
+
+// Safari fallback, scoped to the drawing surface. Pointer events still draw.
+// Never cancel ordinary file-input/button touchend events on the whole document.
+function cancelNativeGesture(e){if(e.cancelable)e.preventDefault()}
+["touchstart","touchmove","touchend"].forEach(type=>{
+ canvasStage.addEventListener(type,cancelNativeGesture,{passive:false});
+});
+document.querySelectorAll("header,.tools,.canvas-wrap").forEach(region=>{
+ ["gesturestart","gesturechange","gestureend"].forEach(type=>{
+   region.addEventListener(type,cancelNativeGesture,{passive:false});
+ });
+ // Single-finger toolbar scrolling and native Upload taps remain untouched.
+ region.addEventListener("touchstart",e=>{
+   if(e.touches.length>1)cancelNativeGesture(e);
+ },{passive:false});
+ region.addEventListener("dblclick",e=>{
+   if(!e.target.closest("input,label"))cancelNativeGesture(e);
+ });
+});
+canvasStage.addEventListener("contextmenu",cancelNativeGesture);
 
 const pal=document.getElementById("palette");
 palette.forEach((c,i)=>{
@@ -122,7 +189,7 @@ document.querySelectorAll(".stickers button").forEach(b=>b.onclick=()=>{
 undoBtn.onclick=()=>{if(history.length>1){redo.push(history.pop());restore(history.at(-1));buttons()}};
 redoBtn.onclick=()=>{if(redo.length){let s=redo.pop();history.push(s);restore(s);buttons()}};
 
-function clearAll(){ctx.clearRect(0,0,W(),H());snap()}
+function clearAll(){++restoreTicket;ctx.clearRect(0,0,W(),H());snap()}
 clearBtn.onclick=()=>{if(confirm("Clear this picture?"))clearAll()};
 newBtn.onclick=()=>confirmModal.classList.remove("hidden");
 cancelNew.onclick=()=>confirmModal.classList.add("hidden");
@@ -144,7 +211,7 @@ document.querySelectorAll(".bg").forEach(b=>b.onclick=()=>{
 function line(x1,y1,x2,y2){ctx.moveTo(x1,y1);ctx.lineTo(x2,y2)}
 function circle(x,y,r){ctx.moveTo(x+r,y);ctx.arc(x,y,r,0,Math.PI*2)}
 function page(name){
- ctx.clearRect(0,0,W(),H());ctx.save();ctx.strokeStyle="#252525";ctx.lineWidth=4;ctx.lineCap="round";ctx.lineJoin="round";ctx.beginPath();
+ ++restoreTicket;ctx.clearRect(0,0,W(),H());ctx.save();ctx.globalCompositeOperation="source-over";ctx.strokeStyle="#252525";ctx.lineWidth=4;ctx.lineCap="round";ctx.lineJoin="round";ctx.beginPath();
  let w=W(),h=H(),cx=w/2,cy=h/2;
  if(name==="blank"){ctx.restore();snap();return}
  if(name==="unicorn"){circle(cx,cy,110);circle(cx-42,cy-20,9);circle(cx+42,cy-20,9);ctx.moveTo(cx-40,cy+45);ctx.quadraticCurveTo(cx,cy+70,cx+40,cy+45);ctx.moveTo(cx,cy-110);line(cx,cy-110,cx+18,cy-190);line(cx+18,cy-190,cx+42,cy-108);ctx.moveTo(cx-100,cy-55);line(cx-150,cy-100,cx-115,cy-20);ctx.moveTo(cx+100,cy-55);line(cx+150,cy-100,cx+115,cy-20)}
@@ -160,15 +227,35 @@ imageUpload.onchange=e=>{
  const f=e.target.files&&e.target.files[0];if(!f)return;
  const url=URL.createObjectURL(f),im=new Image();
  im.onload=()=>{
+   ++restoreTicket;
+   ctx.save();ctx.globalCompositeOperation="source-over";
    ctx.clearRect(0,0,W(),H());
    let s=Math.min(W()/im.width,H()/im.height),nw=im.width*s,nh=im.height*s;
    ctx.drawImage(im,(W()-nw)/2,(H()-nh)/2,nw,nh);
-   snap();
+   ctx.restore();snap();
    URL.revokeObjectURL(url);
    e.target.value="";
  };
  im.src=url;
 };
 
-window.addEventListener("resize",()=>{syncAppHeight();fitCanvas()},{passive:true});
-fitCanvas();snap();buttons();
+// Layout can change on every browser-toolbar animation. Only CSS changes;
+// canvas.width/canvas.height are never reassigned after first initialization.
+let layoutFrame=0;
+function scheduleLayout(){
+ if(layoutFrame)return;
+ layoutFrame=requestAnimationFrame(()=>{
+   layoutFrame=0;
+   syncAppHeight();
+   fitCanvas();
+ });
+}
+window.addEventListener("resize",scheduleLayout,{passive:true});
+window.addEventListener("orientationchange",scheduleLayout,{passive:true});
+window.addEventListener("pageshow",scheduleLayout,{passive:true});
+if(window.visualViewport)window.visualViewport.addEventListener("resize",scheduleLayout,{passive:true});
+if("ResizeObserver" in window){
+ const observer=new ResizeObserver(scheduleLayout);
+ observer.observe(canvasStage);
+}
+syncAppHeight();fitCanvas();snap();buttons();

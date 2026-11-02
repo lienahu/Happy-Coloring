@@ -167,3 +167,110 @@ canvas{
   button,.upload-control{min-height:44px}
   .swatch{min-width:42px;min-height:42px}
 }
+
+/* iPad viewport fix 1: layout only. Keep a single, unchanged artwork bitmap. */
+:root { --app-height: 100vh; }
+@supports (height: 100dvh) { :root { --app-height: 100dvh; } }
+html { overflow: hidden; overscroll-behavior: none; }
+body {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: var(--app-height);
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  overscroll-behavior: none;
+  padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px)
+           env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px);
+}
+header {
+  flex: 0 0 auto;
+  height: auto;
+  min-height: var(--header-h);
+  min-width: 0;
+  flex-wrap: wrap;
+  padding: 8px 12px;
+  touch-action: pan-x pan-y;
+}
+.brand { min-width: 0; }
+.build-tag { font-size: 10px; font-weight: 500; color: #66708a; }
+.top-actions { flex: 0 0 auto; gap: 6px; }
+.top-actions button { min-width: 44px; min-height: 44px; }
+.action-icon { font-size: 18px; }
+main { flex: 1 1 0; height: auto; min-width: 0; min-height: 0; overflow: hidden; }
+.tools { min-width: 0; min-height: 0; touch-action: pan-y; }
+.tools button { min-width: 0; }
+header, .tools, .canvas-wrap {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+input { -webkit-user-select: auto; user-select: auto; }
+.canvas-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  overscroll-behavior: none;
+  touch-action: none;
+}
+.canvas-stage {
+  flex: 1 1 0;
+  min-width: 0;
+  min-height: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  contain: size layout;
+  touch-action: none;
+}
+#canvas {
+  /* JavaScript fits BOTH display dimensions with one scale factor. */
+  width: 1px;
+  height: 1px;
+  min-width: 0;
+  min-height: 0;
+  max-width: none;
+  max-height: none;
+  flex: 0 0 auto;
+  border-radius: 12px;
+  touch-action: none;
+}
+.hint {
+  flex: 0 0 auto;
+  margin-top: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.upload-control:focus-within, button:focus-visible {
+  outline: 3px solid #7568ff;
+  outline-offset: 2px;
+}
+@media (max-width: 700px) {
+  header { gap: 6px; padding: 6px 8px; }
+  .brand { font-size: 17px; }
+  .build-tag { display: block; font-size: 9px; }
+  .top-actions { gap: 4px; }
+  .top-actions button { font-size: 14px; padding: 6px; min-width: 44px; }
+  .top-actions button::first-letter { font-size: inherit; }
+  .action-text { display: none; }
+  /* Two 44px columns fit inside a 124px sidebar; three did not. */
+  .palette { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .swatch { min-height: 44px; }
+  .custom-color { gap: 4px; }
+  .custom-color input { min-width: 0; flex: 0 1 42px; padding: 0; }
+  .canvas-wrap { padding: 8px; gap: 4px; }
+  .hint { font-size: 10px; }
+}
+@media (max-height: 480px) {
+  header { min-height: 52px; padding-top: 4px; padding-bottom: 4px; }
+  .hint { display: none; }
+}

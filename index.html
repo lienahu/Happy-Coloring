@@ -2,18 +2,18 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Happy Colors</title>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v=ipad-viewport-1">
 </head>
 <body>
 <header>
-  <div class="brand">🎨 Happy Colors</div>
+  <div class="brand">🎨 Happy Colors <small class="build-tag">iPad fix 1</small></div>
   <div class="top-actions">
-    <button id="undoBtn">↩️ Undo</button>
-    <button id="redoBtn">↪️ Redo</button>
-    <button id="newBtn">✨ New</button>
-    <button id="saveBtn" class="primary">💾 Save</button>
+    <button id="undoBtn" type="button" aria-label="Undo" title="Undo"><span class="action-icon" aria-hidden="true">↩️</span> <span class="action-text">Undo</span></button>
+    <button id="redoBtn" type="button" aria-label="Redo" title="Redo"><span class="action-icon" aria-hidden="true">↪️</span> <span class="action-text">Redo</span></button>
+    <button id="newBtn" type="button" aria-label="New" title="New"><span class="action-icon" aria-hidden="true">✨</span> <span class="action-text">New</span></button>
+    <button id="saveBtn" class="primary" type="button" aria-label="Save" title="Save"><span class="action-icon" aria-hidden="true">💾</span> <span class="action-text">Save</span></button>
   </div>
 </header>
 
@@ -88,7 +88,9 @@
 </aside>
 
 <section class="canvas-wrap">
-  <canvas id="canvas"></canvas>
+  <div class="canvas-stage">
+    <canvas id="canvas" aria-label="Drawing canvas"></canvas>
+  </div>
   <div class="hint">Draw, fill, sparkle, add stickers, or make your own picture ✨</div>
 </section>
 </main>
@@ -103,6 +105,6 @@
   </div>
 </div>
 
-<script src="app.js"></script>
+<script src="app.js?v=ipad-viewport-1"></script>
 </body>
 </html>

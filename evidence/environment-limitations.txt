@@ -1,0 +1,4 @@
+HTTP/file navigation: net::ERR_BLOCKED_BY_ADMINISTRATOR; no browser policies were changed.
+Browser test transport: exact local HTML/CSS/JS injected into a fresh page.
+WebKit: executable absent; attempted launch failed; download unavailable.
+No physical iOS/iPadOS/Android device connected.
