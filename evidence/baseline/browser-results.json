@@ -1,0 +1,42 @@
+{
+  "transport": "inline local HTML/CSS/JS",
+  "browser": "chromium",
+  "browser_version": "144.0.7559.96",
+  "playwright": "1.57.0",
+  "device_test_type": "viewport/DPR/touch emulation; NOT physical hardware",
+  "tests_run": 4,
+  "failures": 4,
+  "errors": 0,
+  "skipped": 0,
+  "results": [
+    {
+      "test": "__main__.chromium_desktop.test_02_rotation_preserves_exact_pixels_and_aspect",
+      "status": "failed",
+      "seconds": 0.59,
+      "detail": "Traceback (most recent call last):\n  File \"/mnt/data/happy-coloring-ipad-tested/tests/browser/run_browser_tests.py\", line 171, in test_02_rotation_preserves_exact_pixels_and_aspect\n    self.assertEqual(self.digest(),before)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: {'width': 544, 'height': 1150, 'hash': 1602685707} != {'width': 984, 'height': 664, 'hash': 922015293}\n- {'hash': 1602685707, 'height': 1150, 'width': 544}\n+ {'hash': 922015293, 'height': 664, 'width': 984}\n"
+    },
+    {
+      "test": "__main__.chromium_desktop.test_03_browser_bar_height_changes_do_not_rebuild_bitmap",
+      "status": "failed",
+      "seconds": 0.29,
+      "detail": "Traceback (most recent call last):\n  File \"/mnt/data/happy-coloring-ipad-tested/tests/browser/run_browser_tests.py\", line 181, in test_03_browser_bar_height_changes_do_not_rebuild_bitmap\n    self.assertEqual(self.digest(),before)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: {'width': 984, 'height': 714, 'hash': 3534786577} != {'width': 984, 'height': 664, 'hash': 165065638}\n- {'hash': 3534786577, 'height': 714, 'width': 984}\n?          ^^^^^^  ^^            ^^\n\n+ {'hash': 165065638, 'height': 664, 'width': 984}\n?          ^  ^^^^^^            ^^\n\n"
+    },
+    {
+      "test": "__main__.chromium_tablet_portrait.test_02_rotation_preserves_exact_pixels_and_aspect",
+      "status": "failed",
+      "seconds": 0.436,
+      "detail": "Traceback (most recent call last):\n  File \"/mnt/data/happy-coloring-ipad-tested/tests/browser/run_browser_tests.py\", line 171, in test_02_rotation_preserves_exact_pixels_and_aspect\n    self.assertEqual(self.digest(),before)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: {'width': 1768, 'height': 1368, 'hash': 4097922313} != {'width': 1128, 'height': 2100, 'hash': 2366560136}\n- {'hash': 4097922313, 'height': 1368, 'width': 1768}\n?          ------                 ^^^            ^^\n\n+ {'hash': 2366560136, 'height': 2100, 'width': 1128}\n?            +++++  +            + ^^            ^^\n\n"
+    },
+    {
+      "test": "__main__.chromium_tablet_portrait.test_03_browser_bar_height_changes_do_not_rebuild_bitmap",
+      "status": "failed",
+      "seconds": 0.382,
+      "detail": "Traceback (most recent call last):\n  File \"/mnt/data/happy-coloring-ipad-tested/tests/browser/run_browser_tests.py\", line 181, in test_03_browser_bar_height_changes_do_not_rebuild_bitmap\n    self.assertEqual(self.digest(),before)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: {'width': 1128, 'height': 2200, 'hash': 377623614} != {'width': 1128, 'height': 2100, 'hash': 2916437871}\n- {'hash': 377623614, 'height': 2200, 'width': 1128}\n?             ---- -             ^\n\n+ {'hash': 2916437871, 'height': 2100, 'width': 1128}\n?          +++++  +               ^\n\n"
+    }
+  ],
+  "app_sha256": {
+    "index.html": "35c3b755f2ad2030253070284ab700f9eee994e1a19cc56e6b2155afbe5f243e",
+    "style.css": "513babb0906fc7053197cd12ba9895540ca4457f109493fe6975a7de97e08402",
+    "app.js": "7d1455b24484f60c799c5424d98e18afbcfea5ef58cba81dae4f2e549fac5d9f"
+  }
+}

@@ -1,0 +1,4 @@
+PASS: git apply --check
+PASS: git apply
+PASS: all three resulting files match tested runtime files byte-for-byte
+Base: b3c2d4782b5ee58bab87ea349f105819a3f9d115

@@ -1,0 +1,65 @@
+test_02_rotation_preserves_exact_pixels_and_aspect (__main__.chromium_desktop.test_02_rotation_preserves_exact_pixels_and_aspect) ... FAIL
+test_03_browser_bar_height_changes_do_not_rebuild_bitmap (__main__.chromium_desktop.test_03_browser_bar_height_changes_do_not_rebuild_bitmap) ... FAIL
+test_02_rotation_preserves_exact_pixels_and_aspect (__main__.chromium_tablet_portrait.test_02_rotation_preserves_exact_pixels_and_aspect) ... FAIL
+test_03_browser_bar_height_changes_do_not_rebuild_bitmap (__main__.chromium_tablet_portrait.test_03_browser_bar_height_changes_do_not_rebuild_bitmap) ... FAIL
+
+======================================================================
+FAIL: test_02_rotation_preserves_exact_pixels_and_aspect (__main__.chromium_desktop.test_02_rotation_preserves_exact_pixels_and_aspect)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/data/happy-coloring-ipad-tested/tests/browser/run_browser_tests.py", line 171, in test_02_rotation_preserves_exact_pixels_and_aspect
+    self.assertEqual(self.digest(),before)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'width': 544, 'height': 1150, 'hash': 1602685707} != {'width': 984, 'height': 664, 'hash': 922015293}
+- {'hash': 1602685707, 'height': 1150, 'width': 544}
++ {'hash': 922015293, 'height': 664, 'width': 984}
+
+======================================================================
+FAIL: test_03_browser_bar_height_changes_do_not_rebuild_bitmap (__main__.chromium_desktop.test_03_browser_bar_height_changes_do_not_rebuild_bitmap)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/data/happy-coloring-ipad-tested/tests/browser/run_browser_tests.py", line 181, in test_03_browser_bar_height_changes_do_not_rebuild_bitmap
+    self.assertEqual(self.digest(),before)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'width': 984, 'height': 714, 'hash': 3534786577} != {'width': 984, 'height': 664, 'hash': 165065638}
+- {'hash': 3534786577, 'height': 714, 'width': 984}
+?          ^^^^^^  ^^            ^^
+
++ {'hash': 165065638, 'height': 664, 'width': 984}
+?          ^  ^^^^^^            ^^
+
+
+======================================================================
+FAIL: test_02_rotation_preserves_exact_pixels_and_aspect (__main__.chromium_tablet_portrait.test_02_rotation_preserves_exact_pixels_and_aspect)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/data/happy-coloring-ipad-tested/tests/browser/run_browser_tests.py", line 171, in test_02_rotation_preserves_exact_pixels_and_aspect
+    self.assertEqual(self.digest(),before)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'width': 1768, 'height': 1368, 'hash': 4097922313} != {'width': 1128, 'height': 2100, 'hash': 2366560136}
+- {'hash': 4097922313, 'height': 1368, 'width': 1768}
+?          ------                 ^^^            ^^
+
++ {'hash': 2366560136, 'height': 2100, 'width': 1128}
+?            +++++  +            + ^^            ^^
+
+
+======================================================================
+FAIL: test_03_browser_bar_height_changes_do_not_rebuild_bitmap (__main__.chromium_tablet_portrait.test_03_browser_bar_height_changes_do_not_rebuild_bitmap)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/data/happy-coloring-ipad-tested/tests/browser/run_browser_tests.py", line 181, in test_03_browser_bar_height_changes_do_not_rebuild_bitmap
+    self.assertEqual(self.digest(),before)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'width': 1128, 'height': 2200, 'hash': 377623614} != {'width': 1128, 'height': 2100, 'hash': 2916437871}
+- {'hash': 377623614, 'height': 2200, 'width': 1128}
+?             ---- -             ^
+
++ {'hash': 2916437871, 'height': 2100, 'width': 1128}
+?          +++++  +               ^
+
+
+----------------------------------------------------------------------
+Ran 4 tests in 2.209s
+
+FAILED (failures=4)

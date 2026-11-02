@@ -1,0 +1,214 @@
+TAP version 13
+# Subtest: bitmap initialized once at the selected DPI
+ok 1 - bitmap initialized once at the selected DPI
+  ---
+  duration_ms: 4.324989
+  type: 'test'
+  ...
+# Subtest: rotation preserves bitmap dimensions and does not resample pixels
+ok 2 - rotation preserves bitmap dimensions and does not resample pixels
+  ---
+  duration_ms: 0.939218
+  type: 'test'
+  ...
+# Subtest: twenty browser-chrome resizes never rewrite bitmap
+ok 3 - twenty browser-chrome resizes never rewrite bitmap
+  ---
+  duration_ms: 1.498871
+  type: 'test'
+  ...
+# Subtest: display fit uses one scale factor on both axes
+ok 4 - display fit uses one scale factor on both axes
+  ---
+  duration_ms: 2.341566
+  type: 'test'
+  ...
+# Subtest: zero-sized layout is ignored
+ok 5 - zero-sized layout is ignored
+  ---
+  duration_ms: 0.781493
+  type: 'test'
+  ...
+# Subtest: DPR above two is bounded for mobile memory
+ok 6 - DPR above two is bounded for mobile memory
+  ---
+  duration_ms: 0.870506
+  type: 'test'
+  ...
+# Subtest: DPR change does not change logical artwork coordinates
+ok 7 - DPR change does not change logical artwork coordinates
+  ---
+  duration_ms: 0.785299
+  type: 'test'
+  ...
+# Subtest: pointer origin maps to artwork origin
+ok 8 - pointer origin maps to artwork origin
+  ---
+  duration_ms: 0.635135
+  type: 'test'
+  ...
+# Subtest: pointer mapping follows CSS scale after rotation
+ok 9 - pointer mapping follows CSS scale after rotation
+  ---
+  duration_ms: 1.920609
+  type: 'test'
+  ...
+# Subtest: small screens keep a positive paper size and correct aspect
+ok 10 - small screens keep a positive paper size and correct aspect
+  ---
+  duration_ms: 0.904998
+  type: 'test'
+  ...
+# Subtest: viewport uses visible height at scale one
+ok 11 - viewport uses visible height at scale one
+  ---
+  duration_ms: 0.651379
+  type: 'test'
+  ...
+# Subtest: pinch scale is not treated as a new document height
+ok 12 - pinch scale is not treated as a new document height
+  ---
+  duration_ms: 0.608566
+  type: 'test'
+  ...
+# Subtest: window height fallback without VisualViewport
+ok 13 - window height fallback without VisualViewport
+  ---
+  duration_ms: 0.539423
+  type: 'test'
+  ...
+# Subtest: many resize notifications coalesce to one animation frame
+ok 14 - many resize notifications coalesce to one animation frame
+  ---
+  duration_ms: 0.875764
+  type: 'test'
+  ...
+# Subtest: secondary pointer cannot start a drawing
+ok 15 - secondary pointer cannot start a drawing
+  ---
+  duration_ms: 0.777939
+  type: 'test'
+  ...
+# Subtest: right mouse button cannot start a drawing
+ok 16 - right mouse button cannot start a drawing
+  ---
+  duration_ms: 0.802595
+  type: 'test'
+  ...
+# Subtest: second pointer cannot replace a current stroke
+ok 17 - second pointer cannot replace a current stroke
+  ---
+  duration_ms: 0.754152
+  type: 'test'
+  ...
+# Subtest: foreign pointerup cannot finish the active stroke
+ok 18 - foreign pointerup cannot finish the active stroke
+  ---
+  duration_ms: 0.762064
+  type: 'test'
+  ...
+# Subtest: pointercancel ends the stroke once
+ok 19 - pointercancel ends the stroke once
+  ---
+  duration_ms: 1.046668
+  type: 'test'
+  ...
+# Subtest: rotation ends an active stroke before changing display frame
+ok 20 - rotation ends an active stroke before changing display frame
+  ---
+  duration_ms: 0.586764
+  type: 'test'
+  ...
+# Subtest: Fill button activates the actual bucket tool
+ok 21 - Fill button activates the actual bucket tool
+  ---
+  duration_ms: 0.82597
+  type: 'test'
+  ...
+# Subtest: all five tool buttons retain their IDs and handlers
+ok 22 - all five tool buttons retain their IDs and handlers
+  ---
+  duration_ms: 1.944835
+  type: 'test'
+  ...
+# Subtest: undo history retains twenty actions plus initial state
+ok 23 - undo history retains twenty actions plus initial state
+  ---
+  duration_ms: 0.675285
+  type: 'test'
+  ...
+# Subtest: undo restore uses source-over even after eraser
+ok 24 - undo restore uses source-over even after eraser
+  ---
+  duration_ms: 0.760002
+  type: 'test'
+  ...
+# Subtest: out-of-order undo image decodes cannot replace newest state
+ok 25 - out-of-order undo image decodes cannot replace newest state
+  ---
+  duration_ms: 0.607184
+  type: 'test'
+  ...
+# Subtest: clear invalidates an outstanding asynchronous restore
+ok 26 - clear invalidates an outstanding asynchronous restore
+  ---
+  duration_ms: 0.808253
+  type: 'test'
+  ...
+# Subtest: dark fill on transparent pixels is not incorrectly treated as no-op
+ok 27 - dark fill on transparent pixels is not incorrectly treated as no-op
+  ---
+  duration_ms: 1.28965
+  type: 'test'
+  ...
+# Subtest: flood fill remains inside a closed boundary
+ok 28 - flood fill remains inside a closed boundary
+  ---
+  duration_ms: 0.924937
+  type: 'test'
+  ...
+# Subtest: out-of-bounds fill returns without reading pixels
+ok 29 - out-of-bounds fill returns without reading pixels
+  ---
+  duration_ms: 0.871708
+  type: 'test'
+  ...
+# Subtest: drawing surface cancels touch gestures locally only
+ok 30 - drawing surface cancels touch gestures locally only
+  ---
+  duration_ms: 1.118215
+  type: 'test'
+  ...
+# Subtest: single-finger toolbar touch is not blocked
+ok 31 - single-finger toolbar touch is not blocked
+  ---
+  duration_ms: 3.189909
+  type: 'test'
+  ...
+# Subtest: two-finger toolbar gesture is blocked
+ok 32 - two-finger toolbar gesture is blocked
+  ---
+  duration_ms: 1.079938
+  type: 'test'
+  ...
+# Subtest: upload control is exempt from double-click prevention
+ok 33 - upload control is exempt from double-click prevention
+  ---
+  duration_ms: 0.739631
+  type: 'test'
+  ...
+# Subtest: template drawing resets eraser composition while rendering
+ok 34 - template drawing resets eraser composition while rendering
+  ---
+  duration_ms: 1.097544
+  type: 'test'
+  ...
+1..34
+# tests 34
+# suites 0
+# pass 34
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 114.886079
