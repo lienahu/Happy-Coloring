@@ -1,0 +1,31 @@
+{
+  "baseline_commit": "0a6ae02c5895f3d77466bb3ec43090bb31b746c1",
+  "unit": {
+    "tests": 67,
+    "passed": 67,
+    "failed": 0
+  },
+  "browser": {
+    "tests": 240,
+    "passed": 231,
+    "failed": 0,
+    "skipped": 9,
+    "profiles": [
+      "desktop",
+      "tablet_portrait",
+      "tablet_landscape",
+      "tablet_split_view",
+      "phone_portrait",
+      "phone_landscape"
+    ],
+    "engine": "chromium",
+    "version": "144.0.7559.96",
+    "transport": "inline local HTML/CSS/JS"
+  },
+  "source_sha256": {
+    "index.html": "24982a73f61330f071531c1a67632cd27c70b661ad6adccbc9f7ab00050354ae",
+    "style.css": "7608015428db8eb337dba3823085be8b6b7bc969cabd01ec20dbe6a4e91cf104",
+    "app.js": "dea51ef0e04a1786ce224562649882db42bf5fb4311030b1e9826f3ab1ce21f5",
+    "canvas-zoom.js": "d5889b50df3b8e24c627dde0c7b98156996512da93285b4b1fb574dba5ded5ff"
+  }
+}

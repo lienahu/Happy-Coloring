@@ -22,11 +22,11 @@ function createApp(options = {}) {
   function el(id='') {
     return {id,style:{},dataset:{},classList:classes(),listeners:{},
       addEventListener(t,f,o){(this.listeners[t]??=[]).push({f,o})},
-      appendChild(){},closest(){return null},click(){if(this.onclick)this.onclick()},
+      appendChild(){},closest(){return null},click(){if(this.onclick)this.onclick();for(const h of this.listeners.click||[])h.f()},
       getContext(){return ctx},toDataURL(){return 'data:image/png;base64,'+calls.length},
     };
   }
-  const names=['canvas','undoBtn','redoBtn','newBtn','saveBtn','clearBtn','palette','colorPicker','brushBtn','sparkleBtn','bucketBtn','outlineBtn','eraserBtn','imageUpload','cancelNew','confirmNew','confirmModal'];
+  const names=['canvas','undoBtn','redoBtn','newBtn','saveBtn','clearBtn','palette','colorPicker','brushBtn','sparkleBtn','bucketBtn','outlineBtn','eraserBtn','imageUpload','cancelNew','confirmNew','confirmModal','canvasSurface','zoomOutBtn','zoomInBtn','zoomFitBtn','zoomLabel','panX','panY'];
   names.forEach(n=>ids[n]=el(n));
   const canvas=ids.canvas;
   let cw=300,ch=150,writes=0;
@@ -41,6 +41,13 @@ function createApp(options = {}) {
   canvas.hasPointerCapture=id=>captures.has(id);
   canvas.releasePointerCapture=id=>captures.delete(id);
   const stage=el('stage');stage.clientWidth=options.width||600;stage.clientHeight=options.height||800;
+  stage.clientLeft=0;stage.clientTop=0;stage.scrollLeft=0;stage.scrollTop=0;
+  stage.getBoundingClientRect=()=>({left:10,top:20,width:stage.clientWidth,height:stage.clientHeight});
+  stage.setPointerCapture=id=>captures.add(id);stage.hasPointerCapture=id=>captures.has(id);stage.releasePointerCapture=id=>captures.delete(id);
+  Object.defineProperties(stage,{
+    scrollWidth:{get:()=>Math.max(stage.clientWidth,parseFloat(ids.canvasSurface.style.width)||0)},
+    scrollHeight:{get:()=>Math.max(stage.clientHeight,parseFloat(ids.canvasSurface.style.height)||0)}
+  });
   const regions=[el('header'),el('tools'),el('wrap')];
   const root=el('root');root.style.setProperty=(k,v)=>{root.style[k]=v};
   const document=el('document');Object.assign(document,{
@@ -59,6 +66,7 @@ function createApp(options = {}) {
   };
   vm.createContext(sandbox);
   const file=path.resolve(__dirname,'../../app.js');
+  vm.runInContext(fs.readFileSync(path.resolve(__dirname,'../../canvas-zoom.js'),'utf8'),sandbox);
   vm.runInContext(fs.readFileSync(file,'utf8'),sandbox,{filename:file});
   return {calls,frames,images,ctx,ids,canvas,stage,regions,document,window,root,
     writes:()=>writes,run:s=>vm.runInContext(s,sandbox),

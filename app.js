@@ -17,6 +17,7 @@ let color=palette[0],size=8,tool="brush",drawing=false,last=null,history=[],redo
 const canvasStage=document.querySelector(".canvas-stage");
 let paperWidth=0,paperHeight=0;
 let activePointerId=null;
+let canvasView=null,canvasInput=null;
 function W(){return paperWidth}
 function H(){return paperHeight}
 function fitCanvas(){
@@ -31,13 +32,7 @@ function fitCanvas(){
     canvas.height=Math.round(paperHeight*ratio);
     ctx.setTransform(canvas.width/paperWidth,0,0,canvas.height/paperHeight,0,0);
   }
-  const scale=Math.min(availableW/W(),availableH/H());
-  const width=W()*scale,height=H()*scale;
-  // Complete a stroke before its on-screen coordinate frame changes.
-  if(drawing && (Math.abs(canvas.getBoundingClientRect().width-width)>0.5 ||
-                 Math.abs(canvas.getBoundingClientRect().height-height)>0.5))end();
-  canvas.style.width=`${width}px`;
-  canvas.style.height=`${height}px`;
+  canvasView.reflow();
 }
 function snap(){history.push(canvas.toDataURL());if(history.length>21)history.shift();redo=[];buttons()}
 function buttons(){undoBtn.disabled=history.length<2;redoBtn.disabled=!redo.length}
@@ -87,7 +82,7 @@ function sparkle(a,b){
   ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fill();ctx.restore();
  }
 }
-function start(e){
+function start(e,capture=true){
  if(!paperWidth || activePointerId!==null || e.isPrimary===false || e.button!==0)return;
  if(e.cancelable)e.preventDefault();
  const pt=p(e);
@@ -101,7 +96,7 @@ function start(e){
  }
  if(tool==="bucket"){floodFill(pt.x,pt.y,color);snap();return}
  activePointerId=e.pointerId;drawing=true;last=pt;ctx.beginPath();ctx.moveTo(pt.x,pt.y);
- if(canvas.setPointerCapture){try{canvas.setPointerCapture(e.pointerId)}catch(_){}}
+ if(capture && canvas.setPointerCapture){try{canvas.setPointerCapture(e.pointerId)}catch(_){}}
  e.preventDefault()
 }
 function move(e){
@@ -125,13 +120,59 @@ function end(e){
  }
 }
 
-canvas.addEventListener("pointerdown",start);
-canvas.addEventListener("pointermove",move);
-canvas.addEventListener("pointerup",end);
-canvas.addEventListener("pointercancel",end);
-canvas.addEventListener("lostpointercapture",end);
-window.addEventListener("blur",()=>end());
-document.addEventListener("visibilitychange",()=>{if(document.hidden)end()});
+// Canvas-only zoom does not resize the bitmap or add undo entries.
+canvasView=new CanvasZoom.View({
+ canvas,viewport:canvasStage,surface:document.getElementById("canvasSurface"),
+ getSize:()=>({width:W(),height:H()}),
+ controls:{out:document.getElementById("zoomOutBtn"),in:document.getElementById("zoomInBtn"),
+   fit:document.getElementById("zoomFitBtn"),label:document.getElementById("zoomLabel"),
+   x:document.getElementById("panX"),y:document.getElementById("panY")},
+ beforeResize:()=>{if(canvasInput)canvasInput.cancel();end()},
+ beforeControl:()=>{if(canvasInput)canvasInput.cancel();end()}
+});
+
+// Reusable rollback buffer, allocated only when a finger starts an actual stroke.
+// A second finger cancels that unfinished preview, not the last committed drawing.
+let touchBackup=null;
+function backupTouchStroke(){
+ if(!touchBackup)touchBackup=document.createElement("canvas");
+ if(touchBackup.width!==canvas.width)touchBackup.width=canvas.width;
+ if(touchBackup.height!==canvas.height)touchBackup.height=canvas.height;
+ const b=touchBackup.getContext("2d");
+ b.clearRect(0,0,touchBackup.width,touchBackup.height);b.drawImage(canvas,0,0);
+}
+function rollbackTouchStroke(){
+ ++restoreTicket;
+ activePointerId=null;drawing=false;last=null;ctx.beginPath();
+ if(!touchBackup)return;
+ ctx.save();ctx.setTransform(1,0,0,1,0,0);ctx.globalCompositeOperation="source-over";
+ ctx.clearRect(0,0,canvas.width,canvas.height);ctx.drawImage(touchBackup,0,0);ctx.restore();
+}
+canvasInput=new CanvasZoom.TouchInput({viewport:canvasStage,view:canvasView,callbacks:{
+ externalDrawing:()=>activePointerId!==null && canvasInput.mode!=="drawing",
+ onPaper:e=>{const q=p(e);return q.x>=0&&q.y>=0&&q.x<W()&&q.y<H()},
+ isTapTool:()=>tool==="bucket"||Boolean(selectedSticker),
+ begin:e=>{backupTouchStroke();start(e,false)},
+ move:e=>move(e),finish:e=>end(e),rollback:rollbackTouchStroke,
+ tap:e=>{
+   const tap={pointerId:e.pointerId,button:0,isPrimary:true,clientX:e.clientX,clientY:e.clientY,
+     cancelable:false,preventDefault(){}};
+   start(tap,false);
+   if(drawing){move({...tap,clientX:tap.clientX+0.01});end(tap)}
+ }
+}});
+// Pencil and mouse retain their existing renderer and pointer capture.
+canvas.addEventListener("pointerdown",e=>{
+ if(e.pointerType==="touch")return;
+ if(e.button!==0)return;
+ canvasInput.cancel();start(e);
+});
+canvas.addEventListener("pointermove",e=>{if(e.pointerType!=="touch")move(e)});
+["pointerup","pointercancel","lostpointercapture"].forEach(type=>{
+ canvas.addEventListener(type,e=>{if(e.pointerType!=="touch")end(e)});
+});
+window.addEventListener("blur",()=>{canvasInput.reset();end()});
+document.addEventListener("visibilitychange",()=>{if(document.hidden){canvasInput.reset();end()}});
 
 // Safari fallback, scoped to the drawing surface. Pointer events still draw.
 // Never cancel ordinary file-input/button touchend events on the whole document.
@@ -171,6 +212,7 @@ document.querySelectorAll(".brush").forEach(b=>b.onclick=()=>{
 });
 
 function setTool(t){
+ canvasInput.cancel();end();
  tool=t;selectedSticker=null;
  document.querySelectorAll(".stickers button").forEach(x=>x.classList.remove("active"));
  ["brush","sparkle","bucket","outline","eraser"].forEach(n=>document.getElementById(n+"Btn").classList.toggle("active",t===n))

@@ -1,9 +1,9 @@
 {
-  "name": "happy-coloring-viewport-tests",
+  "name": "happy-coloring-tests",
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "test": "node --test tests/unit/viewport.test.cjs"
+    "test": "node --test tests/unit/*.test.cjs"
   },
   "engines": {
     "node": ">=20"
