@@ -1,0 +1,259 @@
+{
+  "transport": "inline local HTML/CSS/JS",
+  "browser": "chromium",
+  "browser_version": "144.0.7559.96",
+  "playwright": "1.57.0",
+  "device_test_type": "viewport/DPR/touch emulation; NOT physical hardware",
+  "tests_run": 40,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "results": [
+    {
+      "test": "__main__.chromium_tablet_portrait.test_01_layout_and_touch_targets",
+      "status": "passed",
+      "seconds": 3.116,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_portrait.test_02_rotation_preserves_exact_pixels_and_aspect",
+      "status": "passed",
+      "seconds": 4.486,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_portrait.test_03_browser_bar_height_changes_do_not_rebuild_bitmap",
+      "status": "passed",
+      "seconds": 1.964,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_portrait.test_04_brush_and_exact_undo_redo",
+      "status": "passed",
+      "seconds": 1.717,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_portrait.test_05_sparkle_leaves_paint_and_highlights",
+      "status": "passed",
+      "seconds": 1.738,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_portrait.test_06_eraser_then_undo_restores_exact_pixels",
+      "status": "passed",
+      "seconds": 1.916,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_portrait.test_07_bucket_self_drawn_closed_region",
+      "status": "passed",
+      "seconds": 1.803,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_portrait.test_08_bucket_after_resize_hits_same_region",
+      "status": "passed",
+      "seconds": 2.677,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_portrait.test_09_bucket_builtin_and_other_page_buttons",
+      "status": "passed",
+      "seconds": 4.018,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_portrait.test_10_upload_after_scrolling_opens_native_filechooser",
+      "status": "passed",
+      "seconds": 1.678,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_portrait.test_11_draw_after_rotation_maps_to_pointer",
+      "status": "passed",
+      "seconds": 1.086,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_portrait.test_12_rapid_taps_and_dblclick_keep_scale_and_toolbar",
+      "status": "passed",
+      "seconds": 1.299,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_portrait.test_13_multi_pointer_and_cancel_recovery",
+      "status": "passed",
+      "seconds": 0.889,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_portrait.test_14_twenty_step_undo_limit",
+      "status": "passed",
+      "seconds": 12.619,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_portrait.test_15_sticker_background_and_png_export",
+      "status": "passed",
+      "seconds": 1.501,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_portrait.test_16_new_confirmation_does_not_clear_on_cancel",
+      "status": "passed",
+      "seconds": 1.77,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_portrait.test_17_touch_gesture_handlers_scoped_away_from_upload",
+      "status": "passed",
+      "seconds": 0.922,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_portrait.test_18_actual_touch_swipe_draws_without_scrolling",
+      "status": "passed",
+      "seconds": 1.756,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_portrait.test_19_actual_toolbar_touch_scroll_keeps_header",
+      "status": "passed",
+      "seconds": 1.678,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_portrait.test_20_after_eraser_templates_and_uploads_are_visible",
+      "status": "passed",
+      "seconds": 2.52,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_portrait.test_21_zoom_buttons_and_fit_preserve_exact_pixels",
+      "status": "passed",
+      "seconds": 2.615,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_portrait.test_22_actual_two_finger_pinch_changes_canvas_not_page",
+      "status": "passed",
+      "seconds": 2.167,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_portrait.test_23_two_finger_pan_preserves_view_scale_and_art",
+      "status": "passed",
+      "seconds": 2.157,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_portrait.test_24_pinch_rolls_back_unfinished_stroke_without_undo_entry",
+      "status": "passed",
+      "seconds": 1.824,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_portrait.test_25_bucket_selected_pinch_does_not_fill",
+      "status": "passed",
+      "seconds": 14.698,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_portrait.test_26_sticker_selected_pinch_does_not_stamp",
+      "status": "passed",
+      "seconds": 2.717,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_portrait.test_27_horizontal_and_vertical_scroll_sliders_move_only_canvas",
+      "status": "passed",
+      "seconds": 2.102,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_portrait.test_28_brush_after_zoom_and_scroll_hits_correct_artwork",
+      "status": "passed",
+      "seconds": 1.996,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_portrait.test_29_sparkle_and_eraser_work_while_zoomed",
+      "status": "passed",
+      "seconds": 1.63,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_portrait.test_30_self_drawn_bucket_fills_after_zoom_and_scroll",
+      "status": "passed",
+      "seconds": 1.643,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_portrait.test_31_template_fill_after_zoom_does_not_leak_through_eye",
+      "status": "passed",
+      "seconds": 1.428,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_portrait.test_32_uploaded_picture_fill_at_zoom_and_reupload",
+      "status": "passed",
+      "seconds": 1.294,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_portrait.test_33_rotation_while_zoomed_preserves_pixels_and_zoom",
+      "status": "passed",
+      "seconds": 1.51,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_portrait.test_34_save_exports_entire_picture_not_only_zoomed_view",
+      "status": "passed",
+      "seconds": 1.199,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_portrait.test_35_zoomed_double_taps_do_not_zoom_the_page",
+      "status": "passed",
+      "seconds": 0.91,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_portrait.test_36_pen_pointer_ignores_palm_touches",
+      "status": "passed",
+      "seconds": 0.54,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_portrait.test_37_blur_during_gesture_recovers_without_marks",
+      "status": "passed",
+      "seconds": 0.933,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_portrait.test_38_zoom_visual_layout_and_scroll_to_edges",
+      "status": "passed",
+      "seconds": 1.037,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_portrait.test_39_trusted_finger_brush_hits_zoomed_scrolled_canvas",
+      "status": "passed",
+      "seconds": 0.645,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_portrait.test_40_zoom_anchor_stays_under_the_finger_midpoint",
+      "status": "passed",
+      "seconds": 0.424,
+      "detail": ""
+    }
+  ],
+  "app_sha256": {
+    "index.html": "24982a73f61330f071531c1a67632cd27c70b661ad6adccbc9f7ab00050354ae",
+    "style.css": "7608015428db8eb337dba3823085be8b6b7bc969cabd01ec20dbe6a4e91cf104",
+    "app.js": "dea51ef0e04a1786ce224562649882db42bf5fb4311030b1e9826f3ab1ce21f5",
+    "canvas-zoom.js": "d5889b50df3b8e24c627dde0c7b98156996512da93285b4b1fb574dba5ded5ff"
+  }
+}

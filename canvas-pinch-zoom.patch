@@ -1,0 +1,1061 @@
+diff --git a/index.html b/index.html
+--- a/index.html
++++ b/index.html
+@@ -4,11 +4,11 @@
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+ <title>Happy Colors</title>
+-<link rel="stylesheet" href="style.css?v=ipad-viewport-1">
++<link rel="stylesheet" href="style.css?v=canvas-zoom-1">
+ </head>
+ <body>
+ <header>
+-  <div class="brand">🎨 Happy Colors <small class="build-tag">iPad fix 1</small></div>
++  <div class="brand">🎨 Happy Colors <small class="build-tag">Canvas zoom 1</small></div>
+   <div class="top-actions">
+     <button id="undoBtn" type="button" aria-label="Undo" title="Undo"><span class="action-icon" aria-hidden="true">↩️</span> <span class="action-text">Undo</span></button>
+     <button id="redoBtn" type="button" aria-label="Redo" title="Redo"><span class="action-icon" aria-hidden="true">↪️</span> <span class="action-text">Redo</span></button>
+@@ -88,10 +88,22 @@
+ </aside>
+ 
+ <section class="canvas-wrap">
+-  <div class="canvas-stage">
+-    <canvas id="canvas" aria-label="Drawing canvas"></canvas>
++  <div class="canvas-view-tools" role="group" aria-label="Canvas zoom controls">
++    <button id="zoomOutBtn" type="button" aria-label="Zoom canvas out" title="Zoom out">−</button>
++    <output id="zoomLabel" aria-label="Canvas zoom level">100%</output>
++    <button id="zoomInBtn" type="button" aria-label="Zoom canvas in" title="Zoom in">+</button>
++    <button id="zoomFitBtn" type="button" title="Show the whole picture">Fit</button>
+   </div>
+-  <div class="hint">Draw, fill, sparkle, add stickers, or make your own picture ✨</div>
++  <div class="canvas-board">
++    <div class="canvas-stage" id="canvasViewport" tabindex="0" role="region" aria-label="Drawing area: one finger to draw, two fingers to zoom and move">
++      <div id="canvasSurface" class="canvas-surface">
++        <canvas id="canvas" aria-label="Drawing canvas"></canvas>
++      </div>
++    </div>
++    <input id="panY" class="pan-scroll pan-scroll-y" type="range" min="0" max="0" value="0" step="1" aria-label="Scroll canvas vertically" disabled>
++    <input id="panX" class="pan-scroll pan-scroll-x" type="range" min="0" max="0" value="0" step="1" aria-label="Scroll canvas horizontally" disabled>
++  </div>
++  <div class="hint">One finger: draw · Two fingers: zoom &amp; move · Fit: whole picture</div>
+ </section>
+ </main>
+ 
+@@ -105,6 +117,7 @@
+   </div>
+ </div>
+ 
+-<script src="app.js?v=ipad-viewport-1"></script>
++<script src="canvas-zoom.js?v=canvas-zoom-1"></script>
++<script src="app.js?v=canvas-zoom-1"></script>
+ </body>
+ </html>
+diff --git a/style.css b/style.css
+--- a/style.css
++++ b/style.css
+@@ -274,3 +274,42 @@
+   header { min-height: 52px; padding-top: 4px; padding-bottom: 4px; }
+   .hint { display: none; }
+ }
++
++/* Canvas zoom 1. Only this scroll region changes; app/header/sidebar never scale. */
++.canvas-view-tools {
++  display: flex; flex: 0 0 auto; align-items: center; justify-content: center;
++  flex-wrap: wrap; gap: 6px; touch-action: pan-x pan-y;
++}
++.canvas-view-tools button { min-width: 44px; min-height: 44px; padding: 6px 12px; }
++#zoomLabel { min-width: 48px; text-align: center; font-size: 14px; font-variant-numeric: tabular-nums; }
++.canvas-board {
++  flex: 1 1 0; display: grid; min-width: 0; min-height: 0; overflow: hidden;
++  grid-template-columns: minmax(0,1fr) 24px;
++  grid-template-rows: minmax(0,1fr) 24px; gap: 4px;
++}
++.canvas-stage {
++  display: block; position: relative; grid-column: 1; grid-row: 1;
++  overflow: auto; overscroll-behavior: none; scroll-behavior: auto;
++  /* Explicit, touch-friendly scroll sliders stay visible on iPad.
++     Hide only the platform-native overlay bars; the region remains scrollable. */
++  scrollbar-width: none;
++}
++.canvas-stage::-webkit-scrollbar { width: 0; height: 0; }
++.canvas-stage:focus-visible { outline: 2px solid #7568ff; outline-offset: -2px; }
++.canvas-surface { position: relative; min-width: 100%; min-height: 100%; }
++#canvas { position: absolute; box-shadow: none; border-radius: 0; }
++.pan-scroll {
++  margin: 0; padding: 0; min-width: 0; min-height: 0;
++  appearance: none; -webkit-appearance: none; border: 0; border-radius: 12px;
++  background: #e5e8f3; cursor: grab; visibility: hidden;
++  touch-action: none; accent-color: #7568ff;
++}
++.pan-scroll-x { grid-column: 1; grid-row: 2; width: 100%; height: 24px; }
++.pan-scroll-y { grid-column: 2; grid-row: 1; width: 24px; height: 100%; writing-mode: vertical-lr; direction: ltr; }
++.pan-scroll::-webkit-slider-thumb { appearance: none; -webkit-appearance: none; width: 24px; height: 24px; border: 2px solid white; border-radius: 10px; background: #7568ff; }
++.pan-scroll::-moz-range-thumb { width: 20px; height: 20px; border: 2px solid white; border-radius: 10px; background: #7568ff; }
++@media (max-width: 700px) {
++  .canvas-view-tools { gap: 4px; }
++  .canvas-view-tools button { padding: 5px 8px; }
++  #zoomLabel { min-width: 42px; font-size: 12px; }
++}
+diff --git a/app.js b/app.js
+--- a/app.js
++++ b/app.js
+@@ -17,6 +17,7 @@
+ const canvasStage=document.querySelector(".canvas-stage");
+ let paperWidth=0,paperHeight=0;
+ let activePointerId=null;
++let canvasView=null,canvasInput=null;
+ function W(){return paperWidth}
+ function H(){return paperHeight}
+ function fitCanvas(){
+@@ -31,13 +32,7 @@
+     canvas.height=Math.round(paperHeight*ratio);
+     ctx.setTransform(canvas.width/paperWidth,0,0,canvas.height/paperHeight,0,0);
+   }
+-  const scale=Math.min(availableW/W(),availableH/H());
+-  const width=W()*scale,height=H()*scale;
+-  // Complete a stroke before its on-screen coordinate frame changes.
+-  if(drawing && (Math.abs(canvas.getBoundingClientRect().width-width)>0.5 ||
+-                 Math.abs(canvas.getBoundingClientRect().height-height)>0.5))end();
+-  canvas.style.width=`${width}px`;
+-  canvas.style.height=`${height}px`;
++  canvasView.reflow();
+ }
+ function snap(){history.push(canvas.toDataURL());if(history.length>21)history.shift();redo=[];buttons()}
+ function buttons(){undoBtn.disabled=history.length<2;redoBtn.disabled=!redo.length}
+@@ -87,7 +82,7 @@
+   ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fill();ctx.restore();
+  }
+ }
+-function start(e){
++function start(e,capture=true){
+  if(!paperWidth || activePointerId!==null || e.isPrimary===false || e.button!==0)return;
+  if(e.cancelable)e.preventDefault();
+  const pt=p(e);
+@@ -101,7 +96,7 @@
+  }
+  if(tool==="bucket"){floodFill(pt.x,pt.y,color);snap();return}
+  activePointerId=e.pointerId;drawing=true;last=pt;ctx.beginPath();ctx.moveTo(pt.x,pt.y);
+- if(canvas.setPointerCapture){try{canvas.setPointerCapture(e.pointerId)}catch(_){}}
++ if(capture && canvas.setPointerCapture){try{canvas.setPointerCapture(e.pointerId)}catch(_){}}
+  e.preventDefault()
+ }
+ function move(e){
+@@ -125,13 +120,59 @@
+  }
+ }
+ 
+-canvas.addEventListener("pointerdown",start);
+-canvas.addEventListener("pointermove",move);
+-canvas.addEventListener("pointerup",end);
+-canvas.addEventListener("pointercancel",end);
+-canvas.addEventListener("lostpointercapture",end);
+-window.addEventListener("blur",()=>end());
+-document.addEventListener("visibilitychange",()=>{if(document.hidden)end()});
++// Canvas-only zoom does not resize the bitmap or add undo entries.
++canvasView=new CanvasZoom.View({
++ canvas,viewport:canvasStage,surface:document.getElementById("canvasSurface"),
++ getSize:()=>({width:W(),height:H()}),
++ controls:{out:document.getElementById("zoomOutBtn"),in:document.getElementById("zoomInBtn"),
++   fit:document.getElementById("zoomFitBtn"),label:document.getElementById("zoomLabel"),
++   x:document.getElementById("panX"),y:document.getElementById("panY")},
++ beforeResize:()=>{if(canvasInput)canvasInput.cancel();end()},
++ beforeControl:()=>{if(canvasInput)canvasInput.cancel();end()}
++});
++
++// Reusable rollback buffer, allocated only when a finger starts an actual stroke.
++// A second finger cancels that unfinished preview, not the last committed drawing.
++let touchBackup=null;
++function backupTouchStroke(){
++ if(!touchBackup)touchBackup=document.createElement("canvas");
++ if(touchBackup.width!==canvas.width)touchBackup.width=canvas.width;
++ if(touchBackup.height!==canvas.height)touchBackup.height=canvas.height;
++ const b=touchBackup.getContext("2d");
++ b.clearRect(0,0,touchBackup.width,touchBackup.height);b.drawImage(canvas,0,0);
++}
++function rollbackTouchStroke(){
++ ++restoreTicket;
++ activePointerId=null;drawing=false;last=null;ctx.beginPath();
++ if(!touchBackup)return;
++ ctx.save();ctx.setTransform(1,0,0,1,0,0);ctx.globalCompositeOperation="source-over";
++ ctx.clearRect(0,0,canvas.width,canvas.height);ctx.drawImage(touchBackup,0,0);ctx.restore();
++}
++canvasInput=new CanvasZoom.TouchInput({viewport:canvasStage,view:canvasView,callbacks:{
++ externalDrawing:()=>activePointerId!==null && canvasInput.mode!=="drawing",
++ onPaper:e=>{const q=p(e);return q.x>=0&&q.y>=0&&q.x<W()&&q.y<H()},
++ isTapTool:()=>tool==="bucket"||Boolean(selectedSticker),
++ begin:e=>{backupTouchStroke();start(e,false)},
++ move:e=>move(e),finish:e=>end(e),rollback:rollbackTouchStroke,
++ tap:e=>{
++   const tap={pointerId:e.pointerId,button:0,isPrimary:true,clientX:e.clientX,clientY:e.clientY,
++     cancelable:false,preventDefault(){}};
++   start(tap,false);
++   if(drawing){move({...tap,clientX:tap.clientX+0.01});end(tap)}
++ }
++}});
++// Pencil and mouse retain their existing renderer and pointer capture.
++canvas.addEventListener("pointerdown",e=>{
++ if(e.pointerType==="touch")return;
++ if(e.button!==0)return;
++ canvasInput.cancel();start(e);
++});
++canvas.addEventListener("pointermove",e=>{if(e.pointerType!=="touch")move(e)});
++["pointerup","pointercancel","lostpointercapture"].forEach(type=>{
++ canvas.addEventListener(type,e=>{if(e.pointerType!=="touch")end(e)});
++});
++window.addEventListener("blur",()=>{canvasInput.reset();end()});
++document.addEventListener("visibilitychange",()=>{if(document.hidden){canvasInput.reset();end()}});
+ 
+ // Safari fallback, scoped to the drawing surface. Pointer events still draw.
+ // Never cancel ordinary file-input/button touchend events on the whole document.
+@@ -171,6 +212,7 @@
+ });
+ 
+ function setTool(t){
++ canvasInput.cancel();end();
+  tool=t;selectedSticker=null;
+  document.querySelectorAll(".stickers button").forEach(x=>x.classList.remove("active"));
+  ["brush","sparkle","bucket","outline","eraser"].forEach(n=>document.getElementById(n+"Btn").classList.toggle("active",t===n))
+diff --git a/canvas-zoom.js b/canvas-zoom.js
+new file mode 100644
+--- /dev/null
++++ b/canvas-zoom.js
+@@ -0,0 +1,212 @@
++/* Canvas-only view and touch gestures. No artwork pixels or undo states live here.
++ * This file has no dependencies and also exports its helpers for Node unit tests. */
++(function (root) {
++  'use strict';
++  const MIN_ZOOM = 1, MAX_ZOOM = 4;
++  const clamp = (n, min, max) => Math.min(max, Math.max(min, n));
++  function limitZoom(n) { return Number.isFinite(n) ? clamp(n, MIN_ZOOM, MAX_ZOOM) : MIN_ZOOM; }
++
++  function geometry(pw, ph, vw, vh, zoom) {
++    if (![pw, ph, vw, vh].every(n => Number.isFinite(n) && n > 0)) return null;
++    const scale = Math.min(vw / pw, vh / ph) * limitZoom(zoom);
++    const width = pw * scale, height = ph * scale;
++    return { vw, vh, scale, width, height,
++      sw: Math.max(vw, width), sh: Math.max(vh, height),
++      left: Math.max(0, (vw - width) / 2), top: Math.max(0, (vh - height) / 2) };
++  }
++  function scrollForAnchor(g, paper, view) {
++    return {
++      x: clamp(g.left + paper.x * g.scale - view.x, 0, Math.max(0, g.sw - g.vw)),
++      y: clamp(g.top + paper.y * g.scale - view.y, 0, Math.max(0, g.sh - g.vh))
++    };
++  }
++  const midpoint = (a, b) => ({ x: (a.clientX + b.clientX) / 2, y: (a.clientY + b.clientY) / 2 });
++  const distance = (a, b) => Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY);
++
++  class View {
++    constructor({ canvas, viewport, surface, getSize, controls, beforeResize = () => {}, beforeControl = () => {} }) {
++      Object.assign(this, { canvas, viewport, surface, getSize, controls, beforeResize, beforeControl });
++      this.zoom = 1;
++      this.g = null;
++      viewport.addEventListener('scroll', () => this.updateControls(), { passive: true });
++      controls.out.addEventListener('click', () => this.controlZoom(this.zoom / 1.25));
++      controls.in.addEventListener('click', () => this.controlZoom(this.zoom * 1.25));
++      controls.fit.addEventListener('click', () => this.controlZoom(1));
++      for (const [name, property] of [['x', 'scrollLeft'], ['y', 'scrollTop']]) {
++        controls[name].addEventListener('input', () => {
++          this.beforeControl();
++          viewport[property] = Number(controls[name].value);
++          this.updateControls();
++        });
++      }
++    }
++    local(client) {
++      const r = this.viewport.getBoundingClientRect();
++      return { x: client.x - r.left - this.viewport.clientLeft, y: client.y - r.top - this.viewport.clientTop };
++    }
++    paperAt(client) {
++      const v = this.local(client), g = this.g;
++      return { x: (this.viewport.scrollLeft + v.x - g.left) / g.scale,
++        y: (this.viewport.scrollTop + v.y - g.top) / g.scale };
++    }
++    centerClient() {
++      const r = this.viewport.getBoundingClientRect();
++      return { x: r.left + this.viewport.clientLeft + this.viewport.clientWidth / 2,
++        y: r.top + this.viewport.clientTop + this.viewport.clientHeight / 2 };
++    }
++    controlZoom(zoom) {
++      this.beforeControl();
++      this.setZoom(zoom);
++    }
++    // Pass both anchors during a pinch: distance changes zoom, midpoint changes pan.
++    setZoom(zoom, client = this.centerClient(), paper = null) {
++      if (!this.g) return;
++      const anchor = paper || this.paperAt(client);
++      this.zoom = limitZoom(zoom);
++      this.render(anchor, this.local(client));
++    }
++    reflow() {
++      const vw = this.viewport.clientWidth, vh = this.viewport.clientHeight;
++      if (vw <= 0 || vh <= 0) return;
++      const old = this.g, size = this.getSize();
++      if (old && Math.abs(old.vw - vw) < 0.01 && Math.abs(old.vh - vh) < 0.01) return;
++      const anchor = old ? {
++        x: (this.viewport.scrollLeft + old.vw / 2 - old.left) / old.scale,
++        y: (this.viewport.scrollTop + old.vh / 2 - old.top) / old.scale
++      } : { x: size.width / 2, y: size.height / 2 };
++      if (old) this.beforeResize();
++      this.render(anchor, { x: vw / 2, y: vh / 2 });
++    }
++    render(anchor, local) {
++      const size = this.getSize();
++      const g = geometry(size.width, size.height, this.viewport.clientWidth, this.viewport.clientHeight, this.zoom);
++      if (!g) return;
++      this.g = g;
++      this.surface.style.width = `${g.sw}px`;
++      this.surface.style.height = `${g.sh}px`;
++      Object.assign(this.canvas.style, { width: `${g.width}px`, height: `${g.height}px`,
++        left: `${g.left}px`, top: `${g.top}px` });
++      const scroll = scrollForAnchor(g, anchor, local);
++      this.viewport.scrollLeft = scroll.x;
++      this.viewport.scrollTop = scroll.y;
++      this.updateControls();
++    }
++    updateControls() {
++      if (!this.g) return;
++      const { controls: c, viewport: v } = this;
++      c.label.textContent = `${Math.round(this.zoom * 100)}%`;
++      c.out.disabled = this.zoom <= MIN_ZOOM + 1e-6;
++      c.in.disabled = this.zoom >= MAX_ZOOM - 1e-6;
++      for (const [name, value, max] of [
++        ['x', v.scrollLeft, v.scrollWidth - v.clientWidth],
++        ['y', v.scrollTop, v.scrollHeight - v.clientHeight]
++      ]) {
++        const visible = max > 1;
++        c[name].max = String(Math.max(0, max));
++        c[name].value = String(Math.max(0, value));
++        c[name].disabled = !visible;
++        c[name].style.visibility = visible ? 'visible' : 'hidden';
++      }
++    }
++  }
++
++  // Only touch enters this controller. Mouse and Pencil keep the existing renderer.
++  // A touch tap is committed on UP so placing a second finger cannot fill/stamp.
++  class TouchInput {
++    constructor({ viewport, view, callbacks }) {
++      Object.assign(this, { viewport, view, cb: callbacks });
++      this.points = new Map();
++      this.mode = 'idle';
++      this.pending = null;
++      this.gesture = null;
++      for (const [name, method] of [['pointerdown', 'down'], ['pointermove', 'move'],
++        ['pointerup', 'up'], ['pointercancel', 'cancelPointer'], ['lostpointercapture', 'cancelPointer']]) {
++        viewport.addEventListener(name, e => { if (e.pointerType === 'touch') this[method](e); }, { passive: false });
++      }
++    }
++    prevent(e) { if (e.cancelable) e.preventDefault(); }
++    capture(id) { try { this.viewport.setPointerCapture(id); } catch (_) {} }
++    release(id) { try { if (this.viewport.hasPointerCapture(id)) this.viewport.releasePointerCapture(id); } catch (_) {} }
++    down(e) {
++      if (e.button !== 0) return;
++      this.prevent(e);
++      this.points.set(e.pointerId, e);
++      this.capture(e.pointerId);
++      if (this.mode === 'blocked') return;
++      if (this.cb.externalDrawing()) { this.mode = 'blocked'; return; }
++      if (this.points.size === 1) {
++        this.pending = { event: e, drawable: this.cb.onPaper(e), tapTool: this.cb.isTapTool(), moved: false };
++        this.mode = 'pending';
++      } else if (this.mode !== 'gesture') {
++        if (this.mode === 'drawing') this.cb.rollback();
++        this.pending = null;
++        this.mode = 'gesture';
++        this.beginGesture();
++      }
++    }
++    beginGesture() {
++      const pair = [...this.points.values()].slice(0, 2);
++      if (pair.length < 2) return;
++      const center = midpoint(...pair);
++      this.gesture = { ids: pair.map(p => p.pointerId), zoom: this.view.zoom,
++        distance: Math.max(8, distance(...pair)), anchor: this.view.paperAt(center) };
++    }
++    move(e) {
++      if (!this.points.has(e.pointerId)) return;
++      this.prevent(e);
++      this.points.set(e.pointerId, e);
++      if (this.mode === 'gesture') {
++        const g = this.gesture, pair = g.ids.map(id => this.points.get(id));
++        if (pair.some(p => !p)) { this.beginGesture(); return; }
++        this.view.setZoom(g.zoom * Math.max(8, distance(...pair)) / g.distance, midpoint(...pair), g.anchor);
++      } else if (this.mode === 'pending') {
++        const p = this.pending;
++        if (distance(p.event, e) > 8) p.moved = true;
++        if (!p.drawable || p.tapTool || distance(p.event, e) < 3) return;
++        this.cb.begin(p.event); // Save rollback bitmap, then start the normal stroke.
++        this.mode = 'drawing';
++        this.cb.move(e);
++      } else if (this.mode === 'drawing') {
++        this.cb.move(e);
++      }
++    }
++    up(e) {
++      if (!this.points.has(e.pointerId)) return;
++      this.prevent(e);
++      if (this.mode === 'drawing') this.cb.finish(e);
++      if (this.mode === 'pending' && this.pending.drawable && !this.pending.moved &&
++          distance(this.pending.event, e) <= 8) this.cb.tap(e);
++      this.remove(e.pointerId);
++    }
++    remove(id) {
++      this.points.delete(id); // Remove BEFORE release, which can dispatch lostpointercapture.
++      this.release(id);
++      this.pending = null;
++      if (this.mode === 'gesture' && this.points.size >= 2) this.beginGesture();
++      else if (this.points.size) { this.mode = 'blocked'; this.gesture = null; }
++      else { this.mode = 'idle'; this.gesture = null; }
++    }
++    cancelPointer(e) {
++      if (!this.points.has(e.pointerId)) return;
++      if (this.mode === 'drawing') this.cb.rollback();
++      this.remove(e.pointerId);
++    }
++    // Blur/rotation/buttons cancel the uncommitted preview, but never an older stroke.
++    cancel() {
++      if (this.mode === 'drawing') this.cb.rollback();
++      this.mode = this.points.size ? 'blocked' : 'idle';
++      this.pending = null;
++      this.gesture = null;
++    }
++    reset() {
++      this.cancel();
++      const ids = [...this.points.keys()];
++      this.points.clear();
++      ids.forEach(id => this.release(id));
++      this.mode = 'idle';
++    }
++  }
++  const api = { MIN_ZOOM, MAX_ZOOM, limitZoom, geometry, scrollForAnchor, midpoint, distance, View, TouchInput };
++  if (typeof module !== 'undefined' && module.exports) module.exports = api;
++  root.CanvasZoom = api;
++})(typeof globalThis === 'undefined' ? window : globalThis);
+diff --git a/package.json b/package.json
+--- a/package.json
++++ b/package.json
+@@ -1,9 +1,9 @@
+ {
+-  "name": "happy-coloring-viewport-tests",
++  "name": "happy-coloring-tests",
+   "version": "1.0.0",
+   "private": true,
+   "scripts": {
+-    "test": "node --test tests/unit/viewport.test.cjs"
++    "test": "node --test tests/unit/*.test.cjs"
+   },
+   "engines": {
+     "node": ">=20"
+diff --git a/tests/unit/harness.cjs b/tests/unit/harness.cjs
+--- a/tests/unit/harness.cjs
++++ b/tests/unit/harness.cjs
+@@ -22,11 +22,11 @@
+   function el(id='') {
+     return {id,style:{},dataset:{},classList:classes(),listeners:{},
+       addEventListener(t,f,o){(this.listeners[t]??=[]).push({f,o})},
+-      appendChild(){},closest(){return null},click(){if(this.onclick)this.onclick()},
++      appendChild(){},closest(){return null},click(){if(this.onclick)this.onclick();for(const h of this.listeners.click||[])h.f()},
+       getContext(){return ctx},toDataURL(){return 'data:image/png;base64,'+calls.length},
+     };
+   }
+-  const names=['canvas','undoBtn','redoBtn','newBtn','saveBtn','clearBtn','palette','colorPicker','brushBtn','sparkleBtn','bucketBtn','outlineBtn','eraserBtn','imageUpload','cancelNew','confirmNew','confirmModal'];
++  const names=['canvas','undoBtn','redoBtn','newBtn','saveBtn','clearBtn','palette','colorPicker','brushBtn','sparkleBtn','bucketBtn','outlineBtn','eraserBtn','imageUpload','cancelNew','confirmNew','confirmModal','canvasSurface','zoomOutBtn','zoomInBtn','zoomFitBtn','zoomLabel','panX','panY'];
+   names.forEach(n=>ids[n]=el(n));
+   const canvas=ids.canvas;
+   let cw=300,ch=150,writes=0;
+@@ -41,6 +41,13 @@
+   canvas.hasPointerCapture=id=>captures.has(id);
+   canvas.releasePointerCapture=id=>captures.delete(id);
+   const stage=el('stage');stage.clientWidth=options.width||600;stage.clientHeight=options.height||800;
++  stage.clientLeft=0;stage.clientTop=0;stage.scrollLeft=0;stage.scrollTop=0;
++  stage.getBoundingClientRect=()=>({left:10,top:20,width:stage.clientWidth,height:stage.clientHeight});
++  stage.setPointerCapture=id=>captures.add(id);stage.hasPointerCapture=id=>captures.has(id);stage.releasePointerCapture=id=>captures.delete(id);
++  Object.defineProperties(stage,{
++    scrollWidth:{get:()=>Math.max(stage.clientWidth,parseFloat(ids.canvasSurface.style.width)||0)},
++    scrollHeight:{get:()=>Math.max(stage.clientHeight,parseFloat(ids.canvasSurface.style.height)||0)}
++  });
+   const regions=[el('header'),el('tools'),el('wrap')];
+   const root=el('root');root.style.setProperty=(k,v)=>{root.style[k]=v};
+   const document=el('document');Object.assign(document,{
+@@ -59,6 +66,7 @@
+   };
+   vm.createContext(sandbox);
+   const file=path.resolve(__dirname,'../../app.js');
++  vm.runInContext(fs.readFileSync(path.resolve(__dirname,'../../canvas-zoom.js'),'utf8'),sandbox);
+   vm.runInContext(fs.readFileSync(file,'utf8'),sandbox,{filename:file});
+   return {calls,frames,images,ctx,ids,canvas,stage,regions,document,window,root,
+     writes:()=>writes,run:s=>vm.runInContext(s,sandbox),
+diff --git a/tests/unit/zoom.test.cjs b/tests/unit/zoom.test.cjs
+new file mode 100644
+--- /dev/null
++++ b/tests/unit/zoom.test.cjs
+@@ -0,0 +1,50 @@
++const {test}=require('node:test');
++const assert=require('node:assert/strict');
++const Z=require('../../canvas-zoom.js');
++const {createApp}=require('./harness.cjs');
++const close=(a,b)=>assert.ok(Math.abs(a-b)<1e-6,`${a} != ${b}`);
++
++test('zoom clamps to fit through 400 percent',()=>{assert.equal(Z.limitZoom(-2),1);assert.equal(Z.limitZoom(9),4);assert.equal(Z.limitZoom(2.5),2.5)});
++test('non-finite zoom safely falls back to fit',()=>{for(const n of [NaN,Infinity,-Infinity,undefined])assert.equal(Z.limitZoom(n),1)});
++test('invalid geometry is ignored',()=>{for(const n of [0,-5,NaN,Infinity])assert.equal(Z.geometry(n,400,300,400,1),null)});
++test('fit centers a portrait paper in a landscape viewport',()=>{const g=Z.geometry(400,800,900,400,1);close(g.scale,.5);close(g.left,350);close(g.top,0);close(g.sw,900);close(g.sh,400)});
++test('zoom geometry preserves paper aspect ratio',()=>{const g=Z.geometry(400,800,900,400,4);close(g.width/g.height,.5);close(g.sh,1600)});
++test('anchor is held exactly when scrolling is not clamped',()=>{const g=Z.geometry(600,800,600,800,2);const s=Z.scrollForAnchor(g,{x:320,y:410},{x:300,y:400});close(s.x,340);close(s.y,420)});
++test('anchor scrolling is bounded at paper edges',()=>{const g=Z.geometry(600,800,600,800,2);assert.deepEqual(Z.scrollForAnchor(g,{x:-100,y:5000},{x:0,y:0}),{x:0,y:800})});
++test('fit never has scrolling overflow',()=>{const g=Z.geometry(400,800,900,400,1);assert.deepEqual(Z.scrollForAnchor(g,{x:2000,y:1000},{x:1,y:0}),{x:0,y:0})});
++test('midpoint and distance use client coordinates',()=>{const a={clientX:10,clientY:20},b={clientX:40,clientY:60};assert.deepEqual(Z.midpoint(a,b),{x:25,y:40});close(Z.distance(a,b),50)});
++test('zoom buttons never write artwork bitmap or history',()=>{const a=createApp();a.ids.zoomInBtn.click();a.ids.zoomInBtn.click();assert.equal(a.writes(),2);assert.equal(a.run('history.length'),1);close(a.run('canvasView.zoom'),1.5625)});
++test('Fit resets the view only',()=>{const a=createApp();a.run('canvasView.setZoom(3)');a.ids.zoomFitBtn.click();close(a.run('canvasView.zoom'),1);assert.equal(a.writes(),2);assert.equal(a.stage.scrollLeft,0);assert.equal(a.stage.scrollTop,0)});
++test('zoom scroll controls appear only when the paper overflows',()=>{const a=createApp();assert.equal(a.ids.panX.disabled,true);a.ids.zoomInBtn.click();assert.equal(a.ids.panX.disabled,false);assert.equal(a.ids.panY.disabled,false);a.ids.zoomFitBtn.click();assert.equal(a.ids.panX.disabled,true)});
++test('scroll slider controls only the canvas viewport',()=>{const a=createApp();a.run('canvasView.setZoom(3)');a.ids.panX.value='100';a.ids.panX.listeners.input[0].f();assert.equal(a.stage.scrollLeft,100);assert.equal(a.writes(),2)});
++test('rotation keeps zoom and one artwork bitmap',()=>{const a=createApp();a.run('canvasView.setZoom(2)');a.stage.clientWidth=900;a.stage.clientHeight=400;a.run('fitCanvas()');assert.equal(a.writes(),2);close(a.run('canvasView.zoom'),2);close(a.canvas.clientWidth/a.canvas.clientHeight,.75)});
++test('coordinate mapping accounts for canvas zoom',()=>{const a=createApp();a.run('canvasView.setZoom(2)');const p=a.run('p({clientX:210,clientY:220})');close(p.x,100);close(p.y,100)});
++test('zoom is absent from the 20-step drawing history',()=>{const a=createApp();a.run('for(let i=0;i<30;i++)canvasView.setZoom(1+(i%4))');assert.equal(a.run('history.length'),1)});
++
++function rig({tapTool=false,external=false,onPaper=true}={}){
++ const calls=[],handlers={},v={zoom:1,paperAt:c=>c,setZoom(z,c,p){this.zoom=Z.limitZoom(z);calls.push(['view',this.zoom,c,p])}};
++ const vp={addEventListener(t,f){handlers[t]=f},setPointerCapture(){},hasPointerCapture(){return false},releasePointerCapture(){}};
++ const cb={externalDrawing:()=>external,onPaper:()=>onPaper,isTapTool:()=>tapTool,
++   begin:e=>calls.push(['begin',e.pointerId]),move:e=>calls.push(['move',e.pointerId]),finish:e=>calls.push(['finish',e.pointerId]),
++   rollback:()=>calls.push(['rollback']),tap:e=>calls.push(['tap',e.pointerId])};
++ const input=new Z.TouchInput({viewport:vp,view:v,callbacks:cb});
++ const e=(id,x=0,y=0)=>({pointerId:id,clientX:x,clientY:y,button:0,pointerType:'touch',cancelable:true,preventDefault(){}});
++ return {input,calls,v,handlers,e};
++}
++test('one touch begins pending without painting or filling',()=>{const r=rig();r.input.down(r.e(1));assert.equal(r.input.mode,'pending');assert.equal(r.calls.length,0)});
++test('tap tool commits exactly once on release',()=>{const r=rig({tapTool:true});r.input.down(r.e(1));r.input.up(r.e(1));assert.deepEqual(r.calls,[['tap',1]])});
++test('two fingers never commit bucket or sticker taps',()=>{const r=rig({tapTool:true});r.input.down(r.e(1));r.input.down(r.e(2,50));r.input.up(r.e(2,50));r.input.up(r.e(1));assert.equal(r.calls.length,0)});
++test('finger motion beyond tap tolerance cancels a bucket tap',()=>{const r=rig({tapTool:true});r.input.down(r.e(1));r.input.move(r.e(1,20));r.input.up(r.e(1,20));assert.equal(r.calls.length,0)});
++test('movement starts one normal stroke then finishes once',()=>{const r=rig();r.input.down(r.e(1));r.input.move(r.e(1,20));r.input.up(r.e(1,20));assert.deepEqual(r.calls,[['begin',1],['move',1],['finish',1]])});
++test('second finger rolls back only the unfinished touch stroke',()=>{const r=rig();r.input.down(r.e(1));r.input.move(r.e(1,20));r.input.down(r.e(2,80));assert.equal(r.calls.filter(c=>c[0]==='rollback').length,1);assert.equal(r.input.mode,'gesture')});
++test('pinch distance doubles the view zoom',()=>{const r=rig();r.input.down(r.e(1,0));r.input.down(r.e(2,100));r.input.move(r.e(2,200));close(r.v.zoom,2)});
++test('two-finger translation pans without changing zoom',()=>{const r=rig();r.input.down(r.e(1,0));r.input.down(r.e(2,100));r.input.move(r.e(1,20));r.input.move(r.e(2,120));close(r.v.zoom,1);assert.deepEqual(r.calls.at(-1)[2],{x:70,y:0})});
++test('one remaining finger after pinch cannot accidentally paint',()=>{const r=rig();r.input.down(r.e(1));r.input.down(r.e(2,100));r.input.up(r.e(2,100));r.input.move(r.e(1,30));r.input.up(r.e(1,30));assert.equal(r.calls.filter(c=>['begin','move','tap'].includes(c[0])).length,0);assert.equal(r.input.mode,'idle')});
++test('third finger does not replace the two active pinch anchors',()=>{const r=rig();r.input.down(r.e(1));r.input.down(r.e(2,100));r.input.down(r.e(3,200));assert.deepEqual(r.input.gesture.ids,[1,2]);r.input.up(r.e(1));assert.deepEqual(r.input.gesture.ids,[2,3])});
++test('cancelled stroke rolls back and recovers for next touch',()=>{const r=rig();r.input.down(r.e(1));r.input.move(r.e(1,20));r.input.cancelPointer(r.e(1,20));assert.equal(r.input.mode,'idle');assert.deepEqual(r.calls.at(-1),['rollback']);r.input.down(r.e(2));r.input.up(r.e(2));assert.deepEqual(r.calls.at(-1),['tap',2])});
++test('blur reset releases all contacts and restores idle',()=>{const r=rig();r.input.down(r.e(1));r.input.down(r.e(2,80));r.input.reset();assert.equal(r.input.points.size,0);assert.equal(r.input.mode,'idle')});
++test('rotation cancels gestures until all old contacts lift',()=>{const r=rig();r.input.down(r.e(1));r.input.down(r.e(2,80));r.input.cancel();assert.equal(r.input.mode,'blocked');r.input.move(r.e(2,160));assert.equal(r.calls.length,0);r.input.up(r.e(1));r.input.up(r.e(2));assert.equal(r.input.mode,'idle')});
++test('Pencil or mouse active stroke blocks palm touches',()=>{const r=rig({external:true});r.input.down(r.e(1));r.input.down(r.e(2,80));r.input.move(r.e(2,160));assert.equal(r.calls.length,0)});
++test('single touch on the gutter never draws',()=>{const r=rig({onPaper:false});r.input.down(r.e(1));r.input.move(r.e(1,20));r.input.up(r.e(1,20));assert.equal(r.calls.length,0)});
++test('near-coincident fingertips produce finite zoom',()=>{const r=rig();r.input.down(r.e(1));r.input.down(r.e(2));r.input.move(r.e(2,1));assert.ok(Number.isFinite(r.v.zoom))});
++test('foreign pointer cancellation does not end a tracked touch',()=>{const r=rig();r.input.down(r.e(1));r.input.cancelPointer(r.e(9));assert.equal(r.input.mode,'pending');assert.equal(r.input.points.size,1)});
+diff --git a/tests/browser/run_browser_tests.py b/tests/browser/run_browser_tests.py
+--- a/tests/browser/run_browser_tests.py
++++ b/tests/browser/run_browser_tests.py
+@@ -59,9 +59,11 @@
+             # Exact local source, no HTTP/cache/deployment claim in this mode.
+             html = (self.app_root/'index.html').read_text(encoding='utf-8')
+             html = re.sub(r'<link[^>]+href="style\.css[^"]*"[^>]*>', '', html)
+-            html = re.sub(r'<script[^>]+src="app\.js[^"]*"[^>]*></script>', '', html)
++            html = re.sub(r'<script[^>]+src="(?:app|canvas-zoom)\.js[^"]*"[^>]*></script>', '', html)
+             self.page.set_content(html)
+             self.page.add_style_tag(content=(self.app_root/'style.css').read_text(encoding='utf-8'))
++            if (self.app_root/'canvas-zoom.js').exists():
++                self.page.add_script_tag(content=(self.app_root/'canvas-zoom.js').read_text(encoding='utf-8'))
+             self.page.add_script_tag(content=(self.app_root/'app.js').read_text(encoding='utf-8'))
+         else:
+             self.page.goto(self.base_url, wait_until='load')
+@@ -272,7 +274,7 @@
+           const e=(type,id,primary,x,y)=>canvas.dispatchEvent(new PointerEvent(type,{pointerId:id,pointerType:'touch',isPrimary:primary,button:0,buttons:type==='pointerup'?0:1,clientX:r.left+x,clientY:r.top+y,bubbles:true,cancelable:true}));
+           e('pointerdown',101,true,40,40);e('pointermove',101,true,60,40);
+           e('pointerdown',102,false,80,80);e('pointermove',102,false,100,100);e('pointerup',102,false,100,100);
+-          if(!drawing || activePointerId!==101)throw new Error('Second finger corrupted active stroke');
++          if(drawing || canvasInput.mode!=='blocked')throw new Error('Remaining finger must not paint after pinch');
+           e('pointercancel',101,true,60,40);
+           if(drawing)throw new Error('Cancelled stroke is stuck');
+         }''')
+@@ -348,6 +350,231 @@
+         self.page.locator('#imageUpload').set_input_files(str(ROOT/'tests/fixtures/closed-square.png'))
+         self.page.wait_for_function('imageUpload.value===""');self.settle()
+         cx,cy=self.page.evaluate('[W()/2,H()/2]');self.assertEqual(self.pixel(cx,cy),[255,255,255,255])
++
++    # Canvas-only zoom feature regression cases. The original 20 cases above still run.
++    def zoom(self, value=2):
++        self.page.evaluate('(z)=>canvasView.controlZoom(z)', value)
++        self.settle()
++
++    def view_center(self):
++        return self.page.evaluate('() => {const p=canvasView.paperAt(canvasView.centerClient());return [p.x,p.y]}')
++
++    def chrome_boxes(self):
++        return self.page.evaluate('''() => {
++          const box=e=>{const r=e.getBoundingClientRect();return [r.x,r.y,r.width,r.height]};
++          return {head:box(document.querySelector('header')),tools:box(document.querySelector('.tools')),
++            buttons:[...document.querySelectorAll('.top-actions button')].map(box),
++            viewport:box(canvasStage),scale:visualViewport.scale,bodyScroll:[scrollX,scrollY]};
++        }''')
++
++    def cdp_touch(self):
++        if not PROFILES[self.profile_name]['has_touch']:self.skipTest('Touch-only case; desktop uses the visible zoom controls')
++        if self.browser.browser_type.name!='chromium':self.skipTest('CDP trusted touch requires Chromium; physical Safari still needs acceptance')
++        return self.context.new_cdp_session(self.page)
++
++    def send_touches(self, cdp, kind, points):
++        cdp.send('Input.dispatchTouchEvent',dict(type=kind,touchPoints=[dict(id=i,x=x,y=y,radiusX=3,radiusY=3,force=1) for i,x,y in points]))
++
++    def pinch(self, factor=1.8, pan=(0,0)):
++        cdp=self.cdp_touch();r=self.page.locator('.canvas-stage').bounding_box()
++        cx=r['x']+r['width']/2;cy=r['y']+r['height']/2
++        d=min(r['width']*.15,45)
++        self.send_touches(cdp,'touchStart',[(1,cx-d,cy),(2,cx+d,cy)])
++        for n in range(1,7):
++            f=1+(factor-1)*n/6;dx=pan[0]*n/6;dy=pan[1]*n/6
++            self.send_touches(cdp,'touchMove',[(1,cx+dx-d*f,cy+dy),(2,cx+dx+d*f,cy+dy)])
++        self.send_touches(cdp,'touchEnd',[]);self.settle()
++
++    def test_21_zoom_buttons_and_fit_preserve_exact_pixels(self):
++        self.stroke([(60,80),(150,100)])
++        before=self.digest();h=self.page.evaluate('history.length');chrome=self.chrome_boxes()
++        for _ in range(8):
++            if not self.page.locator('#zoomInBtn').is_disabled():self.click('#zoomInBtn')
++        self.assertAlmostEqual(self.page.evaluate('canvasView.zoom'),4)
++        self.assertTrue(self.page.locator('#zoomInBtn').is_disabled())
++        self.assertEqual(self.digest(),before);self.assertEqual(self.page.evaluate('history.length'),h)
++        self.assertEqual(self.chrome_boxes(),chrome)
++        self.click('#zoomOutBtn');self.assertLess(self.page.evaluate('canvasView.zoom'),4)
++        self.click('#zoomFitBtn');self.assertEqual(self.page.locator('#zoomLabel').inner_text(),'100%')
++        self.assertTrue(self.page.locator('#zoomOutBtn').is_disabled());self.assertEqual(self.digest(),before)
++        self.assert_layout()
++
++    def test_22_actual_two_finger_pinch_changes_canvas_not_page(self):
++        before=self.digest();chrome=self.chrome_boxes();h=self.page.evaluate('history.length')
++        self.pinch(1.8)
++        self.assertAlmostEqual(self.page.evaluate('canvasView.zoom'),1.8,delta=.05)
++        self.assertEqual(self.digest(),before);self.assertEqual(self.page.evaluate('history.length'),h)
++        self.assertEqual(self.chrome_boxes(),chrome)
++        self.assertTrue(self.page.locator('#panX').is_visible());self.assertTrue(self.page.locator('#panY').is_visible())
++        self.pinch(.6)
++        self.assertAlmostEqual(self.page.evaluate('canvasView.zoom'),1.08,delta=.06)
++
++    def test_23_two_finger_pan_preserves_view_scale_and_art(self):
++        self.zoom(3);before=self.digest();chrome=self.chrome_boxes()
++        old=self.page.evaluate('[canvasStage.scrollLeft,canvasStage.scrollTop]')
++        self.pinch(1,pan=(20,25))
++        new=self.page.evaluate('[canvasStage.scrollLeft,canvasStage.scrollTop]')
++        self.assertAlmostEqual(new[0],old[0]-20,delta=3);self.assertAlmostEqual(new[1],old[1]-25,delta=3)
++        self.assertAlmostEqual(self.page.evaluate('canvasView.zoom'),3,delta=.02)
++        self.assertEqual(self.digest(),before);self.assertEqual(self.chrome_boxes(),chrome)
++
++    def test_24_pinch_rolls_back_unfinished_stroke_without_undo_entry(self):
++        cdp=self.cdp_touch();self.stroke([(70,90),(150,90)])
++        before=self.digest();h=self.page.evaluate('history.length')
++        r=self.page.locator('.canvas-stage').bounding_box();x=r['x']+r['width']/2;y=r['y']+r['height']/2
++        self.send_touches(cdp,'touchStart',[(1,x-30,y)])
++        self.send_touches(cdp,'touchMove',[(1,x-10,y+10)])
++        self.assertNotEqual(self.digest(),before)
++        self.send_touches(cdp,'touchStart',[(1,x-10,y+10),(2,x+35,y)])
++        self.assertEqual(self.digest(),before)
++        self.send_touches(cdp,'touchMove',[(1,x-30,y+10),(2,x+55,y)])
++        self.send_touches(cdp,'touchEnd',[(1,x-30,y+10)])
++        self.send_touches(cdp,'touchMove',[(1,x-10,y+20)])
++        self.send_touches(cdp,'touchEnd',[])
++        self.assertEqual(self.digest(),before);self.assertEqual(self.page.evaluate('history.length'),h)
++        self.assertEqual(self.page.evaluate('canvasInput.mode'),'idle')
++
++    def test_25_bucket_selected_pinch_does_not_fill(self):
++        self.click('[data-page="unicorn"]');self.click('#bucketBtn')
++        before=self.digest();h=self.page.evaluate('history.length');self.pinch(1.6)
++        self.assertEqual(self.digest(),before);self.assertEqual(self.page.evaluate('history.length'),h)
++
++    def test_26_sticker_selected_pinch_does_not_stamp(self):
++        self.click('[data-sticker="⭐"]');before=self.digest();h=self.page.evaluate('history.length')
++        self.pinch(1.6);self.assertEqual(self.digest(),before);self.assertEqual(self.page.evaluate('history.length'),h)
++
++    def test_27_horizontal_and_vertical_scroll_sliders_move_only_canvas(self):
++        self.zoom(2.5);before=self.digest();chrome=self.chrome_boxes()
++        for selector,prop in [('#panX','scrollLeft'),('#panY','scrollTop')]:
++            loc=self.page.locator(selector);self.assertTrue(loc.is_enabled());r=loc.bounding_box()
++            if selector=='#panX':x=r['x']+r['width']*.8;y=r['y']+r['height']/2
++            else:x=r['x']+r['width']/2;y=r['y']+r['height']*.8
++            old=self.page.evaluate(f'canvasStage.{prop}')
++            if PROFILES[self.profile_name]['has_touch']:self.page.touchscreen.tap(x,y)
++            else:self.page.mouse.click(x,y)
++            self.settle();new=self.page.evaluate(f'canvasStage.{prop}')
++            self.assertGreater(new,old+5,selector)
++        self.assertEqual(self.digest(),before);self.assertEqual(self.chrome_boxes(),chrome)
++        self.click('#zoomFitBtn');self.assertFalse(self.page.locator('#panX').is_visible());self.assertFalse(self.page.locator('#panY').is_visible())
++
++    def test_28_brush_after_zoom_and_scroll_hits_correct_artwork(self):
++        self.zoom(3)
++        self.page.evaluate('canvasStage.scrollLeft+=25;canvasStage.scrollTop+=35')
++        cx,cy=self.view_center();before=self.digest()
++        self.stroke([(cx-25,cy),(cx+25,cy)])
++        self.assertGreater(self.pixel(cx,cy)[3],0)
++        self.assertEqual(self.pixel(cx,cy+50)[3],0)
++        painted=self.digest();view=self.page.evaluate('[canvasView.zoom,canvasStage.scrollLeft,canvasStage.scrollTop]')
++        self.click('#undoBtn');self.settle();self.assertEqual(self.digest(),before)
++        self.click('#redoBtn');self.settle();self.assertEqual(self.digest(),painted)
++        self.assertEqual(self.page.evaluate('[canvasView.zoom,canvasStage.scrollLeft,canvasStage.scrollTop]'),view)
++
++    def test_29_sparkle_and_eraser_work_while_zoomed(self):
++        self.zoom(2);cx,cy=self.view_center();self.click('#sparkleBtn');self.click('[data-size="44"]');self.color('#ff0000')
++        self.page.evaluate('window._oldRandom=Math.random;Math.random=()=>0.5')
++        self.stroke([(cx-30,cy),(cx+30,cy)])
++        self.page.evaluate('Math.random=window._oldRandom')
++        painted=self.digest();self.assertGreater(self.pixel(cx,cy)[3],0)
++        self.click('#eraserBtn');self.stroke([(cx,cy-20),(cx,cy+20)]);self.assertEqual(self.pixel(cx,cy)[3],0)
++        self.click('#undoBtn');self.settle();self.assertEqual(self.digest(),painted)
++
++    def test_30_self_drawn_bucket_fills_after_zoom_and_scroll(self):
++        cx,cy=self.view_center();self.click('#outlineBtn')
++        self.stroke([(cx-35,cy-35),(cx+35,cy-35),(cx+35,cy+35),(cx-35,cy+35),(cx-35,cy-35)])
++        self.zoom(2);self.page.evaluate('canvasStage.scrollLeft+=10;canvasStage.scrollTop+=10')
++        self.color('#33aa77');self.click('#bucketBtn');self.tap_art(cx,cy)
++        self.assertEqual(self.pixel(cx,cy),[51,170,119,255]);self.assertEqual(self.pixel(cx+70,cy)[3],0)
++
++    def test_31_template_fill_after_zoom_does_not_leak_through_eye(self):
++        self.click('[data-page="unicorn"]');cx,cy=self.page.evaluate('[W()/2,H()/2]');self.zoom(2)
++        self.color('#ff0000');self.click('#bucketBtn');self.tap_art(cx,cy)
++        self.assertEqual(self.pixel(cx,cy),[255,0,0,255]);self.assertEqual(self.pixel(cx-42,cy-20)[3],0)
++
++    def test_32_uploaded_picture_fill_at_zoom_and_reupload(self):
++        self.zoom(2.5)
++        self.page.locator('#imageUpload').set_input_files(str(ROOT/'tests/fixtures/closed-square.png'))
++        self.page.wait_for_function('imageUpload.value===""');self.settle()
++        cx,cy=self.page.evaluate('[W()/2,H()/2]');self.color('#1122ff');self.click('#bucketBtn');self.tap_art(cx,cy)
++        self.assertEqual(self.pixel(cx,cy),[17,34,255,255]);self.assertAlmostEqual(self.page.evaluate('canvasView.zoom'),2.5)
++        self.page.locator('#imageUpload').set_input_files(str(ROOT/'tests/fixtures/closed-square.png'))
++        self.page.wait_for_function('imageUpload.value===""');self.settle();self.assertEqual(self.pixel(cx,cy),[255,255,255,255])
++
++    def test_33_rotation_while_zoomed_preserves_pixels_and_zoom(self):
++        self.stroke([(65,80),(155,160)]);before=self.digest();self.zoom(2.5)
++        v=PROFILES[self.profile_name]['viewport'];ratio=self.page.evaluate('W()/H()')
++        for w,h in [(v['height'],v['width']),(v['width'],v['height'])]:
++            self.page.set_viewport_size(dict(width=w,height=h));self.settle()
++            self.assertEqual(self.digest(),before);self.assertAlmostEqual(self.page.evaluate('canvasView.zoom'),2.5)
++            b=self.page.locator('#canvas').bounding_box();self.assertAlmostEqual(b['width']/b['height'],ratio,delta=.003)
++            chrome=self.chrome_boxes();self.assertEqual(chrome['bodyScroll'],[0,0]);self.assertAlmostEqual(chrome['scale'],1,delta=.01)
++            for x,y,bw,bh in chrome['buttons']:
++                self.assertGreaterEqual(x,0);self.assertLessEqual(x+bw,w+1);self.assertLessEqual(y+bh,h+1)
++
++    def test_34_save_exports_entire_picture_not_only_zoomed_view(self):
++        self.color('#ff0000');self.stroke([(60,80),(130,80)])
++        width,height=self.page.evaluate('[canvas.width,canvas.height]');self.zoom(4)
++        with self.page.expect_download() as event:self.click('#saveBtn')
++        target=self.evidence/f'{self.profile_name}-zoom-full-export.png';event.value.save_as(str(target));content=target.read_bytes()
++        self.assertEqual(int.from_bytes(content[16:20],'big'),width);self.assertEqual(int.from_bytes(content[20:24],'big'),height)
++        import base64
++        result=self.page.evaluate('''src=>new Promise(r=>{const im=new Image();im.onload=()=>{const t=document.createElement('canvas');t.width=im.width;t.height=im.height;const c=t.getContext('2d');c.drawImage(im,0,0);r(Array.from(c.getImageData(Math.floor(90*im.width/W()),Math.floor(80*im.height/H()),1,1).data))};im.src=src})''','data:image/png;base64,'+base64.b64encode(content).decode())
++        self.assertEqual(result,[255,0,0,255])
++
++    def test_35_zoomed_double_taps_do_not_zoom_the_page(self):
++        self.zoom(2);chrome=self.chrome_boxes();cx,cy=self.view_center()
++        for _ in range(4):self.tap_art(cx,cy)
++        p=self.client(cx,cy);self.page.mouse.dblclick(p['x'],p['y']);self.settle()
++        self.assertEqual(self.chrome_boxes(),chrome);self.assertAlmostEqual(self.page.evaluate('canvasView.zoom'),2)
++
++    def test_36_pen_pointer_ignores_palm_touches(self):
++        self.zoom(2);before=self.page.evaluate('canvasView.zoom')
++        self.page.evaluate('''()=>{
++          const r=canvasStage.getBoundingClientRect(),x=r.x+r.width/2,y=r.y+r.height/2;
++          const e=(type,id,kind,x,y,primary=true)=>canvas.dispatchEvent(new PointerEvent(type,{pointerId:id,pointerType:kind,isPrimary:primary,button:0,buttons:1,clientX:x,clientY:y,bubbles:true,cancelable:true}));
++          e('pointerdown',101,'pen',x,y);e('pointermove',101,'pen',x+15,y);
++          e('pointerdown',201,'touch',x-20,y+20);e('pointerdown',202,'touch',x+20,y+20,false);
++          e('pointermove',202,'touch',x+40,y+30,false);e('pointerup',201,'touch',x-20,y+20);e('pointerup',202,'touch',x+40,y+30,false);
++          e('pointermove',101,'pen',x+30,y);e('pointerup',101,'pen',x+30,y);
++        }''')
++        self.assertEqual(self.page.evaluate('canvasView.zoom'),before)
++        self.assertEqual(self.page.evaluate('history.length'),2)
++        self.assertFalse(self.page.evaluate('drawing'))
++
++    def test_37_blur_during_gesture_recovers_without_marks(self):
++        cdp=self.cdp_touch();r=self.page.locator('.canvas-stage').bounding_box();x=r['x']+r['width']/2;y=r['y']+r['height']/2
++        before=self.digest()
++        self.send_touches(cdp,'touchStart',[(1,x-20,y),(2,x+20,y)])
++        self.page.evaluate('window.dispatchEvent(new Event("blur"))')
++        self.send_touches(cdp,'touchEnd',[])
++        self.assertEqual(self.digest(),before);self.assertEqual(self.page.evaluate('canvasInput.mode'),'idle')
++        cx,cy=self.view_center();self.stroke([(cx-15,cy),(cx+15,cy)]);self.assertGreater(self.pixel(cx,cy)[3],0)
++
++    def test_38_zoom_visual_layout_and_scroll_to_edges(self):
++        self.click('[data-page="cat"]');self.zoom(2.5)
++        self.page.screenshot(path=str(self.evidence/f'{self.profile_name}-zoom-layout.png'))
++        for maximum in [True,False]:
++            self.page.evaluate('''maximum=>{for(const [input,prop] of [[panX,'scrollLeft'],[panY,'scrollTop']]){input.value=maximum?input.max:'0';input.dispatchEvent(new Event('input',{bubbles:true}));if(Math.abs(canvasStage[prop]-Number(input.value))>1)throw new Error('Scrollbar mismatch')}}''',maximum)
++            self.assertEqual(self.chrome_boxes()['bodyScroll'],[0,0])
++        self.click('#zoomFitBtn');self.assert_layout()
++
++    def test_39_trusted_finger_brush_hits_zoomed_scrolled_canvas(self):
++        cdp=self.cdp_touch();self.zoom(2.5)
++        self.page.evaluate('canvasStage.scrollTop+=30;canvasStage.scrollLeft+=12')
++        cx,cy=self.view_center();pts=[self.client(cx-20,cy),self.client(cx,cy),self.client(cx+20,cy)]
++        for i,p in enumerate(pts):self.send_touches(cdp,'touchStart' if i==0 else 'touchMove',[(1,p['x'],p['y'])])
++        self.send_touches(cdp,'touchEnd',[])
++        self.assertGreater(self.pixel(cx,cy)[3],0);self.assertEqual(self.page.evaluate('history.length'),2)
++
++    def test_40_zoom_anchor_stays_under_the_finger_midpoint(self):
++        self.zoom(1.5)
++        data=self.page.evaluate('''()=>{
++          const r=canvasStage.getBoundingClientRect(),client={x:r.left+r.width*.45,y:r.top+r.height*.45};
++          const before=canvasView.paperAt(client);canvasView.setZoom(3,client);
++          const after=canvasView.paperAt(client);return {before,after};
++        }''')
++        self.assertAlmostEqual(data['before']['x'],data['after']['x'],delta=1)
++        self.assertAlmostEqual(data['before']['y'],data['after']['y'],delta=1)
++
+ 
+ class JsonResult(unittest.TextTestResult):
+     records=[]
+@@ -391,7 +618,7 @@
+             report=dict(transport='inline local HTML/CSS/JS' if args.inline else 'local HTTP server',browser=args.browser,browser_version=version,playwright=importlib.metadata.version('playwright'),
+                         device_test_type='viewport/DPR/touch emulation; NOT physical hardware',
+                         tests_run=result.testsRun,failures=len(result.failures),errors=len(result.errors),skipped=len(result.skipped),
+-                        results=result.records,app_sha256={p:hashlib.sha256((args.root/p).read_bytes()).hexdigest() for p in ['index.html','style.css','app.js']})
++                        results=result.records,app_sha256={p:hashlib.sha256((args.root/p).read_bytes()).hexdigest() for p in ['index.html','style.css','app.js','canvas-zoom.js'] if (args.root/p).exists()})
+             (args.evidence/'browser-results.json').write_text(json.dumps(report,indent=2),encoding='utf-8')
+             browser.close();return 0 if result.wasSuccessful() else 1
+     finally:server.shutdown();server.server_close()
+diff --git a/CANVAS-ZOOM-README.zh-CN.md b/CANVAS-ZOOM-README.zh-CN.md
+new file mode 100644
+--- /dev/null
++++ b/CANVAS-ZOOM-README.zh-CN.md
+@@ -0,0 +1,99 @@
++# Happy Coloring：只缩放画布（Canvas zoom 1）
++
++基线：`lienahu/Happy-Coloring` 的 `main@0a6ae02c5895f3d77466bb3ec43090bb31b746c1`。
++这是已经合并了 iPad viewport fix 的版本；不是以前的 V5–V9。
++
++## 孩子怎样操作
++
++- 一个手指／Apple Pencil：画画。单指点一下进行填色、放贴纸。
++- 两个手指张开／合拢：仅放大／缩小画布，100%–400%。100% 代表适合当前画板窗口，不是图片像素的 1:1。
++- 两个手指一起拖动：移动当前查看的位置。松开其中一根手指后，另一根不会突然开始画线；全部抬起后，再用一根手指画画。
++- 右侧、底部的紫色滚动滑条：拖动以查看画布不同位置。仅在对应方向存在超出范围的画布时显示；它们是 App 自己的滚动控制，不依赖系统滚动条是否自动隐藏。
++- `−`／`+`：改变倍率；`Fit`：恢复显示整幅画。也适用于鼠标、键盘操作。
++- 保存仍导出整幅画作，而不是屏幕上放大的局部。缩放、滚动都不会消耗撤销步数。
++
++菜单、Undo／Redo／New／Save 不跟随画布缩放。工具栏仍可独立纵向滚动。
++第二根手指落下时，尚未结束的单指笔画会回滚，以免双指操作留下误画痕迹；已完成的笔画不会被撤销。
++
++## 文件
++
++必须一起替换／新增的运行文件只有：
++
++```text
++index.html
++style.css
++app.js
++canvas-zoom.js       ← 新文件，不能遗漏
++```
++
++`canvas-zoom.js` 负责视图几何、倍率、滚动控制和手势状态机。
++`app.js` 仍负责实际画图、填色、图片上传、撤销和保存。
++画布像素宽高只在初始化时设置；本次没有引入新图片生成、AI、画作分层或新 flood-fill 算法。
++当前 main 的模板仍保留不变。
++
++## 安全试用，不修改线上 main
++
++先把压缩包解压到一个新的预览目录，例如：
++
++```text
++C:\project\happycolor\canvas-zoom-preview
++```
++
++在这个目录打开 PowerShell：
++
++```powershell
++py -m http.server 8000 --bind 0.0.0.0
++```
++
++电脑打开 `http://localhost:8000/`。iPad 与电脑连接同一家庭网络，使用电脑的实际局域网 IPv4 地址，例如 `http://192.168.1.23:8000/`（仅为示例，需用 `ipconfig` 查看实际地址）。Windows 防火墙只允许私人网络，不开放路由器端口。完成后 Ctrl+C 停止服务器。
++
++确认顶部显示 `Canvas zoom 1`。先保存当前未完成的画，再切换到测试页面。
++
++## 放入新 Git 分支
++
++先检查 `git status`。若有未提交修改，先备份，不要覆盖或执行 `git clean`。
++工作区干净时：
++
++```powershell
++git switch main
++git pull --ff-only origin main
++git switch -c canvas-pinch-zoom
++```
++
++把上面四个运行文件复制到仓库根目录。测试和文档也可以保留，便于以后回归；不必重新应用之前的 iPad patch。
++也可以在上述基线的干净分支使用本包的 `canvas-pinch-zoom.patch`，不要同时使用“复制文件”和“应用 patch”两种方式：
++
++```powershell
++git apply --check .\canvas-pinch-zoom.patch
++git apply .\canvas-pinch-zoom.patch
++```
++
++不要恢复旧的 stash，也不要直接合并 main。先按 `docs/CANVAS-ZOOM-IPAD-CHECKLIST.md` 真机测试。
++
++## 运行测试
++
++单元测试仅需 Node.js 20 或更高，无须安装 NPM 依赖：
++
++```powershell
++npm test
++```
++
++浏览器测试使用 Python Playwright：
++
++```powershell
++py -m pip install -r requirements-test.txt
++py -m playwright install chromium
++py tests/browser/run_browser_tests.py --evidence test-results\zoom
++```
++
++测试程序在运行时自己开启本地 HTTP 服务器并关闭。受限环境可以用下面的等价源码注入模式（不测试 HTTP/缓存/部署）：
++
++```powershell
++py tests/browser/run_browser_tests.py --inline --evidence test-results\zoom-inline
++```
++
++本次实际执行方式、测试数量、跳过项和限制见 `docs/CANVAS-ZOOM-TEST-REPORT.zh-CN.md`。可查看 `evidence/zoom/` 下的完整运行记录。
++
++## 回退
++
++本功能和旧 viewport 修复分开提交。上线后有问题，使用本功能 PR 的 Revert 生成回退 PR，或在修复分支中回退本功能 commit。不要用 `reset --hard`／强推 main，也不要删除之前的 stash。
+diff --git a/docs/CANVAS-ZOOM-IPAD-CHECKLIST.md b/docs/CANVAS-ZOOM-IPAD-CHECKLIST.md
+new file mode 100644
+--- /dev/null
++++ b/docs/CANVAS-ZOOM-IPAD-CHECKLIST.md
+@@ -0,0 +1,25 @@
++# Canvas zoom 1 — iPad Safari 验收
++
++自动化浏览器测试不等于真实 iPad Safari、Apple Pencil 和系统照片选择器验收。
++先保存当前画作，在新预览目录打开页面，确认顶部 `Canvas zoom 1`。
++
++- [ ] 单指、Apple Pencil 都能画线。单指点一下能填色、放贴纸。
++- [ ] 两指张开至约 200%，菜单、顶部按钮大小和位置不变。
++- [ ] 在画板左／中／右不同位置张开、合拢，手指中心附近的图案留在手指附近（到画作边界时会限位）。
++- [ ] 两指一起拖动，画作移动，页面和菜单不滚动、不放大。
++- [ ] 放大后用右侧、底部的紫色滑条查看边缘；滑条不会画线。
++- [ ] 使用 Fill 和贴纸工具时先放一根手指、再放第二根开始缩放，不应填色或盖章。
++- [ ] 先用手指画一小段且不抬手，再落第二根手指：只取消正在画的这一笔，之前的画仍在。
++- [ ] 缩放后先抬起一根手指，剩下一根继续移动，不应误画；全部抬起后单指可再次绘画。
++- [ ] 放大后 Brush／Sparkle／Eraser 在手指／笔尖位置正确落点。
++- [ ] 自画闭合区域、内置模板、从 Photos／Files 上传的 PNG 都可在放大、滚动后准确填色。
++- [ ] Pencil 绘画时手掌靠近，不会突然进入缩放。双指缩放时不同时用 Pencil 作画。
++- [ ] 横屏、竖屏、分屏切换后，画作比例不变；当前查看倍率保留，菜单仍可操作。
++- [ ] Undo／Redo 撤销绘画而不是撤销视图；连续缩放不会耗尽 20 步绘画历史。
++- [ ] `Fit` 恢复全图和 100%，对应方向无需滚动时滑条隐藏。
++- [ ] 放大后 Save 导出的是整幅画，包含当前屏幕外的部分。
++- [ ] 侧栏滚动到底后 Upload Picture 可打开系统照片／文件选择器。
++- [ ] 页面切到后台再回来仍能继续画画；快速双击没有整页放大。
++- [ ] 三根手指意外碰到后，全部抬起可以正常继续操作。
++
++验证完成再提交 PR；不要仅凭“无合并冲突”跳过测试。
+diff --git a/docs/CANVAS-ZOOM-TEST-REPORT.zh-CN.md b/docs/CANVAS-ZOOM-TEST-REPORT.zh-CN.md
+new file mode 100644
+--- /dev/null
++++ b/docs/CANVAS-ZOOM-TEST-REPORT.zh-CN.md
+@@ -0,0 +1,113 @@
++# Happy Coloring — Canvas zoom 1 测试报告
++
++## 范围与基线
++
++- 来源：`lienahu/Happy-Coloring` 的 `main@0a6ae02c5895f3d77466bb3ec43090bb31b746c1`，即已合并 iPad viewport 修复的 main。
++- 读取 GitHub 后，与先前测试包中的 `index.html`、`style.css`、`app.js` 逐文件 Git blob SHA 核对一致。
++- 本次只增加画布局部缩放、双指平移、滚动控制和相应触摸路由；没有改写填色算法或替换模板。
++- 未向 GitHub 写入文件、创建远程分支、合并 PR 或发布线上网站。
++
++## 实际执行结果
++
++| 检查 | 结果 |
++|---|---|
++| JavaScript 语法（`app.js`、`canvas-zoom.js`） | 通过 |
++| 单元测试 | 67 通过，0 失败，0 跳过 |
++| Chromium 浏览器测试 | 240 次执行：231 通过，0 失败，9 跳过 |
++| Patch 应用与运行文件一致性 | 见 `evidence/zoom/patch-apply-check.txt` |
++
++| 浏览器配置 | 执行数 | 通过 | 跳过 | 失败 |
++|---|---:|---:|---:|---:|
++| desktop | 40 | 31 | 9 | 0 |
++| tablet_portrait | 40 | 40 | 0 | 0 |
++| tablet_landscape | 40 | 40 | 0 | 0 |
++| tablet_split_view | 40 | 40 | 0 | 0 |
++| phone_portrait | 40 | 40 | 0 | 0 |
++| phone_landscape | 40 | 40 | 0 | 0 |
++
++9 项跳过均为桌面配置下的触摸专属用例（原有 2 项 + 新增 7 项）；同名用例在其他五种触控配置均执行并通过。
++各配置在独立 Chromium 进程中运行。最终源代码 SHA256 与每份浏览器报告记录的值完全一致。
++
++## 重点检查
++
++- 双指距离改变只影响画布显示倍率，页面的 `visualViewport.scale` 保持 1；顶部按钮、侧栏矩形保持不变。
++- 双指中点移动可平移画布；缩放以双指中点为锚点，画作边界限制滚动范围。
++- 手指先画了一小段，再放第二根手指时，只取消当前未完成笔画，精确恢复此前像素，不新增 Undo 状态。
++- Fill／贴纸选中时进行双指操作，不误填色、不误盖章；这些单指动作改在抬起时确认。
++- 手势结束后剩余的一根手指不突然开始画；取消、失焦、三指误触后可以恢复。
++- 放大且滚动后，Brush、Sparkle、Eraser、自画闭合区域填色、内置模板填色和上传 PNG 填色落点正确。
++- 滚动滑条通过实际鼠标／触摸点击驱动，不仅仅检查属性存在。
++- 旋转、浏览器栏高度变化、缩放、滚动都不重设 canvas 像素宽高、不拉伸画作。
++- Undo／Redo 仍保留 20 步绘画；视图变化不消耗绘画历史。
++- 导出的 PNG 尺寸为完整画作尺寸，并检查了当前视口外的笔画像素。
++- 上传控件滚动后仍触发 file chooser；同一个文件可以重复选择。
++
++## 浏览器与环境限制（必须保留）
++
++- 实际浏览器：Chromium `144.0.7559.96`；Playwright `1.57.0`。
++- 六种配置是桌面浏览器的 viewport/DPR/touch 模拟，不是真实的 iOS／Android 设备。
++- 本环境的浏览器 localhost 导航被策略拦截，因此用 `--inline` 加载同一份 HTML、CSS、JS 源码完成测试；没有把这次执行描述成 HTTP、GitHub Pages、缓存或部署测试。
++- 多指触摸用例使用 Chromium DevTools Protocol 的 `Input.dispatchTouchEvent` 注入浏览器触摸管线；其余包含真实鼠标／单指点击及少量定向合成 Pointer Events。合成 pen 事件检查路由逻辑，不等同 Apple Pencil 硬件验证。
++- WebKit 和 Firefox 均尝试启动，但本环境缺少相应可执行文件，**未执行**这两个引擎的测试。详情见 `evidence/zoom/environment.json`。
++- 未连接真实 iPad，也没有替用户完成 Safari 原生手势、Apple Pencil、iOS Photos／Files 选择器验收。
++- 本补丁为已通过上述自动化检查的候选版；真实 iPad 验收应在合并前完成。
++
++## 如何复现
++
++```powershell
++npm test
++py -m pip install -r requirements-test.txt
++py -m playwright install chromium
++py tests/browser/run_browser_tests.py --inline --evidence test-results\zoom-inline
++```
++
++不加 `--inline` 时，测试程序自动启动本地 HTTP 服务。用户设备上推荐也运行 HTTP 模式，以补充本环境未完成的导航、文件路径加载检查。
++
++## 40 项浏览器用例（每种配置各执行一次）
++
++1. `test_01_layout_and_touch_targets`
++2. `test_02_rotation_preserves_exact_pixels_and_aspect`
++3. `test_03_browser_bar_height_changes_do_not_rebuild_bitmap`
++4. `test_04_brush_and_exact_undo_redo`
++5. `test_05_sparkle_leaves_paint_and_highlights`
++6. `test_06_eraser_then_undo_restores_exact_pixels`
++7. `test_07_bucket_self_drawn_closed_region`
++8. `test_08_bucket_after_resize_hits_same_region`
++9. `test_09_bucket_builtin_and_other_page_buttons`
++10. `test_10_upload_after_scrolling_opens_native_filechooser`
++11. `test_11_draw_after_rotation_maps_to_pointer`
++12. `test_12_rapid_taps_and_dblclick_keep_scale_and_toolbar`
++13. `test_13_multi_pointer_and_cancel_recovery`
++14. `test_14_twenty_step_undo_limit`
++15. `test_15_sticker_background_and_png_export`
++16. `test_16_new_confirmation_does_not_clear_on_cancel`
++17. `test_17_touch_gesture_handlers_scoped_away_from_upload`
++18. `test_18_actual_touch_swipe_draws_without_scrolling`
++19. `test_19_actual_toolbar_touch_scroll_keeps_header`
++20. `test_20_after_eraser_templates_and_uploads_are_visible`
++21. `test_21_zoom_buttons_and_fit_preserve_exact_pixels`
++22. `test_22_actual_two_finger_pinch_changes_canvas_not_page`
++23. `test_23_two_finger_pan_preserves_view_scale_and_art`
++24. `test_24_pinch_rolls_back_unfinished_stroke_without_undo_entry`
++25. `test_25_bucket_selected_pinch_does_not_fill`
++26. `test_26_sticker_selected_pinch_does_not_stamp`
++27. `test_27_horizontal_and_vertical_scroll_sliders_move_only_canvas`
++28. `test_28_brush_after_zoom_and_scroll_hits_correct_artwork`
++29. `test_29_sparkle_and_eraser_work_while_zoomed`
++30. `test_30_self_drawn_bucket_fills_after_zoom_and_scroll`
++31. `test_31_template_fill_after_zoom_does_not_leak_through_eye`
++32. `test_32_uploaded_picture_fill_at_zoom_and_reupload`
++33. `test_33_rotation_while_zoomed_preserves_pixels_and_zoom`
++34. `test_34_save_exports_entire_picture_not_only_zoomed_view`
++35. `test_35_zoomed_double_taps_do_not_zoom_the_page`
++36. `test_36_pen_pointer_ignores_palm_touches`
++37. `test_37_blur_during_gesture_recovers_without_marks`
++38. `test_38_zoom_visual_layout_and_scroll_to_edges`
++39. `test_39_trusted_finger_brush_hits_zoomed_scrolled_canvas`
++40. `test_40_zoom_anchor_stays_under_the_finger_midpoint`
++
++## 测试来源与设计参考
++
++W3C Pointer Events：touch-action 与指针捕获规范；Playwright 官方 Emulation 文档。
++代码以 `touch-action: none` 把画板上的手势交给应用处理，但不用 CSS transform 缩放整页。
++所有生成的运行记录都针对本次候选代码，不是之前 iPad fix 1 的日志。

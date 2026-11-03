@@ -1,0 +1,4 @@
+git apply --check: PASS
+git apply: PASS
+All 11 patched/new files match the release files byte-for-byte.
+Runtime hashes match all 6 final browser reports.

@@ -1,0 +1,2 @@
+node --check app.js: PASS
+node --check canvas-zoom.js: PASS

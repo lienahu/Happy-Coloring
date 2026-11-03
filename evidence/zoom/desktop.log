@@ -1,0 +1,45 @@
+test_01_layout_and_touch_targets (__main__.chromium_desktop.test_01_layout_and_touch_targets) ... ok
+test_02_rotation_preserves_exact_pixels_and_aspect (__main__.chromium_desktop.test_02_rotation_preserves_exact_pixels_and_aspect) ... ok
+test_03_browser_bar_height_changes_do_not_rebuild_bitmap (__main__.chromium_desktop.test_03_browser_bar_height_changes_do_not_rebuild_bitmap) ... ok
+test_04_brush_and_exact_undo_redo (__main__.chromium_desktop.test_04_brush_and_exact_undo_redo) ... ok
+test_05_sparkle_leaves_paint_and_highlights (__main__.chromium_desktop.test_05_sparkle_leaves_paint_and_highlights) ... ok
+test_06_eraser_then_undo_restores_exact_pixels (__main__.chromium_desktop.test_06_eraser_then_undo_restores_exact_pixels) ... ok
+test_07_bucket_self_drawn_closed_region (__main__.chromium_desktop.test_07_bucket_self_drawn_closed_region) ... ok
+test_08_bucket_after_resize_hits_same_region (__main__.chromium_desktop.test_08_bucket_after_resize_hits_same_region) ... ok
+test_09_bucket_builtin_and_other_page_buttons (__main__.chromium_desktop.test_09_bucket_builtin_and_other_page_buttons) ... ok
+test_10_upload_after_scrolling_opens_native_filechooser (__main__.chromium_desktop.test_10_upload_after_scrolling_opens_native_filechooser) ... ok
+test_11_draw_after_rotation_maps_to_pointer (__main__.chromium_desktop.test_11_draw_after_rotation_maps_to_pointer) ... ok
+test_12_rapid_taps_and_dblclick_keep_scale_and_toolbar (__main__.chromium_desktop.test_12_rapid_taps_and_dblclick_keep_scale_and_toolbar) ... ok
+test_13_multi_pointer_and_cancel_recovery (__main__.chromium_desktop.test_13_multi_pointer_and_cancel_recovery) ... ok
+test_14_twenty_step_undo_limit (__main__.chromium_desktop.test_14_twenty_step_undo_limit) ... ok
+test_15_sticker_background_and_png_export (__main__.chromium_desktop.test_15_sticker_background_and_png_export) ... ok
+test_16_new_confirmation_does_not_clear_on_cancel (__main__.chromium_desktop.test_16_new_confirmation_does_not_clear_on_cancel) ... ok
+test_17_touch_gesture_handlers_scoped_away_from_upload (__main__.chromium_desktop.test_17_touch_gesture_handlers_scoped_away_from_upload) ... ok
+test_18_actual_touch_swipe_draws_without_scrolling (__main__.chromium_desktop.test_18_actual_touch_swipe_draws_without_scrolling) ... skipped 'Touch-only case'
+test_19_actual_toolbar_touch_scroll_keeps_header (__main__.chromium_desktop.test_19_actual_toolbar_touch_scroll_keeps_header) ... skipped 'Touch-only case'
+test_20_after_eraser_templates_and_uploads_are_visible (__main__.chromium_desktop.test_20_after_eraser_templates_and_uploads_are_visible) ... ok
+test_21_zoom_buttons_and_fit_preserve_exact_pixels (__main__.chromium_desktop.test_21_zoom_buttons_and_fit_preserve_exact_pixels) ... ok
+test_22_actual_two_finger_pinch_changes_canvas_not_page (__main__.chromium_desktop.test_22_actual_two_finger_pinch_changes_canvas_not_page) ... skipped 'Touch-only case; desktop uses the visible zoom controls'
+test_23_two_finger_pan_preserves_view_scale_and_art (__main__.chromium_desktop.test_23_two_finger_pan_preserves_view_scale_and_art) ... skipped 'Touch-only case; desktop uses the visible zoom controls'
+test_24_pinch_rolls_back_unfinished_stroke_without_undo_entry (__main__.chromium_desktop.test_24_pinch_rolls_back_unfinished_stroke_without_undo_entry) ... skipped 'Touch-only case; desktop uses the visible zoom controls'
+test_25_bucket_selected_pinch_does_not_fill (__main__.chromium_desktop.test_25_bucket_selected_pinch_does_not_fill) ... skipped 'Touch-only case; desktop uses the visible zoom controls'
+test_26_sticker_selected_pinch_does_not_stamp (__main__.chromium_desktop.test_26_sticker_selected_pinch_does_not_stamp) ... skipped 'Touch-only case; desktop uses the visible zoom controls'
+test_27_horizontal_and_vertical_scroll_sliders_move_only_canvas (__main__.chromium_desktop.test_27_horizontal_and_vertical_scroll_sliders_move_only_canvas) ... ok
+test_28_brush_after_zoom_and_scroll_hits_correct_artwork (__main__.chromium_desktop.test_28_brush_after_zoom_and_scroll_hits_correct_artwork) ... ok
+test_29_sparkle_and_eraser_work_while_zoomed (__main__.chromium_desktop.test_29_sparkle_and_eraser_work_while_zoomed) ... ok
+test_30_self_drawn_bucket_fills_after_zoom_and_scroll (__main__.chromium_desktop.test_30_self_drawn_bucket_fills_after_zoom_and_scroll) ... ok
+test_31_template_fill_after_zoom_does_not_leak_through_eye (__main__.chromium_desktop.test_31_template_fill_after_zoom_does_not_leak_through_eye) ... ok
+test_32_uploaded_picture_fill_at_zoom_and_reupload (__main__.chromium_desktop.test_32_uploaded_picture_fill_at_zoom_and_reupload) ... ok
+test_33_rotation_while_zoomed_preserves_pixels_and_zoom (__main__.chromium_desktop.test_33_rotation_while_zoomed_preserves_pixels_and_zoom) ... ok
+test_34_save_exports_entire_picture_not_only_zoomed_view (__main__.chromium_desktop.test_34_save_exports_entire_picture_not_only_zoomed_view) ... ok
+test_35_zoomed_double_taps_do_not_zoom_the_page (__main__.chromium_desktop.test_35_zoomed_double_taps_do_not_zoom_the_page) ... ok
+test_36_pen_pointer_ignores_palm_touches (__main__.chromium_desktop.test_36_pen_pointer_ignores_palm_touches) ... ok
+test_37_blur_during_gesture_recovers_without_marks (__main__.chromium_desktop.test_37_blur_during_gesture_recovers_without_marks) ... skipped 'Touch-only case; desktop uses the visible zoom controls'
+test_38_zoom_visual_layout_and_scroll_to_edges (__main__.chromium_desktop.test_38_zoom_visual_layout_and_scroll_to_edges) ... ok
+test_39_trusted_finger_brush_hits_zoomed_scrolled_canvas (__main__.chromium_desktop.test_39_trusted_finger_brush_hits_zoomed_scrolled_canvas) ... skipped 'Touch-only case; desktop uses the visible zoom controls'
+test_40_zoom_anchor_stays_under_the_finger_midpoint (__main__.chromium_desktop.test_40_zoom_anchor_stays_under_the_finger_midpoint) ... ok
+
+----------------------------------------------------------------------
+Ran 40 tests in 87.274s
+
+OK (skipped=9)
