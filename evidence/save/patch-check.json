@@ -1,0 +1,23 @@
+{
+  "base": "exact happy-coloring-seven-languages-tested.zip",
+  "apply_check": "pass",
+  "applied_files_identical": true,
+  "files": [
+    "app.js",
+    "index.html",
+    "i18n.js",
+    "save-picture.js",
+    "save-picture.css",
+    "package.json",
+    "SAVE-FIX-README.md",
+    "docs/SAVE-DEVICE-CHECKLIST.md",
+    "docs/SAVE-TEST-REPORT.md",
+    "tests/unit/languages.test.cjs",
+    "tests/unit/save-picture.test.cjs",
+    "tests/fixtures/save-base-handler.txt",
+    "tests/browser/run_browser_tests.py",
+    "tests/browser/run_colorful_tests.py",
+    "tests/browser/run_language_tests.py",
+    "tests/browser/run_save_tests.py"
+  ]
+}

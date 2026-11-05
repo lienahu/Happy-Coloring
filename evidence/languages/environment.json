@@ -1,0 +1,8 @@
+{
+  "node": "v22.16.0",
+  "python": "Python 3.13.5",
+  "chromium": "Chromium 144.0.7559.96 built on Debian GNU/Linux 13 (trixie)",
+  "playwright": "1.57.0",
+  "transport": "Source injection. HTTP and HTTPS navigation are blocked by administrator policy. No real iOS device or WebKit was available.",
+  "storage": "Pure helper tests and browser roundtrip with simulated storage; actual reload persistence not validated in this environment."
+}

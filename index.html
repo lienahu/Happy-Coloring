@@ -1,123 +1,145 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+
+<html data-ui="colorful-1" lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1,viewport-fit=cover" name="viewport"/>
 <title>Happy Colors</title>
-<link rel="stylesheet" href="style.css?v=canvas-zoom-1">
+<link href="style.css?v=colorful-save-1" rel="stylesheet"/>
+<meta content="#eee8ff" name="theme-color"/>
+<link href="apple-colorful.css?v=colorful-save-1" rel="stylesheet"/>
+<link href="languages.css?v=colorful-save-1" rel="stylesheet"/><link href="save-picture.css?v=colorful-save-1" rel="stylesheet"/>
 </head>
 <body>
 <header>
-  <div class="brand">🎨 Happy Colors <small class="build-tag">Canvas zoom 1</small></div>
-  <div class="top-actions">
-    <button id="undoBtn" type="button" aria-label="Undo" title="Undo"><span class="action-icon" aria-hidden="true">↩️</span> <span class="action-text">Undo</span></button>
-    <button id="redoBtn" type="button" aria-label="Redo" title="Redo"><span class="action-icon" aria-hidden="true">↪️</span> <span class="action-text">Redo</span></button>
-    <button id="newBtn" type="button" aria-label="New" title="New"><span class="action-icon" aria-hidden="true">✨</span> <span class="action-text">New</span></button>
-    <button id="saveBtn" class="primary" type="button" aria-label="Save" title="Save"><span class="action-icon" aria-hidden="true">💾</span> <span class="action-text">Save</span></button>
-  </div>
-</header>
-
+<div class="brand-cluster">
+<button aria-controls="artTools" aria-expanded="false" aria-label="Open art tools" class="icon-button mobile-only" data-i18n-aria="openTools" id="toolsToggle" type="button"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"></path></svg></button>
+<div class="brand"><span class="brand-mark"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18h1a2 2 0 0 0 1-3.7 1.5 1.5 0 0 1 .7-2.8H17a4 4 0 0 0 4-4C21 6 17 3 12 3Z"></path><circle cx="7" cy="11" r=".8"></circle><circle cx="9" cy="7" r=".8"></circle><circle cx="14" cy="6.5" r=".8"></circle><circle cx="17" cy="10" r=".8"></circle></svg></span><span class="brand-name">Happy <b>Colors</b><small class="build-tag">Colorful S1</small></span></div>
+</div>
+<div aria-label="Canvas zoom controls" class="canvas-view-tools" data-i18n-aria="zoomControls" role="group">
+<button aria-label="Zoom canvas out" data-i18n-aria="zoomOut" data-i18n-title="zoomOut" id="zoomOutBtn" title="Zoom out" type="button">−</button>
+<output aria-label="Canvas zoom level" data-i18n-aria="zoomLevel" id="zoomLabel">100%</output>
+<button aria-label="Zoom canvas in" data-i18n-aria="zoomIn" data-i18n-title="zoomIn" id="zoomInBtn" title="Zoom in" type="button">+</button>
+<button data-i18n="fit" data-i18n-aria="fitTitle" data-i18n-title="fitTitle" id="zoomFitBtn" title="Show the whole picture" type="button">Fit</button>
+<button aria-label="Large drawing view" data-i18n-aria="largeTitle" data-i18n-title="largeTitle" id="zoomLargeBtn" title="Larger view; move with two fingers" type="button"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="M8 3H3v5M16 3h5v5M3 16v5h5M21 16v5h-5"></path></svg><span data-i18n="large">Large</span></button>
+</div>
+<div class="top-actions">
+<button aria-label="Undo" class="" data-i18n-aria="undo" data-i18n-title="undo" id="undoBtn" title="Undo" type="button"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="M8 5 3 10l5 5M4 10h10a6 6 0 0 1 0 12"></path></svg><span class="action-text" data-i18n="undo">Undo</span></button>
+<button aria-label="Redo" class="" data-i18n-aria="redo" data-i18n-title="redo" id="redoBtn" title="Redo" type="button"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="m16 5 5 5-5 5M20 10H10a6 6 0 0 0 0 12"></path></svg><span class="action-text" data-i18n="redo">Redo</span></button>
+<button aria-label="New" class="" data-i18n-aria="new" data-i18n-title="new" id="newBtn" title="New" type="button"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="M14 3H5v18h14V8l-5-5ZM14 3v5h5M8 14h8M12 10v8"></path></svg><span class="action-text" data-i18n="new">New</span></button>
+<button aria-label="Save" class="primary" data-i18n-aria="save" data-i18n-title="save" aria-controls="saveDialog" aria-haspopup="dialog" id="saveBtn" title="Save" type="button"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 3v12m-5-5 5 5 5-5M4 15v6h16v-6"></path></svg><span class="action-text" data-i18n="save">Save</span></button>
+</div>
+<button aria-controls="languageDialog" aria-haspopup="dialog" aria-label="Language" class="icon-button desktop-language" data-i18n-aria="language" data-i18n-title="language" data-open-language="" id="languageBtn" title="Language" type="button"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><ellipse cx="12" cy="12" rx="4" ry="9"></ellipse><path d="M3 12h18M5 6.5h14M5 17.5h14"></path></svg></button></header>
 <main>
-<aside class="tools">
-  <section>
-    <h2>Colors</h2>
-    <div id="palette" class="palette"></div>
-    <label class="custom-color">More <input id="colorPicker" type="color" value="#ff4f87"></label>
-  </section>
-
-  <section>
-    <h2>Brush Size</h2>
-    <div class="brushes">
-      <button class="brush active" data-size="8">S</button>
-      <button class="brush" data-size="16">M</button>
-      <button class="brush" data-size="28">L</button>
-      <button class="brush" data-size="44">XL</button>
-    </div>
-  </section>
-
-  <section class="tool-buttons">
-    <button id="brushBtn" class="active">🖌️ Brush</button>
-    <button id="sparkleBtn">✨ Sparkle</button>
-    <button id="bucketBtn">🪣 Fill</button>
-    <button id="outlineBtn">✏️ Draw Picture</button>
-    <button id="eraserBtn">🧽 Eraser</button>
-    <button id="clearBtn">🗑️ Clear</button>
-  </section>
-
-  <section>
-    <h2>Coloring Pages</h2>
-    <div class="pages">
-      <button class="pageBtn" data-page="blank">⬜ Blank</button>
-      <button class="pageBtn" data-page="unicorn">🦄 Unicorn</button>
-      <button class="pageBtn" data-page="princess">👸 Princess</button>
-      <button class="pageBtn" data-page="cat">🐱 Cat</button>
-      <button class="pageBtn" data-page="butterfly">🦋 Butterfly</button>
-      <button class="pageBtn" data-page="dino">🦖 Dinosaur</button>
-    </div>
-  </section>
-
-  <section>
-    <h2>Stickers</h2>
-    <div id="stickers" class="stickers">
-      <button data-sticker="⭐">⭐</button>
-      <button data-sticker="🌈">🌈</button>
-      <button data-sticker="❤️">❤️</button>
-      <button data-sticker="🌸">🌸</button>
-      <button data-sticker="🦄">🦄</button>
-      <button data-sticker="👑">👑</button>
-      <button data-sticker="🦋">🦋</button>
-      <button data-sticker="✨">✨</button>
-    </div>
-    <div class="tiny">Pick a sticker, then tap the picture.</div>
-  </section>
-
-  <section class="background-section">
-    <h2>Background</h2>
-    <div class="backgrounds">
-      <button class="bg active" data-bg="#ffffff">⬜ White</button>
-      <button class="bg" data-bg="#fff7df">🌤️ Cream</button>
-      <button class="bg" data-bg="#dff5ff">☁️ Sky</button>
-      <button class="bg" data-bg="#ffe5ef">🌸 Pink</button>
-    </div>
-
-    <label class="upload-control" for="imageUpload">
-      <span>🖼️ Upload Picture</span>
-      <input id="imageUpload" type="file" accept="image/*">
-    </label>
-  </section>
+<aside aria-label="Art tools" class="tools" data-i18n-aria="drawingTools" id="artTools">
+<div class="drawer-heading"><div><h2 data-i18n="drawingTools">Drawing tools</h2></div><button aria-label="Close art tools" class="icon-button mobile-only" data-i18n-aria="closeTools" id="closeTools" type="button"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"></path></svg></button></div><section class="tool-buttons" id="toolsSection">
+<button class="active" data-i18n-aria="brush" data-i18n-title="brush" id="brushBtn"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="m14 4 6 6-9 9-6-6 9-9Z"></path><path d="m4 14-1 7 7-1M13 5l6 6"></path></svg><span data-i18n="brush">Brush</span></button>
+<button data-i18n-aria="sparkle" data-i18n-title="sparkle" id="sparkleBtn"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="m12 3 2.4 6.6L21 12l-6.6 2.4L12 21l-2.4-6.6L3 12l6.6-2.4L12 3ZM20 2v4M18 4h4"></path></svg><span data-i18n="sparkle">Sparkle</span></button>
+<button data-i18n-aria="fill" data-i18n-title="fill" id="bucketBtn"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="m8 3 11 11-8 7-9-9 8-9ZM4 10h12"></path><path d="M21 14s-2 3-2 4a2 2 0 0 0 4 0c0-1-2-4-2-4Z"></path></svg><span data-i18n="fill">Fill</span></button>
+<button data-i18n-aria="outline" data-i18n-title="outline" id="outlineBtn"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="m14 4 6 6-9 9-6-6 9-9Z"></path><path d="m4 14-1 7 7-1M13 5l6 6"></path></svg><span data-i18n="outline">Outline</span></button>
+<button data-i18n-aria="eraser" data-i18n-title="eraser" id="eraserBtn"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="m3 13 9-10 9 8-9 10H9l-6-5v-3ZM8 8l9 8M12 21h9"></path></svg><span data-i18n="eraser">Eraser</span></button>
+<button data-i18n-aria="clear" data-i18n-title="clear" id="clearBtn"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="M4 6h16M9 6V3h6v3M6 6l1 15h10l1-15M10 10v7M14 10v7"></path></svg><span data-i18n="clear">Clear</span></button>
+</section>
+<section id="colorsSection">
+<h2 data-i18n="colors">Colors</h2>
+<div class="palette" id="palette"></div>
+<label class="custom-color"><span data-i18n="moreColors">More colors</span><input data-i18n-aria="moreColors" id="colorPicker" type="color" value="#ff4f87"/></label>
+</section>
+<section id="sizesSection">
+<h2 data-i18n="brushSize">Brush Size</h2>
+<div class="brushes">
+<button aria-label="Small brush" class="brush active" data-i18n-aria="small" data-i18n-title="small" data-size="8"><i style="--dot:6px"></i><span data-i18n="smallShort">S</span></button>
+<button aria-label="M brush" class="brush" data-i18n-aria="medium" data-i18n-title="medium" data-size="16"><i style="--dot:10px"></i><span data-i18n="mediumShort">M</span></button>
+<button aria-label="L brush" class="brush" data-i18n-aria="largeBrush" data-i18n-title="largeBrush" data-size="28"><i style="--dot:16px"></i><span data-i18n="largeShort">L</span></button>
+<button aria-label="XL brush" class="brush" data-i18n-aria="extraLarge" data-i18n-title="extraLarge" data-size="44"><i style="--dot:22px"></i><span data-i18n="extraLargeShort">XL</span></button>
+</div>
+</section><section aria-label="Import picture" class="picture-import" data-i18n-aria="importPicture"><label class="upload-control" for="imageUpload">
+<svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 16V3m-5 5 5-5 5 5M4 15v6h16v-6"></path></svg><span data-i18n="upload">Upload picture</span>
+<input accept="image/*" data-i18n-aria="upload" id="imageUpload" type="file"/>
+</label></section>
+<section id="pagesSection">
+<h2 data-i18n="pages">Coloring Pages</h2>
+<div class="pages">
+<button class="pageBtn" data-i18n-aria="blank" data-page="blank"><span aria-hidden="true">⬜</span> <span data-i18n="blank">Blank</span></button>
+<button class="pageBtn" data-i18n-aria="unicorn" data-page="unicorn"><span aria-hidden="true">🦄</span> <span data-i18n="unicorn">Unicorn</span></button>
+<button class="pageBtn" data-i18n-aria="princess" data-page="princess"><span aria-hidden="true">👸</span> <span data-i18n="princess">Princess</span></button>
+<button class="pageBtn" data-i18n-aria="cat" data-page="cat"><span aria-hidden="true">🐱</span> <span data-i18n="cat">Cat</span></button>
+<button class="pageBtn" data-i18n-aria="butterfly" data-page="butterfly"><span aria-hidden="true">🦋</span> <span data-i18n="butterfly">Butterfly</span></button>
+<button class="pageBtn" data-i18n-aria="dinosaur" data-page="dino"><span aria-hidden="true">🦖</span> <span data-i18n="dinosaur">Dinosaur</span></button>
+</div>
+</section>
+<section id="stickersSection">
+<h2 data-i18n="stickers">Stickers</h2>
+<div class="stickers" id="stickers">
+<button data-i18n-aria="stickerStar" data-i18n-title="stickerStar" data-sticker="⭐">⭐</button>
+<button data-i18n-aria="stickerRainbow" data-i18n-title="stickerRainbow" data-sticker="🌈">🌈</button>
+<button data-i18n-aria="stickerHeart" data-i18n-title="stickerHeart" data-sticker="❤️">❤️</button>
+<button data-i18n-aria="stickerFlower" data-i18n-title="stickerFlower" data-sticker="🌸">🌸</button>
+<button data-i18n-aria="stickerUnicorn" data-i18n-title="stickerUnicorn" data-sticker="🦄">🦄</button>
+<button data-i18n-aria="stickerCrown" data-i18n-title="stickerCrown" data-sticker="👑">👑</button>
+<button data-i18n-aria="stickerButterfly" data-i18n-title="stickerButterfly" data-sticker="🦋">🦋</button>
+<button data-i18n-aria="stickerSparkle" data-i18n-title="stickerSparkle" data-sticker="✨">✨</button>
+</div>
+<div class="tiny" data-i18n="stickerHint">Pick a sticker, then tap the picture.</div>
+</section>
+<section class="background-section">
+<h2 data-i18n="background">Background</h2>
+<div class="backgrounds">
+<button class="bg active" data-bg="#ffffff" data-i18n-aria="white"><span aria-hidden="true">⬜</span> <span data-i18n="white">White</span></button>
+<button class="bg" data-bg="#fff7df" data-i18n-aria="cream"><span aria-hidden="true">🌤️</span> <span data-i18n="cream">Cream</span></button>
+<button class="bg" data-bg="#dff5ff" data-i18n-aria="sky"><span aria-hidden="true">☁️</span> <span data-i18n="sky">Sky</span></button>
+<button class="bg" data-bg="#ffe5ef" data-i18n-aria="pink"><span aria-hidden="true">🌸</span> <span data-i18n="pink">Pink</span></button>
+</div>
+</section>
 </aside>
-
+<nav aria-label="Art shortcuts" class="quick-dock mobile-only" data-i18n-aria="shortcuts"><button aria-label="Open tools" data-i18n-aria="openTools" data-open-section="toolsSection" type="button"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="m14 4 6 6-9 9-6-6 9-9Z"></path><path d="m4 14-1 7 7-1M13 5l6 6"></path></svg><span data-i18n="toolsShort">Tools</span></button><button aria-label="Open colors" data-i18n-aria="openColors" data-open-section="colorsSection" type="button"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18h1a2 2 0 0 0 1-3.7 1.5 1.5 0 0 1 .7-2.8H17a4 4 0 0 0 4-4C21 6 17 3 12 3Z"></path><circle cx="7" cy="11" r=".8"></circle><circle cx="9" cy="7" r=".8"></circle><circle cx="14" cy="6.5" r=".8"></circle><circle cx="17" cy="10" r=".8"></circle></svg><span data-i18n="colors">Colors</span></button><button aria-label="Open pages" data-i18n-aria="openPages" data-open-section="pagesSection" type="button"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="M7 3h14v15M3 7h14v14H3V7Z"></path><path d="m5 18 4-5 3 3 2-2M7 10h.1"></path></svg><span data-i18n="pagesShort">Pages</span></button><button aria-label="Open stickers" data-i18n-aria="openStickers" data-open-section="stickersSection" type="button"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="M21 13V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h8l8-8ZM13 21v-6a2 2 0 0 1 2-2h6M7 8h.1M14 8h.1M7 11c2 3 5 3 7 0"></path></svg><span data-i18n="stickersShort">Stickers</span></button><button aria-controls="languageDialog" aria-haspopup="dialog" aria-label="Language" data-i18n-aria="language" data-open-language="" id="languageDockBtn" type="button"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><ellipse cx="12" cy="12" rx="4" ry="9"></ellipse><path d="M3 12h18M5 6.5h14M5 17.5h14"></path></svg><span data-i18n="language">Language</span></button></nav>
+<button aria-label="Close art tools" class="drawer-shade" data-i18n-aria="closeTools" hidden="" id="drawerShade" type="button"></button>
 <section class="canvas-wrap">
-  <div class="canvas-view-tools" role="group" aria-label="Canvas zoom controls">
-    <button id="zoomOutBtn" type="button" aria-label="Zoom canvas out" title="Zoom out">−</button>
-    <output id="zoomLabel" aria-label="Canvas zoom level">100%</output>
-    <button id="zoomInBtn" type="button" aria-label="Zoom canvas in" title="Zoom in">+</button>
-    <button id="zoomFitBtn" type="button" title="Show the whole picture">Fit</button>
-  </div>
-  <div class="canvas-board">
-    <div class="canvas-stage" id="canvasViewport" tabindex="0" role="region" aria-label="Drawing area: one finger to draw, two fingers to zoom and move">
-      <div id="canvasSurface" class="canvas-surface">
-        <canvas id="canvas" aria-label="Drawing canvas"></canvas>
-      </div>
-    </div>
-    <input id="panY" class="pan-scroll pan-scroll-y" type="range" min="0" max="0" value="0" step="1" aria-label="Scroll canvas vertically" disabled>
-    <input id="panX" class="pan-scroll pan-scroll-x" type="range" min="0" max="0" value="0" step="1" aria-label="Scroll canvas horizontally" disabled>
-  </div>
-  <div class="hint">One finger: draw · Two fingers: zoom &amp; move · Fit: whole picture</div>
+<div class="canvas-board">
+<div aria-label="Drawing area: one finger to draw, two fingers to zoom and move" class="canvas-stage" data-i18n-aria="canvasArea" id="canvasViewport" role="region" tabindex="0">
+<div class="canvas-surface" id="canvasSurface">
+<canvas aria-label="Drawing canvas" data-i18n-aria="canvas" id="canvas"></canvas>
+</div>
+</div>
+<input aria-label="Scroll canvas vertically" class="pan-scroll pan-scroll-y" data-i18n-aria="panY" disabled="" id="panY" max="0" min="0" step="1" type="range" value="0"/>
+<input aria-label="Scroll canvas horizontally" class="pan-scroll pan-scroll-x" data-i18n-aria="panX" disabled="" id="panX" max="0" min="0" step="1" type="range" value="0"/>
+</div>
+<div class="hint"><span data-i18n="hint">One finger to create. Two fingers to explore.</span> <span aria-live="polite" id="viewNotice"></span></div>
 </section>
 </main>
-
-<div id="confirmModal" class="modal hidden">
-  <div class="dialog">
-    <div class="big">🎨</div>
-    <h3>Start a new picture?</h3>
-    <p>Your current drawing will be cleared.</p>
-    <button id="cancelNew">Keep drawing</button>
-    <button id="confirmNew" class="danger">Start new</button>
-  </div>
+<div class="modal hidden" id="confirmModal">
+<div aria-labelledby="newPictureTitle" aria-modal="true" class="dialog" role="dialog">
+<div class="big">🎨</div>
+<h3 data-i18n="newQuestion" id="newPictureTitle">Start a new picture?</h3>
+<p data-i18n="newWarning">Your current drawing will be cleared.</p>
+<button data-i18n="keepDrawing" id="cancelNew">Keep drawing</button>
+<button class="danger" data-i18n="startNew" id="confirmNew">Start new</button>
 </div>
-
-<script src="canvas-zoom.js?v=canvas-zoom-1"></script>
-<script src="app.js?v=canvas-zoom-1"></script>
+</div>
+<script src="i18n.js?v=colorful-save-1"></script><script src="canvas-zoom.js?v=colorful-save-1"></script>
+<script src="save-picture.js?v=colorful-save-1"></script>
+<script src="app.js?v=colorful-save-1"></script>
+<script src="mobile-ui.js?v=colorful-save-1"></script>
+<dialog aria-describedby="languageHint" aria-labelledby="languageTitle" class="language-dialog" id="languageDialog"><div class="language-heading"><h2 data-i18n="chooseLanguage" id="languageTitle">Choose a language</h2><button aria-label="Close" class="icon-button" data-i18n-aria="close" id="closeLanguage" type="button"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"></path></svg></button></div><p data-i18n="languageHint" id="languageHint">Change the menus, not your drawing.</p><div class="language-options"><button aria-pressed="false" class="language-option" data-language="en" lang="en" type="button"><span>English</span><span aria-hidden="true" class="language-check"></span></button><button aria-pressed="false" class="language-option" data-language="fr" lang="fr" type="button"><span>Français</span><span aria-hidden="true" class="language-check"></span></button><button aria-pressed="false" class="language-option" data-language="pt" lang="pt" type="button"><span>Português</span><span aria-hidden="true" class="language-check"></span></button><button aria-pressed="false" class="language-option" data-language="es" lang="es" type="button"><span>Español</span><span aria-hidden="true" class="language-check"></span></button><button aria-pressed="false" class="language-option" data-language="zh-Hans" lang="zh-Hans" type="button"><span>简体中文</span><span aria-hidden="true" class="language-check"></span></button><button aria-pressed="false" class="language-option" data-language="ja" lang="ja" type="button"><span>日本語</span><span aria-hidden="true" class="language-check"></span></button><button aria-pressed="false" class="language-option" data-language="ko" lang="ko" type="button"><span>한국어</span><span aria-hidden="true" class="language-check"></span></button></div></dialog>
+<dialog id="saveDialog" class="save-dialog" aria-labelledby="saveTitle" aria-describedby="saveInstructions">
+  <div class="save-heading">
+    <h2 id="saveTitle" data-i18n="savePicture">Save your picture</h2>
+    <button id="closeSave" type="button" class="icon-button" data-i18n-aria="close" aria-label="Close" autofocus>
+      <svg aria-hidden="true" class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m6 6 12 12M18 6 6 18"/></svg>
+    </button>
+  </div>
+  <div class="save-content">
+    <div class="save-preview-wrap"><img id="savePreview" alt="Preview of the whole picture" hidden/></div>
+    <div class="save-options">
+      <p id="saveInstructions" data-i18n="saveInstructions">To save to Photos on iPhone or iPad, tap Share and choose Save Image if offered. You can also touch and hold the preview.</p>
+      <button id="sharePicture" class="save-primary" type="button" disabled data-i18n="saveShare">Share / Save image</button>
+      <a id="downloadPicture" class="save-action" download="my-coloring.png" target="_blank" rel="noopener" aria-disabled="true" tabindex="-1" data-i18n="saveDownload">Download PNG</a>
+      <a id="openPicture" class="save-action" target="_blank" rel="noopener" aria-disabled="true" tabindex="-1" data-i18n="saveOpen">Open image</a>
+      <button id="retrySave" type="button" hidden data-i18n="saveRetry">Try again</button>
+      <p class="save-note" data-i18n="saveFilesHint">Download saves a file; check Files or Downloads, not just Photos.</p>
+      <p id="saveStatus" role="status" aria-live="polite" aria-atomic="true"></p>
+    </div>
+  </div>
+</dialog>
 </body>
 </html>

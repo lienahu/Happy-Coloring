@@ -1,0 +1,22 @@
+{
+  "canvas-zoom.js": {
+    "unchanged": true,
+    "sha256": "d5889b50df3b8e24c627dde0c7b98156996512da93285b4b1fb574dba5ded5ff"
+  },
+  "mobile-ui.js": {
+    "unchanged": true,
+    "sha256": "0c6fcb8ae97ffd31cba7f2fdcbb1d685e46c000f84722f5dacfbd66bd7def27a"
+  },
+  "style.css": {
+    "unchanged": true,
+    "sha256": "7608015428db8eb337dba3823085be8b6b7bc969cabd01ec20dbe6a4e91cf104"
+  },
+  "apple-colorful.css": {
+    "unchanged": true,
+    "sha256": "d2c816ab4bb184cfb7681b8e82cb119e27b32ae66a739c59c6208a67a1bf8890"
+  },
+  "languages.css": {
+    "unchanged": true,
+    "sha256": "e1bcb1e1518cebdb4746a901b8110f88a4487c63e846348ee8003bc8e37d047f"
+  }
+}

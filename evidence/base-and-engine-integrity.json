@@ -1,0 +1,26 @@
+{
+  "app.js": {
+    "base_git_blob": "36d33b294a33b1ed9e3c11beec5692cc29f5b486",
+    "expected_git_blob": "36d33b294a33b1ed9e3c11beec5692cc29f5b486",
+    "verified": true,
+    "runtime_unchanged": true
+  },
+  "canvas-zoom.js": {
+    "base_git_blob": "a72eb0844b6bd879dc8d109dcbc92c936f2a6346",
+    "expected_git_blob": "a72eb0844b6bd879dc8d109dcbc92c936f2a6346",
+    "verified": true,
+    "runtime_unchanged": true
+  },
+  "style.css": {
+    "base_git_blob": "2eebafd0b41bc627be5c59408e1ba5f68e447d1a",
+    "expected_git_blob": "2eebafd0b41bc627be5c59408e1ba5f68e447d1a",
+    "verified": true,
+    "runtime_unchanged": true
+  },
+  "index.html": {
+    "base_git_blob": "7d61a263ad5007e02dfcdd252d93c91bbf472d94",
+    "expected_git_blob": "7d61a263ad5007e02dfcdd252d93c91bbf472d94",
+    "verified": true,
+    "runtime_unchanged": false
+  }
+}

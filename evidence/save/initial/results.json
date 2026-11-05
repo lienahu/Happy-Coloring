@@ -1,0 +1,216 @@
+{
+  "browser": "Chromium",
+  "browser_version": "144.0.7559.96",
+  "transport": "exact local source injection",
+  "native_share": "mocked API capability/outcomes; no native iOS sheet tested",
+  "tests_run": 34,
+  "failures": 0,
+  "errors": 4,
+  "skipped": 0,
+  "results": [
+    {
+      "test": "__main__.chromium_phone_portrait.test_80_save_tap_opens_full_picture_preview",
+      "status": "passed",
+      "seconds": 1.169,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_portrait.test_81_download_png_preserves_full_dimensions_pixels_background",
+      "status": "passed",
+      "seconds": 1.247,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_portrait.test_82_share_receives_prepared_png_file_on_fresh_user_tap",
+      "status": "passed",
+      "seconds": 0.522,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_portrait.test_83_cancel_share_preserves_preview_and_art_without_auto_download",
+      "status": "passed",
+      "seconds": 0.67,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_portrait.test_84_share_rejection_and_synchronous_error_keep_download_usable",
+      "status": "passed",
+      "seconds": 0.961,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_portrait.test_85_insecure_preview_keeps_fallbacks_and_never_shares",
+      "status": "passed",
+      "seconds": 0.485,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_portrait.test_86_missing_or_rejected_file_share_support_falls_back",
+      "status": "passed",
+      "seconds": 1.052,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_portrait.test_87_delayed_export_can_close_and_cannot_replace_next_preview",
+      "status": "passed",
+      "seconds": 0.997,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_portrait.test_88_encode_failure_shows_retry_and_never_clears_drawing",
+      "status": "error",
+      "seconds": 0.546,
+      "detail": "Traceback (most recent call last):\n  File \"/mnt/data/happy-coloring-save-fix/tests/browser/run_save_tests.py\", line 90, in test_88_encode_failure_shows_retry_and_never_clears_drawing\n    self.page.evaluate('HTMLCanvasElement.prototype.toBlob=__oldToBlob');self.click('#retrySave');self.page.wait_for_function(\"document.querySelector('#savePreview').naturalWidth>0\");self.assertEqual(self.read_art_state(),before)\n    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/pyvenv/lib/python3.13/site-packages/playwright/sync_api/_generated.py\", line 8562, in evaluate\n    self._sync(\n    ~~~~~~~~~~^\n        self._impl_obj.evaluate(expression=expression, arg=mapping.to_impl(arg))\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    )\n    ^\n  File \"/opt/pyvenv/lib/python3.13/site-packages/playwright/_impl/_sync_base.py\", line 115, in _sync\n    return task.result()\n           ~~~~~~~~~~~^^\n  File \"/opt/pyvenv/lib/python3.13/site-packages/playwright/_impl/_page.py\", line 464, in evaluate\n    return await self._main_frame.evaluate(expression, arg)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/pyvenv/lib/python3.13/site-packages/playwright/_impl/_frame.py\", line 320, in evaluate\n    await self._channel.send(\n    ...<6 lines>...\n    )\n  File \"/opt/pyvenv/lib/python3.13/site-packages/playwright/_impl/_connection.py\", line 69, in send\n    return await self._connection.wrap_api_call(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ...<3 lines>...\n    )\n    ^\n  File \"/opt/pyvenv/lib/python3.13/site-packages/playwright/_impl/_connection.py\", line 559, in wrap_api_call\n    raise rewrite_error(error, f\"{parsed_st['apiName']}: {error}\") from None\nplaywright._impl._errors.Error: Page.evaluate: TypeError: Illegal invocation\n    at UtilityScript.evaluate (<anonymous>:297:18)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)\n"
+    },
+    {
+      "test": "__main__.chromium_phone_portrait.test_89_repeated_save_uses_current_picture_and_keeps_live_url",
+      "status": "passed",
+      "seconds": 1.136,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_portrait.test_90_pending_share_does_not_lock_preview_close_or_next_save",
+      "status": "passed",
+      "seconds": 0.754,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_portrait.test_91_all_languages_save_labels_fit_and_close_stays_reachable",
+      "status": "passed",
+      "seconds": 3.833,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_portrait.test_92_preview_is_outside_gesture_blocking_regions_and_allows_context_menu",
+      "status": "passed",
+      "seconds": 0.534,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_portrait.test_93_modal_keyboard_focus_return_and_underlying_picture_unchanged",
+      "status": "passed",
+      "seconds": 0.994,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_portrait.test_94_language_change_and_rotation_keep_prepared_export_identical",
+      "status": "passed",
+      "seconds": 0.665,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_portrait.test_95_error_after_success_cannot_download_stale_picture",
+      "status": "error",
+      "seconds": 0.63,
+      "detail": "Traceback (most recent call last):\n  File \"/mnt/data/happy-coloring-save-fix/tests/browser/run_save_tests.py\", line 126, in test_95_error_after_success_cannot_download_stale_picture\n    self.ready();self.close_save();self.page.evaluate(\"HTMLCanvasElement.prototype.toBlob=function(){throw new DOMException('tainted','SecurityError')}\")\n                                   ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/pyvenv/lib/python3.13/site-packages/playwright/sync_api/_generated.py\", line 8562, in evaluate\n    self._sync(\n    ~~~~~~~~~~^\n        self._impl_obj.evaluate(expression=expression, arg=mapping.to_impl(arg))\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    )\n    ^\n  File \"/opt/pyvenv/lib/python3.13/site-packages/playwright/_impl/_sync_base.py\", line 115, in _sync\n    return task.result()\n           ~~~~~~~~~~~^^\n  File \"/opt/pyvenv/lib/python3.13/site-packages/playwright/_impl/_page.py\", line 464, in evaluate\n    return await self._main_frame.evaluate(expression, arg)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/pyvenv/lib/python3.13/site-packages/playwright/_impl/_frame.py\", line 320, in evaluate\n    await self._channel.send(\n    ...<6 lines>...\n    )\n  File \"/opt/pyvenv/lib/python3.13/site-packages/playwright/_impl/_connection.py\", line 69, in send\n    return await self._connection.wrap_api_call(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ...<3 lines>...\n    )\n    ^\n  File \"/opt/pyvenv/lib/python3.13/site-packages/playwright/_impl/_connection.py\", line 559, in wrap_api_call\n    raise rewrite_error(error, f\"{parsed_st['apiName']}: {error}\") from None\nplaywright._impl._errors.Error: Page.evaluate: SecurityError: tainted\n"
+    },
+    {
+      "test": "__main__.chromium_phone_portrait.test_96_dialog_backdrop_dismisses_without_losing_drawing",
+      "status": "passed",
+      "seconds": 0.799,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_landscape.test_80_save_tap_opens_full_picture_preview",
+      "status": "passed",
+      "seconds": 0.818,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_landscape.test_81_download_png_preserves_full_dimensions_pixels_background",
+      "status": "passed",
+      "seconds": 1.216,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_landscape.test_82_share_receives_prepared_png_file_on_fresh_user_tap",
+      "status": "passed",
+      "seconds": 0.56,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_landscape.test_83_cancel_share_preserves_preview_and_art_without_auto_download",
+      "status": "passed",
+      "seconds": 0.662,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_landscape.test_84_share_rejection_and_synchronous_error_keep_download_usable",
+      "status": "passed",
+      "seconds": 0.963,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_landscape.test_85_insecure_preview_keeps_fallbacks_and_never_shares",
+      "status": "passed",
+      "seconds": 0.448,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_landscape.test_86_missing_or_rejected_file_share_support_falls_back",
+      "status": "passed",
+      "seconds": 0.949,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_landscape.test_87_delayed_export_can_close_and_cannot_replace_next_preview",
+      "status": "passed",
+      "seconds": 1.008,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_landscape.test_88_encode_failure_shows_retry_and_never_clears_drawing",
+      "status": "error",
+      "seconds": 0.594,
+      "detail": "Traceback (most recent call last):\n  File \"/mnt/data/happy-coloring-save-fix/tests/browser/run_save_tests.py\", line 90, in test_88_encode_failure_shows_retry_and_never_clears_drawing\n    self.page.evaluate('HTMLCanvasElement.prototype.toBlob=__oldToBlob');self.click('#retrySave');self.page.wait_for_function(\"document.querySelector('#savePreview').naturalWidth>0\");self.assertEqual(self.read_art_state(),before)\n    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/pyvenv/lib/python3.13/site-packages/playwright/sync_api/_generated.py\", line 8562, in evaluate\n    self._sync(\n    ~~~~~~~~~~^\n        self._impl_obj.evaluate(expression=expression, arg=mapping.to_impl(arg))\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    )\n    ^\n  File \"/opt/pyvenv/lib/python3.13/site-packages/playwright/_impl/_sync_base.py\", line 115, in _sync\n    return task.result()\n           ~~~~~~~~~~~^^\n  File \"/opt/pyvenv/lib/python3.13/site-packages/playwright/_impl/_page.py\", line 464, in evaluate\n    return await self._main_frame.evaluate(expression, arg)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/pyvenv/lib/python3.13/site-packages/playwright/_impl/_frame.py\", line 320, in evaluate\n    await self._channel.send(\n    ...<6 lines>...\n    )\n  File \"/opt/pyvenv/lib/python3.13/site-packages/playwright/_impl/_connection.py\", line 69, in send\n    return await self._connection.wrap_api_call(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ...<3 lines>...\n    )\n    ^\n  File \"/opt/pyvenv/lib/python3.13/site-packages/playwright/_impl/_connection.py\", line 559, in wrap_api_call\n    raise rewrite_error(error, f\"{parsed_st['apiName']}: {error}\") from None\nplaywright._impl._errors.Error: Page.evaluate: TypeError: Illegal invocation\n    at UtilityScript.evaluate (<anonymous>:297:18)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)\n"
+    },
+    {
+      "test": "__main__.chromium_phone_landscape.test_89_repeated_save_uses_current_picture_and_keeps_live_url",
+      "status": "passed",
+      "seconds": 1.139,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_landscape.test_90_pending_share_does_not_lock_preview_close_or_next_save",
+      "status": "passed",
+      "seconds": 0.822,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_landscape.test_91_all_languages_save_labels_fit_and_close_stays_reachable",
+      "status": "passed",
+      "seconds": 3.496,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_landscape.test_92_preview_is_outside_gesture_blocking_regions_and_allows_context_menu",
+      "status": "passed",
+      "seconds": 0.521,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_landscape.test_93_modal_keyboard_focus_return_and_underlying_picture_unchanged",
+      "status": "passed",
+      "seconds": 0.647,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_landscape.test_94_language_change_and_rotation_keep_prepared_export_identical",
+      "status": "passed",
+      "seconds": 0.693,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_landscape.test_95_error_after_success_cannot_download_stale_picture",
+      "status": "error",
+      "seconds": 0.529,
+      "detail": "Traceback (most recent call last):\n  File \"/mnt/data/happy-coloring-save-fix/tests/browser/run_save_tests.py\", line 126, in test_95_error_after_success_cannot_download_stale_picture\n    self.ready();self.close_save();self.page.evaluate(\"HTMLCanvasElement.prototype.toBlob=function(){throw new DOMException('tainted','SecurityError')}\")\n                                   ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/pyvenv/lib/python3.13/site-packages/playwright/sync_api/_generated.py\", line 8562, in evaluate\n    self._sync(\n    ~~~~~~~~~~^\n        self._impl_obj.evaluate(expression=expression, arg=mapping.to_impl(arg))\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    )\n    ^\n  File \"/opt/pyvenv/lib/python3.13/site-packages/playwright/_impl/_sync_base.py\", line 115, in _sync\n    return task.result()\n           ~~~~~~~~~~~^^\n  File \"/opt/pyvenv/lib/python3.13/site-packages/playwright/_impl/_page.py\", line 464, in evaluate\n    return await self._main_frame.evaluate(expression, arg)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/pyvenv/lib/python3.13/site-packages/playwright/_impl/_frame.py\", line 320, in evaluate\n    await self._channel.send(\n    ...<6 lines>...\n    )\n  File \"/opt/pyvenv/lib/python3.13/site-packages/playwright/_impl/_connection.py\", line 69, in send\n    return await self._connection.wrap_api_call(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ...<3 lines>...\n    )\n    ^\n  File \"/opt/pyvenv/lib/python3.13/site-packages/playwright/_impl/_connection.py\", line 559, in wrap_api_call\n    raise rewrite_error(error, f\"{parsed_st['apiName']}: {error}\") from None\nplaywright._impl._errors.Error: Page.evaluate: SecurityError: tainted\n"
+    },
+    {
+      "test": "__main__.chromium_phone_landscape.test_96_dialog_backdrop_dismisses_without_losing_drawing",
+      "status": "passed",
+      "seconds": 0.634,
+      "detail": ""
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+test_46_safe_area_simulation_does_not_cover_buttons (__main__.chromium_desktop.test_46_safe_area_simulation_does_not_cover_buttons) ... ok
+test_46_safe_area_simulation_does_not_cover_buttons (__main__.chromium_tablet_landscape.test_46_safe_area_simulation_does_not_cover_buttons) ... ok
+test_46_safe_area_simulation_does_not_cover_buttons (__main__.chromium_phone_landscape.test_46_safe_area_simulation_does_not_cover_buttons) ... ok
+test_46_safe_area_simulation_does_not_cover_buttons (__main__.chromium_phone_portrait.test_46_safe_area_simulation_does_not_cover_buttons) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 9.832s
+
+OK

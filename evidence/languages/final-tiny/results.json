@@ -1,0 +1,18 @@
+{
+  "browser": "Chromium",
+  "browser_version": "144.0.7559.96",
+  "transport": "exact local source injection",
+  "storage": "simulated preference roundtrip; real API blocked on this origin",
+  "tests_run": 1,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "results": [
+    {
+      "test": "__main__.chromium_phone_tiny_landscape.test_67_all_languages_fit_controls_sidebar_and_picker",
+      "status": "passed",
+      "seconds": 31.519,
+      "detail": ""
+    }
+  ]
+}

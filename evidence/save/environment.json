@@ -1,0 +1,10 @@
+{
+  "node": "v22.16.0",
+  "python": "3.13.5",
+  "playwright": "1.57.0",
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "navigation_probe": "http://127.0.0.1:<port>/ failed: net::ERR_BLOCKED_BY_ADMINISTRATOR",
+  "test_mode": "exact local source injection",
+  "native_share": "API mocked in scenario tests, actual native iOS sharing NOT tested",
+  "physical_devices": "none"
+}

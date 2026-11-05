@@ -1,0 +1,56 @@
+Downloading Webkit 26.0 (playwright build v2227) from https://cdn.playwright.dev/dbazure/download/playwright/builds/webkit/2227/webkit-debian-13.zip
+(node:6702) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+Error: getaddrinfo EAI_AGAIN cdn.playwright.dev
+    at GetAddrInfoReqWrap.onlookupall [as oncomplete] (node:internal/dns/promises:101:17) {
+  errno: -3001,
+  code: 'EAI_AGAIN',
+  syscall: 'getaddrinfo',
+  hostname: 'cdn.playwright.dev'
+}
+Downloading Webkit 26.0 (playwright build v2227) from https://playwright.download.prss.microsoft.com/dbazure/download/playwright/builds/webkit/2227/webkit-debian-13.zip
+(node:7057) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+Error: getaddrinfo EAI_AGAIN playwright.download.prss.microsoft.com
+    at GetAddrInfoReqWrap.onlookupall [as oncomplete] (node:internal/dns/promises:101:17) {
+  errno: -3001,
+  code: 'EAI_AGAIN',
+  syscall: 'getaddrinfo',
+  hostname: 'playwright.download.prss.microsoft.com'
+}
+Downloading Webkit 26.0 (playwright build v2227) from https://cdn.playwright.dev/builds/webkit/2227/webkit-debian-13.zip
+(node:7431) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+Error: getaddrinfo EAI_AGAIN cdn.playwright.dev
+    at GetAddrInfoReqWrap.onlookupall [as oncomplete] (node:internal/dns/promises:101:17) {
+  errno: -3001,
+  code: 'EAI_AGAIN',
+  syscall: 'getaddrinfo',
+  hostname: 'cdn.playwright.dev'
+}
+Downloading Webkit 26.0 (playwright build v2227) from https://cdn.playwright.dev/dbazure/download/playwright/builds/webkit/2227/webkit-debian-13.zip
+(node:7837) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+Error: getaddrinfo EAI_AGAIN cdn.playwright.dev
+    at GetAddrInfoReqWrap.onlookupall [as oncomplete] (node:internal/dns/promises:101:17) {
+  errno: -3001,
+  code: 'EAI_AGAIN',
+  syscall: 'getaddrinfo',
+  hostname: 'cdn.playwright.dev'
+}
+Downloading Webkit 26.0 (playwright build v2227) from https://playwright.download.prss.microsoft.com/dbazure/download/playwright/builds/webkit/2227/webkit-debian-13.zip
+(node:8346) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+Error: getaddrinfo EAI_AGAIN playwright.download.prss.microsoft.com
+    at GetAddrInfoReqWrap.onlookupall [as oncomplete] (node:internal/dns/promises:101:17) {
+  errno: -3001,
+  code: 'EAI_AGAIN',
+  syscall: 'getaddrinfo',
+  hostname: 'playwright.download.prss.microsoft.com'
+}
+Failed to install browsers
+Error: Failed to download Webkit 26.0 (playwright build v2227), caused by
+Error: Download failure, code=1
+    at ChildProcess.<anonymous> (/opt/pyvenv/lib/python3.13/site-packages/playwright/driver/package/lib/server/registry/browserFetcher.js:94:32)
+    at ChildProcess.emit (node:events:508:28)
+    at ChildProcess._handle.onexit (node:internal/child_process:294:12)

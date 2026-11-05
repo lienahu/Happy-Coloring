@@ -1,0 +1,960 @@
+diff --git a/COLORFUL-README.zh-CN.md b/COLORFUL-README.zh-CN.md
+new file mode 100644
+index 0000000..c31c86f
+--- /dev/null
++++ b/COLORFUL-README.zh-CN.md
+@@ -0,0 +1,85 @@
++# Happy Colors · Apple Colorful 固定界面候选版
++
++本次选择的是设计对比图中的 B「Apple Colorful」。这是一个固定产品界面，而不是给儿童切换的主题集合。页面中没有 Style 按钮、主题弹窗、主题链接或主题偏好读取。
++
++## 设计
++
++淡紫、浅蓝、粉色的低饱和渐变工作区；半透明白色工具面板；紫色主要操作按钮；统一 SVG 工具图标、圆角和选中状态。画纸及画笔颜色与界面配色分离。系统字体由设备提供，包内不包含任何字体文件、Apple 图标资源或 Apple 品牌标志。「Apple Colorful」是设计方向名称，应用品牌仍是 Happy Colors。
++
++## 保留的功能
++
++- 单指绘画、Sparkle、橡皮、填色、上传、自画、内置模板、贴纸、背景、Undo/Redo、完整 PNG 保存。
++- 双指只缩放和移动画布，100%–400%；菜单和上方按钮不缩放。
++- iPhone 横屏使用窄快捷栏，竖屏使用底部快捷入口。工具面板可展开/关闭。
++- Large / Fit 保持等比例；Large 仅放大视图，不改变保存的图像范围。
++
++## 六个必需运行文件
++
++```
++index.html
++style.css
++apple-colorful.css  # 新增：唯一固定外观
++app.js
++canvas-zoom.js
++mobile-ui.js        # 新增：手机抽屉/布局；没有主题切换代码
++```
++
++`app.js`、`canvas-zoom.js`、`style.css` 与 `main@7cbbeff631c9ae9b0e519cb824f6917c4a3afd17` 的绘画版本保持字节相同。本次未重写绘画或缩放引擎，也没有加入 AI 接口。
++
++## 先独立预览，不直接覆盖 main
++
++解压到一个新的目录。可在电脑直接打开 `index.html`。iPhone / iPad 在同一家庭网络内使用上次的测试方式：
++
++```powershell
++cd C:\project\happycolor\colorful-preview
++py -m http.server 8000 --bind 0.0.0.0
++```
++
++手机打开 `http://电脑局域网IP:8000/`。确认电脑防火墙只为可信家庭私有网络放行，不开放路由器公网端口。完成后在 PowerShell 按 Ctrl+C 停止。
++
++页面桌面/平板标题处标记 `Colorful 1`；窄屏会隐藏标题以节省画布空间，可用右上角紫色保存按钮和无 Style 按钮辅助确认。
++
++截图中的猫是通过 Upload 载入的既有示例，存于 `preview/example-cat.png`；它不表示内置模板已被更换。
++
++## 安装到开发分支
++
++在真实 iPhone/iPad 上完成 `docs/COLORFUL-DEVICE-CHECKLIST.md` 后，工作区干净时：
++
++```powershell
++cd C:\project\happycolor\code\Happy-Coloring
++git status
++git switch main
++git pull --ff-only origin main
++git switch -c apple-colorful-ui
++```
++
++把包里的六个运行文件以及相关测试/说明文件复制到仓库。保留已有 `.git` 和其他项目文件。不要恢复以前的实验 stash。若之前拷过四主题预览，旧 `ui-themes.css`、`themes.html` 已不再被此 `index.html` 引用；这两个旧文件可另行备份，不应作为应用入口继续使用。
++
++也可选择应用随附的 `apple-colorful-ui.patch`（针对以上 main 基线）。完整复制和应用 patch 二选一，不要同时做：
++
++```powershell
++git apply --check .\apple-colorful-ui.patch
++git apply .\apple-colorful-ui.patch
++```
++
++测试无误再 commit → push 功能分支 → 创建 PR → 检查 → 合并。此交付没有推送或合并任何远端分支。
++
++## 重跑自动化测试
++
++Node.js 20 或以上运行单元测试，不需要 npm 安装依赖：
++
++```powershell
++npm test
++```
++
++浏览器测试需要 Python 测试依赖和 Playwright 浏览器：
++
++```powershell
++py -m pip install -r requirements-test.txt
++py -m playwright install chromium
++py tests/browser/run_colorful_tests.py --profiles desktop tablet_landscape phone_landscape phone_portrait
++```
++
++默认测试通过本地 HTTP 加载实际文件；`--inline` 是浏览器导航受限时才使用的源码注入选项，不测试 HTTP、缓存或部署。当前交付的实际执行方式与结果见测试报告。真实设备照片选择器、Safari 地址栏/刘海安全区、Apple Pencil 仍需人工确认。
++
++这是网页测试候选版，不是已打包或已提交审核的 iOS 安装包。
+diff --git a/apple-colorful.css b/apple-colorful.css
+new file mode 100644
+index 0000000..d86ab2b
+--- /dev/null
++++ b/apple-colorful.css
+@@ -0,0 +1,255 @@
++/* Colorful 1 — one fixed product design, not a user-selectable theme.
++   Only interface colors change: the canvas background and paint colors stay separate. */
++:root {
++  --page:#eee8ff; --panel:rgba(255,255,255,.72); --panel-alt:rgba(255,255,255,.48);
++  --ink:#222037; --muted:#626077; --accent:#6b36d8; --accent-ink:#fff;
++  --soft:rgba(209,190,255,.65); --line:rgba(117,90,165,.15);
++  --workspace:transparent; --warm:#ffd4bd; --radius:24px;
++  --shadow:0 8px 24px rgba(75,46,133,.09);
++  --safe-top:env(safe-area-inset-top,0px); --safe-bottom:env(safe-area-inset-bottom,0px);
++  --safe-left:env(safe-area-inset-left,0px); --safe-right:env(safe-area-inset-right,0px);
++  color-scheme:light;
++}
++html,body { background:var(--page);color:var(--ink); }
++body {padding:var(--safe-top) var(--safe-right) var(--safe-bottom) var(--safe-left);font-family:ui-rounded,"SF Pro Rounded",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;}
++button,.upload-control,.custom-color {color:var(--ink);background:var(--panel);border:1px solid var(--line);box-shadow:none;line-height:1.2;}
++button {min-height:44px;transition:background .15s,box-shadow .15s;}
++button:hover {transform:none;background:var(--soft);}
++button:active {box-shadow:inset 0 2px 4px #0001;}
++button:disabled {opacity:.36;}
++button:focus-visible,input:focus-visible,.upload-control:focus-within {outline:3px solid var(--accent);outline-offset:2px;}
++.ui-icon {width:23px;height:23px;flex:0 0 23px;vertical-align:middle;pointer-events:none;}
++.icon-button {display:inline-flex;align-items:center;justify-content:center;min-width:44px;width:44px;height:44px;padding:0;}
++header {position:relative;flex-wrap:nowrap;padding:12px 22px;min-height:76px;gap:16px;background:var(--panel);border-bottom:1px solid var(--line);box-shadow:none;}
++.brand-cluster {display:flex;align-items:center;gap:10px;flex-shrink:0;}
++.brand {display:flex;align-items:center;gap:10px;font-size:21px;font-weight:650;letter-spacing:-.7px;}
++.brand-mark {width:42px;height:42px;display:grid;place-items:center;border-radius:15px;background:var(--accent);color:var(--accent-ink);box-shadow:0 3px 0 color-mix(in srgb,var(--accent),transparent 78%);}
++.brand-mark .ui-icon {width:28px;height:28px;}
++.brand-name b {font-weight:850;}
++.build-tag {display:block;letter-spacing:.08em;font-size:9px;line-height:1.7;color:var(--muted);font-weight:600;text-transform:uppercase;}
++.top-actions {gap:7px;flex:0 0 auto;}
++.top-actions button {display:inline-flex;align-items:center;justify-content:center;gap:7px;border-radius:14px;padding:9px 13px;min-width:44px;min-height:44px;font-size:13px;}
++.top-actions .primary {background:var(--accent);color:var(--accent-ink);border-color:var(--accent);}
++.canvas-view-tools {margin-left:auto;gap:4px;padding-right:14px;border-right:1px solid var(--line);flex-wrap:nowrap;}
++.canvas-view-tools button {border-radius:12px;min-width:44px;padding:7px 11px;font-size:15px;background:var(--panel-alt);}
++#zoomLabel {font-size:12px;color:var(--muted);min-width:44px;}
++#zoomLargeBtn {display:inline-flex;align-items:center;justify-content:center;gap:5px;}
++#zoomLargeBtn .ui-icon {width:18px;height:18px;flex-basis:18px;}
++main {position:relative;grid-template-columns:260px minmax(0,1fr);}
++.tools {background:var(--panel);border-right:1px solid var(--line);padding:22px 16px;}
++.drawer-heading {display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:22px;}
++.eyebrow {color:var(--accent);font-size:9px;letter-spacing:.15em;font-weight:800;}
++.drawer-heading h2 {color:var(--ink);text-transform:none;letter-spacing:-.3px;font-size:17px;line-height:1.3;margin:7px 0 0;}
++h2 {font-size:11px;color:var(--muted);letter-spacing:.09em;}
++.tools section {margin:0 0 22px;}
++.tools section h2 {margin-bottom:12px;}
++.palette {grid-template-columns:repeat(5,minmax(0,1fr));gap:7px;}
++.swatch {min-height:38px;min-width:0;aspect-ratio:1;box-shadow:inset 0 0 0 1px #0002;border:4px solid var(--panel);}
++.swatch.active {outline:2px solid var(--ink);outline-offset:1px;}
++.custom-color {border:0;border-radius:12px;background:var(--panel-alt);padding:7px 10px;font-size:12px;margin-top:12px;min-height:44px;}
++.custom-color input {width:40px;height:30px;padding:0;border:0;}
++.brushes {grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;}
++.brushes button {display:flex;flex-direction:column;gap:6px;align-items:center;justify-content:center;min-height:55px;font-size:10px;border-radius:12px;}
++.brushes i {display:block;width:var(--dot);height:var(--dot);background:currentColor;border-radius:50%;}
++.brush.active,#brushBtn.active,#sparkleBtn.active,#bucketBtn.active,#outlineBtn.active,#eraserBtn.active {outline:0;border-color:var(--accent);background:var(--soft);color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent);}
++.tool-buttons {gap:7px;}
++.tool-buttons button {display:flex;align-items:center;justify-content:flex-start;gap:9px;font-size:12px;min-height:48px;border-radius:14px;padding:9px 10px;}
++#clearBtn {color:var(--muted);}
++.pages,.backgrounds {gap:7px;}
++.pages button,.backgrounds button {font-size:12px;min-height:44px;border-radius:12px;padding:9px;}
++.bg.active {outline:0;background:var(--soft);border-color:var(--accent);}
++.stickers {gap:7px;}
++.stickers button {background:var(--panel-alt);font-size:24px;padding:6px;min-height:44px;}
++.stickers button.active {outline:2px solid var(--accent);background:var(--soft);}
++.upload-control {justify-content:center;gap:9px;min-height:50px;color:var(--accent);background:var(--soft);font-size:13px;border:1px dashed var(--accent);border-radius:14px;}
++.tiny {color:var(--muted);font-size:10px;line-height:1.4;}
++.canvas-wrap {padding:20px 20px 12px;gap:10px;background:var(--workspace);background-image:radial-gradient(var(--dot-color) 1px,transparent 1px);background-size:18px 18px;}
++.canvas-board {grid-template-columns:minmax(0,1fr) 24px;grid-template-rows:minmax(0,1fr) 24px;gap:6px;}
++.canvas-stage {border-radius:var(--radius);}
++#canvas {box-shadow:0 5px 28px #1e30401a;border-radius:8px;}
++.hint {color:var(--muted);font-size:11px;text-align:center;}
++#viewNotice {font-weight:700;}
++.pan-scroll {background:color-mix(in srgb,var(--line),transparent 20%);accent-color:var(--accent);border-radius:20px;}
++.pan-scroll::-webkit-slider-thumb {background:var(--accent);border-color:var(--panel);}
++.pan-scroll::-moz-range-thumb {background:var(--accent);border-color:var(--panel);}
++.mobile-only {display:none;}
++.drawer-shade[hidden] {display:none;}
++.drawer-shade {position:absolute;inset:0;z-index:35;width:100%;height:100%;border:0;border-radius:0;background:#172e3b55;box-shadow:none;}
++.drawer-shade:hover {background:#172e3b55;}
++.dialog {background:var(--panel);color:var(--ink);border:1px solid var(--line);}
++.dialog .danger {background:#ab3448;color:white;}
++@media (max-width:1150px) {header{padding:10px 14px;gap:9px}.top-actions button{padding:8px 10px}.brand{font-size:18px}.brand-mark{width:36px;height:36px}.canvas-view-tools{padding-right:8px}.action-text{display:none}}
++/* Compact layout is capability/size based, not user-agent detection.
++   Also serves Android phones and narrow split-screen windows. */
++@media (max-width:700px), (max-width:1024px) and (max-height:500px) {
++ header {min-height:56px;height:56px;flex:0 0 56px;padding:4px 8px;gap:6px;justify-content:space-between;}
++ .mobile-only {display:flex;}
++ .brand-cluster {gap:6px;}
++ .brand-name {display:none;}
++ .brand-mark {width:30px;height:32px;border-radius:11px;box-shadow:none;}
++ .brand-mark .ui-icon {width:22px;height:22px;}
++ .top-actions {gap:4px;}
++ .top-actions button {width:44px;height:44px;min-height:44px;padding:0;border-radius:13px;}
++ .top-actions .action-text {display:none;}
++ main {grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr) 60px;}
++ .tools {display:none;position:absolute;inset:8px auto 8px 8px;width:min(312px,calc(100% - 16px));max-height:calc(100% - 16px);border:1px solid var(--line);box-shadow:0 14px 60px #12253730;border-radius:22px;padding:18px;z-index:40;}
++ body.tools-open .tools {display:block;}
++ .drawer-heading {margin-bottom:18px;}
++ .tools section {margin-bottom:20px;}
++ .tools h2 {font-size:11px;}
++ .tools .palette {grid-template-columns:repeat(5,minmax(0,1fr));}
++ .tools .swatch {min-height:44px;}
++ .tools .brushes {grid-template-columns:repeat(4,minmax(0,1fr));}
++ .tools .tool-buttons,.tools .pages,.tools .backgrounds {grid-template-columns:1fr 1fr;}
++ .tools .stickers {grid-template-columns:repeat(4,minmax(0,1fr));}
++ .quick-dock {grid-row:2;grid-column:1;gap:12px;align-items:center;justify-content:space-evenly;background:var(--panel);border-top:1px solid var(--line);padding:4px 14px;z-index:15;}
++ .quick-dock button {display:flex;align-items:center;justify-content:center;flex-direction:column;gap:3px;min-width:54px;min-height:50px;padding:4px 10px;border:0;background:transparent;font-size:9px;}
++ .quick-dock .ui-icon {width:22px;height:22px;}
++ .quick-dock button:nth-child(2) {color:var(--accent);}
++ .canvas-wrap {grid-row:1;grid-column:1;padding:58px 6px 4px;gap:0;}
++ .hint {display:none;}
++ .canvas-board {gap:3px;grid-template-columns:minmax(0,1fr) 24px;grid-template-rows:minmax(0,1fr) 24px;}
++ .canvas-stage {border-radius:12px;}
++ .canvas-view-tools {position:absolute;left:0;top:56px;width:100%;height:52px;justify-content:center;margin:0;padding:4px;border:0;z-index:20;gap:4px;background:var(--page);}
++ .canvas-view-tools button {min-height:44px;height:44px;padding:6px 10px;}
++ #zoomLargeBtn {gap:4px;}
++ #zoomLabel {min-width:42px;}
++}
++@media (max-width:1024px) and (max-height:500px) and (orientation:landscape) {
++ header {height:52px;min-height:52px;flex-basis:52px;padding:4px 6px;gap:6px;}
++ .brand-cluster {gap:4px;}
++ .canvas-view-tools {position:static;width:auto;height:44px;margin-left:auto;margin-right:auto;padding:0;background:transparent;gap:4px;}
++ .canvas-view-tools button {padding:6px 8px;}
++ #zoomLargeBtn span {display:none;}
++ main {grid-template-columns:60px minmax(0,1fr);grid-template-rows:minmax(0,1fr);}
++ .quick-dock {grid-column:1;grid-row:1;flex-direction:column;justify-content:space-evenly;gap:4px;border-top:0;border-right:1px solid var(--line);padding:4px;min-height:0;overflow-y:auto;}
++ .quick-dock button {min-height:48px;min-width:48px;padding:4px;flex:0 0 auto;}
++ .canvas-wrap {grid-column:2;grid-row:1;padding:4px;}
++ .tools {inset:4px auto 4px 64px;max-height:calc(100% - 8px);width:min(312px,calc(100% - 72px));}
++ .top-actions {gap:4px;}
++}
++@media (max-width:600px) and (orientation:landscape) {.brand{display:none}#zoomLabel{display:none}.canvas-view-tools{gap:2px}.top-actions{gap:2px}}
++@media (max-width:359px) and (orientation:portrait) {.brand{display:none}header{gap:3px;padding-inline:5px}.top-actions{gap:3px}}
++@media (prefers-reduced-motion:reduce) {*,*::before,*::after {transition:none!important;scroll-behavior:auto!important;}}
++
++/* Apple Colorful direction: airy gradient, glassy controls, restrained purple accents.
++   Uses system fonts and original inline SVGs; no external fonts or Apple artwork. */
++html { background:#eee8ff; }
++body {
++  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
++  background-color:#eee8ff;
++  background-image:
++    radial-gradient(ellipse at 3% 15%,rgba(221,198,255,.9) 0,transparent 50%),
++    radial-gradient(ellipse at 92% 10%,rgba(178,210,255,.8) 0,transparent 42%),
++    radial-gradient(ellipse at 63% 100%,rgba(255,196,224,.75) 0,transparent 46%),
++    radial-gradient(ellipse at 102% 75%,rgba(255,225,193,.7) 0,transparent 35%);
++}
++header {
++  background:rgba(255,255,255,.55); border:0; border-bottom:1px solid rgba(255,255,255,.75);
++  box-shadow:0 2px 18px rgba(90,60,130,.035);
++  -webkit-backdrop-filter:blur(20px) saturate(150%);backdrop-filter:blur(20px) saturate(150%);
++}
++.brand {font-size:20px;font-weight:650;letter-spacing:-.6px;gap:10px;}
++.brand-name b {font-weight:700;}
++.brand-mark {
++  background:linear-gradient(140deg,#a96aff 0%,#7454ed 55%,#5d9ff4 100%);
++  border:1px solid #ffffff70;border-radius:13px;box-shadow:0 3px 10px #784ad529;
++}
++.build-tag {font-size:9px;letter-spacing:.1em;color:#6b6281;}
++button,.custom-color,.upload-control {font-weight:550;}
++button {border-color:rgba(255,255,255,.82);}
++.top-actions button,.canvas-view-tools button,.icon-button {
++  background:linear-gradient(180deg,rgba(255,255,255,.98),rgba(255,255,255,.72));
++  box-shadow:0 3px 9px #5942800e,0 1px 2px #5942800a;
++}
++.top-actions button:hover,.canvas-view-tools button:hover,.icon-button:hover {background:#fff;box-shadow:0 3px 12px #5942801a;}
++.top-actions button:disabled {opacity:.42;box-shadow:none;}
++#undoBtn,#redoBtn {border-radius:50%;width:44px;padding:0;}
++#undoBtn .action-text,#redoBtn .action-text {display:none;}
++#saveBtn {
++  background:linear-gradient(145deg,#9560f7,#7132df);color:white;
++  border:1px solid rgba(255,255,255,.2);box-shadow:0 4px 12px #7e46e640,inset 0 1px #ffffff40;
++}
++#saveBtn:hover {background:linear-gradient(145deg,#8b52f0,#6228ce);}
++.canvas-view-tools {border:0;padding-right:0;gap:5px;}
++#zoomLabel {color:#524666;font-weight:600;}
++#zoomFitBtn,#zoomLargeBtn {color:#5a457d;}
++main {grid-template-columns:260px minmax(0,1fr);gap:10px;padding:12px;}
++.tools {
++  background:rgba(255,255,255,.67);border:1px solid rgba(255,255,255,.82);
++  border-radius:24px;padding:16px;box-shadow:var(--shadow);
++  -webkit-backdrop-filter:blur(18px) saturate(130%);backdrop-filter:blur(18px) saturate(130%);
++  scrollbar-width:thin;scrollbar-color:#bda4e7 transparent;
++}
++.drawer-heading {margin-bottom:16px;}
++.drawer-heading h2 {font-size:14px;font-weight:600;margin:0;color:#5e526f;}
++.tools section {margin-bottom:18px;}
++h2 {color:#6d627a;font-size:11px;letter-spacing:.04em;text-transform:none;font-weight:600;}
++.tool-buttons {gap:7px;}
++.tool-buttons button {
++  min-height:46px;border-radius:13px;font-size:12px;background:rgba(255,255,255,.37);
++  border:1px solid transparent;box-shadow:none;
++}
++.tool-buttons button:hover {background:rgba(255,255,255,.8);}
++#brushBtn.active,#sparkleBtn.active,#bucketBtn.active,#outlineBtn.active,#eraserBtn.active {
++  background:linear-gradient(110deg,rgba(192,165,255,.85),rgba(205,189,255,.72));
++  border-color:rgba(174,145,238,.34);color:#4e24aa;box-shadow:inset 0 1px #ffffff40;
++}
++.brushes button {background:rgba(255,255,255,.55);min-height:52px;border:1px solid #ffffffa8;}
++.brush.active,.bg.active {color:#542ab2;background:rgba(212,192,255,.6);border-color:#c6adeb;box-shadow:none;}
++.palette {gap:5px;grid-template-columns:repeat(5,minmax(0,1fr));}
++.swatch {border:4px solid transparent;background-clip:padding-box!important;min-height:40px;box-shadow:none;}
++.swatch.active {outline:2px solid #6b36d8;outline-offset:-1px;box-shadow:0 2px 7px #7e55b62a;}
++.custom-color {background:rgba(255,255,255,.46);border:1px solid #ffffff90;border-radius:12px;}
++.custom-color input {border-radius:8px;}
++.picture-import {margin-top:0;}
++.upload-control {margin-top:0;border:1px solid #ffffffb5;background:rgba(255,255,255,.66);color:#6338b3;border-radius:13px;}
++.pages button,.backgrounds button,.stickers button {background:rgba(255,255,255,.52);border-color:#ffffff8c;}
++.pages button:hover,.backgrounds button:hover,.stickers button:hover {background:rgba(229,215,255,.8);}
++.canvas-wrap {background:none;padding:4px 4px 0;gap:8px;}
++.canvas-stage {border-radius:20px;background:rgba(255,255,255,.13);}
++#canvas {border-radius:16px;box-shadow:0 5px 24px #5d3c8724;}
++.hint {font-size:11px;color:#645575;}
++.pan-scroll {background:rgba(193,166,234,.22);}
++.pan-scroll::-webkit-slider-thumb {background:linear-gradient(145deg,#b485fb,#8353d5);border:2px solid #ffffffd9;border-radius:12px;}
++.pan-scroll::-moz-range-thumb {background:#9566e4;border:2px solid white;border-radius:12px;}
++.quick-dock {background:rgba(255,255,255,.65);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);}
++.quick-dock button {border-radius:13px;}
++.quick-dock button:hover {background:#ffffff75;}
++.drawer-shade,.drawer-shade:hover {background:rgba(34,21,54,.22);}
++.dialog {background:#faf7ff;color:var(--ink);border-color:white;border-radius:24px;box-shadow:0 24px 70px #36204c40;}
++.dialog button {border-radius:14px;min-height:44px;}
++@media (max-width:1150px) {main{grid-template-columns:236px minmax(0,1fr);}.brand{font-size:18px}.tools{padding:12px;}}
++@media (max-width:700px), (max-width:1024px) and (max-height:500px) {
++ main {grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr) 60px;padding:0;gap:0;}
++ .tools {background:rgba(250,247,255,.96);padding:18px;border-radius:22px;}
++ .canvas-wrap {padding:58px 6px 4px;gap:0;}
++ .canvas-stage {border-radius:12px;}
++ #canvas {border-radius:8px;}
++ .canvas-view-tools {padding:4px;background:rgba(242,235,255,.88);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);}
++ header {padding:4px 8px;}
++ .top-actions button {border-radius:13px;}
++ .brand-mark {border-radius:10px;}
++ .quick-dock {border:0;border-top:1px solid #ffffff9c;}
++ .tools .palette {gap:5px;}
++ .tools .swatch {min-height:44px;}
++}
++@media (max-width:1024px) and (max-height:500px) and (orientation:landscape) {
++ main {grid-template-columns:60px minmax(0,1fr);grid-template-rows:minmax(0,1fr);}
++ header {padding:4px 6px;}
++ .canvas-wrap {padding:4px;}
++ .canvas-view-tools {background:transparent;padding:0;-webkit-backdrop-filter:none;backdrop-filter:none;}
++ .quick-dock {border:0;border-right:1px solid #ffffff9c;}
++ .tools {inset:4px auto 4px 64px;}
++}
++/* Ensure legible fallbacks when blur/transparency is unsupported or reduced. */
++@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))) {
++ header,.tools,.quick-dock {background:#f8f4ff;}
++}
++@media (prefers-reduced-transparency:reduce) {
++ header,.tools,.quick-dock,.canvas-view-tools {background:#f7f3ff;-webkit-backdrop-filter:none;backdrop-filter:none;}
++}
++@media (forced-colors:active) {
++ .tool-buttons button.active,.brush.active,.bg.active {outline:2px solid Highlight;}
++ .swatch {forced-color-adjust:none;}
++}
+diff --git a/docs/COLORFUL-DEVICE-CHECKLIST.md b/docs/COLORFUL-DEVICE-CHECKLIST.md
+new file mode 100644
+index 0000000..22cd57f
+--- /dev/null
++++ b/docs/COLORFUL-DEVICE-CHECKLIST.md
+@@ -0,0 +1,19 @@
++# Colorful 1 真机验收
++
++设备型号：________  iOS/iPadOS：________  浏览器：________  日期：________
++
++- [ ] 只有固定紫色渐变界面；没有 Style/换肤入口。
++- [ ] iPhone 竖屏和左右横屏下，保存、Undo/Redo、工具快捷入口不被刘海/地址栏/底部指示条挡住。
++- [ ] 手机横屏画板占主要空间；Tools/Colors/Pages/Stickers 抽屉可正常打开、滚动和关闭。
++- [ ] 单指 Brush/Sparkle/Outline/Eraser 正常，画笔颜色不受界面紫色影响。
++- [ ] 自画闭合区域、内置模板、上传线稿三个路径都能正常填色。
++- [ ] 滚动工具面板后点击 Upload 可以选择照片；同一张照片能重复选择。
++- [ ] 双指缩放/移动仅影响画布；抬起一根手指后不会误画线。
++- [ ] 放大后绘画、填色、橡皮落点准确；滚动滑条正常。
++- [ ] Fit 能看完整幅画，Large 等比例放大；横竖屏切换后画作不变形、不清空。
++- [ ] Undo/Redo 正常；界面操作/缩放不占绘画撤销步骤。
++- [ ] Save 保存完整画作，背景是选择的画纸背景，不含界面渐变。
++- [ ] 刷新后没有重新出现旧主题；深色系统设置也不切到之前的深色设计。
++- [ ] iPad 指绘/Apple Pencil 的实际手感正常。
++
++合并前需全部确认。iPad Safari 的真实行为不由 Chromium 设备模拟结果代替。
+diff --git a/index.html b/index.html
+index 7d61a26..869651c 100644
+--- a/index.html
++++ b/index.html
+@@ -1,123 +1,126 @@
+-<!doctype html>
+-<html lang="en">
++<!DOCTYPE html>
++
++<html data-ui="colorful-1" lang="en">
+ <head>
+-<meta charset="utf-8">
+-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
++<meta charset="utf-8"/>
++<meta content="width=device-width,initial-scale=1,viewport-fit=cover" name="viewport"/>
+ <title>Happy Colors</title>
+-<link rel="stylesheet" href="style.css?v=canvas-zoom-1">
++<link href="style.css?v=colorful-1" rel="stylesheet"/>
++<meta content="#eee8ff" name="theme-color"/>
++<link href="apple-colorful.css?v=colorful-1" rel="stylesheet"/>
+ </head>
+ <body>
+ <header>
+-  <div class="brand">🎨 Happy Colors <small class="build-tag">Canvas zoom 1</small></div>
+-  <div class="top-actions">
+-    <button id="undoBtn" type="button" aria-label="Undo" title="Undo"><span class="action-icon" aria-hidden="true">↩️</span> <span class="action-text">Undo</span></button>
+-    <button id="redoBtn" type="button" aria-label="Redo" title="Redo"><span class="action-icon" aria-hidden="true">↪️</span> <span class="action-text">Redo</span></button>
+-    <button id="newBtn" type="button" aria-label="New" title="New"><span class="action-icon" aria-hidden="true">✨</span> <span class="action-text">New</span></button>
+-    <button id="saveBtn" class="primary" type="button" aria-label="Save" title="Save"><span class="action-icon" aria-hidden="true">💾</span> <span class="action-text">Save</span></button>
+-  </div>
+-</header>
++<div class="brand-cluster">
++<button aria-controls="artTools" aria-expanded="false" aria-label="Open art tools" class="icon-button mobile-only" id="toolsToggle" type="button"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"></path></svg></button>
++<div class="brand"><span class="brand-mark"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18h1a2 2 0 0 0 1-3.7 1.5 1.5 0 0 1 .7-2.8H17a4 4 0 0 0 4-4C21 6 17 3 12 3Z"></path><circle cx="7" cy="11" r=".8"></circle><circle cx="9" cy="7" r=".8"></circle><circle cx="14" cy="6.5" r=".8"></circle><circle cx="17" cy="10" r=".8"></circle></svg></span><span class="brand-name">Happy <b>Colors</b><small class="build-tag">Colorful 1</small></span></div>
++</div>
++<div aria-label="Canvas zoom controls" class="canvas-view-tools" role="group">
++<button aria-label="Zoom canvas out" id="zoomOutBtn" title="Zoom out" type="button">−</button>
++<output aria-label="Canvas zoom level" id="zoomLabel">100%</output>
++<button aria-label="Zoom canvas in" id="zoomInBtn" title="Zoom in" type="button">+</button>
++<button id="zoomFitBtn" title="Show the whole picture" type="button">Fit</button>
++<button aria-label="Large drawing view" id="zoomLargeBtn" title="Larger view; move with two fingers" type="button"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="M8 3H3v5M16 3h5v5M3 16v5h5M21 16v5h-5"></path></svg><span>Large</span></button>
++</div>
++<div class="top-actions">
++<button aria-label="Undo" class="" id="undoBtn" title="Undo" type="button"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="M8 5 3 10l5 5M4 10h10a6 6 0 0 1 0 12"></path></svg><span class="action-text">Undo</span></button>
++<button aria-label="Redo" class="" id="redoBtn" title="Redo" type="button"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="m16 5 5 5-5 5M20 10H10a6 6 0 0 0 0 12"></path></svg><span class="action-text">Redo</span></button>
++<button aria-label="New" class="" id="newBtn" title="New" type="button"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="M14 3H5v18h14V8l-5-5ZM14 3v5h5M8 14h8M12 10v8"></path></svg><span class="action-text">New</span></button>
++<button aria-label="Save" class="primary" id="saveBtn" title="Save" type="button"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="M12 3v12m-5-5 5 5 5-5M4 15v6h16v-6"></path></svg><span class="action-text">Save</span></button>
+ 
++</div>
++</header>
+ <main>
+-<aside class="tools">
+-  <section>
+-    <h2>Colors</h2>
+-    <div id="palette" class="palette"></div>
+-    <label class="custom-color">More <input id="colorPicker" type="color" value="#ff4f87"></label>
+-  </section>
+-
+-  <section>
+-    <h2>Brush Size</h2>
+-    <div class="brushes">
+-      <button class="brush active" data-size="8">S</button>
+-      <button class="brush" data-size="16">M</button>
+-      <button class="brush" data-size="28">L</button>
+-      <button class="brush" data-size="44">XL</button>
+-    </div>
+-  </section>
+-
+-  <section class="tool-buttons">
+-    <button id="brushBtn" class="active">🖌️ Brush</button>
+-    <button id="sparkleBtn">✨ Sparkle</button>
+-    <button id="bucketBtn">🪣 Fill</button>
+-    <button id="outlineBtn">✏️ Draw Picture</button>
+-    <button id="eraserBtn">🧽 Eraser</button>
+-    <button id="clearBtn">🗑️ Clear</button>
+-  </section>
+-
+-  <section>
+-    <h2>Coloring Pages</h2>
+-    <div class="pages">
+-      <button class="pageBtn" data-page="blank">⬜ Blank</button>
+-      <button class="pageBtn" data-page="unicorn">🦄 Unicorn</button>
+-      <button class="pageBtn" data-page="princess">👸 Princess</button>
+-      <button class="pageBtn" data-page="cat">🐱 Cat</button>
+-      <button class="pageBtn" data-page="butterfly">🦋 Butterfly</button>
+-      <button class="pageBtn" data-page="dino">🦖 Dinosaur</button>
+-    </div>
+-  </section>
+-
+-  <section>
+-    <h2>Stickers</h2>
+-    <div id="stickers" class="stickers">
+-      <button data-sticker="⭐">⭐</button>
+-      <button data-sticker="🌈">🌈</button>
+-      <button data-sticker="❤️">❤️</button>
+-      <button data-sticker="🌸">🌸</button>
+-      <button data-sticker="🦄">🦄</button>
+-      <button data-sticker="👑">👑</button>
+-      <button data-sticker="🦋">🦋</button>
+-      <button data-sticker="✨">✨</button>
+-    </div>
+-    <div class="tiny">Pick a sticker, then tap the picture.</div>
+-  </section>
++<aside aria-label="Art tools" class="tools" id="artTools">
++<div class="drawer-heading"><div><h2>Drawing tools</h2></div><button aria-label="Close art tools" class="icon-button mobile-only" id="closeTools" type="button"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"></path></svg></button></div><section class="tool-buttons" id="toolsSection">
++<button class="active" id="brushBtn"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="m14 4 6 6-9 9-6-6 9-9Z"></path><path d="m4 14-1 7 7-1M13 5l6 6"></path></svg><span>Brush</span></button>
++<button id="sparkleBtn"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="m12 3 2.4 6.6L21 12l-6.6 2.4L12 21l-2.4-6.6L3 12l6.6-2.4L12 3ZM20 2v4M18 4h4"></path></svg><span>Sparkle</span></button>
++<button id="bucketBtn"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="m8 3 11 11-8 7-9-9 8-9ZM4 10h12"></path><path d="M21 14s-2 3-2 4a2 2 0 0 0 4 0c0-1-2-4-2-4Z"></path></svg><span>Fill</span></button>
++<button id="outlineBtn"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="m14 4 6 6-9 9-6-6 9-9Z"></path><path d="m4 14-1 7 7-1M13 5l6 6"></path></svg><span>Outline</span></button>
++<button id="eraserBtn"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="m3 13 9-10 9 8-9 10H9l-6-5v-3ZM8 8l9 8M12 21h9"></path></svg><span>Eraser</span></button>
++<button id="clearBtn"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="M4 6h16M9 6V3h6v3M6 6l1 15h10l1-15M10 10v7M14 10v7"></path></svg><span>Clear</span></button>
++</section>
++<section id="colorsSection">
++<h2>Colors</h2>
++<div class="palette" id="palette"></div>
++<label class="custom-color">More <input id="colorPicker" type="color" value="#ff4f87"/></label>
++</section>
++<section id="sizesSection">
++<h2>Brush Size</h2>
++<div class="brushes">
++<button aria-label="Small brush" class="brush active" data-size="8"><i style="--dot:6px"></i><span>S</span></button>
++<button aria-label="M brush" class="brush" data-size="16"><i style="--dot:10px"></i><span>M</span></button>
++<button aria-label="L brush" class="brush" data-size="28"><i style="--dot:16px"></i><span>L</span></button>
++<button aria-label="XL brush" class="brush" data-size="44"><i style="--dot:22px"></i><span>XL</span></button>
++</div>
++</section><section aria-label="Import picture" class="picture-import"><label class="upload-control" for="imageUpload">
++<svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="M12 16V3m-5 5 5-5 5 5M4 15v6h16v-6"></path></svg><span>Upload picture</span>
++<input accept="image/*" id="imageUpload" type="file"/>
++</label></section>
+ 
+-  <section class="background-section">
+-    <h2>Background</h2>
+-    <div class="backgrounds">
+-      <button class="bg active" data-bg="#ffffff">⬜ White</button>
+-      <button class="bg" data-bg="#fff7df">🌤️ Cream</button>
+-      <button class="bg" data-bg="#dff5ff">☁️ Sky</button>
+-      <button class="bg" data-bg="#ffe5ef">🌸 Pink</button>
+-    </div>
++<section id="pagesSection">
++<h2>Coloring Pages</h2>
++<div class="pages">
++<button class="pageBtn" data-page="blank">⬜ Blank</button>
++<button class="pageBtn" data-page="unicorn">🦄 Unicorn</button>
++<button class="pageBtn" data-page="princess">👸 Princess</button>
++<button class="pageBtn" data-page="cat">🐱 Cat</button>
++<button class="pageBtn" data-page="butterfly">🦋 Butterfly</button>
++<button class="pageBtn" data-page="dino">🦖 Dinosaur</button>
++</div>
++</section>
++<section id="stickersSection">
++<h2>Stickers</h2>
++<div class="stickers" id="stickers">
++<button data-sticker="⭐">⭐</button>
++<button data-sticker="🌈">🌈</button>
++<button data-sticker="❤️">❤️</button>
++<button data-sticker="🌸">🌸</button>
++<button data-sticker="🦄">🦄</button>
++<button data-sticker="👑">👑</button>
++<button data-sticker="🦋">🦋</button>
++<button data-sticker="✨">✨</button>
++</div>
++<div class="tiny">Pick a sticker, then tap the picture.</div>
++</section>
++<section class="background-section">
++<h2>Background</h2>
++<div class="backgrounds">
++<button class="bg active" data-bg="#ffffff">⬜ White</button>
++<button class="bg" data-bg="#fff7df">🌤️ Cream</button>
++<button class="bg" data-bg="#dff5ff">☁️ Sky</button>
++<button class="bg" data-bg="#ffe5ef">🌸 Pink</button>
++</div>
+ 
+-    <label class="upload-control" for="imageUpload">
+-      <span>🖼️ Upload Picture</span>
+-      <input id="imageUpload" type="file" accept="image/*">
+-    </label>
+-  </section>
++</section>
+ </aside>
+-
++<nav aria-label="Art shortcuts" class="quick-dock mobile-only"><button aria-label="Open tools" data-open-section="toolsSection" type="button"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="m14 4 6 6-9 9-6-6 9-9Z"></path><path d="m4 14-1 7 7-1M13 5l6 6"></path></svg><span>Tools</span></button><button aria-label="Open colors" data-open-section="colorsSection" type="button"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18h1a2 2 0 0 0 1-3.7 1.5 1.5 0 0 1 .7-2.8H17a4 4 0 0 0 4-4C21 6 17 3 12 3Z"></path><circle cx="7" cy="11" r=".8"></circle><circle cx="9" cy="7" r=".8"></circle><circle cx="14" cy="6.5" r=".8"></circle><circle cx="17" cy="10" r=".8"></circle></svg><span>Colors</span></button><button aria-label="Open pages" data-open-section="pagesSection" type="button"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="M7 3h14v15M3 7h14v14H3V7Z"></path><path d="m5 18 4-5 3 3 2-2M7 10h.1"></path></svg><span>Pages</span></button><button aria-label="Open stickers" data-open-section="stickersSection" type="button"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="M21 13V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h8l8-8ZM13 21v-6a2 2 0 0 1 2-2h6M7 8h.1M14 8h.1M7 11c2 3 5 3 7 0"></path></svg><span>Stickers</span></button></nav>
++<button aria-label="Close art tools" class="drawer-shade" hidden="" id="drawerShade" type="button"></button>
+ <section class="canvas-wrap">
+-  <div class="canvas-view-tools" role="group" aria-label="Canvas zoom controls">
+-    <button id="zoomOutBtn" type="button" aria-label="Zoom canvas out" title="Zoom out">−</button>
+-    <output id="zoomLabel" aria-label="Canvas zoom level">100%</output>
+-    <button id="zoomInBtn" type="button" aria-label="Zoom canvas in" title="Zoom in">+</button>
+-    <button id="zoomFitBtn" type="button" title="Show the whole picture">Fit</button>
+-  </div>
+-  <div class="canvas-board">
+-    <div class="canvas-stage" id="canvasViewport" tabindex="0" role="region" aria-label="Drawing area: one finger to draw, two fingers to zoom and move">
+-      <div id="canvasSurface" class="canvas-surface">
+-        <canvas id="canvas" aria-label="Drawing canvas"></canvas>
+-      </div>
+-    </div>
+-    <input id="panY" class="pan-scroll pan-scroll-y" type="range" min="0" max="0" value="0" step="1" aria-label="Scroll canvas vertically" disabled>
+-    <input id="panX" class="pan-scroll pan-scroll-x" type="range" min="0" max="0" value="0" step="1" aria-label="Scroll canvas horizontally" disabled>
+-  </div>
+-  <div class="hint">One finger: draw · Two fingers: zoom &amp; move · Fit: whole picture</div>
++<div class="canvas-board">
++<div aria-label="Drawing area: one finger to draw, two fingers to zoom and move" class="canvas-stage" id="canvasViewport" role="region" tabindex="0">
++<div class="canvas-surface" id="canvasSurface">
++<canvas aria-label="Drawing canvas" id="canvas"></canvas>
++</div>
++</div>
++<input aria-label="Scroll canvas vertically" class="pan-scroll pan-scroll-y" disabled="" id="panY" max="0" min="0" step="1" type="range" value="0"/>
++<input aria-label="Scroll canvas horizontally" class="pan-scroll pan-scroll-x" disabled="" id="panX" max="0" min="0" step="1" type="range" value="0"/>
++</div>
++<div class="hint">One finger to create. Two fingers to explore. <span aria-live="polite" id="viewNotice"></span></div>
+ </section>
+ </main>
+-
+-<div id="confirmModal" class="modal hidden">
+-  <div class="dialog">
+-    <div class="big">🎨</div>
+-    <h3>Start a new picture?</h3>
+-    <p>Your current drawing will be cleared.</p>
+-    <button id="cancelNew">Keep drawing</button>
+-    <button id="confirmNew" class="danger">Start new</button>
+-  </div>
++<div class="modal hidden" id="confirmModal">
++<div class="dialog">
++<div class="big">🎨</div>
++<h3>Start a new picture?</h3>
++<p>Your current drawing will be cleared.</p>
++<button id="cancelNew">Keep drawing</button>
++<button class="danger" id="confirmNew">Start new</button>
++</div>
+ </div>
+ 
+-<script src="canvas-zoom.js?v=canvas-zoom-1"></script>
+-<script src="app.js?v=canvas-zoom-1"></script>
++<script src="canvas-zoom.js?v=colorful-1"></script>
++<script src="app.js?v=colorful-1"></script>
++<script src="mobile-ui.js?v=colorful-1"></script>
+ </body>
+ </html>
+diff --git a/mobile-ui.js b/mobile-ui.js
+new file mode 100644
+index 0000000..c0d9491
+--- /dev/null
++++ b/mobile-ui.js
+@@ -0,0 +1,107 @@
++/* Fixed Colorful interface and responsive chrome; never redraws the artwork.
++ * Pure helpers are exported for unit tests. Runtime uses the tested CanvasZoom view. */
++(function (root) {
++  'use strict';
++  function isCompact(width, height) { return width <= 700 || (width <= 1024 && height <= 500); }
++  function isPhoneLandscape(width, height) { return width > height && width <= 1024 && height <= 500; }
++  function coverZoom(pw, ph, vw, vh) {
++    if (![pw, ph, vw, vh].every(n => Number.isFinite(n) && n > 0)) return 1;
++    return Math.min(4, Math.max(1, Math.max(vw / pw, vh / ph) / Math.min(vw / pw, vh / ph)));
++  }
++  const api = { isCompact, isPhoneLandscape, coverZoom };
++  if (typeof module !== 'undefined' && module.exports) module.exports = api;
++  root.StudioLayout = api;
++  if (typeof document === 'undefined') return;
++  const $ = id => document.getElementById(id);
++  const tools = $('artTools'), toggle = $('toolsToggle'), closeTools = $('closeTools');
++  const shade = $('drawerShade'), stage = $('canvasViewport'), dock = document.querySelector('.quick-dock');
++  let opener = toggle, pending = 0, compact = false, landscape = false, initialized = false;
++  function cancelInput() { if (canvasInput) canvasInput.reset(); end(); }
++  function closeDrawer(focus = true) {
++    document.body.classList.remove('tools-open');
++    toggle.setAttribute('aria-expanded', 'false');
++    shade.hidden = true;
++    tools.removeAttribute('role'); tools.removeAttribute('aria-modal');
++    stage.inert = false; dock.inert = false;
++    if (focus && compact) (opener || toggle).focus({ preventScroll: true });
++  }
++  function openDrawer(sectionId = '', source = toggle) {
++    if (!compact) return;
++    cancelInput(); opener = source;
++    document.body.classList.add('tools-open');
++    toggle.setAttribute('aria-expanded', 'true');
++    tools.setAttribute('role', 'dialog'); tools.setAttribute('aria-modal', 'true');
++    shade.hidden = false; stage.inert = true; dock.inert = true;
++    if (sectionId) {
++      const section = $(sectionId);
++      tools.scrollTop = section ? Math.max(0, section.offsetTop - tools.offsetTop - 8) : 0;
++    } else tools.scrollTop = 0;
++    closeTools.focus({ preventScroll: true });
++  }
++  toggle.addEventListener('click', () => {
++    if (document.body.classList.contains('tools-open')) closeDrawer(); else openDrawer();
++  });
++  closeTools.addEventListener('click', () => closeDrawer());
++  shade.addEventListener('click', () => closeDrawer());
++  document.querySelectorAll('[data-open-section]').forEach(b => b.addEventListener('click', () => openDrawer(b.dataset.openSection, b)));
++  // Selecting a tool/page closes the mobile drawer, so the picture is immediately usable.
++  tools.addEventListener('click', e => {
++    if (!compact || !e.target.closest('.tool-buttons button,.pageBtn,[data-sticker]')) return;
++    closeDrawer(false);
++  });
++  $('imageUpload').addEventListener('change', () => closeDrawer(false));
++  // Inert protects the canvas behind the drawer; focus stays inside the temporary tool panel.
++  document.addEventListener('keydown', e => {
++    if (!document.body.classList.contains('tools-open') || !compact) return;
++    if (e.key === 'Escape') { e.preventDefault(); closeDrawer(); return; }
++    if (e.key !== 'Tab') return;
++    const focusable = [...tools.querySelectorAll('button,input,[tabindex="0"]')].filter(x => !x.disabled && x.getClientRects().length);
++    if (!focusable.length) return;
++    const first = focusable[0], last = focusable.at(-1);
++    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
++    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
++  });
++  // Reflect the real tool/color state for keyboard and screen-reader users.
++  // Observe existing classes; do not replace any drawing or color handlers.
++  const COLOR_NAMES = ['Pink','Red','Orange','Yellow','Green','Teal','Blue','Indigo',
++    'Purple','Brown','Black','White','Light pink','Light green','Light blue'];
++  function syncSelections() {
++    document.querySelectorAll('.tool-buttons button:not(#clearBtn),.brush,.bg,[data-sticker],.swatch')
++      .forEach(button => button.setAttribute('aria-pressed', String(button.classList.contains('active'))));
++    document.querySelectorAll('.swatch').forEach((button,index) => {
++      const name = COLOR_NAMES[index] || `Color ${index + 1}`;
++      button.setAttribute('aria-label', name);
++      button.title = name;
++    });
++  }
++  syncSelections();
++  if ('MutationObserver' in window) {
++    new MutationObserver(syncSelections).observe(tools, { subtree:true, attributes:true, attributeFilter:['class'] });
++  }
++  function largeView() {
++    if (!canvasView || !canvasView.g) return;
++    cancelInput();
++    canvasView.controlZoom(coverZoom(W(), H(), stage.clientWidth, stage.clientHeight));
++    $('viewNotice').textContent = 'Large view · Fit shows the whole picture.';
++  }
++  $('zoomLargeBtn').addEventListener('click', largeView);
++  $('zoomFitBtn').addEventListener('click', () => { $('viewNotice').textContent = ''; });
++  function layout() {
++    pending = 0;
++    const nextCompact = isCompact(innerWidth, innerHeight);
++    const nextLandscape = isPhoneLandscape(innerWidth, innerHeight);
++    if (initialized && (compact !== nextCompact || landscape !== nextLandscape)) closeDrawer(false);
++    const enteredLandscape = nextLandscape && (!initialized || !landscape);
++    compact = nextCompact; landscape = nextLandscape; initialized = true;
++    fitCanvas();
++    // At the default fit scale only: use the wider phone work area on rotation.
++    // Existing manual zoom is kept. Cover is a VIEW: no crop or pixel resize is saved.
++    if (enteredLandscape && canvasView.zoom < 1.01) largeView();
++  }
++  function schedule() { if (!pending) pending = requestAnimationFrame(layout); }
++  window.addEventListener('resize', schedule, { passive: true });
++  window.addEventListener('orientationchange', schedule, { passive: true });
++  window.addEventListener('pageshow', schedule, { passive: true });
++  layout();
++  root.HappyStudio = { openDrawer, closeDrawer, largeView };
++})(typeof globalThis === 'undefined' ? window : globalThis);
+diff --git a/package.json b/package.json
+index ab13db9..d417e20 100644
+--- a/package.json
++++ b/package.json
+@@ -3,7 +3,8 @@
+   "version": "1.0.0",
+   "private": true,
+   "scripts": {
+-    "test": "node --test tests/unit/*.test.cjs"
++    "test": "node --test tests/unit/*.test.cjs",
++    "test:ui": "python tests/browser/run_colorful_tests.py"
+   },
+   "engines": {
+     "node": ">=20"
+diff --git a/tests/browser/run_colorful_tests.py b/tests/browser/run_colorful_tests.py
+new file mode 100644
+index 0000000..0816795
+--- /dev/null
++++ b/tests/browser/run_colorful_tests.py
+@@ -0,0 +1,175 @@
++"""Fixed Colorful UI + original drawing regression. Exact local source injection is available
++when browser navigation is restricted. It does not test HTTP, caching or deployment.
++Usage: python tests/browser/run_colorful_tests.py --inline
++"""
++from __future__ import annotations
++import argparse,contextlib,hashlib,json,re,sys,time,unittest,os,shutil,functools,http.server,threading
++from pathlib import Path
++from playwright.sync_api import sync_playwright
++import run_browser_tests as old
++ROOT=Path(__file__).resolve().parents[2]
++PROFILES={**old.PROFILES,
++ 'phone_small_landscape':dict(viewport=dict(width=667,height=375),device_scale_factor=2,has_touch=True,is_mobile=True),
++ 'phone_mini_portrait':dict(viewport=dict(width=320,height=568),device_scale_factor=2,has_touch=True,is_mobile=True),
++ 'phone_large_landscape':dict(viewport=dict(width=932,height=430),device_scale_factor=3,has_touch=True,is_mobile=True)}
++old.PROFILES.update(PROFILES)
++class ColorfulCases(old.BrowserCases):
++ def setUp(self):
++  self.context=self.browser.new_context(**PROFILES[self.profile_name],accept_downloads=True)
++  self.page=self.context.new_page();self.page.set_default_timeout(15000);self.errors=[]
++  self.page.on('pageerror',lambda e:self.errors.append(str(e)))
++  self.load_app();self.settle()
++  # Legacy behavior tests start in Fit mode; auto-large-view is tested separately.
++  self.page.locator('#zoomFitBtn').click();self.settle()
++ def load_app(self):
++  if not self.inline:self.page.goto(self.base_url,wait_until='load');return
++  h=(self.app_root/'index.html').read_text()
++  h=re.sub(r'<link[^>]+rel="stylesheet"[^>]*>','',h)
++  h=re.sub(r'<script[^>]+src="[^"]+"[^>]*></script>','',h)
++  self.page.set_content(h, wait_until="domcontentloaded")
++  for f in ['style.css','apple-colorful.css']:self.page.add_style_tag(content=(self.app_root/f).read_text())
++  for f in ['canvas-zoom.js','app.js','mobile-ui.js']:self.page.add_script_tag(content=(self.app_root/f).read_text())
++ def compact(self):return self.page.locator('#toolsToggle').is_visible()
++ def open_tools(self):
++  if self.compact() and not self.page.locator('body').evaluate("e=>e.classList.contains('tools-open')"):
++   old.BrowserCases.click(self,'#toolsToggle');self.settle()
++ def close_tools(self):
++  if self.page.locator('body').evaluate("e=>e.classList.contains('tools-open')"):
++   self.page.locator('#closeTools').click();self.settle()
++ def click(self,selector):
++  loc=self.page.locator(selector)
++  inside_tools=loc.evaluate("e=>!!e.closest('.tools')")
++  if inside_tools:self.open_tools()
++  super().click(selector)
++  if inside_tools and selector!='#imageUpload':self.close_tools()
++ def color(self,value):
++  self.open_tools();self.page.locator('#colorPicker').fill(value);self.close_tools()
++ def assert_layout(self):
++  # Canvas may exceed its viewport intentionally; chrome must remain on-screen.
++  data=self.page.evaluate('''()=>{const box=s=>{const r=document.querySelector(s).getBoundingClientRect();return {x:r.x,y:r.y,w:r.width,h:r.height}};return {w:innerWidth,h:innerHeight,boxes:['header','main','.canvas-stage','.canvas-board','.top-actions'].map(box),scroll:[scrollX,scrollY],buttons:[...document.querySelectorAll('.top-actions button')].map(e=>{const r=e.getBoundingClientRect();return [r.x,r.y,r.right,r.bottom,r.width,r.height]})}}''')
++  for x in data['boxes']:
++   self.assertGreater(x['w'],0);self.assertGreater(x['h'],0);self.assertGreaterEqual(x['x'],-1);self.assertGreaterEqual(x['y'],-1);self.assertLessEqual(x['x']+x['w'],data['w']+1);self.assertLessEqual(x['y']+x['h'],data['h']+1)
++  for x,y,r,b,w,h in data['buttons']:
++   self.assertGreaterEqual(x,-1);self.assertLessEqual(r,data['w']+1);self.assertLessEqual(b,data['h']+1);self.assertGreaterEqual(w,44);self.assertGreaterEqual(h,44)
++  self.assertEqual(data['scroll'],[0,0])
++  if self.page.locator('.tools').is_visible():
++   self.assertLessEqual(self.page.locator('.tools').evaluate('e=>e.scrollWidth-e.clientWidth'),1)
++ def test_08_bucket_after_resize_hits_same_region(self):
++  self.enclosed_shape();v=PROFILES[self.profile_name]['viewport']
++  self.page.set_viewport_size(dict(width=v['height'],height=v['width']));self.settle();self.click('#zoomFitBtn')
++  self.color('#00cc66');self.click('#bucketBtn');self.tap_art(100,100)
++  self.assertEqual(self.pixel(100,100),[0,204,102,255]);self.assertEqual(self.pixel(30,30)[3],0)
++ def test_10_upload_after_scrolling_opens_native_filechooser(self):
++  self.open_tools()
++  # Upload is now higher in the drawer; scroll away first to exercise returning to it.
++  self.page.locator('.tools').evaluate('e=>{e.scrollTop=e.scrollHeight}')
++  self.settle();super().test_10_upload_after_scrolling_opens_native_filechooser()
++ def test_11_draw_after_rotation_maps_to_pointer(self):
++  v=PROFILES[self.profile_name]['viewport'];self.page.set_viewport_size(dict(width=v['height'],height=v['width']));self.settle();self.click('#zoomFitBtn')
++  self.stroke([(70,90),(170,90)]);self.assertGreater(self.pixel(120,90)[3],0);self.assertEqual(self.pixel(120,180)[3],0)
++ def test_19_actual_toolbar_touch_scroll_keeps_header(self):
++  self.open_tools();super().test_19_actual_toolbar_touch_scroll_keeps_header()
++ def test_41_single_fixed_interface_no_style_switcher(self):
++  self.assertEqual(self.page.locator('html').get_attribute('data-ui'),'colorful-1')
++  self.assertEqual(self.page.locator('#themeBtn,#themeDialog,[data-theme-choice]').count(),0)
++  self.assertIsNone(self.page.locator('html').get_attribute('data-theme'))
++  self.assertEqual(self.page.evaluate('typeof HappyStudio.setTheme'),'undefined')
++  self.assert_layout()
++
++ def test_42_drawer_open_close_does_not_change_zoom_or_pixels(self):
++  before=self.digest();self.zoom(2);chrome=self.chrome_boxes();self.open_tools()
++  if self.compact():
++   self.assertEqual(self.page.locator('#toolsToggle').get_attribute('aria-expanded'),'true');self.assertTrue(self.page.locator('#canvasViewport').evaluate('e=>e.inert'))
++   self.page.keyboard.press('Escape');self.assertFalse(self.page.locator('.tools').is_visible())
++  self.assertEqual(self.digest(),before);self.assertEqual(self.page.evaluate('canvasView.zoom'),2);self.assertEqual(self.chrome_boxes(),chrome)
++ def test_43_quick_palette_and_tool_selection(self):
++  if self.compact():
++   self.click('[data-open-section="colorsSection"]');self.assertTrue(self.page.locator('.tools').is_visible())
++  else:self.open_tools()
++  self.click('.swatch:nth-child(7)');self.click('#sparkleBtn');self.stroke([(80,100),(180,100)])
++  self.assertEqual(self.page.evaluate('tool'),'sparkle');self.assertGreater(self.pixel(120,100)[3],0)
++ def test_44_large_view_is_view_only_and_fit_recovers(self):
++  self.stroke([(80,100),(180,100)]);before=self.digest();h=self.page.evaluate('history.length')
++  self.click('#zoomLargeBtn');self.assertEqual(self.digest(),before);self.assertEqual(self.page.evaluate('history.length'),h)
++  g=self.page.evaluate('canvasView.g');self.assertGreaterEqual(g['width'],g['vw']-.5);self.assertGreaterEqual(g['height'],g['vh']-.5)
++  self.click('#zoomFitBtn');self.assertEqual(self.page.evaluate('canvasView.zoom'),1);self.assertEqual(self.digest(),before)
++ def test_45_phone_landscape_auto_large_from_portrait_preserves_picture(self):
++  # This is a deliberate orientation interaction, not a reinitialized drawing.
++  self.page.set_viewport_size(dict(width=393,height=851));self.settle();self.click('#zoomFitBtn')
++  self.stroke([(80,100),(160,100)]);before=self.digest();h=self.page.evaluate('history.length')
++  self.page.set_viewport_size(dict(width=851,height=393));self.settle()
++  self.assertEqual(self.digest(),before);self.assertEqual(self.page.evaluate('history.length'),h)
++  self.assertGreater(self.page.evaluate('canvasView.zoom'),1);self.assert_layout()
++  self.click('#zoomFitBtn');self.assertEqual(self.page.evaluate('canvasView.zoom'),1)
++ def test_46_safe_area_simulation_does_not_cover_buttons(self):
++  self.page.set_viewport_size(dict(width=851,height=393));self.settle()
++  self.page.add_style_tag(content=':root{--safe-left:59px;--safe-right:59px;--safe-bottom:21px;}');self.settle();self.assert_layout()
++  data=self.page.evaluate("""()=>[...document.querySelectorAll('.top-actions button,#toolsToggle')].filter(x=>x.getClientRects().length).map(x=>{let r=x.getBoundingClientRect();return [r.left,r.right,r.bottom]})""")
++  for left,right,bottom in data:self.assertGreaterEqual(left,59);self.assertLessEqual(right,851-59);self.assertLessEqual(bottom,393-21)
++  self.open_tools();r=self.page.locator('.tools').bounding_box();self.assertGreaterEqual(r['x'],59);self.assertLessEqual(r['x']+r['width'],851-59)
++  self.close_tools()
++
++ def test_47_drawer_keyboard_and_focus_return(self):
++  self.open_tools()
++  if self.compact():
++   self.assertEqual(self.page.evaluate('document.activeElement.id'),'closeTools')
++   self.page.keyboard.press('Shift+Tab');self.assertTrue(self.page.evaluate("!!document.activeElement.closest('.tools')"));self.page.keyboard.press('Escape')
++   self.assertEqual(self.page.evaluate('document.activeElement.id'),'toolsToggle')
++  self.assert_layout()
++
++ def test_48_blocked_storage_does_not_affect_fixed_interface(self):
++  self.page.evaluate("Object.defineProperty(window,'localStorage',{configurable:true,get(){throw new DOMException('blocked','SecurityError')}})")
++  self.open_tools();self.close_tools();self.color('#abcdef');self.click('#brushBtn');self.stroke([(70,80),(150,80)])
++  self.assertEqual(self.page.locator('html').get_attribute('data-ui'),'colorful-1')
++  self.assertGreater(self.pixel(110,80)[3],0)
++
++ def test_49_ui_uses_single_accent_but_paint_remains_separate(self):
++  self.assertEqual(self.page.evaluate("getComputedStyle(document.documentElement).getPropertyValue('--accent').trim()"),'#6b36d8')
++  self.color('#00cc66');self.click('#brushBtn');self.stroke([(80,100),(180,100)])
++  self.assertEqual(self.pixel(120,100),[0,204,102,255])
++  self.assertEqual(self.page.locator('#canvas').evaluate('e=>getComputedStyle(e).backgroundColor'),'rgb(255, 255, 255)')
++
++ def test_50_reduced_motion_preserves_art_and_chrome(self):
++  self.stroke([(80,80),(180,80)]);before=self.digest();boxes=self.chrome_boxes()
++  self.page.emulate_media(reduced_motion='reduce');self.settle()
++  self.assertEqual(self.digest(),before);self.assertEqual(self.chrome_boxes(),boxes);self.assert_layout()
++  self.assertEqual(self.page.locator('#saveBtn').evaluate('e=>getComputedStyle(e).transitionDuration'),'0s')
++
++ def test_51_selected_controls_have_accessible_labels_and_states(self):
++  self.open_tools();self.click('.swatch:nth-child(7)');self.click('#sparkleBtn');self.settle()
++  self.assertEqual(self.page.locator('#sparkleBtn').get_attribute('aria-pressed'),'true')
++  self.assertEqual(self.page.locator('#brushBtn').get_attribute('aria-pressed'),'false')
++  self.assertEqual(self.page.locator('.swatch:nth-child(7)').get_attribute('aria-label'),'Blue')
++  self.assertEqual(self.page.locator('.swatch:nth-child(7)').get_attribute('aria-pressed'),'true')
++ def test_52_ui_design_does_not_contaminate_saved_background(self):
++  self.color('#00cc66');self.click('#brushBtn');self.stroke([(70,80),(150,80)])
++  self.click('[data-bg="#fff7df"]')
++  with self.page.expect_download() as info:self.click('#saveBtn')
++  data=info.value;path=self.evidence/f'{self.profile_name}-fixed-export.png';data.save_as(path)
++  from PIL import Image
++  im=Image.open(path).convert('RGBA');self.assertEqual(im.getpixel((0,0)),(255,247,223,255))
++
++
++
++def main():
++ p=argparse.ArgumentParser();p.add_argument('--inline',action='store_true');p.add_argument('--browser',choices=['chromium','webkit'],default='chromium');p.add_argument('--profiles',nargs='+',default=list(PROFILES),choices=list(PROFILES));p.add_argument('--only-new',action='store_true');p.add_argument('--tests',nargs='+',help='Optional exact test names for a recorded rerun');p.add_argument('--evidence',type=Path,default=ROOT/'evidence/colorful');args=p.parse_args();args.evidence.mkdir(parents=True,exist_ok=True)
++ server=http.server.ThreadingHTTPServer(('127.0.0.1',0),functools.partial(old.QuietHandler,directory=str(ROOT)));threading.Thread(target=server.serve_forever,daemon=True).start()
++ try:
++  with sync_playwright() as pw:
++   engine=getattr(pw,args.browser);kw={}
++   if args.browser=='chromium' and not Path(engine.executable_path).exists():kw['executable_path']=shutil.which('chromium')
++   try:browser=engine.launch(headless=True,**kw)
++   except Exception as exc:
++    (args.evidence/'unavailable.json').write_text(json.dumps({'browser':args.browser,'error':str(exc)},indent=2));print(exc);return 2
++   suite=unittest.TestSuite()
++   for profile in args.profiles:
++    cls=type(f'{args.browser}_{profile}',(ColorfulCases,),dict(profile_name=profile,browser=browser,inline=args.inline,app_root=ROOT,base_url=f'http://127.0.0.1:{server.server_port}/',evidence=args.evidence))
++    for name in unittest.defaultTestLoader.getTestCaseNames(ColorfulCases):
++     if args.only_new and int(name.split('_')[1])<41:continue
++     if args.tests and name not in args.tests:continue
++     suite.addTest(cls(name))
++   old.JsonResult.records=[];result=unittest.TextTestRunner(verbosity=2,resultclass=old.JsonResult).run(suite)
++   report=dict(browser=args.browser,browser_version=browser.version,transport='exact local source injection' if args.inline else 'local HTTP',hardware='emulated viewport and touch, not physical iOS',tests_run=result.testsRun,failures=len(result.failures),errors=len(result.errors),skipped=len(result.skipped),results=result.records,sha256={f:hashlib.sha256((ROOT/f).read_bytes()).hexdigest() for f in ['index.html','style.css','app.js','canvas-zoom.js','mobile-ui.js','apple-colorful.css']})
++   (args.evidence/'results.json').write_text(json.dumps(report,indent=2));browser.close();return 0 if result.wasSuccessful() else 1
++ finally:server.shutdown();server.server_close()
++if __name__=='__main__':sys.exit(main())
+diff --git a/tests/unit/colorful.test.cjs b/tests/unit/colorful.test.cjs
+new file mode 100644
+index 0000000..4c8ec54
+--- /dev/null
++++ b/tests/unit/colorful.test.cjs
+@@ -0,0 +1,32 @@
++const {test}=require('node:test');
++const assert=require('node:assert/strict');
++const fs=require('node:fs'),path=require('node:path');
++const ui=require('../../mobile-ui.js');
++for(const [w,h,compact,landscape] of [[393,852,true,false],[852,393,true,true],[667,375,true,true],[568,320,true,true],[320,568,true,false],[1024,500,true,true],[1180,820,false,false],[820,1180,false,false],[507,1024,true,false],[1280,800,false,false]]) {
++ test(`responsive classification ${w}x${h}`,()=>{assert.equal(ui.isCompact(w,h),compact);assert.equal(ui.isPhoneLandscape(w,h),landscape)});
++}
++
++
++test('large view preserves scale aspect using one scalar',()=>{assert.equal(ui.coverZoom(400,800,800,400),4)});
++test('matched aspect needs no additional zoom',()=>assert.equal(ui.coverZoom(800,400,800,400),1));
++test('large view clamps to the existing 400 percent zoom maximum',()=>assert.equal(ui.coverZoom(200,1200,900,250),4));
++test('invalid/zero geometry is harmless',()=>{for(const dims of [[0,2,3,4],[1,NaN,3,4],[1,2,3,-1]])assert.equal(ui.coverZoom(...dims),1)});
++test('narrower wide paper uses width cover correctly',()=>assert.ok(Math.abs(ui.coverZoom(756,320,756,306)-320/306)<1e-8));
++test('all six runtime dependencies exist and are referenced',()=>{const root=path.resolve(__dirname,'../..'),html=fs.readFileSync(path.join(root,'index.html'),'utf8');for(const f of ['style.css','apple-colorful.css','canvas-zoom.js','app.js','mobile-ui.js']){assert.ok(html.includes(f));assert.ok(fs.existsSync(path.join(root,f)))} });
++
++const root=path.resolve(__dirname,'../..');
++const html=fs.readFileSync(path.join(root,'index.html'),'utf8');
++const css=fs.readFileSync(path.join(root,'apple-colorful.css'),'utf8');
++const js=fs.readFileSync(path.join(root,'mobile-ui.js'),'utf8');
++test('only fixed Colorful marker is shipped',()=>{assert.match(html,/data-ui="colorful-1"/);assert.doesNotMatch(html,/data-theme=/)});
++test('style button and picker are removed, not just hidden',()=>assert.doesNotMatch(html,/id="(?:themeBtn|themeDialog|closeTheme)"|data-theme-choice/));
++test('old theme APIs cannot be invoked',()=>{assert.equal(ui.THEMES,undefined);assert.equal(ui.themeOrDefault,undefined);assert.doesNotMatch(js,/setTheme|currentTheme/)});
++test('saved preferences and URL theme parameter are not consumed',()=>assert.doesNotMatch(js,/localStorage|sessionStorage|URLSearchParams|location.search/));
++test('stylesheet has no selectable palette branches',()=>assert.doesNotMatch(css,/\[data-theme|sample-candy|sample-ocean|sample-forest|sample-space/));
++test('built-in canvas and UI color layers are kept separate',()=>{assert.doesNotMatch(js,/ctx\.|getContext|toDataURL|canvas.width\s*=/);assert.match(css,/--accent:#6b36d8/)});
++test('accessible labels and pressed states are provided',()=>{assert.match(js,/aria-label/);assert.match(js,/aria-pressed/)});
++test('opaque fallback and reduced transparency fallback included',()=>{assert.match(css,/@supports not/);assert.match(css,/prefers-reduced-transparency/)});
++test('reduced motion and forced colors remain supported',()=>{assert.match(css,/prefers-reduced-motion/);assert.match(css,/forced-colors/)});
++test('native file picker remains in the markup',()=>{assert.match(html,/id="imageUpload"/);assert.match(html,/type="file"/)});
++test('all DOM IDs are unique',()=>{const ids=[...html.matchAll(/\bid="([^"]+)"/g)].map(x=>x[1]);assert.equal(ids.length,new Set(ids).size)});
++test('no external runtime font/script/style dependencies',()=>{assert.doesNotMatch(html,/(?:href|src)="https?:/);assert.doesNotMatch(css,/@import|@font-face/)});
