@@ -1,0 +1,9 @@
+test_10_upload_after_scrolling_opens_native_filechooser (__main__.chromium_desktop.test_10_upload_after_scrolling_opens_native_filechooser) ... ok
+test_10_upload_after_scrolling_opens_native_filechooser (__main__.chromium_tablet_landscape.test_10_upload_after_scrolling_opens_native_filechooser) ... ok
+test_10_upload_after_scrolling_opens_native_filechooser (__main__.chromium_phone_landscape.test_10_upload_after_scrolling_opens_native_filechooser) ... ok
+test_10_upload_after_scrolling_opens_native_filechooser (__main__.chromium_phone_portrait.test_10_upload_after_scrolling_opens_native_filechooser) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 8.938s
+
+OK

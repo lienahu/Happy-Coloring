@@ -1,0 +1,39 @@
+/* The export image is OUTSIDE the gesture-blocking canvas/toolbar regions. */
+.save-dialog {
+  box-sizing:border-box;width:min(620px,calc(100vw - 24px));
+  max-height:calc(100vh - 24px);max-height:calc(100dvh - 24px - var(--safe-top,0px) - var(--safe-bottom,0px));
+  margin:auto;padding:18px;border:1px solid #fff;border-radius:24px;
+  background:#faf7ff;color:var(--ink,#252039);font-family:inherit;
+  box-shadow:0 22px 75px #38215355;overflow:hidden;
+  touch-action:auto;-webkit-user-select:auto;user-select:auto;
+}
+.save-dialog:not([open]) {display:none;}
+.save-dialog[open] {display:flex;flex-direction:column;gap:12px;}
+.save-dialog::backdrop {background:rgba(34,21,54,.32);}
+.save-heading {display:flex;align-items:center;justify-content:space-between;gap:12px;flex:0 0 auto;}
+.save-heading h2 {color:inherit;text-transform:none;letter-spacing:0;line-height:1.3;font-size:21px;font-weight:650;margin:0;}
+#closeSave {min-width:44px;min-height:44px;flex:0 0 44px;}
+.save-content {display:grid;gap:14px;min-height:0;overflow:auto;overscroll-behavior:contain;padding:2px;}
+.save-preview-wrap {min-width:0;align-self:start;}
+#savePreview {display:block;width:auto;height:auto;max-width:100%;max-height:32vh;max-height:32dvh;margin:0 auto;border-radius:10px;background:#fff;object-fit:contain;box-shadow:0 3px 14px #3d236815;
+  -webkit-touch-callout:default!important;-webkit-user-select:auto!important;user-select:auto!important;touch-action:auto!important;}
+#savePreview[hidden] {display:none;}
+.save-options {display:flex;flex-direction:column;gap:9px;min-width:0;}
+#saveInstructions {margin:0 0 2px;line-height:1.45;font-size:13px;}
+.save-dialog button,.save-action {font-family:inherit;min-height:44px;border-radius:14px;line-height:1.3;}
+.save-action {display:flex;align-items:center;justify-content:center;padding:11px 14px;text-decoration:none;text-align:center;color:var(--accent,#6b36d8);background:#fff;border:1px solid #ded2ee;font-weight:650;cursor:pointer;}
+.save-primary {background:linear-gradient(145deg,#8950ef,#642bd0);color:#fff;padding:11px 14px;font-weight:650;}
+.save-dialog button:disabled,.save-action[aria-disabled="true"] {opacity:.45;cursor:default;}
+.save-note,#saveStatus {margin:0;font-size:12px;line-height:1.45;color:var(--muted,#666075);overflow-wrap:anywhere;}
+#saveStatus {min-height:1.45em;}
+.save-action:focus-visible {outline:3px solid #8b62df;outline-offset:2px;}
+#retrySave[hidden] {display:none;}
+@media (orientation:landscape) and (max-height:500px) {
+  .save-dialog {width:min(800px,calc(100vw - 24px));padding:12px 16px;}
+  .save-content {grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);align-items:start;}
+  #savePreview {max-height:calc(100dvh - 112px);}
+}
+@media (forced-colors:active) {
+  .save-dialog,.save-action {border:1px solid CanvasText;}
+  .save-primary {background:ButtonFace;color:ButtonText;}
+}

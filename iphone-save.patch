@@ -1,0 +1,1092 @@
+diff --git a/SAVE-FIX-README.md b/SAVE-FIX-README.md
+new file mode 100644
+index 0000000..a979f7c
+--- /dev/null
++++ b/SAVE-FIX-README.md
+@@ -0,0 +1,92 @@
++# Happy Colors — Colorful S1: Save panel
++
++Built from the accepted **seven-language Colorful L1** package. This is a complete
++preview folder, not a deployment and not an App Store build. Nothing was pushed to
++GitHub or main. Preserve earlier Git stashes and test on a feature branch.
++
++## New save flow
++
++1. Tap the existing Save button. A panel displays the FULL artwork, with its paper
++   background, not a screenshot of the visible zoomed area.
++2. On a secure context supporting PNG file sharing, tap **Share / Save image**.
++   Select Save Image / Save to Files if offered by the device. Available actions
++   and the device's menu language are controlled by the operating system.
++3. **Download PNG** remains available on all supported browsers. On iPhone/iPad,
++   look in Files > Downloads; a download does not automatically enter Photos.
++4. Alternatively, touch and hold the preview or use **Open image**. The latter
++   opens a separate tab; it never replaces the drawing tab.
++
++The web app cannot silently write to Apple's Photos library. No automatic claim
++of a successful save is shown: a download is reported as requested, and native
++sharing is reported as finished rather than guaranteed saved to Photos.
++
++The prepared PNG is local. There is no upload, API call, account or server.
++All new labels are translated into the same seven supported menu languages.
++Apple Colorful remains the only visual style.
++
++## Local preview vs. HTTPS
++
++Native Web Share requires a secure context. An iPhone visiting a computer's
++`http://192.168...:8000/` address normally has no native file-sharing API.
++The panel deliberately disables Share there and explains the alternative.
++**Download PNG, image preview and Open image do not require Web Share.**
++A computer's localhost may be considered trustworthy, but that does not make its
++plain-HTTP LAN address trustworthy to the iPhone. Do not enable insecure flags or
++disable browser security to test sharing. Verify the native sheet on a trusted
++HTTPS preview origin; actual permissions/capabilities are checked at runtime.
++
++## Preview
++
++Extract to a NEW folder, then:
++
++```powershell
++py -m http.server 8000 --bind 0.0.0.0
++```
++
++Use the same private LAN preview process as before. No router port forwarding.
++Stop the server with Ctrl+C when finished. The desktop/tablet build tag reads
++**Colorful S1**; compact phone layouts hide the tag to save space.
++
++## Files
++
++There are ten runtime files:
++
++- `index.html`
++- `style.css`
++- `apple-colorful.css`
++- `languages.css`
++- `save-picture.css` (new)
++- `i18n.js` (19 additional messages per language)
++- `canvas-zoom.js`
++- `app.js` (only its Save handler changed)
++- `mobile-ui.js`
++- `save-picture.js` (new)
++
++The five unchanged runtime files are byte-identical to Colorful L1. The drawing,
++fill, history and pinch algorithms were not rewritten. Older documents/evidence
++in this folder describe earlier work; current evidence is under `evidence/save/`.
++
++## Tests
++
++```powershell
++npm test
++py -m pip install -r requirements-test.txt
++py -m playwright install chromium
++py tests/browser/run_save_tests.py --save-only
++```
++
++The normal test runner uses a local HTTP server. `--inline` is only for reproducing
++the restricted execution environment described in `docs/SAVE-TEST-REPORT.md`.
++The native-share branches are explicitly mocked; this does not test iOS's share
++sheet or prove that Photos accepted the file.
++
++## Applying after acceptance
++
++On a clean feature branch based on your accepted seven-language files, copy the
++new package's runtime files together (especially the two new save files).
++Keep the tests and docs as well. Do not copy into main or apply multiple old patches.
++`iphone-save.patch` is an alternative to copying: it targets the exact L1 package,
++not the older repository main. Use `git apply --check` before applying it.
++Do not apply the patch after already copying the updated files.
++
++No artwork autosave is added. Save pictures before reloading or closing the app.
+diff --git a/app.js b/app.js
+index 8238ec8..f291bfa 100644
+--- a/app.js
++++ b/app.js
+@@ -237,13 +237,8 @@ newBtn.onclick=()=>confirmModal.classList.remove("hidden");
+ cancelNew.onclick=()=>confirmModal.classList.add("hidden");
+ confirmNew.onclick=()=>{confirmModal.classList.add("hidden");clearAll()};
+ 
+-saveBtn.onclick=()=>{
+- const out=document.createElement("canvas");
+- out.width=canvas.width;out.height=canvas.height;
+- let o=out.getContext("2d");
+- o.fillStyle=background;o.fillRect(0,0,out.width,out.height);o.drawImage(canvas,0,0);
+- let a=document.createElement("a");a.download="my-coloring.png";a.href=out.toDataURL();a.click()
+-};
++// Keep export UI separate from the drawing and gesture engines.
++saveBtn.onclick=()=>window.HappySave.open(canvas,background,saveBtn);
+ 
+ document.querySelectorAll(".bg").forEach(b=>b.onclick=()=>{
+  background=b.dataset.bg;canvas.style.background=background;
+diff --git a/docs/SAVE-DEVICE-CHECKLIST.md b/docs/SAVE-DEVICE-CHECKLIST.md
+new file mode 100644
+index 0000000..7303e92
+--- /dev/null
++++ b/docs/SAVE-DEVICE-CHECKLIST.md
+@@ -0,0 +1,25 @@
++# Physical iPhone/iPad save acceptance
++
++Do not merge until the iPhone on which Save failed has been checked.
++Record device model, OS version, browser, and whether the URL is LAN HTTP or HTTPS.
++
++1. Draw with at least two colors. Set a non-white paper background. Zoom in and pan.
++2. Tap Save. A full-picture preview should appear immediately with a brief preparation state.
++   Close must remain reachable in portrait and landscape, including small screens.
++3. Download PNG. Check Safari's downloads and Files > Downloads, not only Photos.
++   Open the file and verify the WHOLE drawing, background and resolution, with no UI borders.
++4. Touch and hold the preview. Verify the native image menu and available save action.
++   Try Open image too; it should open a separate tab and preserve the app tab.
++5. Return to the app and confirm drawing, zoom, selected tool/color and Undo/Redo remain usable.
++6. On a trusted HTTPS preview, tap Share / Save image. Verify the REAL native sheet,
++   then try Save Image / Save to Files if offered. Confirm the file actually exists.
++7. Cancel the share sheet. No unwanted download should occur and the artwork should be unchanged.
++8. Save again after drawing another mark; the second PNG must contain the new mark.
++9. Repeat on iPad to confirm its existing ability to save is preserved (now via the panel).
++10. Cycle the seven menu languages, save in a non-English language, and rotate with the panel open.
++
++On ordinary LAN HTTP the Share button should be disabled with an explanation;
++that is the expected capability fallback, NOT an error in the drawing app.
++Do not disable browser security. The app cannot directly grant Photos access.
++
++Save artwork before reloading. This patch does not implement autosave.
+diff --git a/docs/SAVE-TEST-REPORT.md b/docs/SAVE-TEST-REPORT.md
+new file mode 100644
+index 0000000..6805d3c
+--- /dev/null
++++ b/docs/SAVE-TEST-REPORT.md
+@@ -0,0 +1,135 @@
++# Happy Colors — Colorful S1 Save update: test report
++
++## Baseline and scope
++
++Built from the exact `happy-coloring-seven-languages-tested.zip` supplied in this
++conversation (Colorful L1), not from an assumed current repository main.
++No GitHub branch, PR, main, deployment or user computer was modified.
++
++The old Save handler composed the full PNG, created a detached anchor with a data
++URL, and called `click()`. It offered no preview, alternative method, error state,
++or explanation of Files vs Photos. The user reported that this worked on iPad but
++not iPhone. **That exact device-specific failure was not reproduced on physical
++hardware; this is a targeted robustness update, not a confirmed Safari root-cause diagnosis.**
++
++New behavior: Save opens a modal preview. The app encodes the full artwork and
++paper background into a PNG Blob. Native file sharing is checked by capability,
++not by user-agent strings, and is launched by a separate real tap after encoding.
++Explicit Download PNG and Open image links remain available. The image allows
++native touch-and-hold. No network image upload or translation API is introduced.
++
++Changed runtime files: `index.html`, `i18n.js`, and only the Save handler in
++`app.js`. Added: `save-picture.js`, `save-picture.css`.
++
++Byte-identical to L1: `canvas-zoom.js`, `mobile-ui.js`, `style.css`,
++`apple-colorful.css`, `languages.css`. See `engine-integrity.json`.
++The single fixed Apple Colorful style and all seven languages are retained;
++19 new strings per locale cover the Save panel and its error/fallback states.
++
++## Final executed results
++
++| Check | Result |
++|---|---|
++| Node unit tests | **201 passed, 0 failed** (151 existing + 50 new) |
++| Browser case/profile combinations | **338 run: 329 passed, 9 skipped, 0 failed/errors** |
++| JavaScript syntax | All five runtime scripts pass `node --check` |
++| Runtime freeze | Ten runtime SHA-256 hashes match the files used for final tests |
++| Patch | Checked on the exact L1 package; applied source files match this build |
++
++All 80 browser cases ran in desktop, tablet-landscape, phone-portrait and
++phone-landscape configurations: 320 combinations. Six focused Save cases ran
++additionally on mini-phone portrait (320 × 568), very small phone landscape
++(568 × 320), and tablet portrait: 18 combinations.
++The 9 skips are existing touch-only cases in the desktop configuration.
++Language loops within one case are NOT counted as seven separate test cases.
++
++## What was checked
++
++- The actual Save button responds to mouse clicks and simulated touch taps.
++- The preview and downloaded PNG use the full artwork bitmap, not the current
++  zoomed viewport. Decoded PNG dimensions and colored pixels/background match.
++- Real Chromium download events and downloaded bytes are inspected.
++- With an **explicitly mocked** share API, the handler passes a real PNG File
++  (not a blob URL/text link) with correct name, MIME, content and user activation.
++- No sharing happens while encoding: only the second real user tap calls share.
++- Cancelled, denied, synchronously throwing, unsupported, insecure and pending
++  sharing scenarios preserve the preview and artwork; no forced download occurs.
++- A pending native-share Promise cannot permanently lock Close or the download
++  fallback, and late callbacks cannot overwrite a newer Save panel.
++- Failed/delayed PNG encoding can be closed or retried without clearing artwork;
++  a failed second export cannot expose the preceding picture as a stale download.
++- The preview URL remains usable after closing; it is not immediately revoked.
++- All seven languages fit the panel, including narrow/short screens. Close stays
++  reachable, links remain at least 44px high, focus returns, and Escape works.
++- The image is outside the app's canvas gesture blockers and its context-menu
++  event is not cancelled. **The actual iOS long-press menu remains untested.**
++- Previous Brush, Sparkle, Eraser, Fill, upload, same-file upload, history, stickers,
++  background, rotation, pinch/pan, toolbar layout and language checks reran.
++
++## Changes to test scripts and initial failures
++
++The Save workflow intentionally gains a preview. Four previous export checks now
++click Save, wait for the PNG, and click Download PNG. Their existing file-content,
++resolution and background assertions remain intact; no assertion was removed to
++hide a product failure.
++
++The source-integrity test permits only the narrowly scoped Save handler change,
++in addition to the previously allowed Clear-message translation.
++
++An initial 34-case Save run had 4 test errors (2 cases × 2 phone profiles).
++The fault-injection script returned an assigned function from `page.evaluate`,
++which Playwright then invoked unintentionally: restoring `toBlob` caused an
++Illegal invocation; assigning a deliberately throwing test double triggered it
++before the app could handle it. Wrapping those assignments in void-returning
++functions fixed the TEST SCRIPT. The final 338-case run passed. The initial logs
++and failure screenshots are retained under `evidence/save/initial*`.
++
++## Execution environment and limits
++
++Node.js 22.16.0; Python 3.13.5; Playwright 1.57.0;
++Chromium 144.0.7559.96 on Linux.
++
++HTTP navigation to the container's local server was attempted and rejected with
++`net::ERR_BLOCKED_BY_ADMINISTRATOR`. Browser tests therefore inject the exact local
++HTML/CSS/JavaScript into a real Chromium page. These tests do **not** verify HTTP
++resource delivery, site caching, GitHub Pages, the iOS operating system or Photos.
++
++WebKit installation was attempted but failed due to DNS/download errors
++(`EAI_AGAIN`); see `webkit-install-attempt.log`. No WebKit/Safari test is claimed.
++No physical iPhone/iPad, native Apple share sheet, Photos permission flow, actual
++long-press save menu or iOS file-picker destination was tested.
++
++The native file-sharing scenarios use mocked `navigator.canShare`,
++`navigator.share` and secure-context capability. These are logic/interaction tests,
++NOT evidence that Apple's share sheet opened or wrote a photo on an iPhone.
++Language storage roundtrip also retains the earlier explicitly simulated storage
++mode used by this restricted origin.
++
++## Real-device acceptance
++
++Use `docs/SAVE-DEVICE-CHECKLIST.md` on the iPhone that exhibited the problem and
++on the previously working iPad. A plain HTTP LAN preview can test PNG download,
++preview and Open image but normally cannot test native Web Share. Use a trusted
++HTTPS preview to verify the actual native share sheet; never disable browser
++security. Confirm the actual saved file in Photos or Files, not just a UI message.
++This patch does not add artwork autosave.
++
++## Reproduce
++
++```powershell
++npm test
++py -m pip install -r requirements-test.txt
++py -m playwright install chromium
++py tests/browser/run_save_tests.py --profiles desktop tablet_landscape phone_portrait phone_landscape
++py tests/browser/run_save_tests.py --save-only
++```
++
++Default mode uses local HTTP on a normal computer. The current restricted
++execution used `--inline`, with the profile sets in the final JSON reports.
++
++## Technical references consulted
++
++- WebKit, The User Activation API: https://webkit.org/blog/13862/the-user-activation-api/
++- MDN, Navigator.share: https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share
++- MDN, HTMLCanvasElement.toBlob: https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/toBlob
++- Apple, Where to find downloads: https://support.apple.com/en-us/102440
+diff --git a/i18n.js b/i18n.js
+index 7a6746c..692f35a 100644
+--- a/i18n.js
++++ b/i18n.js
+@@ -99,7 +99,26 @@
+     "stickerButterfly": "Butterfly sticker",
+     "stickerSparkle": "Sparkle sticker",
+     "toolsShort": "Tools",
+-    "stickersShort": "Stickers"
++    "stickersShort": "Stickers",
++    "savePicture": "Save your picture",
++    "savePreview": "Preview of the whole picture",
++    "savePreparing": "Preparing your picture…",
++    "saveShare": "Share / Save image",
++    "saveDownload": "Download PNG",
++    "saveOpen": "Open image",
++    "saveInstructions": "To save to Photos on iPhone or iPad, tap Share and choose Save Image if offered. You can also touch and hold the preview.",
++    "saveFilesHint": "Download saves a file; check Files or Downloads, not just Photos.",
++    "saveReady": "Your full picture is ready. Choose how to save it.",
++    "saveNoShare": "Sharing is unavailable here. Use Download PNG or touch and hold the preview. Open image is another option.",
++    "saveHttpHint": "System sharing needs HTTPS. On this local HTTP preview, use Download PNG or touch and hold the picture.",
++    "saveSharing": "Choose a destination in the system share sheet. Closing this panel will not erase your drawing.",
++    "saveShared": "Sharing finished. Check the destination you chose.",
++    "saveCancelled": "Sharing was cancelled or no destination was available. Your drawing is unchanged.",
++    "saveShareError": "Sharing could not start. Try Download PNG, or touch and hold the preview.",
++    "saveExportError": "The picture could not be prepared. Close this panel and try again. Your drawing has not been cleared.",
++    "saveDownloadRequested": "Download requested. Check Files or Downloads. This does not automatically add the picture to Photos.",
++    "saveOpenRequested": "The image should open in a new tab. Save it there, then return to this drawing tab.",
++    "saveRetry": "Try again"
+   },
+   "fr": {
+     "language": "Langue",
+@@ -195,7 +214,26 @@
+     "stickerButterfly": "Autocollant papillon",
+     "stickerSparkle": "Autocollant étincelles",
+     "toolsShort": "Outils",
+-    "stickersShort": "Gommettes"
++    "stickersShort": "Gommettes",
++    "savePicture": "Enregistrer le dessin",
++    "savePreview": "Aperçu du dessin entier",
++    "savePreparing": "Préparation du dessin…",
++    "saveShare": "Partager / Enregistrer l’image",
++    "saveDownload": "Télécharger le PNG",
++    "saveOpen": "Ouvrir l’image",
++    "saveInstructions": "Pour enregistrer dans Photos sur iPhone ou iPad, touchez Partager, puis Enregistrer l’image si cette option est proposée. Vous pouvez aussi maintenir le doigt sur l’aperçu.",
++    "saveFilesHint": "Le téléchargement crée un fichier : regardez dans Fichiers ou Téléchargements, pas seulement dans Photos.",
++    "saveReady": "Le dessin entier est prêt. Choisissez comment l’enregistrer.",
++    "saveNoShare": "Le partage est indisponible ici. Téléchargez le PNG ou maintenez le doigt sur l’aperçu. Vous pouvez aussi ouvrir l’image.",
++    "saveHttpHint": "Le partage système nécessite HTTPS. Dans cet aperçu HTTP local, téléchargez le PNG ou maintenez le doigt sur l’image.",
++    "saveSharing": "Choisissez une destination dans la feuille de partage. Fermer ce panneau n’efface pas le dessin.",
++    "saveShared": "Le partage est terminé. Vérifiez la destination choisie.",
++    "saveCancelled": "Le partage a été annulé ou aucune destination n’était disponible. Le dessin est inchangé.",
++    "saveShareError": "Impossible de lancer le partage. Téléchargez le PNG ou maintenez le doigt sur l’aperçu.",
++    "saveExportError": "Impossible de préparer le dessin. Fermez ce panneau et réessayez. Le dessin n’a pas été effacé.",
++    "saveDownloadRequested": "Téléchargement demandé. Regardez dans Fichiers ou Téléchargements. L’image n’est pas ajoutée automatiquement à Photos.",
++    "saveOpenRequested": "L’image devrait s’ouvrir dans un nouvel onglet. Enregistrez-la, puis revenez à l’onglet du dessin.",
++    "saveRetry": "Réessayer"
+   },
+   "pt": {
+     "language": "Idioma",
+@@ -291,7 +329,26 @@
+     "stickerButterfly": "Autocolante de borboleta",
+     "stickerSparkle": "Autocolante de brilhos",
+     "toolsShort": "Pintar",
+-    "stickersShort": "Adesivos"
++    "stickersShort": "Adesivos",
++    "savePicture": "Guardar o desenho",
++    "savePreview": "Pré-visualização do desenho completo",
++    "savePreparing": "A preparar o desenho…",
++    "saveShare": "Partilhar / Guardar imagem",
++    "saveDownload": "Descarregar PNG",
++    "saveOpen": "Abrir imagem",
++    "saveInstructions": "Para guardar em Fotografias no iPhone ou iPad, toque em Partilhar e escolha Guardar imagem, se disponível. Também pode manter o dedo na pré-visualização.",
++    "saveFilesHint": "O descarregamento cria um ficheiro. Procure em Ficheiros ou Descargas, não apenas em Fotografias.",
++    "saveReady": "O desenho completo está pronto. Escolha como o guardar.",
++    "saveNoShare": "A partilha não está disponível aqui. Descarregue o PNG ou mantenha o dedo na pré-visualização. Também pode abrir a imagem.",
++    "saveHttpHint": "A partilha do sistema requer HTTPS. Nesta pré-visualização HTTP local, descarregue o PNG ou mantenha o dedo na imagem.",
++    "saveSharing": "Escolha um destino na folha de partilha do sistema. Fechar este painel não apaga o desenho.",
++    "saveShared": "A partilha terminou. Verifique o destino escolhido.",
++    "saveCancelled": "A partilha foi cancelada ou não havia um destino disponível. O desenho não foi alterado.",
++    "saveShareError": "Não foi possível iniciar a partilha. Descarregue o PNG ou mantenha o dedo na pré-visualização.",
++    "saveExportError": "Não foi possível preparar o desenho. Feche este painel e tente novamente. O desenho não foi apagado.",
++    "saveDownloadRequested": "Descarregamento solicitado. Procure em Ficheiros ou Descargas. A imagem não é adicionada automaticamente a Fotografias.",
++    "saveOpenRequested": "A imagem deverá abrir num novo separador. Guarde-a e volte ao separador do desenho.",
++    "saveRetry": "Tentar novamente"
+   },
+   "es": {
+     "language": "Idioma",
+@@ -387,7 +444,26 @@
+     "stickerButterfly": "Pegatina de mariposa",
+     "stickerSparkle": "Pegatina de brillos",
+     "toolsShort": "Dibujar",
+-    "stickersShort": "Pegatinas"
++    "stickersShort": "Pegatinas",
++    "savePicture": "Guardar el dibujo",
++    "savePreview": "Vista previa del dibujo completo",
++    "savePreparing": "Preparando el dibujo…",
++    "saveShare": "Compartir / Guardar imagen",
++    "saveDownload": "Descargar PNG",
++    "saveOpen": "Abrir imagen",
++    "saveInstructions": "Para guardar en Fotos en el iPhone o iPad, toca Compartir y elige Guardar imagen si aparece. También puedes mantener pulsada la vista previa.",
++    "saveFilesHint": "La descarga guarda un archivo. Busca en Archivos o Descargas, no solo en Fotos.",
++    "saveReady": "El dibujo completo está listo. Elige cómo guardarlo.",
++    "saveNoShare": "Compartir no está disponible aquí. Descarga el PNG o mantén pulsada la vista previa. También puedes abrir la imagen.",
++    "saveHttpHint": "Compartir con el sistema requiere HTTPS. En esta vista previa HTTP local, descarga el PNG o mantén pulsada la imagen.",
++    "saveSharing": "Elige un destino en el menú de compartir. Cerrar este panel no borra el dibujo.",
++    "saveShared": "Se ha terminado de compartir. Revisa el destino elegido.",
++    "saveCancelled": "Se canceló la acción o no había un destino disponible. El dibujo no ha cambiado.",
++    "saveShareError": "No se pudo iniciar la acción de compartir. Descarga el PNG o mantén pulsada la vista previa.",
++    "saveExportError": "No se pudo preparar el dibujo. Cierra este panel y vuelve a intentarlo. El dibujo no se ha borrado.",
++    "saveDownloadRequested": "Descarga solicitada. Busca en Archivos o Descargas. La imagen no se añade automáticamente a Fotos.",
++    "saveOpenRequested": "La imagen debería abrirse en otra pestaña. Guárdala allí y vuelve a la pestaña del dibujo.",
++    "saveRetry": "Reintentar"
+   },
+   "zh-Hans": {
+     "language": "语言",
+@@ -483,7 +559,26 @@
+     "stickerButterfly": "蝴蝶贴纸",
+     "stickerSparkle": "闪光贴纸",
+     "toolsShort": "工具",
+-    "stickersShort": "贴纸"
++    "stickersShort": "贴纸",
++    "savePicture": "保存作品",
++    "savePreview": "完整作品预览",
++    "savePreparing": "正在准备图片…",
++    "saveShare": "分享／存储图像",
++    "saveDownload": "下载 PNG",
++    "saveOpen": "打开图片",
++    "saveInstructions": "在 iPhone 或 iPad 上保存到“照片”：点“分享”，再选择“存储图像”（如有此选项）。也可以长按预览图片。",
++    "saveFilesHint": "下载会生成文件，请查看“文件”或“下载”，不只是“照片”。",
++    "saveReady": "完整图片已准备好，请选择保存方式。",
++    "saveNoShare": "当前无法使用系统分享。可以下载 PNG、长按预览，或打开图片后保存。",
++    "saveHttpHint": "系统分享需要 HTTPS。在当前 HTTP 局域网预览中，请下载 PNG 或长按图片保存。",
++    "saveSharing": "请在系统分享菜单中选择保存位置。关闭此面板不会清空画作。",
++    "saveShared": "分享已结束，请检查所选保存位置。",
++    "saveCancelled": "分享已取消或没有可用的保存位置，画作保持不变。",
++    "saveShareError": "无法启动分享。请下载 PNG 或长按预览图片保存。",
++    "saveExportError": "无法生成图片。请关闭面板后重试，画作没有被清空。",
++    "saveDownloadRequested": "已请求下载，请查看“文件”或“下载”。图片不会自动添加到“照片”。",
++    "saveOpenRequested": "图片应在新标签页中打开。保存后请返回绘画标签页。",
++    "saveRetry": "重试"
+   },
+   "ja": {
+     "language": "言語",
+@@ -579,7 +674,26 @@
+     "stickerButterfly": "ちょうちょのシール",
+     "stickerSparkle": "キラキラのシール",
+     "toolsShort": "ツール",
+-    "stickersShort": "シール"
++    "stickersShort": "シール",
++    "savePicture": "絵を保存",
++    "savePreview": "絵全体のプレビュー",
++    "savePreparing": "画像を準備しています…",
++    "saveShare": "共有／画像を保存",
++    "saveDownload": "PNGをダウンロード",
++    "saveOpen": "画像を開く",
++    "saveInstructions": "iPhone・iPadの「写真」に保存するには、「共有」をタップし、表示される場合は「画像を保存」を選んでください。プレビューの長押しでも保存できます。",
++    "saveFilesHint": "ダウンロードした画像はファイルとして保存されます。「写真」だけでなく「ファイル」や「ダウンロード」も確認してください。",
++    "saveReady": "絵全体の画像ができました。保存方法を選んでください。",
++    "saveNoShare": "ここでは共有できません。PNGのダウンロード、プレビューの長押し、または画像を開いて保存してください。",
++    "saveHttpHint": "システムの共有にはHTTPSが必要です。このローカルHTTPプレビューでは、PNGをダウンロードするか画像を長押ししてください。",
++    "saveSharing": "システムの共有メニューで保存先を選んでください。この画面を閉じても絵は消えません。",
++    "saveShared": "共有が終了しました。選んだ保存先を確認してください。",
++    "saveCancelled": "共有がキャンセルされたか、保存先がありませんでした。絵は変わっていません。",
++    "saveShareError": "共有を開始できませんでした。PNGをダウンロードするか、プレビューを長押ししてください。",
++    "saveExportError": "画像を準備できませんでした。この画面を閉じて再試行してください。絵は消えていません。",
++    "saveDownloadRequested": "ダウンロードを要求しました。「ファイル」や「ダウンロード」を確認してください。「写真」には自動追加されません。",
++    "saveOpenRequested": "画像が新しいタブで開きます。保存後、このお絵かきタブに戻ってください。",
++    "saveRetry": "再試行"
+   },
+   "ko": {
+     "language": "언어",
+@@ -675,7 +789,26 @@
+     "stickerButterfly": "나비 스티커",
+     "stickerSparkle": "반짝이 스티커",
+     "toolsShort": "도구",
+-    "stickersShort": "스티커"
++    "stickersShort": "스티커",
++    "savePicture": "그림 저장",
++    "savePreview": "전체 그림 미리보기",
++    "savePreparing": "이미지를 준비하고 있어요…",
++    "saveShare": "공유 / 이미지 저장",
++    "saveDownload": "PNG 다운로드",
++    "saveOpen": "이미지 열기",
++    "saveInstructions": "iPhone이나 iPad의 사진 앱에 저장하려면 공유를 누르고, 표시되는 경우 이미지 저장을 선택하세요. 미리보기를 길게 눌러 저장할 수도 있어요.",
++    "saveFilesHint": "다운로드하면 파일로 저장돼요. 사진 앱뿐 아니라 파일 앱이나 다운로드 폴더도 확인하세요.",
++    "saveReady": "전체 그림이 준비됐어요. 저장 방법을 선택하세요.",
++    "saveNoShare": "여기서는 공유할 수 없어요. PNG를 다운로드하거나 미리보기를 길게 누르세요. 이미지를 열어 저장할 수도 있어요.",
++    "saveHttpHint": "시스템 공유에는 HTTPS가 필요해요. 이 로컬 HTTP 미리보기에서는 PNG를 다운로드하거나 그림을 길게 누르세요.",
++    "saveSharing": "시스템 공유 메뉴에서 저장 위치를 선택하세요. 이 창을 닫아도 그림은 지워지지 않아요.",
++    "saveShared": "공유가 끝났어요. 선택한 저장 위치를 확인하세요.",
++    "saveCancelled": "공유가 취소됐거나 저장 위치가 없어요. 그림은 그대로예요.",
++    "saveShareError": "공유를 시작할 수 없어요. PNG를 다운로드하거나 미리보기를 길게 누르세요.",
++    "saveExportError": "이미지를 준비할 수 없어요. 이 창을 닫고 다시 시도하세요. 그림은 지워지지 않았어요.",
++    "saveDownloadRequested": "다운로드를 요청했어요. 파일 앱이나 다운로드 폴더를 확인하세요. 사진 앱에는 자동으로 추가되지 않아요.",
++    "saveOpenRequested": "이미지가 새 탭에서 열려요. 저장한 뒤 이 그림 탭으로 돌아오세요.",
++    "saveRetry": "다시 시도"
+   }
+ };
+   const languages = [{"code": "en", "name": "English"}, {"code": "fr", "name": "Français"}, {"code": "pt", "name": "Português"}, {"code": "es", "name": "Español"}, {"code": "zh-Hans", "name": "简体中文"}, {"code": "ja", "name": "日本語"}, {"code": "ko", "name": "한국어"}];
+diff --git a/index.html b/index.html
+index c96bec1..61d9e2b 100644
+--- a/index.html
++++ b/index.html
+@@ -5,15 +5,16 @@
+ <meta charset="utf-8"/>
+ <meta content="width=device-width,initial-scale=1,viewport-fit=cover" name="viewport"/>
+ <title>Happy Colors</title>
+-<link href="style.css?v=colorful-languages-1" rel="stylesheet"/>
++<link href="style.css?v=colorful-save-1" rel="stylesheet"/>
+ <meta content="#eee8ff" name="theme-color"/>
+-<link href="apple-colorful.css?v=colorful-languages-1" rel="stylesheet"/>
+-<link href="languages.css?v=colorful-languages-1" rel="stylesheet"/></head>
++<link href="apple-colorful.css?v=colorful-save-1" rel="stylesheet"/>
++<link href="languages.css?v=colorful-save-1" rel="stylesheet"/><link href="save-picture.css?v=colorful-save-1" rel="stylesheet"/>
++</head>
+ <body>
+ <header>
+ <div class="brand-cluster">
+ <button aria-controls="artTools" aria-expanded="false" aria-label="Open art tools" class="icon-button mobile-only" data-i18n-aria="openTools" id="toolsToggle" type="button"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"></path></svg></button>
+-<div class="brand"><span class="brand-mark"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18h1a2 2 0 0 0 1-3.7 1.5 1.5 0 0 1 .7-2.8H17a4 4 0 0 0 4-4C21 6 17 3 12 3Z"></path><circle cx="7" cy="11" r=".8"></circle><circle cx="9" cy="7" r=".8"></circle><circle cx="14" cy="6.5" r=".8"></circle><circle cx="17" cy="10" r=".8"></circle></svg></span><span class="brand-name">Happy <b>Colors</b><small class="build-tag">Colorful L1</small></span></div>
++<div class="brand"><span class="brand-mark"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18h1a2 2 0 0 0 1-3.7 1.5 1.5 0 0 1 .7-2.8H17a4 4 0 0 0 4-4C21 6 17 3 12 3Z"></path><circle cx="7" cy="11" r=".8"></circle><circle cx="9" cy="7" r=".8"></circle><circle cx="14" cy="6.5" r=".8"></circle><circle cx="17" cy="10" r=".8"></circle></svg></span><span class="brand-name">Happy <b>Colors</b><small class="build-tag">Colorful S1</small></span></div>
+ </div>
+ <div aria-label="Canvas zoom controls" class="canvas-view-tools" data-i18n-aria="zoomControls" role="group">
+ <button aria-label="Zoom canvas out" data-i18n-aria="zoomOut" data-i18n-title="zoomOut" id="zoomOutBtn" title="Zoom out" type="button">−</button>
+@@ -26,7 +27,7 @@
+ <button aria-label="Undo" class="" data-i18n-aria="undo" data-i18n-title="undo" id="undoBtn" title="Undo" type="button"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="M8 5 3 10l5 5M4 10h10a6 6 0 0 1 0 12"></path></svg><span class="action-text" data-i18n="undo">Undo</span></button>
+ <button aria-label="Redo" class="" data-i18n-aria="redo" data-i18n-title="redo" id="redoBtn" title="Redo" type="button"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="m16 5 5 5-5 5M20 10H10a6 6 0 0 0 0 12"></path></svg><span class="action-text" data-i18n="redo">Redo</span></button>
+ <button aria-label="New" class="" data-i18n-aria="new" data-i18n-title="new" id="newBtn" title="New" type="button"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="M14 3H5v18h14V8l-5-5ZM14 3v5h5M8 14h8M12 10v8"></path></svg><span class="action-text" data-i18n="new">New</span></button>
+-<button aria-label="Save" class="primary" data-i18n-aria="save" data-i18n-title="save" id="saveBtn" title="Save" type="button"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 3v12m-5-5 5 5 5-5M4 15v6h16v-6"></path></svg><span class="action-text" data-i18n="save">Save</span></button>
++<button aria-label="Save" class="primary" data-i18n-aria="save" data-i18n-title="save" aria-controls="saveDialog" aria-haspopup="dialog" id="saveBtn" title="Save" type="button"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 3v12m-5-5 5 5 5-5M4 15v6h16v-6"></path></svg><span class="action-text" data-i18n="save">Save</span></button>
+ </div>
+ <button aria-controls="languageDialog" aria-haspopup="dialog" aria-label="Language" class="icon-button desktop-language" data-i18n-aria="language" data-i18n-title="language" data-open-language="" id="languageBtn" title="Language" type="button"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><ellipse cx="12" cy="12" rx="4" ry="9"></ellipse><path d="M3 12h18M5 6.5h14M5 17.5h14"></path></svg></button></header>
+ <main>
+@@ -115,8 +116,30 @@
+ <button class="danger" data-i18n="startNew" id="confirmNew">Start new</button>
+ </div>
+ </div>
+-<script src="i18n.js?v=colorful-languages-1"></script><script src="canvas-zoom.js?v=colorful-languages-1"></script>
+-<script src="app.js?v=colorful-languages-1"></script>
+-<script src="mobile-ui.js?v=colorful-languages-1"></script>
+-<dialog aria-describedby="languageHint" aria-labelledby="languageTitle" class="language-dialog" id="languageDialog"><div class="language-heading"><h2 data-i18n="chooseLanguage" id="languageTitle">Choose a language</h2><button aria-label="Close" class="icon-button" data-i18n-aria="close" id="closeLanguage" type="button"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"></path></svg></button></div><p data-i18n="languageHint" id="languageHint">Change the menus, not your drawing.</p><div class="language-options"><button aria-pressed="false" class="language-option" data-language="en" lang="en" type="button"><span>English</span><span aria-hidden="true" class="language-check"></span></button><button aria-pressed="false" class="language-option" data-language="fr" lang="fr" type="button"><span>Français</span><span aria-hidden="true" class="language-check"></span></button><button aria-pressed="false" class="language-option" data-language="pt" lang="pt" type="button"><span>Português</span><span aria-hidden="true" class="language-check"></span></button><button aria-pressed="false" class="language-option" data-language="es" lang="es" type="button"><span>Español</span><span aria-hidden="true" class="language-check"></span></button><button aria-pressed="false" class="language-option" data-language="zh-Hans" lang="zh-Hans" type="button"><span>简体中文</span><span aria-hidden="true" class="language-check"></span></button><button aria-pressed="false" class="language-option" data-language="ja" lang="ja" type="button"><span>日本語</span><span aria-hidden="true" class="language-check"></span></button><button aria-pressed="false" class="language-option" data-language="ko" lang="ko" type="button"><span>한국어</span><span aria-hidden="true" class="language-check"></span></button></div></dialog></body>
++<script src="i18n.js?v=colorful-save-1"></script><script src="canvas-zoom.js?v=colorful-save-1"></script>
++<script src="save-picture.js?v=colorful-save-1"></script>
++<script src="app.js?v=colorful-save-1"></script>
++<script src="mobile-ui.js?v=colorful-save-1"></script>
++<dialog aria-describedby="languageHint" aria-labelledby="languageTitle" class="language-dialog" id="languageDialog"><div class="language-heading"><h2 data-i18n="chooseLanguage" id="languageTitle">Choose a language</h2><button aria-label="Close" class="icon-button" data-i18n-aria="close" id="closeLanguage" type="button"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"></path></svg></button></div><p data-i18n="languageHint" id="languageHint">Change the menus, not your drawing.</p><div class="language-options"><button aria-pressed="false" class="language-option" data-language="en" lang="en" type="button"><span>English</span><span aria-hidden="true" class="language-check"></span></button><button aria-pressed="false" class="language-option" data-language="fr" lang="fr" type="button"><span>Français</span><span aria-hidden="true" class="language-check"></span></button><button aria-pressed="false" class="language-option" data-language="pt" lang="pt" type="button"><span>Português</span><span aria-hidden="true" class="language-check"></span></button><button aria-pressed="false" class="language-option" data-language="es" lang="es" type="button"><span>Español</span><span aria-hidden="true" class="language-check"></span></button><button aria-pressed="false" class="language-option" data-language="zh-Hans" lang="zh-Hans" type="button"><span>简体中文</span><span aria-hidden="true" class="language-check"></span></button><button aria-pressed="false" class="language-option" data-language="ja" lang="ja" type="button"><span>日本語</span><span aria-hidden="true" class="language-check"></span></button><button aria-pressed="false" class="language-option" data-language="ko" lang="ko" type="button"><span>한국어</span><span aria-hidden="true" class="language-check"></span></button></div></dialog>
++<dialog id="saveDialog" class="save-dialog" aria-labelledby="saveTitle" aria-describedby="saveInstructions">
++  <div class="save-heading">
++    <h2 id="saveTitle" data-i18n="savePicture">Save your picture</h2>
++    <button id="closeSave" type="button" class="icon-button" data-i18n-aria="close" aria-label="Close" autofocus>
++      <svg aria-hidden="true" class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m6 6 12 12M18 6 6 18"/></svg>
++    </button>
++  </div>
++  <div class="save-content">
++    <div class="save-preview-wrap"><img id="savePreview" alt="Preview of the whole picture" hidden/></div>
++    <div class="save-options">
++      <p id="saveInstructions" data-i18n="saveInstructions">To save to Photos on iPhone or iPad, tap Share and choose Save Image if offered. You can also touch and hold the preview.</p>
++      <button id="sharePicture" class="save-primary" type="button" disabled data-i18n="saveShare">Share / Save image</button>
++      <a id="downloadPicture" class="save-action" download="my-coloring.png" target="_blank" rel="noopener" aria-disabled="true" tabindex="-1" data-i18n="saveDownload">Download PNG</a>
++      <a id="openPicture" class="save-action" target="_blank" rel="noopener" aria-disabled="true" tabindex="-1" data-i18n="saveOpen">Open image</a>
++      <button id="retrySave" type="button" hidden data-i18n="saveRetry">Try again</button>
++      <p class="save-note" data-i18n="saveFilesHint">Download saves a file; check Files or Downloads, not just Photos.</p>
++      <p id="saveStatus" role="status" aria-live="polite" aria-atomic="true"></p>
++    </div>
++  </div>
++</dialog>
++</body>
+ </html>
+diff --git a/package.json b/package.json
+index 6d8f58e..bb39e59 100644
+--- a/package.json
++++ b/package.json
+@@ -5,7 +5,8 @@
+   "scripts": {
+     "test": "node --test tests/unit/*.test.cjs",
+     "test:ui": "python tests/browser/run_language_tests.py",
+-    "test:languages": "python tests/browser/run_language_tests.py --only-languages"
++    "test:languages": "python tests/browser/run_language_tests.py --only-languages",
++    "test:save": "python tests/browser/run_save_tests.py --save-only"
+   },
+   "engines": {
+     "node": ">=20"
+diff --git a/save-picture.css b/save-picture.css
+new file mode 100644
+index 0000000..d80872b
+--- /dev/null
++++ b/save-picture.css
+@@ -0,0 +1,39 @@
++/* The export image is OUTSIDE the gesture-blocking canvas/toolbar regions. */
++.save-dialog {
++  box-sizing:border-box;width:min(620px,calc(100vw - 24px));
++  max-height:calc(100vh - 24px);max-height:calc(100dvh - 24px - var(--safe-top,0px) - var(--safe-bottom,0px));
++  margin:auto;padding:18px;border:1px solid #fff;border-radius:24px;
++  background:#faf7ff;color:var(--ink,#252039);font-family:inherit;
++  box-shadow:0 22px 75px #38215355;overflow:hidden;
++  touch-action:auto;-webkit-user-select:auto;user-select:auto;
++}
++.save-dialog:not([open]) {display:none;}
++.save-dialog[open] {display:flex;flex-direction:column;gap:12px;}
++.save-dialog::backdrop {background:rgba(34,21,54,.32);}
++.save-heading {display:flex;align-items:center;justify-content:space-between;gap:12px;flex:0 0 auto;}
++.save-heading h2 {color:inherit;text-transform:none;letter-spacing:0;line-height:1.3;font-size:21px;font-weight:650;margin:0;}
++#closeSave {min-width:44px;min-height:44px;flex:0 0 44px;}
++.save-content {display:grid;gap:14px;min-height:0;overflow:auto;overscroll-behavior:contain;padding:2px;}
++.save-preview-wrap {min-width:0;align-self:start;}
++#savePreview {display:block;width:auto;height:auto;max-width:100%;max-height:32vh;max-height:32dvh;margin:0 auto;border-radius:10px;background:#fff;object-fit:contain;box-shadow:0 3px 14px #3d236815;
++  -webkit-touch-callout:default!important;-webkit-user-select:auto!important;user-select:auto!important;touch-action:auto!important;}
++#savePreview[hidden] {display:none;}
++.save-options {display:flex;flex-direction:column;gap:9px;min-width:0;}
++#saveInstructions {margin:0 0 2px;line-height:1.45;font-size:13px;}
++.save-dialog button,.save-action {font-family:inherit;min-height:44px;border-radius:14px;line-height:1.3;}
++.save-action {display:flex;align-items:center;justify-content:center;padding:11px 14px;text-decoration:none;text-align:center;color:var(--accent,#6b36d8);background:#fff;border:1px solid #ded2ee;font-weight:650;cursor:pointer;}
++.save-primary {background:linear-gradient(145deg,#8950ef,#642bd0);color:#fff;padding:11px 14px;font-weight:650;}
++.save-dialog button:disabled,.save-action[aria-disabled="true"] {opacity:.45;cursor:default;}
++.save-note,#saveStatus {margin:0;font-size:12px;line-height:1.45;color:var(--muted,#666075);overflow-wrap:anywhere;}
++#saveStatus {min-height:1.45em;}
++.save-action:focus-visible {outline:3px solid #8b62df;outline-offset:2px;}
++#retrySave[hidden] {display:none;}
++@media (orientation:landscape) and (max-height:500px) {
++  .save-dialog {width:min(800px,calc(100vw - 24px));padding:12px 16px;}
++  .save-content {grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);align-items:start;}
++  #savePreview {max-height:calc(100dvh - 112px);}
++}
++@media (forced-colors:active) {
++  .save-dialog,.save-action {border:1px solid CanvasText;}
++  .save-primary {background:ButtonFace;color:ButtonText;}
++}
+diff --git a/save-picture.js b/save-picture.js
+new file mode 100644
+index 0000000..4d72012
+--- /dev/null
++++ b/save-picture.js
+@@ -0,0 +1,173 @@
++/* Local-only export. Prepare a PNG first; SHARE is a separate real tap.
++ * Do not call navigator.share after waiting for toBlob/fetch/user activation.
++ * Keep the preview URL alive for touch-and-hold and Open image.
++ */
++(function (root) {
++  'use strict';
++  const FILE_NAME = 'my-coloring.png';
++  function composePicture(source, background, createCanvas) {
++    if (!source || !Number.isInteger(source.width) || !Number.isInteger(source.height) ||
++        source.width < 1 || source.height < 1) throw new Error('Invalid picture dimensions');
++    const result = createCanvas();
++    result.width = source.width; result.height = source.height;
++    const context = result.getContext('2d');
++    if (!context) throw new Error('Canvas unavailable');
++    context.globalCompositeOperation = 'source-over';
++    // Explicit white fallback, never the purple interface background.
++    context.fillStyle = '#ffffff';
++    if (typeof background === 'string') context.fillStyle = background;
++    context.fillRect(0, 0, result.width, result.height);
++    context.drawImage(source, 0, 0);
++    return result;
++  }
++  function pngBlob(picture, timeoutMs = 15000) {
++    return new Promise((resolve, reject) => {
++      let finished = false;
++      const finish = (error, value) => {
++        if (finished) return;
++        finished = true; clearTimeout(timer);
++        error ? reject(error) : resolve(value);
++      };
++      const timer = setTimeout(() => finish(new Error('PNG export timed out')), timeoutMs);
++      try {
++        picture.toBlob(blob => {
++          if (!blob || !blob.size || blob.type !== 'image/png') {
++            finish(new Error('PNG export failed')); return;
++          }
++          finish(null, blob);
++        }, 'image/png');
++      } catch (error) { finish(error); }
++    });
++  }
++  function makeFile(blob, FileType) {
++    try { return typeof FileType === 'function' ? new FileType([blob], FILE_NAME, {type:'image/png'}) : null; }
++    catch (_) { return null; }
++  }
++  function canShareFile(nav, secure, file) {
++    if (!secure || !file || !nav || typeof nav.share !== 'function' || typeof nav.canShare !== 'function') return false;
++    try { return nav.canShare({files:[file]}) === true; } catch (_) { return false; }
++  }
++  function shareErrorKey(error) {
++    return error && error.name === 'AbortError' ? 'saveCancelled' : 'saveShareError';
++  }
++  const helpers = {composePicture, pngBlob, makeFile, canShareFile, shareErrorKey, FILE_NAME};
++  if (typeof module !== 'undefined' && module.exports) module.exports = helpers;
++  if (typeof document === 'undefined') return;
++
++  let ui, opener, sourceCanvas, paperBackground, file = null, objectURL = null;
++  let exportId = 0, sharing = false, statusKey = 'savePreparing', pending = false;
++  const retired = new Map();
++  const tr = key => root.HappyI18n ? root.HappyI18n.t(key) : key;
++  function status(key) {
++    statusKey = key;
++    if (ui) ui.status.textContent = tr(key);
++  }
++  function setLinks(enabled) {
++    for (const link of [ui.download, ui.open]) {
++      link.setAttribute('aria-disabled', String(!enabled));
++      link.tabIndex = enabled ? 0 : -1;
++      if (enabled) link.href = objectURL; else link.removeAttribute('href');
++    }
++  }
++  function updateText() {
++    if (!ui) return;
++    ui.preview.alt = tr('savePreview');
++    ui.status.textContent = tr(statusKey);
++  }
++  function ensureUI() {
++    if (ui) return;
++    const $ = id => document.getElementById(id);
++    ui = {dialog:$('saveDialog'), close:$('closeSave'), preview:$('savePreview'),
++      share:$('sharePicture'), download:$('downloadPicture'), open:$('openPicture'),
++      status:$('saveStatus'), retry:$('retrySave')};
++    ui.close.addEventListener('click', () => ui.dialog.close());
++    ui.dialog.addEventListener('close', () => {
++      ++exportId; pending = false; sharing = false;
++      ui.dialog.removeAttribute('aria-busy');
++      // Do not revoke here: Safari's image menu/open tab may still need the URL.
++      if (opener && opener.isConnected) opener.focus({preventScroll:true});
++    });
++    ui.dialog.addEventListener('click', event => {
++      if (event.target !== ui.dialog) return;
++      const r = ui.dialog.getBoundingClientRect();
++      if (event.clientX < r.left || event.clientX > r.right || event.clientY < r.top || event.clientY > r.bottom) ui.dialog.close();
++    });
++    ui.retry.addEventListener('click', () => prepare());
++    ui.share.addEventListener('click', () => {
++      if (pending || sharing || !file || !canShareFile(root.navigator, root.isSecureContext, file)) return;
++      const ticket = exportId;
++      sharing = true; ui.share.disabled = true; status('saveSharing');
++      const done = key => {
++        if (ticket !== exportId || !ui.dialog.open) return;
++        sharing = false;
++        ui.share.disabled = !canShareFile(root.navigator, root.isSecureContext, file);
++        status(key);
++      };
++      try {
++        // Deliberately synchronous until this call. The File is ALREADY ready.
++        const result = root.navigator.share({files:[file]});
++        Promise.resolve(result).then(() => done('saveShared'), error => done(shareErrorKey(error)));
++      } catch (error) { done(shareErrorKey(error)); }
++      // No auto-download on cancel/error; the preview and explicit links stay usable.
++    });
++    for (const [link, key] of [[ui.download,'saveDownloadRequested'],[ui.open,'saveOpenRequested']]) {
++      link.addEventListener('click', event => {
++        if (link.getAttribute('aria-disabled') === 'true') { event.preventDefault(); return; }
++        status(key);
++        // A genuine hyperlink activation; no asynchronous synthetic link.click().
++      });
++    }
++    document.addEventListener('happy-language-change', updateText);
++  }
++  function retireURL(url) {
++    if (!url) return;
++    // A previous tab or started download gets time to consume its Blob.
++    const timer = setTimeout(() => { root.URL.revokeObjectURL(url); retired.delete(url); }, 60000);
++    retired.set(url, timer);
++  }
++  async function prepare() {
++    if (pending) return;
++    const ticket = ++exportId;
++    pending = true; file = null; sharing = false;
++    ui.share.disabled = true; setLinks(false); ui.retry.hidden = true;
++    ui.preview.hidden = true; ui.preview.removeAttribute('src');
++    ui.dialog.setAttribute('aria-busy', 'true'); status('savePreparing');
++    retireURL(objectURL); objectURL = null;
++    try {
++      // Copy the FULL bitmap synchronously before the asynchronous PNG encoding.
++      const snapshot = composePicture(sourceCanvas, paperBackground, () => document.createElement('canvas'));
++      const blob = await pngBlob(snapshot);
++      if (ticket !== exportId || !ui.dialog.open) return;
++      objectURL = root.URL.createObjectURL(blob);
++      file = makeFile(blob, root.File);
++      ui.preview.src = objectURL; ui.preview.hidden = false;
++      setLinks(true);
++      const supported = canShareFile(root.navigator, root.isSecureContext, file);
++      ui.share.disabled = !supported;
++      status(supported ? 'saveReady' : (root.isSecureContext ? 'saveNoShare' : 'saveHttpHint'));
++    } catch (_) {
++      if (ticket !== exportId || !ui.dialog.open) return;
++      status('saveExportError'); ui.retry.hidden = false;
++    } finally {
++      if (ticket === exportId) { pending = false; ui.dialog.removeAttribute('aria-busy'); }
++    }
++  }
++  function open(source, background, trigger) {
++    ensureUI();
++    if (ui.dialog.open) return;
++    if (root.HappyStudio) root.HappyStudio.closeDrawer(false);
++    opener = trigger || document.activeElement;
++    sourceCanvas = source; paperBackground = background;
++    updateText();
++    ui.dialog.showModal(); ui.close.focus({preventScroll:true});
++    prepare();
++  }
++  // pagehide with persisted=true enters the back/forward cache: keep previews alive.
++  root.addEventListener('pagehide', event => {
++    if (event.persisted) return;
++    if (objectURL) root.URL.revokeObjectURL(objectURL);
++    for (const [url,timer] of retired) { clearTimeout(timer); root.URL.revokeObjectURL(url); }
++    retired.clear();
++  });
++  root.HappySave = {open};
++})(typeof globalThis === 'undefined' ? window : globalThis);
+diff --git a/tests/browser/run_browser_tests.py b/tests/browser/run_browser_tests.py
+index 8cca2f8..e066be4 100644
+--- a/tests/browser/run_browser_tests.py
++++ b/tests/browser/run_browser_tests.py
+@@ -293,7 +293,8 @@ class BrowserCases(unittest.TestCase):
+     def test_15_sticker_background_and_png_export(self):
+         self.click('[data-bg="#ffe5ef"]');self.click('[data-sticker="⭐"]');self.tap_art(120,120)
+         self.assertGreater(self.pixel(120,120)[3],0)
+-        with self.page.expect_download() as event:self.click('#saveBtn')
++        self.click('#saveBtn');self.page.wait_for_function("document.getElementById('downloadPicture').getAttribute('aria-disabled')==='false'")
++        with self.page.expect_download() as event:self.click('#downloadPicture')
+         download=event.value;target=self.evidence/f'{self.profile_name}-saved.png';download.save_as(str(target))
+         content=target.read_bytes();self.assertTrue(content.startswith(b'\x89PNG\r\n\x1a\n'))
+         self.assertEqual(int.from_bytes(content[16:20],'big'),self.digest()['width'])
+@@ -513,7 +514,8 @@ class BrowserCases(unittest.TestCase):
+     def test_34_save_exports_entire_picture_not_only_zoomed_view(self):
+         self.color('#ff0000');self.stroke([(60,80),(130,80)])
+         width,height=self.page.evaluate('[canvas.width,canvas.height]');self.zoom(4)
+-        with self.page.expect_download() as event:self.click('#saveBtn')
++        self.click('#saveBtn');self.page.wait_for_function("document.getElementById('downloadPicture').getAttribute('aria-disabled')==='false'")
++        with self.page.expect_download() as event:self.click('#downloadPicture')
+         target=self.evidence/f'{self.profile_name}-zoom-full-export.png';event.value.save_as(str(target));content=target.read_bytes()
+         self.assertEqual(int.from_bytes(content[16:20],'big'),width);self.assertEqual(int.from_bytes(content[20:24],'big'),height)
+         import base64
+diff --git a/tests/browser/run_colorful_tests.py b/tests/browser/run_colorful_tests.py
+index 3575cb8..13db46b 100644
+--- a/tests/browser/run_colorful_tests.py
++++ b/tests/browser/run_colorful_tests.py
+@@ -27,8 +27,8 @@ class ColorfulCases(old.BrowserCases):
+   h=re.sub(r'<link[^>]+rel="stylesheet"[^>]*>','',h)
+   h=re.sub(r'<script[^>]+src="[^"]+"[^>]*></script>','',h)
+   self.page.set_content(h, wait_until="domcontentloaded")
+-  for f in ['style.css','apple-colorful.css','languages.css']:self.page.add_style_tag(content=(self.app_root/f).read_text())
+-  for f in ['i18n.js','canvas-zoom.js','app.js','mobile-ui.js']:self.page.add_script_tag(content=(self.app_root/f).read_text())
++  for f in ['style.css','apple-colorful.css','languages.css','save-picture.css']:self.page.add_style_tag(content=(self.app_root/f).read_text())
++  for f in ['i18n.js','canvas-zoom.js','save-picture.js','app.js','mobile-ui.js']:self.page.add_script_tag(content=(self.app_root/f).read_text())
+  def compact(self):return self.page.locator('#toolsToggle').is_visible()
+  def open_tools(self):
+   if self.compact() and not self.page.locator('body').evaluate("e=>e.classList.contains('tools-open')"):
+@@ -144,7 +144,8 @@ class ColorfulCases(old.BrowserCases):
+  def test_52_ui_design_does_not_contaminate_saved_background(self):
+   self.color('#00cc66');self.click('#brushBtn');self.stroke([(70,80),(150,80)])
+   self.click('[data-bg="#fff7df"]')
+-  with self.page.expect_download() as info:self.click('#saveBtn')
++  self.click('#saveBtn');self.page.wait_for_function("document.getElementById('downloadPicture').getAttribute('aria-disabled')==='false'")
++  with self.page.expect_download() as info:self.click('#downloadPicture')
+   data=info.value;path=self.evidence/f'{self.profile_name}-fixed-export.png';data.save_as(path)
+   from PIL import Image
+   im=Image.open(path).convert('RGBA');self.assertEqual(im.getpixel((0,0)),(255,247,223,255))
+diff --git a/tests/browser/run_language_tests.py b/tests/browser/run_language_tests.py
+index f685b26..46758aa 100644
+--- a/tests/browser/run_language_tests.py
++++ b/tests/browser/run_language_tests.py
+@@ -119,7 +119,8 @@ class LanguageCases(base.ColorfulCases):
+   self.assertEqual(self.pixel(100,100),[0,204,102,255]);filled=self.digest()
+   self.select_language('ko');self.click('#undoBtn');self.settle();self.assertEqual(self.pixel(100,100)[3],0)
+   self.click('#redoBtn');self.settle();self.assertEqual(self.digest(),filled);self.zoom(2);self.select_language('es');self.assertEqual(self.digest(),filled)
+-  with self.page.expect_download() as info:self.click('#saveBtn')
++  self.click('#saveBtn');self.page.wait_for_function("document.getElementById('downloadPicture').getAttribute('aria-disabled')==='false'")
++  with self.page.expect_download() as info:self.click('#downloadPicture')
+   path=self.evidence/f'{self.profile_name}-translated-export.png';info.value.save_as(path)
+   from PIL import Image
+   im=Image.open(path);self.assertEqual(im.size,(filled['width'],filled['height']))
+diff --git a/tests/browser/run_save_tests.py b/tests/browser/run_save_tests.py
+new file mode 100644
+index 0000000..76bfc7f
+--- /dev/null
++++ b/tests/browser/run_save_tests.py
+@@ -0,0 +1,148 @@
++"""Save/export regression. Share API is explicitly MOCKED for native-sheet branches.
++Use --inline only when navigation is blocked; this is not a Safari or HTTP test.
++"""
++from __future__ import annotations
++import argparse,contextlib,functools,http.server,json,shutil,sys,threading,unittest
++from pathlib import Path
++from playwright.sync_api import sync_playwright
++import run_language_tests as lang
++import run_browser_tests as old
++ROOT=Path(__file__).resolve().parents[2]
++PROFILES=lang.PROFILES
++class SaveCases(lang.LanguageCases):
++ def panel(self):
++  self.click('#saveBtn')
++  self.page.wait_for_function("document.querySelector('#saveDialog').open && document.querySelector('#saveDialog').getAttribute('aria-busy')!=='true'")
++  self.settle()
++ def ready(self):
++  self.panel();self.page.wait_for_function("document.querySelector('#savePreview').naturalWidth>0")
++ def close_save(self):
++  self.click('#closeSave');self.page.wait_for_function("!document.querySelector('#saveDialog').open");self.settle()
++ def mock_share(self,mode='ok',secure=True):
++  self.page.evaluate('''({mode,secure})=>{
++   Object.defineProperty(window,'isSecureContext',{configurable:true,value:secure});
++   window.__shareCalls=[];window.__shareMode=mode;
++   Object.defineProperty(navigator,'canShare',{configurable:true,value:({files})=>{
++    if(window.__shareMode==='can-throw')throw new Error('blocked');
++    return window.__shareMode!=='can-false'&&files.length===1&&files[0] instanceof File;
++   }});
++   Object.defineProperty(navigator,'share',{configurable:true,value:(payload)=>{
++    window.__shareCalls.push({file:payload.files[0],keys:Object.keys(payload),active:navigator.userActivation.isActive});
++    if(window.__shareMode==='pending')return new Promise(r=>window.__finishShare=r);
++    if(window.__shareMode==='sync-throw')throw new DOMException('denied','NotAllowedError');
++    if(window.__shareMode==='cancel')return Promise.reject(new DOMException('cancelled','AbortError'));
++    if(window.__shareMode==='error')return Promise.reject(new DOMException('denied','NotAllowedError'));
++    return Promise.resolve();
++   }});
++  }''',dict(mode=mode,secure=secure))
++ def test_80_save_tap_opens_full_picture_preview(self):
++  self.stroke([(80,80),(150,80)]);before=self.read_art_state();self.ready()
++  self.assertEqual(self.page.locator('#savePreview').evaluate('e=>[e.naturalWidth,e.naturalHeight]'),[before['bitmap']['width'],before['bitmap']['height']])
++  self.assertEqual(self.page.locator('#downloadPicture').get_attribute('aria-disabled'),'false')
++  self.assertEqual(self.page.locator('#openPicture').get_attribute('target'),'_blank')
++  self.assertEqual(self.read_art_state(),before);self.close_save();self.assertEqual(self.read_art_state(),before)
++ def test_81_download_png_preserves_full_dimensions_pixels_background(self):
++  self.color('#ff0000');self.stroke([(60,80),(150,80)]);self.click('[data-bg="#fff7df"]');self.zoom(3)
++  before=self.read_art_state();self.ready()
++  with self.page.expect_download() as event:self.click('#downloadPicture')
++  target=self.evidence/f'{self.profile_name}-save-export.png';event.value.save_as(target)
++  from PIL import Image
++  im=Image.open(target).convert('RGBA');w,h=self.page.evaluate('[W(),H()]')
++  self.assertEqual(im.size,(before['bitmap']['width'],before['bitmap']['height']))
++  self.assertEqual(im.getpixel((0,0)),(255,247,223,255));self.assertEqual(im.getpixel((round(100*im.width/w),round(80*im.height/h))),(255,0,0,255))
++  self.assertEqual(event.value.suggested_filename,'my-coloring.png');self.close_save();self.assertEqual(self.read_art_state(),before)
++ def test_82_share_receives_prepared_png_file_on_fresh_user_tap(self):
++  self.mock_share();self.ready();self.assertTrue(self.page.locator('#sharePicture').is_enabled())
++  self.assertEqual(self.page.evaluate('__shareCalls.length'),0)
++  self.click('#sharePicture');self.page.wait_for_function('__shareCalls.length===1')
++  data=self.page.evaluate('''async()=>{const x=__shareCalls[0];return {name:x.file.name,type:x.file.type,size:x.file.size,keys:x.keys,active:x.active,signature:[...new Uint8Array(await x.file.arrayBuffer()).slice(0,8)]}}''')
++  self.assertEqual(data['name'],'my-coloring.png');self.assertEqual(data['type'],'image/png');self.assertEqual(data['keys'],['files']);self.assertTrue(data['active']);self.assertGreater(data['size'],0);self.assertEqual(data['signature'],[137,80,78,71,13,10,26,10])
++  self.assertEqual(self.page.locator('#saveStatus').inner_text(),self.translated('saveShared'))
++ def test_83_cancel_share_preserves_preview_and_art_without_auto_download(self):
++  self.mock_share('cancel');self.stroke([(80,80),(150,80)]);before=self.read_art_state();downloads=[];self.page.on('download',lambda d:downloads.append(d));self.ready();url=self.page.locator('#savePreview').get_attribute('src')
++  self.click('#sharePicture');self.settle();self.assertEqual(self.page.locator('#saveStatus').inner_text(),self.translated('saveCancelled'))
++  self.assertEqual(downloads,[]);self.assertEqual(self.page.locator('#savePreview').get_attribute('src'),url);self.assertEqual(self.read_art_state(),before);self.assertTrue(self.page.locator('#sharePicture').is_enabled())
++ def test_84_share_rejection_and_synchronous_error_keep_download_usable(self):
++  for mode in ['error','sync-throw']:
++   self.mock_share(mode);self.ready();self.click('#sharePicture');self.settle()
++   self.assertEqual(self.page.locator('#saveStatus').inner_text(),self.translated('saveShareError'))
++   self.assertEqual(self.page.locator('#downloadPicture').get_attribute('aria-disabled'),'false')
++   self.close_save()
++ def test_85_insecure_preview_keeps_fallbacks_and_never_shares(self):
++  self.mock_share(secure=False);self.ready();self.assertTrue(self.page.locator('#sharePicture').is_disabled())
++  self.assertEqual(self.page.evaluate('__shareCalls.length'),0);self.assertEqual(self.page.locator('#saveStatus').inner_text(),self.translated('saveHttpHint'))
++  self.assertEqual(self.page.locator('#downloadPicture').get_attribute('aria-disabled'),'false')
++ def test_86_missing_or_rejected_file_share_support_falls_back(self):
++  for mode in ['can-false','can-throw']:
++   self.mock_share(mode);self.ready();self.assertTrue(self.page.locator('#sharePicture').is_disabled());self.assertEqual(self.page.locator('#saveStatus').inner_text(),self.translated('saveNoShare'));self.close_save()
++  self.mock_share();self.page.evaluate("Object.defineProperty(navigator,'share',{configurable:true,value:undefined})");self.ready();self.assertTrue(self.page.locator('#sharePicture').is_disabled())
++ def test_87_delayed_export_can_close_and_cannot_replace_next_preview(self):
++  self.page.evaluate('''()=>{window.__originalToBlob=HTMLCanvasElement.prototype.toBlob;window.__delay=true;HTMLCanvasElement.prototype.toBlob=function(cb,type){
++    __originalToBlob.call(this,b=>{if(__delay){__delay=false;window.__releasePNG=()=>cb(b)}else cb(b)},type);
++  }}''')
++  self.click('#saveBtn');self.page.wait_for_function("typeof __releasePNG==='function'")
++  self.assertEqual(self.page.locator('#saveDialog').get_attribute('aria-busy'),'true');self.assertTrue(self.page.locator('#closeSave').is_visible());self.close_save()
++  self.color('#ff0000');self.stroke([(80,80),(150,80)]);self.ready();url=self.page.locator('#savePreview').get_attribute('src');self.page.evaluate('__releasePNG()');self.settle();self.assertEqual(self.page.locator('#savePreview').get_attribute('src'),url)
++ def test_88_encode_failure_shows_retry_and_never_clears_drawing(self):
++  self.stroke([(80,80),(150,80)]);before=self.read_art_state()
++  self.page.evaluate('''()=>{window.__oldToBlob=HTMLCanvasElement.prototype.toBlob;HTMLCanvasElement.prototype.toBlob=cb=>cb(null)}''')
++  self.panel();self.assertEqual(self.page.locator('#saveStatus').inner_text(),self.translated('saveExportError'));self.assertTrue(self.page.locator('#retrySave').is_visible());self.assertEqual(self.page.locator('#downloadPicture').get_attribute('href'),None);self.assertEqual(self.read_art_state(),before)
++  self.page.evaluate('()=>{HTMLCanvasElement.prototype.toBlob=__oldToBlob;}');self.click('#retrySave');self.page.wait_for_function("document.querySelector('#savePreview').naturalWidth>0");self.assertEqual(self.read_art_state(),before)
++ def test_89_repeated_save_uses_current_picture_and_keeps_live_url(self):
++  self.mock_share();self.stroke([(80,80),(150,80)]);self.ready();url=self.page.locator('#savePreview').get_attribute('src');self.click('#sharePicture');self.close_save()
++  self.assertEqual(self.page.evaluate('''()=>new Promise(resolve=>{const im=new Image();im.onload=()=>resolve(true);im.onerror=()=>resolve(false);im.src=document.querySelector('#savePreview').src})'''),True)
++  self.color('#00cc66');self.stroke([(80,160),(150,160)]);self.ready();self.assertNotEqual(self.page.locator('#savePreview').get_attribute('src'),url);self.click('#sharePicture');self.settle()
++  self.assertTrue(self.page.evaluate('''async()=>{const [a,b]=await Promise.all(__shareCalls.map(x=>x.file.arrayBuffer()));return a.byteLength!==b.byteLength||new Uint8Array(a).some((v,i)=>v!==new Uint8Array(b)[i])}'''))
++ def test_90_pending_share_does_not_lock_preview_close_or_next_save(self):
++  self.mock_share('pending');self.ready();self.click('#sharePicture');self.assertTrue(self.page.locator('#sharePicture').is_disabled());self.assertEqual(self.page.locator('#downloadPicture').get_attribute('aria-disabled'),'false');self.close_save()
++  self.page.evaluate("__shareMode='ok'");self.ready();before=self.page.locator('#saveStatus').inner_text();self.page.evaluate('__finishShare()');self.settle();self.assertEqual(self.page.locator('#saveStatus').inner_text(),before);self.assertTrue(self.page.locator('#sharePicture').is_enabled())
++ def test_91_all_languages_save_labels_fit_and_close_stays_reachable(self):
++  self.mock_share()
++  for locale in lang.LOCALES:
++   self.select_language(locale);self.ready()
++   for sel,key in [('#saveTitle','savePicture'),('#sharePicture','saveShare'),('#downloadPicture','saveDownload'),('#openPicture','saveOpen')]:self.assertEqual(self.page.locator(sel).inner_text(),self.translated(key))
++   self.assertEqual(self.page.locator('#savePreview').get_attribute('alt'),self.translated('savePreview'))
++   r=self.page.locator('#saveDialog').bounding_box();v=self.page.viewport_size
++   self.assertGreaterEqual(r['x'],0);self.assertGreaterEqual(r['y'],0);self.assertLessEqual(r['x']+r['width'],v['width']+1);self.assertLessEqual(r['y']+r['height'],v['height']+1)
++   self.assertLessEqual(self.page.locator('#saveDialog').evaluate('e=>e.scrollWidth-e.clientWidth'),1)
++   for sel in ['#sharePicture','#downloadPicture','#openPicture']:
++    e=self.page.locator(sel);e.scroll_into_view_if_needed();self.assertGreaterEqual(e.bounding_box()['height'],44)
++   close=self.page.locator('#closeSave').bounding_box();self.assertGreaterEqual(close['y'],0);self.assertLessEqual(close['y']+close['height'],v['height']);self.close_save()
++ def test_92_preview_is_outside_gesture_blocking_regions_and_allows_context_menu(self):
++  self.ready();self.assertFalse(self.page.locator('#savePreview').evaluate("e=>!!e.closest('header,.tools,.canvas-wrap')"))
++  self.assertEqual(self.page.locator('#savePreview').evaluate("e=>getComputedStyle(e).touchAction"),'auto')
++  self.assertTrue(self.page.locator('#savePreview').evaluate("e=>e.dispatchEvent(new MouseEvent('contextmenu',{bubbles:true,cancelable:true}))"))
++  self.assertTrue(self.page.locator('#savePreview').evaluate("e=>e.dispatchEvent(new Event('touchend',{bubbles:true,cancelable:true}))"))
++ def test_93_modal_keyboard_focus_return_and_underlying_picture_unchanged(self):
++  self.stroke([(80,80),(150,80)]);before=self.read_art_state();self.ready()
++  for _ in range(8):
++   self.page.keyboard.press('Tab');self.assertTrue(self.page.evaluate("document.activeElement===document.body||!!document.activeElement.closest('#saveDialog')"))
++  self.page.keyboard.press('Escape');self.settle();self.assertFalse(self.page.locator('#saveDialog').evaluate('e=>e.open'));self.assertEqual(self.page.evaluate('document.activeElement.id'),'saveBtn');self.assertEqual(self.read_art_state(),before)
++ def test_94_language_change_and_rotation_keep_prepared_export_identical(self):
++  self.stroke([(80,80),(150,80)]);before=self.digest();self.ready();url=self.page.locator('#savePreview').get_attribute('src')
++  self.page.evaluate("HappyI18n.setLanguage('zh-Hans')");self.assertEqual(self.page.locator('#saveTitle').inner_text(),'保存作品');self.assertEqual(self.page.locator('#savePreview').get_attribute('alt'),'完整作品预览')
++  v=self.page.viewport_size;self.page.set_viewport_size(dict(width=v['height'],height=v['width']));self.settle();self.assertEqual(self.page.locator('#savePreview').get_attribute('src'),url);self.assertEqual(self.digest(),before)
++ def test_95_error_after_success_cannot_download_stale_picture(self):
++  self.ready();self.close_save();self.page.evaluate("()=>{HTMLCanvasElement.prototype.toBlob=function(){throw new DOMException('tainted','SecurityError')};}")
++  self.panel();self.assertEqual(self.page.locator('#downloadPicture').get_attribute('href'),None);self.assertTrue(self.page.locator('#sharePicture').is_disabled());self.assertTrue(self.page.locator('#savePreview').is_hidden())
++ def test_96_dialog_backdrop_dismisses_without_losing_drawing(self):
++  self.stroke([(80,80),(150,80)]);before=self.digest();self.ready();self.page.mouse.click(1,1);self.settle();self.assertFalse(self.page.locator('#saveDialog').evaluate('e=>e.open'));self.assertEqual(self.digest(),before)
++
++def main():
++ p=argparse.ArgumentParser();p.add_argument('--inline',action='store_true');p.add_argument('--profiles',nargs='+',choices=list(PROFILES),default=['phone_portrait','phone_landscape','tablet_landscape','desktop']);p.add_argument('--save-only',action='store_true');p.add_argument('--tests',nargs='+');p.add_argument('--evidence',type=Path,default=ROOT/'evidence/save/browser');args=p.parse_args();args.evidence.mkdir(parents=True,exist_ok=True)
++ server=http.server.ThreadingHTTPServer(('127.0.0.1',0),functools.partial(old.QuietHandler,directory=str(ROOT)));threading.Thread(target=server.serve_forever,daemon=True).start()
++ try:
++  with sync_playwright() as pw:
++   browser=pw.chromium.launch(headless=True,**({} if Path(pw.chromium.executable_path).exists() else {'executable_path':shutil.which('chromium')}))
++   suite=unittest.TestSuite()
++   for profile in args.profiles:
++    cls=type(f'chromium_{profile}',(SaveCases,),dict(profile_name=profile,browser=browser,inline=args.inline,app_root=ROOT,base_url=f'http://127.0.0.1:{server.server_port}/',evidence=args.evidence))
++    for name in unittest.defaultTestLoader.getTestCaseNames(SaveCases):
++     if args.save_only and int(name.split('_')[1])<80:continue
++     if args.tests and name not in args.tests:continue
++     suite.addTest(cls(name))
++   old.JsonResult.records=[];result=unittest.TextTestRunner(verbosity=2,resultclass=old.JsonResult).run(suite)
++   report=dict(browser='Chromium',browser_version=browser.version,transport='exact local source injection' if args.inline else 'local HTTP',native_share='mocked API capability/outcomes; no native iOS sheet tested',tests_run=result.testsRun,failures=len(result.failures),errors=len(result.errors),skipped=len(result.skipped),results=result.records)
++   (args.evidence/'results.json').write_text(json.dumps(report,ensure_ascii=False,indent=2));browser.close();return 0 if result.wasSuccessful() else 1
++ finally:server.shutdown();server.server_close()
++if __name__=='__main__':sys.exit(main())
+diff --git a/tests/fixtures/save-base-handler.txt b/tests/fixtures/save-base-handler.txt
+new file mode 100644
+index 0000000..08bbf1b
+--- /dev/null
++++ b/tests/fixtures/save-base-handler.txt
+@@ -0,0 +1,7 @@
++saveBtn.onclick=()=>{
++ const out=document.createElement("canvas");
++ out.width=canvas.width;out.height=canvas.height;
++ let o=out.getContext("2d");
++ o.fillStyle=background;o.fillRect(0,0,out.width,out.height);o.drawImage(canvas,0,0);
++ let a=document.createElement("a");a.download="my-coloring.png";a.href=out.toDataURL();a.click()
++};
+\ No newline at end of file
+diff --git a/tests/unit/languages.test.cjs b/tests/unit/languages.test.cjs
+index 9d8de02..b97fba7 100644
+--- a/tests/unit/languages.test.cjs
++++ b/tests/unit/languages.test.cjs
+@@ -43,8 +43,8 @@ test('valid storage roundtrip restores all seven choices',()=>{
+  const data=new Map(),s={getItem:k=>data.get(k),setItem:(k,v)=>data.set(k,v)};
+  for(const l of locales){assert.ok(i18n.savePreference(s,l));assert.equal(i18n.readPreference(s),l)}
+ });
+-test('app change is only the Clear confirmation message',()=>{
+- const js=fs.readFileSync(path.join(root,'app.js'),'utf8').replace('confirm(window.HappyI18n ? window.HappyI18n.t("clearQuestion") : "Clear this picture?")','confirm("Clear this picture?")');
++test('app changes remain confined to Clear translation and the dedicated Save handler',()=>{
++ const js=fs.readFileSync(path.join(root,'app.js'),'utf8').replace('// Keep export UI separate from the drawing and gesture engines.\nsaveBtn.onclick=()=>window.HappySave.open(canvas,background,saveBtn);',fs.readFileSync(path.join(root,'tests/fixtures/save-base-handler.txt'),'utf8')).replace('confirm(window.HappyI18n ? window.HappyI18n.t("clearQuestion") : "Clear this picture?")','confirm("Clear this picture?")');
+  assert.equal(crypto.createHash('sha256').update(js).digest('hex'),'dea51ef0e04a1786ce224562649882db42bf5fb4311030b1e9826f3ab1ce21f5');
+ });
+ test('canvas zoom engine is byte-for-byte unchanged',()=>{
+diff --git a/tests/unit/save-picture.test.cjs b/tests/unit/save-picture.test.cjs
+new file mode 100644
+index 0000000..3940b77
+--- /dev/null
++++ b/tests/unit/save-picture.test.cjs
+@@ -0,0 +1,43 @@
++const {test}=require('node:test');
++const assert=require('node:assert/strict');
++const fs=require('node:fs'),path=require('node:path');
++const save=require('../../save-picture.js');
++const i18n=require('../../i18n.js');
++const root=path.resolve(__dirname,'../..');
++const html=fs.readFileSync(path.join(root,'index.html'),'utf8');
++const js=fs.readFileSync(path.join(root,'save-picture.js'),'utf8');
++const css=fs.readFileSync(path.join(root,'save-picture.css'),'utf8');
++function scene(){
++ const calls=[];const ctx={fillStyle:'',fillRect(...x){calls.push(['fill',this.fillStyle,...x])},drawImage(...x){calls.push(['image',...x])}};
++ const output={getContext:()=>ctx};const source=Object.freeze({width:1400,height:1000});
++ return {calls,ctx,output,source,create:()=>output};
++}
++test('export uses full bitmap dimensions, not CSS zoom or viewport',()=>{const s=scene();s.source=Object.freeze({width:1400,height:1000,clientWidth:125,clientHeight:80});save.composePicture(s.source,'#ffe5ef',s.create);assert.equal(s.output.width,1400);assert.equal(s.output.height,1000);assert.deepEqual(s.calls[1],['image',s.source,0,0])});
++test('background is composited before drawing',()=>{const s=scene();save.composePicture(s.source,'#fff7df',s.create);assert.deepEqual(s.calls[0],['fill','#fff7df',0,0,1400,1000]);assert.equal(s.ctx.globalCompositeOperation,'source-over')});
++test('no background defaults to white, never UI gradient',()=>{const s=scene();save.composePicture(s.source,null,s.create);assert.equal(s.calls[0][1],'#ffffff')});
++test('source canvas is never resized or cleared by composing',()=>{const s=scene();assert.doesNotThrow(()=>save.composePicture(s.source,'white',s.create));assert.equal(s.source.width,1400);assert.equal(s.source.height,1000)});
++for(const source of [null,{}, {width:0,height:5},{width:2,height:0},{width:-1,height:2},{width:2.1,height:10},{width:NaN,height:2}])test(`reject invalid bitmap ${JSON.stringify(source)}`,()=>assert.throws(()=>save.composePicture(source,'white',()=>({})),/Invalid/));
++test('unavailable context fails without changing artwork',()=>assert.throws(()=>save.composePicture({width:5,height:5},'white',()=>({getContext:()=>null})),/Canvas/));
++test('PNG encoder produces a typed Blob',async()=>{const blob=new Blob(['image'],{type:'image/png'});assert.equal(await save.pngBlob({toBlob:(cb,type)=>{assert.equal(type,'image/png');cb(blob)}}),blob)});
++for(const [name,blob] of [['null',null],['empty',new Blob([],{type:'image/png'})],['wrong MIME',new Blob(['x'],{type:'text/html'})]])test(`reject ${name} PNG callback`,async()=>assert.rejects(save.pngBlob({toBlob:cb=>cb(blob)}),/failed/));
++test('SecurityError during export is caught',async()=>assert.rejects(save.pngBlob({toBlob(){throw new DOMException('Blocked','SecurityError')}}),{name:'SecurityError'}));
++test('missing toBlob is caught',async()=>assert.rejects(save.pngBlob({}),TypeError));
++test('encoder timeout leaves a recoverable error',async()=>assert.rejects(save.pngBlob({toBlob(){}},5),/timed out/));
++test('late encoder callback cannot replace timeout result',async()=>{let cb;const promise=save.pngBlob({toBlob:f=>cb=f},5);await assert.rejects(promise,/timed out/);assert.doesNotThrow(()=>cb(new Blob(['x'],{type:'image/png'})))});
++test('native File has PNG MIME, ASCII filename and exact bytes',async()=>{const blob=new Blob(['sample'],{type:'image/png'});const file=save.makeFile(blob,File);assert.equal(file.name,'my-coloring.png');assert.equal(file.type,'image/png');assert.equal(await file.text(),'sample')});
++test('missing File falls back without breaking preview/download',()=>assert.equal(save.makeFile(new Blob(['x']),undefined),null));
++test('throwing File constructor falls back',()=>assert.equal(save.makeFile(new Blob(['x']),class {constructor(){throw Error('unsupported')}}),null));
++test('capability check sends only the actual File array',()=>{const f={};let seen;assert.equal(save.canShareFile({share(){},canShare:x=>(seen=x,true)},true,f),true);assert.deepEqual(seen,{files:[f]})});
++test('insecure origins never call native sharing capability',()=>assert.equal(save.canShareFile({share(){},canShare(){throw Error('must not call')}},false,{}),false));
++for(const [name,nav] of [['missing navigator',null],['missing share',{canShare:()=>true}],['missing canShare',{share(){}}],['reject file',{share(){},canShare:()=>false}],['throws',{share(){},canShare(){throw Error('policy')}}]])test(`safe capability fallback: ${name}`,()=>assert.equal(save.canShareFile(nav,true,{}),false));
++test('capability rejects a missing File',()=>assert.equal(save.canShareFile({share(){},canShare:()=>true},true,null),false));
++test('cancel has neutral feedback, not failed-save claim',()=>assert.equal(save.shareErrorKey({name:'AbortError'}),'saveCancelled'));
++for(const name of ['NotAllowedError','DataError','TypeError','InvalidStateError',null])test(`share failure fallback: ${name}`,()=>assert.equal(save.shareErrorKey(name?{name}:null),'saveShareError'));
++const keys=['savePicture','savePreview','savePreparing','saveShare','saveDownload','saveOpen','saveInstructions','saveFilesHint','saveReady','saveNoShare','saveHttpHint','saveSharing','saveShared','saveCancelled','saveShareError','saveExportError','saveDownloadRequested','saveOpenRequested','saveRetry'];
++for(const locale of i18n.languages.map(x=>x.code))test(`${locale}: all 19 save messages translated`,()=>{for(const k of keys)assert.ok(i18n.dictionaries[locale][k]?.trim(),`${locale}:${k}`)});
++test('save module and stylesheet referenced with version keys',()=>{assert.match(html,/src="save-picture\.js\?v=colorful-save-1"/);assert.match(html,/href="save-picture\.css\?v=colorful-save-1"/)});
++test('share is called with prebuilt File, not after encoding in the click handler',()=>{const block=js.slice(js.indexOf("ui.share.addEventListener('click'"),js.indexOf('for (const [link, key]'));assert.match(block,/navigator\.share\(\{files:\[file\]\}\)/);assert.doesNotMatch(block,/await|toBlob\(|fetch\(|\.click\(/)});
++test('save preview is a real img and links preserve drawing tab',()=>{assert.match(html,/<img id="savePreview"/);for(const id of ['downloadPicture','openPicture'])assert.match(html,new RegExp(`<a id="${id}"[^>]+target="_blank"[^>]+rel="noopener"`))});
++test('preview allows native touch-and-hold',()=>{assert.match(css,/-webkit-touch-callout:default!important/);assert.doesNotMatch(js,/addEventListener\(['"](?:touchend|contextmenu)/)});
++test('local export has no external network or automatic popup dependency',()=>assert.doesNotMatch(js,/fetch\(|XMLHttpRequest|window\.open|location\.(?:href|assign)/));
++test('save module leaves the renderer, undo and zoom functions alone',()=>assert.doesNotMatch(js,/canvasView|history\.|redo\.|source\.width\s*=|source\.height\s*=|source\.getContext/));

@@ -1,0 +1,584 @@
+
+> happy-coloring-tests@1.0.0 test
+> node --test tests/unit/*.test.cjs
+
+TAP version 13
+# Subtest: responsive classification 393x852
+ok 1 - responsive classification 393x852
+  ---
+  duration_ms: 2.644421
+  type: 'test'
+  ...
+# Subtest: responsive classification 852x393
+ok 2 - responsive classification 852x393
+  ---
+  duration_ms: 0.694651
+  type: 'test'
+  ...
+# Subtest: responsive classification 667x375
+ok 3 - responsive classification 667x375
+  ---
+  duration_ms: 0.145379
+  type: 'test'
+  ...
+# Subtest: responsive classification 568x320
+ok 4 - responsive classification 568x320
+  ---
+  duration_ms: 0.122695
+  type: 'test'
+  ...
+# Subtest: responsive classification 320x568
+ok 5 - responsive classification 320x568
+  ---
+  duration_ms: 0.237736
+  type: 'test'
+  ...
+# Subtest: responsive classification 1024x500
+ok 6 - responsive classification 1024x500
+  ---
+  duration_ms: 0.110599
+  type: 'test'
+  ...
+# Subtest: responsive classification 1180x820
+ok 7 - responsive classification 1180x820
+  ---
+  duration_ms: 0.222517
+  type: 'test'
+  ...
+# Subtest: responsive classification 820x1180
+ok 8 - responsive classification 820x1180
+  ---
+  duration_ms: 0.116268
+  type: 'test'
+  ...
+# Subtest: responsive classification 507x1024
+ok 9 - responsive classification 507x1024
+  ---
+  duration_ms: 0.484187
+  type: 'test'
+  ...
+# Subtest: responsive classification 1280x800
+ok 10 - responsive classification 1280x800
+  ---
+  duration_ms: 1.762357
+  type: 'test'
+  ...
+# Subtest: large view preserves scale aspect using one scalar
+ok 11 - large view preserves scale aspect using one scalar
+  ---
+  duration_ms: 0.672611
+  type: 'test'
+  ...
+# Subtest: matched aspect needs no additional zoom
+ok 12 - matched aspect needs no additional zoom
+  ---
+  duration_ms: 0.145351
+  type: 'test'
+  ...
+# Subtest: large view clamps to the existing 400 percent zoom maximum
+ok 13 - large view clamps to the existing 400 percent zoom maximum
+  ---
+  duration_ms: 0.352293
+  type: 'test'
+  ...
+# Subtest: invalid/zero geometry is harmless
+ok 14 - invalid/zero geometry is harmless
+  ---
+  duration_ms: 0.373629
+  type: 'test'
+  ...
+# Subtest: narrower wide paper uses width cover correctly
+ok 15 - narrower wide paper uses width cover correctly
+  ---
+  duration_ms: 0.227478
+  type: 'test'
+  ...
+# Subtest: all six runtime dependencies exist and are referenced
+ok 16 - all six runtime dependencies exist and are referenced
+  ---
+  duration_ms: 3.590068
+  type: 'test'
+  ...
+# Subtest: only fixed Colorful marker is shipped
+ok 17 - only fixed Colorful marker is shipped
+  ---
+  duration_ms: 0.656781
+  type: 'test'
+  ...
+# Subtest: style button and picker are removed, not just hidden
+ok 18 - style button and picker are removed, not just hidden
+  ---
+  duration_ms: 0.467831
+  type: 'test'
+  ...
+# Subtest: old theme APIs cannot be invoked
+ok 19 - old theme APIs cannot be invoked
+  ---
+  duration_ms: 0.571132
+  type: 'test'
+  ...
+# Subtest: saved preferences and URL theme parameter are not consumed
+ok 20 - saved preferences and URL theme parameter are not consumed
+  ---
+  duration_ms: 0.381074
+  type: 'test'
+  ...
+# Subtest: stylesheet has no selectable palette branches
+ok 21 - stylesheet has no selectable palette branches
+  ---
+  duration_ms: 0.271187
+  type: 'test'
+  ...
+# Subtest: built-in canvas and UI color layers are kept separate
+ok 22 - built-in canvas and UI color layers are kept separate
+  ---
+  duration_ms: 0.861915
+  type: 'test'
+  ...
+# Subtest: accessible labels and pressed states are provided
+ok 23 - accessible labels and pressed states are provided
+  ---
+  duration_ms: 0.168398
+  type: 'test'
+  ...
+# Subtest: opaque fallback and reduced transparency fallback included
+ok 24 - opaque fallback and reduced transparency fallback included
+  ---
+  duration_ms: 0.328053
+  type: 'test'
+  ...
+# Subtest: reduced motion and forced colors remain supported
+ok 25 - reduced motion and forced colors remain supported
+  ---
+  duration_ms: 0.272475
+  type: 'test'
+  ...
+# Subtest: native file picker remains in the markup
+ok 26 - native file picker remains in the markup
+  ---
+  duration_ms: 0.439111
+  type: 'test'
+  ...
+# Subtest: all DOM IDs are unique
+ok 27 - all DOM IDs are unique
+  ---
+  duration_ms: 1.320249
+  type: 'test'
+  ...
+# Subtest: no external runtime font/script/style dependencies
+ok 28 - no external runtime font/script/style dependencies
+  ---
+  duration_ms: 0.607261
+  type: 'test'
+  ...
+# Subtest: bitmap initialized once at the selected DPI
+ok 29 - bitmap initialized once at the selected DPI
+  ---
+  duration_ms: 6.69303
+  type: 'test'
+  ...
+# Subtest: rotation preserves bitmap dimensions and does not resample pixels
+ok 30 - rotation preserves bitmap dimensions and does not resample pixels
+  ---
+  duration_ms: 1.650769
+  type: 'test'
+  ...
+# Subtest: twenty browser-chrome resizes never rewrite bitmap
+ok 31 - twenty browser-chrome resizes never rewrite bitmap
+  ---
+  duration_ms: 3.50136
+  type: 'test'
+  ...
+# Subtest: display fit uses one scale factor on both axes
+ok 32 - display fit uses one scale factor on both axes
+  ---
+  duration_ms: 2.891683
+  type: 'test'
+  ...
+# Subtest: zero-sized layout is ignored
+ok 33 - zero-sized layout is ignored
+  ---
+  duration_ms: 1.196766
+  type: 'test'
+  ...
+# Subtest: DPR above two is bounded for mobile memory
+ok 34 - DPR above two is bounded for mobile memory
+  ---
+  duration_ms: 2.321448
+  type: 'test'
+  ...
+# Subtest: DPR change does not change logical artwork coordinates
+ok 35 - DPR change does not change logical artwork coordinates
+  ---
+  duration_ms: 2.235217
+  type: 'test'
+  ...
+# Subtest: pointer origin maps to artwork origin
+ok 36 - pointer origin maps to artwork origin
+  ---
+  duration_ms: 2.841831
+  type: 'test'
+  ...
+# Subtest: pointer mapping follows CSS scale after rotation
+ok 37 - pointer mapping follows CSS scale after rotation
+  ---
+  duration_ms: 1.748781
+  type: 'test'
+  ...
+# Subtest: small screens keep a positive paper size and correct aspect
+ok 38 - small screens keep a positive paper size and correct aspect
+  ---
+  duration_ms: 2.168085
+  type: 'test'
+  ...
+# Subtest: viewport uses visible height at scale one
+ok 39 - viewport uses visible height at scale one
+  ---
+  duration_ms: 2.668281
+  type: 'test'
+  ...
+# Subtest: pinch scale is not treated as a new document height
+ok 40 - pinch scale is not treated as a new document height
+  ---
+  duration_ms: 1.274924
+  type: 'test'
+  ...
+# Subtest: window height fallback without VisualViewport
+ok 41 - window height fallback without VisualViewport
+  ---
+  duration_ms: 1.790879
+  type: 'test'
+  ...
+# Subtest: many resize notifications coalesce to one animation frame
+ok 42 - many resize notifications coalesce to one animation frame
+  ---
+  duration_ms: 4.325751
+  type: 'test'
+  ...
+# Subtest: secondary pointer cannot start a drawing
+ok 43 - secondary pointer cannot start a drawing
+  ---
+  duration_ms: 1.728659
+  type: 'test'
+  ...
+# Subtest: right mouse button cannot start a drawing
+ok 44 - right mouse button cannot start a drawing
+  ---
+  duration_ms: 2.644359
+  type: 'test'
+  ...
+# Subtest: second pointer cannot replace a current stroke
+ok 45 - second pointer cannot replace a current stroke
+  ---
+  duration_ms: 4.616957
+  type: 'test'
+  ...
+# Subtest: foreign pointerup cannot finish the active stroke
+ok 46 - foreign pointerup cannot finish the active stroke
+  ---
+  duration_ms: 2.050426
+  type: 'test'
+  ...
+# Subtest: pointercancel ends the stroke once
+ok 47 - pointercancel ends the stroke once
+  ---
+  duration_ms: 2.691061
+  type: 'test'
+  ...
+# Subtest: rotation ends an active stroke before changing display frame
+ok 48 - rotation ends an active stroke before changing display frame
+  ---
+  duration_ms: 2.579356
+  type: 'test'
+  ...
+# Subtest: Fill button activates the actual bucket tool
+ok 49 - Fill button activates the actual bucket tool
+  ---
+  duration_ms: 1.840517
+  type: 'test'
+  ...
+# Subtest: all five tool buttons retain their IDs and handlers
+ok 50 - all five tool buttons retain their IDs and handlers
+  ---
+  duration_ms: 4.815299
+  type: 'test'
+  ...
+# Subtest: undo history retains twenty actions plus initial state
+ok 51 - undo history retains twenty actions plus initial state
+  ---
+  duration_ms: 2.658267
+  type: 'test'
+  ...
+# Subtest: undo restore uses source-over even after eraser
+ok 52 - undo restore uses source-over even after eraser
+  ---
+  duration_ms: 1.659274
+  type: 'test'
+  ...
+# Subtest: out-of-order undo image decodes cannot replace newest state
+ok 53 - out-of-order undo image decodes cannot replace newest state
+  ---
+  duration_ms: 2.207999
+  type: 'test'
+  ...
+# Subtest: clear invalidates an outstanding asynchronous restore
+ok 54 - clear invalidates an outstanding asynchronous restore
+  ---
+  duration_ms: 1.932889
+  type: 'test'
+  ...
+# Subtest: dark fill on transparent pixels is not incorrectly treated as no-op
+ok 55 - dark fill on transparent pixels is not incorrectly treated as no-op
+  ---
+  duration_ms: 1.992637
+  type: 'test'
+  ...
+# Subtest: flood fill remains inside a closed boundary
+ok 56 - flood fill remains inside a closed boundary
+  ---
+  duration_ms: 1.270121
+  type: 'test'
+  ...
+# Subtest: out-of-bounds fill returns without reading pixels
+ok 57 - out-of-bounds fill returns without reading pixels
+  ---
+  duration_ms: 2.186276
+  type: 'test'
+  ...
+# Subtest: drawing surface cancels touch gestures locally only
+ok 58 - drawing surface cancels touch gestures locally only
+  ---
+  duration_ms: 4.705073
+  type: 'test'
+  ...
+# Subtest: single-finger toolbar touch is not blocked
+ok 59 - single-finger toolbar touch is not blocked
+  ---
+  duration_ms: 4.104856
+  type: 'test'
+  ...
+# Subtest: two-finger toolbar gesture is blocked
+ok 60 - two-finger toolbar gesture is blocked
+  ---
+  duration_ms: 1.80903
+  type: 'test'
+  ...
+# Subtest: upload control is exempt from double-click prevention
+ok 61 - upload control is exempt from double-click prevention
+  ---
+  duration_ms: 9.730523
+  type: 'test'
+  ...
+# Subtest: template drawing resets eraser composition while rendering
+ok 62 - template drawing resets eraser composition while rendering
+  ---
+  duration_ms: 1.802186
+  type: 'test'
+  ...
+# Subtest: zoom clamps to fit through 400 percent
+ok 63 - zoom clamps to fit through 400 percent
+  ---
+  duration_ms: 4.552285
+  type: 'test'
+  ...
+# Subtest: non-finite zoom safely falls back to fit
+ok 64 - non-finite zoom safely falls back to fit
+  ---
+  duration_ms: 0.836729
+  type: 'test'
+  ...
+# Subtest: invalid geometry is ignored
+ok 65 - invalid geometry is ignored
+  ---
+  duration_ms: 0.326042
+  type: 'test'
+  ...
+# Subtest: fit centers a portrait paper in a landscape viewport
+ok 66 - fit centers a portrait paper in a landscape viewport
+  ---
+  duration_ms: 1.221123
+  type: 'test'
+  ...
+# Subtest: zoom geometry preserves paper aspect ratio
+ok 67 - zoom geometry preserves paper aspect ratio
+  ---
+  duration_ms: 1.697294
+  type: 'test'
+  ...
+# Subtest: anchor is held exactly when scrolling is not clamped
+ok 68 - anchor is held exactly when scrolling is not clamped
+  ---
+  duration_ms: 0.527217
+  type: 'test'
+  ...
+# Subtest: anchor scrolling is bounded at paper edges
+ok 69 - anchor scrolling is bounded at paper edges
+  ---
+  duration_ms: 2.310678
+  type: 'test'
+  ...
+# Subtest: fit never has scrolling overflow
+ok 70 - fit never has scrolling overflow
+  ---
+  duration_ms: 0.941321
+  type: 'test'
+  ...
+# Subtest: midpoint and distance use client coordinates
+ok 71 - midpoint and distance use client coordinates
+  ---
+  duration_ms: 1.222268
+  type: 'test'
+  ...
+# Subtest: zoom buttons never write artwork bitmap or history
+ok 72 - zoom buttons never write artwork bitmap or history
+  ---
+  duration_ms: 37.251537
+  type: 'test'
+  ...
+# Subtest: Fit resets the view only
+ok 73 - Fit resets the view only
+  ---
+  duration_ms: 3.87785
+  type: 'test'
+  ...
+# Subtest: zoom scroll controls appear only when the paper overflows
+ok 74 - zoom scroll controls appear only when the paper overflows
+  ---
+  duration_ms: 2.907005
+  type: 'test'
+  ...
+# Subtest: scroll slider controls only the canvas viewport
+ok 75 - scroll slider controls only the canvas viewport
+  ---
+  duration_ms: 2.662311
+  type: 'test'
+  ...
+# Subtest: rotation keeps zoom and one artwork bitmap
+ok 76 - rotation keeps zoom and one artwork bitmap
+  ---
+  duration_ms: 2.736511
+  type: 'test'
+  ...
+# Subtest: coordinate mapping accounts for canvas zoom
+ok 77 - coordinate mapping accounts for canvas zoom
+  ---
+  duration_ms: 3.939235
+  type: 'test'
+  ...
+# Subtest: zoom is absent from the 20-step drawing history
+ok 78 - zoom is absent from the 20-step drawing history
+  ---
+  duration_ms: 2.399355
+  type: 'test'
+  ...
+# Subtest: one touch begins pending without painting or filling
+ok 79 - one touch begins pending without painting or filling
+  ---
+  duration_ms: 0.459512
+  type: 'test'
+  ...
+# Subtest: tap tool commits exactly once on release
+ok 80 - tap tool commits exactly once on release
+  ---
+  duration_ms: 0.191974
+  type: 'test'
+  ...
+# Subtest: two fingers never commit bucket or sticker taps
+ok 81 - two fingers never commit bucket or sticker taps
+  ---
+  duration_ms: 0.222443
+  type: 'test'
+  ...
+# Subtest: finger motion beyond tap tolerance cancels a bucket tap
+ok 82 - finger motion beyond tap tolerance cancels a bucket tap
+  ---
+  duration_ms: 0.892118
+  type: 'test'
+  ...
+# Subtest: movement starts one normal stroke then finishes once
+ok 83 - movement starts one normal stroke then finishes once
+  ---
+  duration_ms: 0.236736
+  type: 'test'
+  ...
+# Subtest: second finger rolls back only the unfinished touch stroke
+ok 84 - second finger rolls back only the unfinished touch stroke
+  ---
+  duration_ms: 0.125215
+  type: 'test'
+  ...
+# Subtest: pinch distance doubles the view zoom
+ok 85 - pinch distance doubles the view zoom
+  ---
+  duration_ms: 0.242112
+  type: 'test'
+  ...
+# Subtest: two-finger translation pans without changing zoom
+ok 86 - two-finger translation pans without changing zoom
+  ---
+  duration_ms: 0.120014
+  type: 'test'
+  ...
+# Subtest: one remaining finger after pinch cannot accidentally paint
+ok 87 - one remaining finger after pinch cannot accidentally paint
+  ---
+  duration_ms: 0.217043
+  type: 'test'
+  ...
+# Subtest: third finger does not replace the two active pinch anchors
+ok 88 - third finger does not replace the two active pinch anchors
+  ---
+  duration_ms: 0.186282
+  type: 'test'
+  ...
+# Subtest: cancelled stroke rolls back and recovers for next touch
+ok 89 - cancelled stroke rolls back and recovers for next touch
+  ---
+  duration_ms: 0.147368
+  type: 'test'
+  ...
+# Subtest: blur reset releases all contacts and restores idle
+ok 90 - blur reset releases all contacts and restores idle
+  ---
+  duration_ms: 0.184732
+  type: 'test'
+  ...
+# Subtest: rotation cancels gestures until all old contacts lift
+ok 91 - rotation cancels gestures until all old contacts lift
+  ---
+  duration_ms: 0.141147
+  type: 'test'
+  ...
+# Subtest: Pencil or mouse active stroke blocks palm touches
+ok 92 - Pencil or mouse active stroke blocks palm touches
+  ---
+  duration_ms: 0.120252
+  type: 'test'
+  ...
+# Subtest: single touch on the gutter never draws
+ok 93 - single touch on the gutter never draws
+  ---
+  duration_ms: 0.085263
+  type: 'test'
+  ...
+# Subtest: near-coincident fingertips produce finite zoom
+ok 94 - near-coincident fingertips produce finite zoom
+  ---
+  duration_ms: 0.092198
+  type: 'test'
+  ...
+# Subtest: foreign pointer cancellation does not end a tracked touch
+ok 95 - foreign pointer cancellation does not end a tracked touch
+  ---
+  duration_ms: 0.062775
+  type: 'test'
+  ...
+1..95
+# tests 95
+# suites 0
+# pass 95
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 305.549281

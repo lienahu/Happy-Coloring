@@ -1,0 +1,1493 @@
+--- a/index.html
++++ b/index.html
+@@ -5,122 +5,118 @@
+ <meta charset="utf-8"/>
+ <meta content="width=device-width,initial-scale=1,viewport-fit=cover" name="viewport"/>
+ <title>Happy Colors</title>
+-<link href="style.css?v=colorful-1" rel="stylesheet"/>
++<link href="style.css?v=colorful-languages-1" rel="stylesheet"/>
+ <meta content="#eee8ff" name="theme-color"/>
+-<link href="apple-colorful.css?v=colorful-1" rel="stylesheet"/>
+-</head>
++<link href="apple-colorful.css?v=colorful-languages-1" rel="stylesheet"/>
++<link href="languages.css?v=colorful-languages-1" rel="stylesheet"/></head>
+ <body>
+ <header>
+ <div class="brand-cluster">
+-<button aria-controls="artTools" aria-expanded="false" aria-label="Open art tools" class="icon-button mobile-only" id="toolsToggle" type="button"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"></path></svg></button>
+-<div class="brand"><span class="brand-mark"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18h1a2 2 0 0 0 1-3.7 1.5 1.5 0 0 1 .7-2.8H17a4 4 0 0 0 4-4C21 6 17 3 12 3Z"></path><circle cx="7" cy="11" r=".8"></circle><circle cx="9" cy="7" r=".8"></circle><circle cx="14" cy="6.5" r=".8"></circle><circle cx="17" cy="10" r=".8"></circle></svg></span><span class="brand-name">Happy <b>Colors</b><small class="build-tag">Colorful 1</small></span></div>
++<button aria-controls="artTools" aria-expanded="false" aria-label="Open art tools" class="icon-button mobile-only" data-i18n-aria="openTools" id="toolsToggle" type="button"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"></path></svg></button>
++<div class="brand"><span class="brand-mark"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18h1a2 2 0 0 0 1-3.7 1.5 1.5 0 0 1 .7-2.8H17a4 4 0 0 0 4-4C21 6 17 3 12 3Z"></path><circle cx="7" cy="11" r=".8"></circle><circle cx="9" cy="7" r=".8"></circle><circle cx="14" cy="6.5" r=".8"></circle><circle cx="17" cy="10" r=".8"></circle></svg></span><span class="brand-name">Happy <b>Colors</b><small class="build-tag">Colorful L1</small></span></div>
+ </div>
+-<div aria-label="Canvas zoom controls" class="canvas-view-tools" role="group">
+-<button aria-label="Zoom canvas out" id="zoomOutBtn" title="Zoom out" type="button">−</button>
+-<output aria-label="Canvas zoom level" id="zoomLabel">100%</output>
+-<button aria-label="Zoom canvas in" id="zoomInBtn" title="Zoom in" type="button">+</button>
+-<button id="zoomFitBtn" title="Show the whole picture" type="button">Fit</button>
+-<button aria-label="Large drawing view" id="zoomLargeBtn" title="Larger view; move with two fingers" type="button"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="M8 3H3v5M16 3h5v5M3 16v5h5M21 16v5h-5"></path></svg><span>Large</span></button>
++<div aria-label="Canvas zoom controls" class="canvas-view-tools" data-i18n-aria="zoomControls" role="group">
++<button aria-label="Zoom canvas out" data-i18n-aria="zoomOut" data-i18n-title="zoomOut" id="zoomOutBtn" title="Zoom out" type="button">−</button>
++<output aria-label="Canvas zoom level" data-i18n-aria="zoomLevel" id="zoomLabel">100%</output>
++<button aria-label="Zoom canvas in" data-i18n-aria="zoomIn" data-i18n-title="zoomIn" id="zoomInBtn" title="Zoom in" type="button">+</button>
++<button data-i18n="fit" data-i18n-aria="fitTitle" data-i18n-title="fitTitle" id="zoomFitBtn" title="Show the whole picture" type="button">Fit</button>
++<button aria-label="Large drawing view" data-i18n-aria="largeTitle" data-i18n-title="largeTitle" id="zoomLargeBtn" title="Larger view; move with two fingers" type="button"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="M8 3H3v5M16 3h5v5M3 16v5h5M21 16v5h-5"></path></svg><span data-i18n="large">Large</span></button>
+ </div>
+ <div class="top-actions">
+-<button aria-label="Undo" class="" id="undoBtn" title="Undo" type="button"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="M8 5 3 10l5 5M4 10h10a6 6 0 0 1 0 12"></path></svg><span class="action-text">Undo</span></button>
+-<button aria-label="Redo" class="" id="redoBtn" title="Redo" type="button"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="m16 5 5 5-5 5M20 10H10a6 6 0 0 0 0 12"></path></svg><span class="action-text">Redo</span></button>
+-<button aria-label="New" class="" id="newBtn" title="New" type="button"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="M14 3H5v18h14V8l-5-5ZM14 3v5h5M8 14h8M12 10v8"></path></svg><span class="action-text">New</span></button>
+-<button aria-label="Save" class="primary" id="saveBtn" title="Save" type="button"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="M12 3v12m-5-5 5 5 5-5M4 15v6h16v-6"></path></svg><span class="action-text">Save</span></button>
+-
++<button aria-label="Undo" class="" data-i18n-aria="undo" data-i18n-title="undo" id="undoBtn" title="Undo" type="button"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="M8 5 3 10l5 5M4 10h10a6 6 0 0 1 0 12"></path></svg><span class="action-text" data-i18n="undo">Undo</span></button>
++<button aria-label="Redo" class="" data-i18n-aria="redo" data-i18n-title="redo" id="redoBtn" title="Redo" type="button"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="m16 5 5 5-5 5M20 10H10a6 6 0 0 0 0 12"></path></svg><span class="action-text" data-i18n="redo">Redo</span></button>
++<button aria-label="New" class="" data-i18n-aria="new" data-i18n-title="new" id="newBtn" title="New" type="button"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="M14 3H5v18h14V8l-5-5ZM14 3v5h5M8 14h8M12 10v8"></path></svg><span class="action-text" data-i18n="new">New</span></button>
++<button aria-label="Save" class="primary" data-i18n-aria="save" data-i18n-title="save" id="saveBtn" title="Save" type="button"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 3v12m-5-5 5 5 5-5M4 15v6h16v-6"></path></svg><span class="action-text" data-i18n="save">Save</span></button>
+ </div>
+-</header>
++<button aria-controls="languageDialog" aria-haspopup="dialog" aria-label="Language" class="icon-button desktop-language" data-i18n-aria="language" data-i18n-title="language" data-open-language="" id="languageBtn" title="Language" type="button"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><ellipse cx="12" cy="12" rx="4" ry="9"></ellipse><path d="M3 12h18M5 6.5h14M5 17.5h14"></path></svg></button></header>
+ <main>
+-<aside aria-label="Art tools" class="tools" id="artTools">
+-<div class="drawer-heading"><div><h2>Drawing tools</h2></div><button aria-label="Close art tools" class="icon-button mobile-only" id="closeTools" type="button"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"></path></svg></button></div><section class="tool-buttons" id="toolsSection">
+-<button class="active" id="brushBtn"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="m14 4 6 6-9 9-6-6 9-9Z"></path><path d="m4 14-1 7 7-1M13 5l6 6"></path></svg><span>Brush</span></button>
+-<button id="sparkleBtn"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="m12 3 2.4 6.6L21 12l-6.6 2.4L12 21l-2.4-6.6L3 12l6.6-2.4L12 3ZM20 2v4M18 4h4"></path></svg><span>Sparkle</span></button>
+-<button id="bucketBtn"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="m8 3 11 11-8 7-9-9 8-9ZM4 10h12"></path><path d="M21 14s-2 3-2 4a2 2 0 0 0 4 0c0-1-2-4-2-4Z"></path></svg><span>Fill</span></button>
+-<button id="outlineBtn"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="m14 4 6 6-9 9-6-6 9-9Z"></path><path d="m4 14-1 7 7-1M13 5l6 6"></path></svg><span>Outline</span></button>
+-<button id="eraserBtn"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="m3 13 9-10 9 8-9 10H9l-6-5v-3ZM8 8l9 8M12 21h9"></path></svg><span>Eraser</span></button>
+-<button id="clearBtn"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="M4 6h16M9 6V3h6v3M6 6l1 15h10l1-15M10 10v7M14 10v7"></path></svg><span>Clear</span></button>
++<aside aria-label="Art tools" class="tools" data-i18n-aria="drawingTools" id="artTools">
++<div class="drawer-heading"><div><h2 data-i18n="drawingTools">Drawing tools</h2></div><button aria-label="Close art tools" class="icon-button mobile-only" data-i18n-aria="closeTools" id="closeTools" type="button"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"></path></svg></button></div><section class="tool-buttons" id="toolsSection">
++<button class="active" data-i18n-aria="brush" data-i18n-title="brush" id="brushBtn"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="m14 4 6 6-9 9-6-6 9-9Z"></path><path d="m4 14-1 7 7-1M13 5l6 6"></path></svg><span data-i18n="brush">Brush</span></button>
++<button data-i18n-aria="sparkle" data-i18n-title="sparkle" id="sparkleBtn"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="m12 3 2.4 6.6L21 12l-6.6 2.4L12 21l-2.4-6.6L3 12l6.6-2.4L12 3ZM20 2v4M18 4h4"></path></svg><span data-i18n="sparkle">Sparkle</span></button>
++<button data-i18n-aria="fill" data-i18n-title="fill" id="bucketBtn"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="m8 3 11 11-8 7-9-9 8-9ZM4 10h12"></path><path d="M21 14s-2 3-2 4a2 2 0 0 0 4 0c0-1-2-4-2-4Z"></path></svg><span data-i18n="fill">Fill</span></button>
++<button data-i18n-aria="outline" data-i18n-title="outline" id="outlineBtn"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="m14 4 6 6-9 9-6-6 9-9Z"></path><path d="m4 14-1 7 7-1M13 5l6 6"></path></svg><span data-i18n="outline">Outline</span></button>
++<button data-i18n-aria="eraser" data-i18n-title="eraser" id="eraserBtn"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="m3 13 9-10 9 8-9 10H9l-6-5v-3ZM8 8l9 8M12 21h9"></path></svg><span data-i18n="eraser">Eraser</span></button>
++<button data-i18n-aria="clear" data-i18n-title="clear" id="clearBtn"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="M4 6h16M9 6V3h6v3M6 6l1 15h10l1-15M10 10v7M14 10v7"></path></svg><span data-i18n="clear">Clear</span></button>
+ </section>
+ <section id="colorsSection">
+-<h2>Colors</h2>
++<h2 data-i18n="colors">Colors</h2>
+ <div class="palette" id="palette"></div>
+-<label class="custom-color">More <input id="colorPicker" type="color" value="#ff4f87"/></label>
++<label class="custom-color"><span data-i18n="moreColors">More colors</span><input data-i18n-aria="moreColors" id="colorPicker" type="color" value="#ff4f87"/></label>
+ </section>
+ <section id="sizesSection">
+-<h2>Brush Size</h2>
++<h2 data-i18n="brushSize">Brush Size</h2>
+ <div class="brushes">
+-<button aria-label="Small brush" class="brush active" data-size="8"><i style="--dot:6px"></i><span>S</span></button>
+-<button aria-label="M brush" class="brush" data-size="16"><i style="--dot:10px"></i><span>M</span></button>
+-<button aria-label="L brush" class="brush" data-size="28"><i style="--dot:16px"></i><span>L</span></button>
+-<button aria-label="XL brush" class="brush" data-size="44"><i style="--dot:22px"></i><span>XL</span></button>
++<button aria-label="Small brush" class="brush active" data-i18n-aria="small" data-i18n-title="small" data-size="8"><i style="--dot:6px"></i><span data-i18n="smallShort">S</span></button>
++<button aria-label="M brush" class="brush" data-i18n-aria="medium" data-i18n-title="medium" data-size="16"><i style="--dot:10px"></i><span data-i18n="mediumShort">M</span></button>
++<button aria-label="L brush" class="brush" data-i18n-aria="largeBrush" data-i18n-title="largeBrush" data-size="28"><i style="--dot:16px"></i><span data-i18n="largeShort">L</span></button>
++<button aria-label="XL brush" class="brush" data-i18n-aria="extraLarge" data-i18n-title="extraLarge" data-size="44"><i style="--dot:22px"></i><span data-i18n="extraLargeShort">XL</span></button>
+ </div>
+-</section><section aria-label="Import picture" class="picture-import"><label class="upload-control" for="imageUpload">
+-<svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="M12 16V3m-5 5 5-5 5 5M4 15v6h16v-6"></path></svg><span>Upload picture</span>
+-<input accept="image/*" id="imageUpload" type="file"/>
++</section><section aria-label="Import picture" class="picture-import" data-i18n-aria="importPicture"><label class="upload-control" for="imageUpload">
++<svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 16V3m-5 5 5-5 5 5M4 15v6h16v-6"></path></svg><span data-i18n="upload">Upload picture</span>
++<input accept="image/*" data-i18n-aria="upload" id="imageUpload" type="file"/>
+ </label></section>
+-
+ <section id="pagesSection">
+-<h2>Coloring Pages</h2>
++<h2 data-i18n="pages">Coloring Pages</h2>
+ <div class="pages">
+-<button class="pageBtn" data-page="blank">⬜ Blank</button>
+-<button class="pageBtn" data-page="unicorn">🦄 Unicorn</button>
+-<button class="pageBtn" data-page="princess">👸 Princess</button>
+-<button class="pageBtn" data-page="cat">🐱 Cat</button>
+-<button class="pageBtn" data-page="butterfly">🦋 Butterfly</button>
+-<button class="pageBtn" data-page="dino">🦖 Dinosaur</button>
++<button class="pageBtn" data-i18n-aria="blank" data-page="blank"><span aria-hidden="true">⬜</span> <span data-i18n="blank">Blank</span></button>
++<button class="pageBtn" data-i18n-aria="unicorn" data-page="unicorn"><span aria-hidden="true">🦄</span> <span data-i18n="unicorn">Unicorn</span></button>
++<button class="pageBtn" data-i18n-aria="princess" data-page="princess"><span aria-hidden="true">👸</span> <span data-i18n="princess">Princess</span></button>
++<button class="pageBtn" data-i18n-aria="cat" data-page="cat"><span aria-hidden="true">🐱</span> <span data-i18n="cat">Cat</span></button>
++<button class="pageBtn" data-i18n-aria="butterfly" data-page="butterfly"><span aria-hidden="true">🦋</span> <span data-i18n="butterfly">Butterfly</span></button>
++<button class="pageBtn" data-i18n-aria="dinosaur" data-page="dino"><span aria-hidden="true">🦖</span> <span data-i18n="dinosaur">Dinosaur</span></button>
+ </div>
+ </section>
+ <section id="stickersSection">
+-<h2>Stickers</h2>
++<h2 data-i18n="stickers">Stickers</h2>
+ <div class="stickers" id="stickers">
+-<button data-sticker="⭐">⭐</button>
+-<button data-sticker="🌈">🌈</button>
+-<button data-sticker="❤️">❤️</button>
+-<button data-sticker="🌸">🌸</button>
+-<button data-sticker="🦄">🦄</button>
+-<button data-sticker="👑">👑</button>
+-<button data-sticker="🦋">🦋</button>
+-<button data-sticker="✨">✨</button>
++<button data-i18n-aria="stickerStar" data-i18n-title="stickerStar" data-sticker="⭐">⭐</button>
++<button data-i18n-aria="stickerRainbow" data-i18n-title="stickerRainbow" data-sticker="🌈">🌈</button>
++<button data-i18n-aria="stickerHeart" data-i18n-title="stickerHeart" data-sticker="❤️">❤️</button>
++<button data-i18n-aria="stickerFlower" data-i18n-title="stickerFlower" data-sticker="🌸">🌸</button>
++<button data-i18n-aria="stickerUnicorn" data-i18n-title="stickerUnicorn" data-sticker="🦄">🦄</button>
++<button data-i18n-aria="stickerCrown" data-i18n-title="stickerCrown" data-sticker="👑">👑</button>
++<button data-i18n-aria="stickerButterfly" data-i18n-title="stickerButterfly" data-sticker="🦋">🦋</button>
++<button data-i18n-aria="stickerSparkle" data-i18n-title="stickerSparkle" data-sticker="✨">✨</button>
+ </div>
+-<div class="tiny">Pick a sticker, then tap the picture.</div>
++<div class="tiny" data-i18n="stickerHint">Pick a sticker, then tap the picture.</div>
+ </section>
+ <section class="background-section">
+-<h2>Background</h2>
++<h2 data-i18n="background">Background</h2>
+ <div class="backgrounds">
+-<button class="bg active" data-bg="#ffffff">⬜ White</button>
+-<button class="bg" data-bg="#fff7df">🌤️ Cream</button>
+-<button class="bg" data-bg="#dff5ff">☁️ Sky</button>
+-<button class="bg" data-bg="#ffe5ef">🌸 Pink</button>
++<button class="bg active" data-bg="#ffffff" data-i18n-aria="white"><span aria-hidden="true">⬜</span> <span data-i18n="white">White</span></button>
++<button class="bg" data-bg="#fff7df" data-i18n-aria="cream"><span aria-hidden="true">🌤️</span> <span data-i18n="cream">Cream</span></button>
++<button class="bg" data-bg="#dff5ff" data-i18n-aria="sky"><span aria-hidden="true">☁️</span> <span data-i18n="sky">Sky</span></button>
++<button class="bg" data-bg="#ffe5ef" data-i18n-aria="pink"><span aria-hidden="true">🌸</span> <span data-i18n="pink">Pink</span></button>
+ </div>
+-
+ </section>
+ </aside>
+-<nav aria-label="Art shortcuts" class="quick-dock mobile-only"><button aria-label="Open tools" data-open-section="toolsSection" type="button"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="m14 4 6 6-9 9-6-6 9-9Z"></path><path d="m4 14-1 7 7-1M13 5l6 6"></path></svg><span>Tools</span></button><button aria-label="Open colors" data-open-section="colorsSection" type="button"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18h1a2 2 0 0 0 1-3.7 1.5 1.5 0 0 1 .7-2.8H17a4 4 0 0 0 4-4C21 6 17 3 12 3Z"></path><circle cx="7" cy="11" r=".8"></circle><circle cx="9" cy="7" r=".8"></circle><circle cx="14" cy="6.5" r=".8"></circle><circle cx="17" cy="10" r=".8"></circle></svg><span>Colors</span></button><button aria-label="Open pages" data-open-section="pagesSection" type="button"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="M7 3h14v15M3 7h14v14H3V7Z"></path><path d="m5 18 4-5 3 3 2-2M7 10h.1"></path></svg><span>Pages</span></button><button aria-label="Open stickers" data-open-section="stickersSection" type="button"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="M21 13V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h8l8-8ZM13 21v-6a2 2 0 0 1 2-2h6M7 8h.1M14 8h.1M7 11c2 3 5 3 7 0"></path></svg><span>Stickers</span></button></nav>
+-<button aria-label="Close art tools" class="drawer-shade" hidden="" id="drawerShade" type="button"></button>
++<nav aria-label="Art shortcuts" class="quick-dock mobile-only" data-i18n-aria="shortcuts"><button aria-label="Open tools" data-i18n-aria="openTools" data-open-section="toolsSection" type="button"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="m14 4 6 6-9 9-6-6 9-9Z"></path><path d="m4 14-1 7 7-1M13 5l6 6"></path></svg><span data-i18n="toolsShort">Tools</span></button><button aria-label="Open colors" data-i18n-aria="openColors" data-open-section="colorsSection" type="button"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18h1a2 2 0 0 0 1-3.7 1.5 1.5 0 0 1 .7-2.8H17a4 4 0 0 0 4-4C21 6 17 3 12 3Z"></path><circle cx="7" cy="11" r=".8"></circle><circle cx="9" cy="7" r=".8"></circle><circle cx="14" cy="6.5" r=".8"></circle><circle cx="17" cy="10" r=".8"></circle></svg><span data-i18n="colors">Colors</span></button><button aria-label="Open pages" data-i18n-aria="openPages" data-open-section="pagesSection" type="button"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="M7 3h14v15M3 7h14v14H3V7Z"></path><path d="m5 18 4-5 3 3 2-2M7 10h.1"></path></svg><span data-i18n="pagesShort">Pages</span></button><button aria-label="Open stickers" data-i18n-aria="openStickers" data-open-section="stickersSection" type="button"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="M21 13V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h8l8-8ZM13 21v-6a2 2 0 0 1 2-2h6M7 8h.1M14 8h.1M7 11c2 3 5 3 7 0"></path></svg><span data-i18n="stickersShort">Stickers</span></button><button aria-controls="languageDialog" aria-haspopup="dialog" aria-label="Language" data-i18n-aria="language" data-open-language="" id="languageDockBtn" type="button"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><ellipse cx="12" cy="12" rx="4" ry="9"></ellipse><path d="M3 12h18M5 6.5h14M5 17.5h14"></path></svg><span data-i18n="language">Language</span></button></nav>
++<button aria-label="Close art tools" class="drawer-shade" data-i18n-aria="closeTools" hidden="" id="drawerShade" type="button"></button>
+ <section class="canvas-wrap">
+ <div class="canvas-board">
+-<div aria-label="Drawing area: one finger to draw, two fingers to zoom and move" class="canvas-stage" id="canvasViewport" role="region" tabindex="0">
++<div aria-label="Drawing area: one finger to draw, two fingers to zoom and move" class="canvas-stage" data-i18n-aria="canvasArea" id="canvasViewport" role="region" tabindex="0">
+ <div class="canvas-surface" id="canvasSurface">
+-<canvas aria-label="Drawing canvas" id="canvas"></canvas>
++<canvas aria-label="Drawing canvas" data-i18n-aria="canvas" id="canvas"></canvas>
+ </div>
+ </div>
+-<input aria-label="Scroll canvas vertically" class="pan-scroll pan-scroll-y" disabled="" id="panY" max="0" min="0" step="1" type="range" value="0"/>
+-<input aria-label="Scroll canvas horizontally" class="pan-scroll pan-scroll-x" disabled="" id="panX" max="0" min="0" step="1" type="range" value="0"/>
++<input aria-label="Scroll canvas vertically" class="pan-scroll pan-scroll-y" data-i18n-aria="panY" disabled="" id="panY" max="0" min="0" step="1" type="range" value="0"/>
++<input aria-label="Scroll canvas horizontally" class="pan-scroll pan-scroll-x" data-i18n-aria="panX" disabled="" id="panX" max="0" min="0" step="1" type="range" value="0"/>
+ </div>
+-<div class="hint">One finger to create. Two fingers to explore. <span aria-live="polite" id="viewNotice"></span></div>
++<div class="hint"><span data-i18n="hint">One finger to create. Two fingers to explore.</span> <span aria-live="polite" id="viewNotice"></span></div>
+ </section>
+ </main>
+ <div class="modal hidden" id="confirmModal">
+-<div class="dialog">
++<div aria-labelledby="newPictureTitle" aria-modal="true" class="dialog" role="dialog">
+ <div class="big">🎨</div>
+-<h3>Start a new picture?</h3>
+-<p>Your current drawing will be cleared.</p>
+-<button id="cancelNew">Keep drawing</button>
+-<button class="danger" id="confirmNew">Start new</button>
++<h3 data-i18n="newQuestion" id="newPictureTitle">Start a new picture?</h3>
++<p data-i18n="newWarning">Your current drawing will be cleared.</p>
++<button data-i18n="keepDrawing" id="cancelNew">Keep drawing</button>
++<button class="danger" data-i18n="startNew" id="confirmNew">Start new</button>
+ </div>
+ </div>
+-
+-<script src="canvas-zoom.js?v=colorful-1"></script>
+-<script src="app.js?v=colorful-1"></script>
+-<script src="mobile-ui.js?v=colorful-1"></script>
+-</body>
++<script src="i18n.js?v=colorful-languages-1"></script><script src="canvas-zoom.js?v=colorful-languages-1"></script>
++<script src="app.js?v=colorful-languages-1"></script>
++<script src="mobile-ui.js?v=colorful-languages-1"></script>
++<dialog aria-describedby="languageHint" aria-labelledby="languageTitle" class="language-dialog" id="languageDialog"><div class="language-heading"><h2 data-i18n="chooseLanguage" id="languageTitle">Choose a language</h2><button aria-label="Close" class="icon-button" data-i18n-aria="close" id="closeLanguage" type="button"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"></path></svg></button></div><p data-i18n="languageHint" id="languageHint">Change the menus, not your drawing.</p><div class="language-options"><button aria-pressed="false" class="language-option" data-language="en" lang="en" type="button"><span>English</span><span aria-hidden="true" class="language-check"></span></button><button aria-pressed="false" class="language-option" data-language="fr" lang="fr" type="button"><span>Français</span><span aria-hidden="true" class="language-check"></span></button><button aria-pressed="false" class="language-option" data-language="pt" lang="pt" type="button"><span>Português</span><span aria-hidden="true" class="language-check"></span></button><button aria-pressed="false" class="language-option" data-language="es" lang="es" type="button"><span>Español</span><span aria-hidden="true" class="language-check"></span></button><button aria-pressed="false" class="language-option" data-language="zh-Hans" lang="zh-Hans" type="button"><span>简体中文</span><span aria-hidden="true" class="language-check"></span></button><button aria-pressed="false" class="language-option" data-language="ja" lang="ja" type="button"><span>日本語</span><span aria-hidden="true" class="language-check"></span></button><button aria-pressed="false" class="language-option" data-language="ko" lang="ko" type="button"><span>한국어</span><span aria-hidden="true" class="language-check"></span></button></div></dialog></body>
+ </html>
+--- a/app.js
++++ b/app.js
+@@ -232,7 +232,7 @@
+ redoBtn.onclick=()=>{if(redo.length){let s=redo.pop();history.push(s);restore(s);buttons()}};
+ 
+ function clearAll(){++restoreTicket;ctx.clearRect(0,0,W(),H());snap()}
+-clearBtn.onclick=()=>{if(confirm("Clear this picture?"))clearAll()};
++clearBtn.onclick=()=>{if(confirm(window.HappyI18n ? window.HappyI18n.t("clearQuestion") : "Clear this picture?"))clearAll()};
+ newBtn.onclick=()=>confirmModal.classList.remove("hidden");
+ cancelNew.onclick=()=>confirmModal.classList.add("hidden");
+ confirmNew.onclick=()=>{confirmModal.classList.add("hidden");clearAll()};
+--- a/mobile-ui.js
++++ b/mobile-ui.js
+@@ -63,18 +63,21 @@
+   });
+   // Reflect the real tool/color state for keyboard and screen-reader users.
+   // Observe existing classes; do not replace any drawing or color handlers.
++  const tr = (key, fallback) => root.HappyI18n ? root.HappyI18n.t(key) : fallback;
++  const COLOR_KEYS = ['colorPink','colorRed','colorOrange','colorYellow','colorGreen','colorTeal','colorBlue','colorIndigo','colorPurple','colorBrown','colorBlack','colorWhite','colorLightPink','colorLightGreen','colorLightBlue'];
+   const COLOR_NAMES = ['Pink','Red','Orange','Yellow','Green','Teal','Blue','Indigo',
+     'Purple','Brown','Black','White','Light pink','Light green','Light blue'];
+   function syncSelections() {
+     document.querySelectorAll('.tool-buttons button:not(#clearBtn),.brush,.bg,[data-sticker],.swatch')
+       .forEach(button => button.setAttribute('aria-pressed', String(button.classList.contains('active'))));
+     document.querySelectorAll('.swatch').forEach((button,index) => {
+-      const name = COLOR_NAMES[index] || `Color ${index + 1}`;
++      const name = COLOR_KEYS[index] ? tr(COLOR_KEYS[index], COLOR_NAMES[index]) : `Color ${index + 1}`;
+       button.setAttribute('aria-label', name);
+       button.title = name;
+     });
+   }
+   syncSelections();
++  document.addEventListener('happy-language-change', syncSelections);
+   if ('MutationObserver' in window) {
+     new MutationObserver(syncSelections).observe(tools, { subtree:true, attributes:true, attributeFilter:['class'] });
+   }
+@@ -82,10 +85,11 @@
+     if (!canvasView || !canvasView.g) return;
+     cancelInput();
+     canvasView.controlZoom(coverZoom(W(), H(), stage.clientWidth, stage.clientHeight));
+-    $('viewNotice').textContent = 'Large view · Fit shows the whole picture.';
++    $('viewNotice').dataset.i18n = 'largeNotice';
++    $('viewNotice').textContent = tr('largeNotice', 'Large view · Fit shows the whole picture.');
+   }
+   $('zoomLargeBtn').addEventListener('click', largeView);
+-  $('zoomFitBtn').addEventListener('click', () => { $('viewNotice').textContent = ''; });
++  $('zoomFitBtn').addEventListener('click', () => { delete $('viewNotice').dataset.i18n; $('viewNotice').textContent = ''; });
+   function layout() {
+     pending = 0;
+     const nextCompact = isCompact(innerWidth, innerHeight);
+--- /dev/null
++++ b/i18n.js
+@@ -0,0 +1,760 @@
++/* Happy Colors menu localization. No network requests or drawing-engine mutations.
++ * Readable translation keys stay separate from button IDs, tool names and colors.
++ * Chinese is Simplified. Portuguese wording is neutral/European Portuguese.
++ */
++(function(root) {
++  'use strict';
++  const dictionaries = {
++  "en": {
++    "language": "Language",
++    "chooseLanguage": "Choose a language",
++    "languageHint": "Change the menus, not your drawing.",
++    "close": "Close",
++    "undo": "Undo",
++    "redo": "Redo",
++    "new": "New",
++    "save": "Save",
++    "tools": "Tools",
++    "openTools": "Open art tools",
++    "closeTools": "Close art tools",
++    "drawingTools": "Drawing tools",
++    "colors": "Colors",
++    "moreColors": "More colors",
++    "brushSize": "Brush size",
++    "brush": "Brush",
++    "sparkle": "Sparkle",
++    "fill": "Fill",
++    "outline": "Outline",
++    "eraser": "Eraser",
++    "clear": "Clear",
++    "upload": "Upload picture",
++    "importPicture": "Import picture",
++    "pages": "Coloring pages",
++    "pagesShort": "Pages",
++    "blank": "Blank",
++    "unicorn": "Unicorn",
++    "princess": "Princess",
++    "cat": "Cat",
++    "butterfly": "Butterfly",
++    "dinosaur": "Dinosaur",
++    "stickers": "Stickers",
++    "stickerHint": "Pick a sticker, then tap the picture.",
++    "background": "Background",
++    "white": "White",
++    "cream": "Cream",
++    "sky": "Sky",
++    "pink": "Pink",
++    "fit": "Fit",
++    "fitTitle": "Show the whole picture",
++    "large": "Large",
++    "largeTitle": "Larger view; move with two fingers",
++    "largeNotice": "Large view · Fit shows the whole picture.",
++    "zoomIn": "Zoom canvas in",
++    "zoomOut": "Zoom canvas out",
++    "zoomControls": "Canvas zoom controls",
++    "zoomLevel": "Canvas zoom level",
++    "canvas": "Drawing canvas",
++    "canvasArea": "One finger to draw, two fingers to zoom and move",
++    "panX": "Scroll canvas horizontally",
++    "panY": "Scroll canvas vertically",
++    "hint": "One finger to create. Two fingers to explore.",
++    "newQuestion": "Start a new picture?",
++    "newWarning": "Your current drawing will be cleared.",
++    "keepDrawing": "Keep drawing",
++    "startNew": "Start new",
++    "clearQuestion": "Clear this picture?",
++    "shortcuts": "Art shortcuts",
++    "small": "Small brush",
++    "medium": "Medium brush",
++    "largeBrush": "Large brush",
++    "extraLarge": "Extra-large brush",
++    "smallShort": "S",
++    "mediumShort": "M",
++    "largeShort": "L",
++    "extraLargeShort": "XL",
++    "openColors": "Open colors",
++    "openPages": "Open coloring pages",
++    "openStickers": "Open stickers",
++    "colorPink": "Pink",
++    "colorRed": "Red",
++    "colorOrange": "Orange",
++    "colorYellow": "Yellow",
++    "colorGreen": "Green",
++    "colorTeal": "Teal",
++    "colorBlue": "Blue",
++    "colorIndigo": "Indigo",
++    "colorPurple": "Purple",
++    "colorBrown": "Brown",
++    "colorBlack": "Black",
++    "colorWhite": "White",
++    "colorLightPink": "Light pink",
++    "colorLightGreen": "Light green",
++    "colorLightBlue": "Light blue",
++    "stickerStar": "Star sticker",
++    "stickerRainbow": "Rainbow sticker",
++    "stickerHeart": "Heart sticker",
++    "stickerFlower": "Flower sticker",
++    "stickerUnicorn": "Unicorn sticker",
++    "stickerCrown": "Crown sticker",
++    "stickerButterfly": "Butterfly sticker",
++    "stickerSparkle": "Sparkle sticker",
++    "toolsShort": "Tools",
++    "stickersShort": "Stickers"
++  },
++  "fr": {
++    "language": "Langue",
++    "chooseLanguage": "Choisir une langue",
++    "languageHint": "Seuls les menus changent, pas votre dessin.",
++    "close": "Fermer",
++    "undo": "Annuler",
++    "redo": "Rétablir",
++    "new": "Nouveau",
++    "save": "Enregistrer",
++    "tools": "Outils",
++    "openTools": "Ouvrir les outils",
++    "closeTools": "Fermer les outils",
++    "drawingTools": "Outils de dessin",
++    "colors": "Couleurs",
++    "moreColors": "Autres couleurs",
++    "brushSize": "Taille du pinceau",
++    "brush": "Pinceau",
++    "sparkle": "Paillettes",
++    "fill": "Remplir",
++    "outline": "Contours",
++    "eraser": "Gomme",
++    "clear": "Effacer",
++    "upload": "Importer une image",
++    "importPicture": "Importer une image",
++    "pages": "Dessins à colorier",
++    "pagesShort": "Dessins",
++    "blank": "Vierge",
++    "unicorn": "Licorne",
++    "princess": "Princesse",
++    "cat": "Chat",
++    "butterfly": "Papillon",
++    "dinosaur": "Dinosaure",
++    "stickers": "Autocollants",
++    "stickerHint": "Choisissez un autocollant, puis touchez le dessin.",
++    "background": "Fond",
++    "white": "Blanc",
++    "cream": "Crème",
++    "sky": "Ciel",
++    "pink": "Rose",
++    "fit": "Tout voir",
++    "fitTitle": "Afficher tout le dessin",
++    "large": "Agrandir",
++    "largeTitle": "Vue agrandie : déplacez avec deux doigts",
++    "largeNotice": "Vue agrandie · Tout voir affiche le dessin entier.",
++    "zoomIn": "Agrandir le dessin",
++    "zoomOut": "Réduire le dessin",
++    "zoomControls": "Zoom du dessin",
++    "zoomLevel": "Niveau de zoom",
++    "canvas": "Zone de dessin",
++    "canvasArea": "Un doigt pour dessiner, deux pour zoomer et déplacer",
++    "panX": "Déplacer le dessin horizontalement",
++    "panY": "Déplacer le dessin verticalement",
++    "hint": "Un doigt pour dessiner. Deux pour explorer.",
++    "newQuestion": "Commencer un nouveau dessin ?",
++    "newWarning": "Votre dessin actuel sera effacé.",
++    "keepDrawing": "Continuer à dessiner",
++    "startNew": "Nouveau dessin",
++    "clearQuestion": "Effacer ce dessin ?",
++    "shortcuts": "Raccourcis de dessin",
++    "small": "Petit pinceau",
++    "medium": "Pinceau moyen",
++    "largeBrush": "Grand pinceau",
++    "extraLarge": "Très grand pinceau",
++    "smallShort": "P",
++    "mediumShort": "M",
++    "largeShort": "G",
++    "extraLargeShort": "TG",
++    "openColors": "Ouvrir les couleurs",
++    "openPages": "Ouvrir les dessins",
++    "openStickers": "Ouvrir les autocollants",
++    "colorPink": "Rose",
++    "colorRed": "Rouge",
++    "colorOrange": "Orange",
++    "colorYellow": "Jaune",
++    "colorGreen": "Vert",
++    "colorTeal": "Turquoise",
++    "colorBlue": "Bleu",
++    "colorIndigo": "Indigo",
++    "colorPurple": "Violet",
++    "colorBrown": "Marron",
++    "colorBlack": "Noir",
++    "colorWhite": "Blanc",
++    "colorLightPink": "Rose clair",
++    "colorLightGreen": "Vert clair",
++    "colorLightBlue": "Bleu clair",
++    "stickerStar": "Autocollant étoile",
++    "stickerRainbow": "Autocollant arc-en-ciel",
++    "stickerHeart": "Autocollant cœur",
++    "stickerFlower": "Autocollant fleur",
++    "stickerUnicorn": "Autocollant licorne",
++    "stickerCrown": "Autocollant couronne",
++    "stickerButterfly": "Autocollant papillon",
++    "stickerSparkle": "Autocollant étincelles",
++    "toolsShort": "Outils",
++    "stickersShort": "Gommettes"
++  },
++  "pt": {
++    "language": "Idioma",
++    "chooseLanguage": "Escolher um idioma",
++    "languageHint": "Muda os menus, não o desenho.",
++    "close": "Fechar",
++    "undo": "Desfazer",
++    "redo": "Refazer",
++    "new": "Novo",
++    "save": "Guardar",
++    "tools": "Ferramentas",
++    "openTools": "Abrir ferramentas",
++    "closeTools": "Fechar ferramentas",
++    "drawingTools": "Ferramentas de desenho",
++    "colors": "Cores",
++    "moreColors": "Mais cores",
++    "brushSize": "Tamanho do pincel",
++    "brush": "Pincel",
++    "sparkle": "Brilhos",
++    "fill": "Preencher",
++    "outline": "Contorno",
++    "eraser": "Borracha",
++    "clear": "Limpar",
++    "upload": "Importar imagem",
++    "importPicture": "Importar imagem",
++    "pages": "Desenhos para colorir",
++    "pagesShort": "Desenhos",
++    "blank": "Em branco",
++    "unicorn": "Unicórnio",
++    "princess": "Princesa",
++    "cat": "Gato",
++    "butterfly": "Borboleta",
++    "dinosaur": "Dinossauro",
++    "stickers": "Autocolantes",
++    "stickerHint": "Escolhe um autocolante e toca no desenho.",
++    "background": "Fundo",
++    "white": "Branco",
++    "cream": "Creme",
++    "sky": "Céu",
++    "pink": "Rosa",
++    "fit": "Ajustar",
++    "fitTitle": "Mostrar o desenho inteiro",
++    "large": "Ampliar",
++    "largeTitle": "Vista ampliada: move com dois dedos",
++    "largeNotice": "Vista ampliada · Ajustar mostra o desenho inteiro.",
++    "zoomIn": "Ampliar o desenho",
++    "zoomOut": "Reduzir o desenho",
++    "zoomControls": "Zoom do desenho",
++    "zoomLevel": "Nível de zoom",
++    "canvas": "Área de desenho",
++    "canvasArea": "Um dedo para desenhar, dois para ampliar e mover",
++    "panX": "Mover o desenho na horizontal",
++    "panY": "Mover o desenho na vertical",
++    "hint": "Um dedo para criar. Dois para explorar.",
++    "newQuestion": "Começar um novo desenho?",
++    "newWarning": "O desenho atual será apagado.",
++    "keepDrawing": "Continuar a desenhar",
++    "startNew": "Novo desenho",
++    "clearQuestion": "Apagar este desenho?",
++    "shortcuts": "Atalhos de desenho",
++    "small": "Pincel pequeno",
++    "medium": "Pincel médio",
++    "largeBrush": "Pincel grande",
++    "extraLarge": "Pincel muito grande",
++    "smallShort": "P",
++    "mediumShort": "M",
++    "largeShort": "G",
++    "extraLargeShort": "XG",
++    "openColors": "Abrir cores",
++    "openPages": "Abrir desenhos",
++    "openStickers": "Abrir autocolantes",
++    "colorPink": "Rosa",
++    "colorRed": "Vermelho",
++    "colorOrange": "Laranja",
++    "colorYellow": "Amarelo",
++    "colorGreen": "Verde",
++    "colorTeal": "Verde-azulado",
++    "colorBlue": "Azul",
++    "colorIndigo": "Índigo",
++    "colorPurple": "Roxo",
++    "colorBrown": "Castanho",
++    "colorBlack": "Preto",
++    "colorWhite": "Branco",
++    "colorLightPink": "Rosa-claro",
++    "colorLightGreen": "Verde-claro",
++    "colorLightBlue": "Azul-claro",
++    "stickerStar": "Autocolante de estrela",
++    "stickerRainbow": "Autocolante de arco-íris",
++    "stickerHeart": "Autocolante de coração",
++    "stickerFlower": "Autocolante de flor",
++    "stickerUnicorn": "Autocolante de unicórnio",
++    "stickerCrown": "Autocolante de coroa",
++    "stickerButterfly": "Autocolante de borboleta",
++    "stickerSparkle": "Autocolante de brilhos",
++    "toolsShort": "Pintar",
++    "stickersShort": "Adesivos"
++  },
++  "es": {
++    "language": "Idioma",
++    "chooseLanguage": "Elegir un idioma",
++    "languageHint": "Cambian los menús, no tu dibujo.",
++    "close": "Cerrar",
++    "undo": "Deshacer",
++    "redo": "Rehacer",
++    "new": "Nuevo",
++    "save": "Guardar",
++    "tools": "Herramientas",
++    "openTools": "Abrir herramientas",
++    "closeTools": "Cerrar herramientas",
++    "drawingTools": "Herramientas de dibujo",
++    "colors": "Colores",
++    "moreColors": "Más colores",
++    "brushSize": "Tamaño del pincel",
++    "brush": "Pincel",
++    "sparkle": "Brillos",
++    "fill": "Rellenar",
++    "outline": "Contorno",
++    "eraser": "Goma",
++    "clear": "Borrar",
++    "upload": "Importar imagen",
++    "importPicture": "Importar imagen",
++    "pages": "Dibujos para colorear",
++    "pagesShort": "Dibujos",
++    "blank": "En blanco",
++    "unicorn": "Unicornio",
++    "princess": "Princesa",
++    "cat": "Gato",
++    "butterfly": "Mariposa",
++    "dinosaur": "Dinosaurio",
++    "stickers": "Pegatinas",
++    "stickerHint": "Elige una pegatina y toca el dibujo.",
++    "background": "Fondo",
++    "white": "Blanco",
++    "cream": "Crema",
++    "sky": "Cielo",
++    "pink": "Rosa",
++    "fit": "Ajustar",
++    "fitTitle": "Ver el dibujo completo",
++    "large": "Ampliar",
++    "largeTitle": "Vista ampliada: mueve con dos dedos",
++    "largeNotice": "Vista ampliada · Ajustar muestra el dibujo completo.",
++    "zoomIn": "Acercar el dibujo",
++    "zoomOut": "Alejar el dibujo",
++    "zoomControls": "Zoom del dibujo",
++    "zoomLevel": "Nivel de zoom",
++    "canvas": "Área de dibujo",
++    "canvasArea": "Un dedo para dibujar, dos para ampliar y mover",
++    "panX": "Mover el dibujo horizontalmente",
++    "panY": "Mover el dibujo verticalmente",
++    "hint": "Un dedo para crear. Dos para explorar.",
++    "newQuestion": "¿Empezar un dibujo nuevo?",
++    "newWarning": "Se borrará tu dibujo actual.",
++    "keepDrawing": "Seguir dibujando",
++    "startNew": "Nuevo dibujo",
++    "clearQuestion": "¿Borrar este dibujo?",
++    "shortcuts": "Atajos de dibujo",
++    "small": "Pincel pequeño",
++    "medium": "Pincel mediano",
++    "largeBrush": "Pincel grande",
++    "extraLarge": "Pincel muy grande",
++    "smallShort": "P",
++    "mediumShort": "M",
++    "largeShort": "G",
++    "extraLargeShort": "XG",
++    "openColors": "Abrir colores",
++    "openPages": "Abrir dibujos",
++    "openStickers": "Abrir pegatinas",
++    "colorPink": "Rosa",
++    "colorRed": "Rojo",
++    "colorOrange": "Naranja",
++    "colorYellow": "Amarillo",
++    "colorGreen": "Verde",
++    "colorTeal": "Verde azulado",
++    "colorBlue": "Azul",
++    "colorIndigo": "Índigo",
++    "colorPurple": "Morado",
++    "colorBrown": "Marrón",
++    "colorBlack": "Negro",
++    "colorWhite": "Blanco",
++    "colorLightPink": "Rosa claro",
++    "colorLightGreen": "Verde claro",
++    "colorLightBlue": "Azul claro",
++    "stickerStar": "Pegatina de estrella",
++    "stickerRainbow": "Pegatina de arcoíris",
++    "stickerHeart": "Pegatina de corazón",
++    "stickerFlower": "Pegatina de flor",
++    "stickerUnicorn": "Pegatina de unicornio",
++    "stickerCrown": "Pegatina de corona",
++    "stickerButterfly": "Pegatina de mariposa",
++    "stickerSparkle": "Pegatina de brillos",
++    "toolsShort": "Dibujar",
++    "stickersShort": "Pegatinas"
++  },
++  "zh-Hans": {
++    "language": "语言",
++    "chooseLanguage": "选择语言",
++    "languageHint": "只更改菜单语言，不改变画作。",
++    "close": "关闭",
++    "undo": "撤销",
++    "redo": "重做",
++    "new": "新建",
++    "save": "保存",
++    "tools": "工具",
++    "openTools": "打开绘画工具",
++    "closeTools": "关闭绘画工具",
++    "drawingTools": "绘画工具",
++    "colors": "颜色",
++    "moreColors": "更多颜色",
++    "brushSize": "画笔粗细",
++    "brush": "画笔",
++    "sparkle": "闪光笔",
++    "fill": "填色",
++    "outline": "画轮廓",
++    "eraser": "橡皮",
++    "clear": "清空",
++    "upload": "上传图片",
++    "importPicture": "导入图片",
++    "pages": "涂色图案",
++    "pagesShort": "图案",
++    "blank": "空白",
++    "unicorn": "独角兽",
++    "princess": "公主",
++    "cat": "小猫",
++    "butterfly": "蝴蝶",
++    "dinosaur": "恐龙",
++    "stickers": "贴纸",
++    "stickerHint": "先选贴纸，再轻点画布。",
++    "background": "背景",
++    "white": "白色",
++    "cream": "奶油色",
++    "sky": "天空蓝",
++    "pink": "粉色",
++    "fit": "全图",
++    "fitTitle": "显示整幅画作",
++    "large": "大画板",
++    "largeTitle": "放大查看；双指移动画布",
++    "largeNotice": "大画板视图 · 点“全图”查看整幅画。",
++    "zoomIn": "放大画布",
++    "zoomOut": "缩小画布",
++    "zoomControls": "画布缩放控制",
++    "zoomLevel": "画布缩放比例",
++    "canvas": "画布",
++    "canvasArea": "单指绘画，双指缩放和移动",
++    "panX": "左右滚动画布",
++    "panY": "上下滚动画布",
++    "hint": "单指绘画，双指缩放和移动。",
++    "newQuestion": "开始一幅新画？",
++    "newWarning": "当前画作将被清空。",
++    "keepDrawing": "继续画画",
++    "startNew": "新建画作",
++    "clearQuestion": "清空这幅画？",
++    "shortcuts": "绘画快捷入口",
++    "small": "细画笔",
++    "medium": "中等画笔",
++    "largeBrush": "粗画笔",
++    "extraLarge": "特粗画笔",
++    "smallShort": "细",
++    "mediumShort": "中",
++    "largeShort": "粗",
++    "extraLargeShort": "特粗",
++    "openColors": "打开颜色面板",
++    "openPages": "打开涂色图案",
++    "openStickers": "打开贴纸",
++    "colorPink": "粉色",
++    "colorRed": "红色",
++    "colorOrange": "橙色",
++    "colorYellow": "黄色",
++    "colorGreen": "绿色",
++    "colorTeal": "青绿色",
++    "colorBlue": "蓝色",
++    "colorIndigo": "靛蓝",
++    "colorPurple": "紫色",
++    "colorBrown": "棕色",
++    "colorBlack": "黑色",
++    "colorWhite": "白色",
++    "colorLightPink": "浅粉色",
++    "colorLightGreen": "浅绿色",
++    "colorLightBlue": "浅蓝色",
++    "stickerStar": "星星贴纸",
++    "stickerRainbow": "彩虹贴纸",
++    "stickerHeart": "爱心贴纸",
++    "stickerFlower": "花朵贴纸",
++    "stickerUnicorn": "独角兽贴纸",
++    "stickerCrown": "皇冠贴纸",
++    "stickerButterfly": "蝴蝶贴纸",
++    "stickerSparkle": "闪光贴纸",
++    "toolsShort": "工具",
++    "stickersShort": "贴纸"
++  },
++  "ja": {
++    "language": "言語",
++    "chooseLanguage": "言語を選ぶ",
++    "languageHint": "メニューの言語だけが変わります。絵はそのままです。",
++    "close": "閉じる",
++    "undo": "元に戻す",
++    "redo": "やり直す",
++    "new": "新しく作る",
++    "save": "保存",
++    "tools": "ツール",
++    "openTools": "お絵かきツールを開く",
++    "closeTools": "お絵かきツールを閉じる",
++    "drawingTools": "お絵かきツール",
++    "colors": "色",
++    "moreColors": "ほかの色",
++    "brushSize": "筆の太さ",
++    "brush": "ブラシ",
++    "sparkle": "キラキラ",
++    "fill": "塗りつぶし",
++    "outline": "輪郭",
++    "eraser": "消しゴム",
++    "clear": "全部消す",
++    "upload": "画像を読み込む",
++    "importPicture": "画像を読み込む",
++    "pages": "ぬりえ",
++    "pagesShort": "ぬりえ",
++    "blank": "白紙",
++    "unicorn": "ユニコーン",
++    "princess": "プリンセス",
++    "cat": "ねこ",
++    "butterfly": "ちょうちょ",
++    "dinosaur": "恐竜",
++    "stickers": "シール",
++    "stickerHint": "シールを選んでから、絵をタップしてね。",
++    "background": "背景",
++    "white": "白",
++    "cream": "クリーム",
++    "sky": "空色",
++    "pink": "ピンク",
++    "fit": "全体",
++    "fitTitle": "絵全体を表示",
++    "large": "大きく",
++    "largeTitle": "大きく表示。2本指で動かせます",
++    "largeNotice": "拡大表示中。「全体」で絵全体を表示します。",
++    "zoomIn": "絵を拡大",
++    "zoomOut": "絵を縮小",
++    "zoomControls": "絵の拡大・縮小",
++    "zoomLevel": "絵の表示倍率",
++    "canvas": "お絵かきキャンバス",
++    "canvasArea": "1本指で描き、2本指で拡大・移動",
++    "panX": "絵を左右に動かす",
++    "panY": "絵を上下に動かす",
++    "hint": "1本指で描こう。2本指で拡大・移動。",
++    "newQuestion": "新しい絵を描く？",
++    "newWarning": "今の絵は消去されます。",
++    "keepDrawing": "描き続ける",
++    "startNew": "新しく描く",
++    "clearQuestion": "この絵を全部消す？",
++    "shortcuts": "お絵かきショートカット",
++    "small": "細い筆",
++    "medium": "中くらいの筆",
++    "largeBrush": "太い筆",
++    "extraLarge": "とても太い筆",
++    "smallShort": "細",
++    "mediumShort": "中",
++    "largeShort": "太",
++    "extraLargeShort": "極太",
++    "openColors": "色を選ぶ",
++    "openPages": "ぬりえを開く",
++    "openStickers": "シールを開く",
++    "colorPink": "ピンク",
++    "colorRed": "赤",
++    "colorOrange": "オレンジ",
++    "colorYellow": "黄色",
++    "colorGreen": "緑",
++    "colorTeal": "青緑",
++    "colorBlue": "青",
++    "colorIndigo": "藍色",
++    "colorPurple": "紫",
++    "colorBrown": "茶色",
++    "colorBlack": "黒",
++    "colorWhite": "白",
++    "colorLightPink": "薄いピンク",
++    "colorLightGreen": "薄い緑",
++    "colorLightBlue": "水色",
++    "stickerStar": "星のシール",
++    "stickerRainbow": "虹のシール",
++    "stickerHeart": "ハートのシール",
++    "stickerFlower": "花のシール",
++    "stickerUnicorn": "ユニコーンのシール",
++    "stickerCrown": "王冠のシール",
++    "stickerButterfly": "ちょうちょのシール",
++    "stickerSparkle": "キラキラのシール",
++    "toolsShort": "ツール",
++    "stickersShort": "シール"
++  },
++  "ko": {
++    "language": "언어",
++    "chooseLanguage": "언어 선택",
++    "languageHint": "메뉴 언어만 바뀌고 그림은 그대로 유지돼요.",
++    "close": "닫기",
++    "undo": "실행 취소",
++    "redo": "다시 실행",
++    "new": "새 그림",
++    "save": "저장",
++    "tools": "도구",
++    "openTools": "그리기 도구 열기",
++    "closeTools": "그리기 도구 닫기",
++    "drawingTools": "그리기 도구",
++    "colors": "색상",
++    "moreColors": "다른 색상",
++    "brushSize": "브러시 크기",
++    "brush": "브러시",
++    "sparkle": "반짝이",
++    "fill": "색 채우기",
++    "outline": "윤곽선",
++    "eraser": "지우개",
++    "clear": "모두 지우기",
++    "upload": "이미지 불러오기",
++    "importPicture": "이미지 불러오기",
++    "pages": "색칠 도안",
++    "pagesShort": "도안",
++    "blank": "빈 도안",
++    "unicorn": "유니콘",
++    "princess": "공주",
++    "cat": "고양이",
++    "butterfly": "나비",
++    "dinosaur": "공룡",
++    "stickers": "스티커",
++    "stickerHint": "스티커를 고른 뒤 그림을 눌러 주세요.",
++    "background": "배경",
++    "white": "흰색",
++    "cream": "크림색",
++    "sky": "하늘색",
++    "pink": "분홍색",
++    "fit": "전체 보기",
++    "fitTitle": "그림 전체 보기",
++    "large": "크게 보기",
++    "largeTitle": "크게 보기: 두 손가락으로 이동",
++    "largeNotice": "확대 보기 · 전체 보기를 누르면 그림 전체가 보여요.",
++    "zoomIn": "그림 확대",
++    "zoomOut": "그림 축소",
++    "zoomControls": "그림 확대 및 축소",
++    "zoomLevel": "그림 확대 비율",
++    "canvas": "그리기 캔버스",
++    "canvasArea": "한 손가락으로 그리고 두 손가락으로 확대 및 이동",
++    "panX": "그림을 좌우로 이동",
++    "panY": "그림을 위아래로 이동",
++    "hint": "한 손가락으로 그리고 두 손가락으로 둘러보세요.",
++    "newQuestion": "새 그림을 시작할까요?",
++    "newWarning": "현재 그림이 지워져요.",
++    "keepDrawing": "계속 그리기",
++    "startNew": "새 그림 시작",
++    "clearQuestion": "이 그림을 지울까요?",
++    "shortcuts": "그리기 바로가기",
++    "small": "가는 브러시",
++    "medium": "중간 브러시",
++    "largeBrush": "굵은 브러시",
++    "extraLarge": "아주 굵은 브러시",
++    "smallShort": "소",
++    "mediumShort": "중",
++    "largeShort": "대",
++    "extraLargeShort": "특대",
++    "openColors": "색상 열기",
++    "openPages": "색칠 도안 열기",
++    "openStickers": "스티커 열기",
++    "colorPink": "분홍색",
++    "colorRed": "빨간색",
++    "colorOrange": "주황색",
++    "colorYellow": "노란색",
++    "colorGreen": "초록색",
++    "colorTeal": "청록색",
++    "colorBlue": "파란색",
++    "colorIndigo": "남색",
++    "colorPurple": "보라색",
++    "colorBrown": "갈색",
++    "colorBlack": "검은색",
++    "colorWhite": "흰색",
++    "colorLightPink": "연분홍색",
++    "colorLightGreen": "연두색",
++    "colorLightBlue": "연한 파란색",
++    "stickerStar": "별 스티커",
++    "stickerRainbow": "무지개 스티커",
++    "stickerHeart": "하트 스티커",
++    "stickerFlower": "꽃 스티커",
++    "stickerUnicorn": "유니콘 스티커",
++    "stickerCrown": "왕관 스티커",
++    "stickerButterfly": "나비 스티커",
++    "stickerSparkle": "반짝이 스티커",
++    "toolsShort": "도구",
++    "stickersShort": "스티커"
++  }
++};
++  const languages = [{"code": "en", "name": "English"}, {"code": "fr", "name": "Français"}, {"code": "pt", "name": "Português"}, {"code": "es", "name": "Español"}, {"code": "zh-Hans", "name": "简体中文"}, {"code": "ja", "name": "日本語"}, {"code": "ko", "name": "한국어"}];
++  const STORAGE_KEY = 'happy-colors.language';
++  const own=(o,k)=>Object.prototype.hasOwnProperty.call(o,k);
++  function resolveLanguage(value) {
++    if(typeof value!=='string')return 'en';
++    const tag=value.trim().replace(/_/g,'-').toLowerCase();
++    if(tag==='zh' || tag.startsWith('zh-'))return 'zh-Hans';
++    const base=tag.split('-')[0];
++    return own(dictionaries,base) ? base : 'en';
++  }
++  function translate(language,key) {
++    const d=dictionaries[resolveLanguage(language)];
++    return own(d,key) ? d[key] : (own(dictionaries.en,key) ? dictionaries.en[key] : key);
++  }
++  function readPreference(storage) {
++    try{return resolveLanguage(storage && storage.getItem(STORAGE_KEY));}catch(_){return 'en';}
++  }
++  function savePreference(storage,language) {
++    try{if(storage){storage.setItem(STORAGE_KEY,resolveLanguage(language));return true;}}catch(_){}
++    return false;
++  }
++  const helpers={dictionaries,languages,resolveLanguage,translate,readPreference,savePreference,STORAGE_KEY};
++  if(typeof module!=='undefined' && module.exports)module.exports=helpers;
++  if(typeof document==='undefined')return;
++  let storage=null;
++  try{storage=root.localStorage;}catch(_){}
++  let current=readPreference(storage), ready=false;
++  function t(key){return translate(current,key);}
++  function apply() {
++    document.documentElement.lang=current;
++    // Leaf text nodes only. Never replace SVGs, inputs, canvases or their handlers.
++    document.querySelectorAll('[data-i18n]').forEach(el=>{el.textContent=t(el.dataset.i18n);});
++    for(const [data,attr] of [['data-i18n-aria','aria-label'],['data-i18n-title','title']]){
++      document.querySelectorAll(`[${data}]`).forEach(el=>el.setAttribute(attr,t(el.getAttribute(data))));
++    }
++    document.querySelectorAll('[data-language]').forEach(el=>{
++      const active=el.dataset.language===current;
++      el.setAttribute('aria-pressed',String(active));
++      el.querySelector('.language-check').textContent=active?'✓':'';
++    });
++    document.dispatchEvent(new CustomEvent('happy-language-change',{detail:{language:current}}));
++  }
++  function setLanguage(language) {
++    current=resolveLanguage(language);
++    savePreference(storage,current);
++    if(ready)apply();
++    return current;
++  }
++  root.HappyI18n={t,setLanguage,getLanguage:()=>current,languages};
++  function init() {
++    if(ready)return;ready=true;
++    const dialog=document.getElementById('languageDialog');
++    let opener=null;
++    const close=()=>{if(dialog.open)dialog.close();};
++    document.querySelectorAll('[data-open-language]').forEach(button=>{
++      button.addEventListener('click',()=>{
++        // Avoid stacking the mobile tools drawer's focus trap over a modal.
++        if(root.HappyStudio)root.HappyStudio.closeDrawer(false);
++        opener=button;
++        if(!dialog.open)dialog.showModal();
++        const selected=dialog.querySelector(`[data-language="${current}"]`);
++        selected.focus({preventScroll:true});
++        selected.scrollIntoView({block:'nearest'});
++      });
++    });
++    document.getElementById('closeLanguage').addEventListener('click',close);
++    dialog.querySelectorAll('[data-language]').forEach(button=>button.addEventListener('click',()=>{
++      setLanguage(button.dataset.language);close();
++    }));
++    // The platform handles Escape, focus containment and background inertness.
++    dialog.addEventListener('close',()=>{if(opener && opener.getClientRects().length)opener.focus({preventScroll:true});});
++    dialog.addEventListener('click',e=>{
++      if(e.target!==dialog)return;
++      const r=dialog.getBoundingClientRect();
++      if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)close();
++    });
++    apply();
++  }
++  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
++})(typeof globalThis==='undefined'?window:globalThis);
+--- /dev/null
++++ b/languages.css
+@@ -0,0 +1,61 @@
++/* Fixed Apple Colorful appearance, now with a menu-language picker. */
++#languageBtn {flex:0 0 44px;border-radius:14px;color:var(--accent);}
++.language-dialog {
++  box-sizing:border-box;width:min(400px,calc(100vw - 24px));
++  max-height:calc(100dvh - 24px - var(--safe-top,0px) - var(--safe-bottom,0px));
++  padding:18px;margin:auto;border:1px solid #fff;border-radius:24px;
++  background:#faf7ff;color:var(--ink);box-shadow:0 22px 75px #38215355;
++  overflow-y:auto;overscroll-behavior:contain;
++  font-family:inherit;touch-action:pan-y;
++}
++.language-dialog:not([open]) {display:none;}
++.language-dialog::backdrop {background:rgba(34,21,54,.30);}
++.language-heading {display:flex;align-items:center;justify-content:space-between;gap:10px;}
++.language-heading h2 {font-size:20px;font-weight:650;margin:0;letter-spacing:0;line-height:1.35;color:var(--ink);}
++#closeLanguage {flex:0 0 44px;}
++#languageHint {font-size:13px;color:var(--muted);line-height:1.45;margin:8px 0 14px;}
++.language-options {display:grid;gap:6px;}
++.language-option {width:100%;display:flex;align-items:center;justify-content:space-between;min-height:44px;padding:10px 14px;border-radius:13px;text-align:start;font-size:16px;}
++.language-option[aria-pressed="true"] {background:var(--soft);border-color:#b99ae8;color:#4e24aa;}
++.language-check {width:22px;flex:0 0 22px;text-align:center;font-weight:700;}
++/* Longer translations must wrap instead of stretching the sidebar. */
++.tool-buttons button {min-width:0;}
++.tool-buttons button > span {min-width:0;overflow-wrap:anywhere;line-height:1.25;}
++.pages button,.backgrounds button {overflow-wrap:anywhere;line-height:1.3;}
++.custom-color {gap:6px;}
++.custom-color > span {min-width:0;}
++.custom-color input {flex:0 0 40px;}
++.brushes button > span {min-width:0;line-height:1.25;}
++#confirmModal .dialog {max-width:min(400px,calc(100vw - 24px));}
++@media (max-width:700px), (max-width:1024px) and (max-height:500px) {
++  #languageBtn {display:none;}
++  .quick-dock {gap:4px;padding:4px 6px;}
++  .quick-dock button {flex:1 1 0;min-width:44px;max-width:88px;padding:4px 2px;}
++  .quick-dock button > span {max-width:100%;font-size:9px;line-height:1.15;white-space:normal;overflow-wrap:anywhere;}
++  #languageDockBtn {color:var(--accent);}
++  #zoomFitBtn {max-width:120px;white-space:normal;line-height:1.15;}
++}
++@media (max-width:1024px) and (max-height:500px) and (orientation:landscape) {
++  .quick-dock {justify-content:space-evenly;gap:4px;padding:4px;}
++  .quick-dock button {flex:0 0 auto;min-width:48px;width:48px;min-height:48px;max-width:48px;}
++  /* Keep the five tools readable without changing the drawing area. */
++  .canvas-view-tools {flex-shrink:1;min-width:0;}
++  #zoomFitBtn {font-size:12px;max-width:90px;}
++  .language-dialog {padding:12px 16px;}
++}
++@media (max-width:650px) and (orientation:landscape) {
++  #zoomFitBtn {max-width:62px;padding:6px 5px;}
++}
++@media (max-height:360px) and (orientation:landscape) {
++  .quick-dock {justify-content:flex-start;}
++}
++@media (forced-colors:active) {
++  .language-option[aria-pressed="true"] {outline:2px solid Highlight;}
++}
++/* CJK fallback fonts have different default line boxes. Fix the hint height so
++   changing language cannot resize the viewport and nudge the zoom/pan anchor. */
++.hint {line-height:18px;}
++/* Short landscape screens scroll only the choices; Close remains visible. */
++.language-dialog[open] {display:flex;flex-direction:column;overflow:hidden;}
++.language-heading,#languageHint {flex:0 0 auto;}
++.language-options {flex:1 1 auto;min-height:0;overflow-y:auto;padding:2px;overscroll-behavior:contain;}
+--- a/package.json
++++ b/package.json
+@@ -4,7 +4,8 @@
+   "private": true,
+   "scripts": {
+     "test": "node --test tests/unit/*.test.cjs",
+-    "test:ui": "python tests/browser/run_colorful_tests.py"
++    "test:ui": "python tests/browser/run_language_tests.py",
++    "test:languages": "python tests/browser/run_language_tests.py --only-languages"
+   },
+   "engines": {
+     "node": ">=20"
+--- /dev/null
++++ b/LANGUAGES-README.md
+@@ -0,0 +1,54 @@
++# Happy Colors — Colorful L1 / Seven menu languages
++
++Based on the exact `happy-coloring-apple-colorful-tested.zip` accepted by the user on iPhone and iPad. This is not a reconstruction from an older V4/V9 package. The original package was based on `main@7cbbeff631c9ae9b0e519cb824f6917c4a3afd17`; this deliverable does not assume the remote branch is unchanged or modify GitHub.
++
++## Operation
++
++- iPhone portrait: globe button in the bottom quick-access bar.
++- iPhone landscape: globe button in the left quick-access rail.
++- Desktop and normal-width iPad: globe button in the top toolbar.
++- Narrow iPad split view uses the compact/mobile layout.
++- Languages: English, Français, Português, Español, 简体中文, 日本語, 한국어.
++- Default is English. A manually chosen preference is stored under `happy-colors.language` when browser storage permits. No automatic switch based on the device language.
++- Chinese is Simplified. Portuguese uses European/neutral vocabulary; a dedicated Brazilian variant is not included.
++- The Apple Colorful appearance is still the single fixed design. There is no theme picker.
++
++## What is translated
++
++Tool and menu names, headings, colors' accessible names, picture and sticker names, brush sizes, quick-access controls, zoom help, accessibility labels, New confirmation and the Clear question. Branding (`Happy Colors`), the build identifier, drawn artwork and PNG file names are not translated. Native system photo/file dialogs and browser confirmation-button captions use the OS/browser language.
++
++Switching is in-place: no page refresh, no redraw, no replacement of tool IDs or handlers, and no new Undo step. **Language persistence does not provide artwork autosave.** Save artwork before reloading.
++
++## Runtime files — all eight belong together
++
++```
++index.html
++style.css
++apple-colorful.css
++languages.css           # NEW: picker + translated-label layout
++i18n.js                 # NEW: 94 messages × 7 languages + picker
++app.js                  # ONLY the Clear confirmation message changed
++canvas-zoom.js          # byte-for-byte unchanged
++mobile-ui.js            # dynamic labels use the selected language
++```
++
++`i18n.js` has no network or API dependency. It exposes `HappyI18n.t(key)`, `setLanguage(code)` and `getLanguage()` for application code; pure helpers are exported for Node tests. Markup uses `data-i18n`, `data-i18n-aria` and `data-i18n-title`. Tool IDs and data attributes used by the drawing engine remain unchanged.
++
++## Preview safely
++
++Extract to a NEW directory, run `py -m http.server 8000 --bind 0.0.0.0`, then access the computer's LAN IP from the iPhone/iPad on the same trusted home network. No router port-forwarding is needed. Stop the local test server with Ctrl+C. Check the build identifier is **Colorful L1** (hidden on narrow phone layouts).
++
++Do not merge before the device checklist passes. A suitable new branch name is `menu-languages`. Keep previous stashes untouched. This package includes `menu-languages.patch` relative to the accepted Apple Colorful package, **not necessarily the current remote main**. Use file replacement OR the patch, not both.
++
++## Automated tests
++
++```
++npm test
++py -m pip install -r requirements-test.txt
++py -m playwright install chromium
++py tests/browser/run_language_tests.py
++```
++
++`--only-languages` runs just the new language-specific browser tests. Ordinary computers use local HTTP by default. `--inline` is a restricted-environment fallback that loads exact local source into Chromium; it does NOT validate hosting, caching, real iOS, or real localStorage persistence across navigation. See the current report under `docs/LANGUAGES-TEST-REPORT.md` and `evidence/languages/` for exactly what was run.
++
++Earlier Colorful reports/evidence are retained as historical material; they are not results of this language release. The new manifest covers this delivery only; old manifests refer to previous packages.
+--- /dev/null
++++ b/docs/LANGUAGES-DEVICE-CHECKLIST.md
+@@ -0,0 +1,17 @@
++# Seven-language acceptance checklist / 七种语言真机验收
++
++Use the new **Colorful L1** preview, not the already-tested Colorful 1 package.
++
++1. iPhone portrait: tap the globe in the bottom quick-access bar. iPhone landscape: tap the globe in the left rail. iPad/desktop: tap the globe in the top toolbar. Narrow iPad split view uses the mobile layout.
++2. Select English, Français, Português, Español, 简体中文, 日本語 and 한국어. Confirm labels, menus, tooltips, picture names and New/Clear messages change. Chinese is Simplified; Portuguese uses European/neutral wording.
++3. Language names must remain readable in their native scripts even after changing to another language. Close and reopen the picker; the selected choice must have a check mark.
++4. Before switching, draw a line and fill a small closed area. Zoom and pan. Switch through the seven languages. Drawing pixels, zoom, scroll position, selected tool/color, background and Undo/Redo must remain unchanged.
++5. Continue drawing and filling after the switch. Check Brush, Sparkle, Eraser, Upload, stickers, Undo/Redo, Fit/Large, two-finger zoom and PNG saving.
++6. Check long French/Portuguese/Spanish labels on a small phone. Open the tools drawer and scroll. Confirm that Upload and all tools can still be tapped.
++7. In a short landscape window the language picker scrolls. Check all seven choices are reachable and it can be closed without touching the drawing.
++8. In normal Safari, select a language and reload the preview. The menu language should persist on that browser/site. **Save the drawing first: this update does not add artwork autosave.** Different domains, ports or browser profiles may have separate preferences.
++9. With storage blocked/private settings, switching should still work during the current session. Persistence may be unavailable.
++10. VoiceOver/keyboard: names and announcements should follow the chosen menu language; the native language options retain their own `lang` tags. Escape closes the dialog on a keyboard, and focus returns to its opener.
++11. Native photo/file pickers and the browser's OK/Cancel button labels are controlled by the OS/browser, not these in-app translations. The Clear question itself is translated.
++
++本版没有增加账号、在线翻译 API 或风格切换功能。语言切换不会刷新页面，也不会自动保存画作。通过后再在 feature branch 提交；不要直接覆盖发布 main。
+--- /dev/null
++++ b/docs/LANGUAGES-TEST-REPORT.md
+@@ -0,0 +1,96 @@
++# Happy Colors — Colorful L1: seven menu languages
++
++## Delivered feature
++
++One language picker, with English, Français, Português, Español, 简体中文, 日本語 and 한국어. The Apple Colorful design remains the only visual theme. Chinese is Simplified; Portuguese uses mainly European/neutral wording, with shorter compact-menu labels where needed.
++
++The glossary contains **94 message keys for each of seven locales (658 strings)**. It covers controls, headings, picture and sticker names, brush sizes, zoom help, confirmations, and accessibility labels. Language names stay in their native scripts. Happy Colors branding and artwork are not translated.
++
++A choice is remembered in browser localStorage when permitted. Failure or denial of storage is handled. The app starts in English when there is no valid saved preference. Switching does not reload the page. This feature does NOT add drawing autosave: save artwork before reloading.
++
++## Base and scope
++
++Built from the exact `happy-coloring-apple-colorful-tested.zip` accepted by the user, rather than an older experimental V4/V9 engine. That package was based on `main@7cbbeff631c9ae9b0e519cb824f6917c4a3afd17`. No remote branch, PR, main, or deployed site was modified during this work.
++
++New runtime files: `i18n.js`, `languages.css`.
++Updated runtime files: `index.html`, `mobile-ui.js`, and exactly one confirmation-message expression in `app.js`.
++`canvas-zoom.js`, `style.css`, and `apple-colorful.css` are unchanged from the accepted package. The Node suite checks both the unchanged zoom engine hash and the app.js change boundary.
++
++## Final results — actually executed
++
++| Check | Result |
++|---|---|
++| Node unit tests | **151 passed, 0 failed** (95 existing + 56 new) |
++| Final browser case/profile combinations | **234 run: 225 passed, 9 skipped, 0 failed/errors** |
++| JavaScript syntax | All four runtime JavaScript files pass `node --check` |
++| Patch application | `git apply --check` passes; applied files match the delivered files |
++| Runtime freeze | The eight runtime-file SHA-256 hashes match those recorded before final tests began |
++
++The 9 skips are touch-only cases in the desktop profile. Equivalent touch cases ran in the full tablet-landscape and phone-landscape suites.
++
++### Browser profile coverage
++
++| Profile | Viewport | Final cases |
++|---|---|---:|
++| Desktop | 1280 × 800 | 63 (9 touch-only skipped) |
++| Tablet landscape | 1180 × 820 | 63 |
++| Phone landscape | 851 × 393 | 63 |
++| Phone portrait | 393 × 851 | 11 language cases |
++| Small phone landscape | 667 × 375 | 11 language cases |
++| Mini phone portrait | 320 × 568 | 11 language cases |
++| Tablet portrait | 820 × 1180 | 11 language cases |
++| Very small landscape | 568 × 320 | 1 all-languages layout case |
++
++Each all-languages case cycles through all seven choices with real DOM controls. Case/profile counts do not inflate those loops into additional test counts.
++
++### What the tests check
++
++- Translation completeness, locale resolution, safe fallbacks, native option names and matching `lang` attributes.
++- All seven choices update labels, titles, accessibility labels and selected state.
++- Switching preserves raw canvas pixel hashes, bitmap dimensions, selected tool/color/size, background, zoom, scroll offsets, history and redo stacks.
++- New and Clear questions translate correctly; cancelling preserves the drawing.
++- Dynamic swatch names remain translated after tool/color selection; Large/Fit help remains translated.
++- Dialog focus, Escape, selected check mark, inert background and return of focus.
++- Long translated labels and all language options remain reachable on small screens.
++- Preference helpers, simulated storage roundtrip, and storage-denied fallback.
++- Existing Brush, Sparkle, Eraser, Fill on self-drawn/template/uploaded images, Upload, Undo/Redo, stickers, backgrounds, pinch/pan, rotation and complete PNG export.
++- No theme-switching UI is reintroduced.
++
++## Defect found and fixed during this work
++
++Two preliminary failures (desktop and tablet-landscape `test_62`) detected a **1-pixel pan shift** when moving from Latin text to Chinese/Japanese. The hint's automatic line box changed from 15px to 16px with a fallback font. That altered the viewport and its zoom anchor.
++
++The fix sets the hint line height explicitly to 18px; it does not change the drawing or zoom algorithm. The full final desktop and tablet suites reran and passed, including the exact state equality assertion. The initial failures remain under `evidence/languages/regression-desktop` and `regression-tablet`; final results are under `final-*`.
++
++The picker was also adjusted so short landscape screens scroll the choice list while keeping the title/Close button visible. Compact labels avoid awkwardly splitting long French/Portuguese words.
++
++## Test environment and limitations
++
++Node.js 22.16.0, Python 3.13.5, Playwright 1.57.0, Chromium 144.0.7559.96 on Linux.
++
++This environment blocks HTTP/HTTPS browser navigation with `ERR_BLOCKED_BY_ADMINISTRATOR`. Tests therefore inject the exact final local HTML, CSS and JavaScript into real Chromium. They exercise its DOM, layout, canvas and input pipeline, but **do not validate hosting, cache busting, external resource delivery, actual iOS, Safari/WebKit, physical Apple Pencil input or real system photo pickers**.
++
++Browser storage on the injected origin is unavailable. Preference read/write behavior is covered by pure helper tests; the browser roundtrip test uses explicitly simulated storage seeded across app initializations. This is **not a claim that a real Safari reload/storage test was performed**. Please verify remembered language on the real preview origin on iPhone/iPad.
++
++Translations were authored for this application and checked programmatically for coverage, not professionally reviewed by native speakers of every language. Native photo/file-picker UI and browser OK/Cancel labels remain controlled by the device/browser.
++
++## Reproduce
++
++```
++npm test
++py -m pip install -r requirements-test.txt
++py -m playwright install chromium
++py tests/browser/run_language_tests.py
++```
++
++Default mode uses local HTTP on an ordinary computer. To reproduce this restricted environment:
++
++```
++py tests/browser/run_language_tests.py --inline --profiles desktop tablet_landscape phone_landscape
++py tests/browser/run_language_tests.py --inline --only-languages --profiles phone_portrait phone_small_landscape phone_mini_portrait tablet_portrait
++py tests/browser/run_language_tests.py --inline --profiles phone_tiny_landscape --tests test_67_all_languages_fit_controls_sidebar_and_picker
++```
++
++Current evidence: `evidence/languages/final-summary.json`, `final-unit.log`, `final-*/results.json`, `syntax.json`, `patch-check.json`, and `tested-runtime-sha256.json`.
++
++Run `docs/LANGUAGES-DEVICE-CHECKLIST.md` before merging a new `menu-languages` branch. Keep previous stashes; no destructive Git cleanup is needed.
+--- /dev/null
++++ b/tests/unit/languages.test.cjs
+@@ -0,0 +1,68 @@
++const {test}=require('node:test');
++const assert=require('node:assert/strict');
++const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto');
++const i18n=require('../../i18n.js');
++const root=path.resolve(__dirname,'../..');
++const html=fs.readFileSync(path.join(root,'index.html'),'utf8');
++const locales=['en','fr','pt','es','zh-Hans','ja','ko'];
++const keys=Object.keys(i18n.dictionaries.en).sort();
++test('exactly seven requested languages in the selector',()=>assert.deepEqual(i18n.languages.map(l=>l.code),locales));
++for(const locale of locales){
++ test(`${locale}: complete nonempty message catalogue`,()=>{
++  const d=i18n.dictionaries[locale];assert.deepEqual(Object.keys(d).sort(),keys);
++  for(const key of keys){assert.equal(typeof d[key],'string');assert.ok(d[key].trim());assert.ok(!/[<>]/.test(d[key]));}
++ });
++ test(`${locale}: translation returns every exact message`,()=>{
++  for(const key of keys)assert.equal(i18n.translate(locale,key),i18n.dictionaries[locale][key]);
++ });
++ test(`${locale}: native option exists and keeps its own language tag`,()=>{
++  assert.ok(html.includes(`data-language="${locale}"`));
++  const entry=i18n.languages.find(l=>l.code===locale);assert.ok(html.includes(entry.name));
++ });
++}
++for(const [input,expected] of [['fr-CA','fr'],['fr-FR','fr'],['pt-BR','pt'],['pt-PT','pt'],['es-MX','es'],['zh-CN','zh-Hans'],['zh','zh-Hans'],['zh-Hans','zh-Hans'],['ja-JP','ja'],['ko-KR','ko'],['EN_us','en'],['  fr  ','fr'],['de-DE','en'],['__proto__','en'],['constructor','en'],['','en'],[null,'en'],[42,'en']]){
++ test(`resolve locale ${JSON.stringify(input)}`,()=>assert.equal(i18n.resolveLanguage(input),expected));
++}
++test('every HTML translation key is present in every catalogue',()=>{
++ for(const m of html.matchAll(/data-i18n(?:-aria|-title)?="([^"]+)"/g)){
++  for(const locale of locales)assert.ok(Object.hasOwn(i18n.dictionaries[locale],m[1]),`${locale}:${m[1]}`);
++ }
++});
++test('missing message safely returns a readable key',()=>assert.equal(i18n.translate('fr','notAMessage'),'notAMessage'));
++test('unsupported locale safely falls back to English',()=>assert.equal(i18n.translate('invalid','save'),'Save'));
++test('missing preference defaults to English',()=>assert.equal(i18n.readPreference({getItem:()=>null}),'en'));
++test('stored preference restores French Canadian as French',()=>assert.equal(i18n.readPreference({getItem:()=> 'fr-CA'}),'fr'));
++test('blocked storage reads do not break initialization',()=>assert.equal(i18n.readPreference({getItem(){throw new Error('blocked')}}),'en'));
++test('absent storage does not break the picker',()=>{assert.equal(i18n.readPreference(null),'en');assert.equal(i18n.savePreference(null,'ko'),false)});
++test('blocked storage writes are handled',()=>assert.equal(i18n.savePreference({setItem(){throw new Error('quota')}},'ko'),false));
++test('saved language uses a dedicated key and canonical code',()=>{
++ let actual;assert.equal(i18n.savePreference({setItem(...a){actual=a}},'zh-CN'),true);
++ assert.deepEqual(actual,[i18n.STORAGE_KEY,'zh-Hans']);
++});
++test('valid storage roundtrip restores all seven choices',()=>{
++ const data=new Map(),s={getItem:k=>data.get(k),setItem:(k,v)=>data.set(k,v)};
++ for(const l of locales){assert.ok(i18n.savePreference(s,l));assert.equal(i18n.readPreference(s),l)}
++});
++test('app change is only the Clear confirmation message',()=>{
++ const js=fs.readFileSync(path.join(root,'app.js'),'utf8').replace('confirm(window.HappyI18n ? window.HappyI18n.t("clearQuestion") : "Clear this picture?")','confirm("Clear this picture?")');
++ assert.equal(crypto.createHash('sha256').update(js).digest('hex'),'dea51ef0e04a1786ce224562649882db42bf5fb4311030b1e9826f3ab1ce21f5');
++});
++test('canvas zoom engine is byte-for-byte unchanged',()=>{
++ assert.equal(crypto.createHash('sha256').update(fs.readFileSync(path.join(root,'canvas-zoom.js'))).digest('hex'),'d5889b50df3b8e24c627dde0c7b98156996512da93285b4b1fb574dba5ded5ff');
++});
++test('Clear uses the selected language and still cancels safely',()=>{
++ const h=require('./harness.cjs').createApp();h.window.HappyI18n={t:k=>i18n.translate('ja',k)};
++ h.run('confirm=(m)=>{globalThis.capturedMessage=m;return false;}');
++ const before=h.calls.length;h.ids.clearBtn.onclick();
++ assert.equal(h.run('capturedMessage'),i18n.translate('ja','clearQuestion'));assert.equal(h.calls.length,before);
++});
++test('picker cannot change canvas pixels or tool IDs',()=>{
++ const js=fs.readFileSync(path.join(root,'i18n.js'),'utf8');
++ assert.doesNotMatch(js,/getContext\(|toDataURL\(|\.innerHTML\s*=|\.width\s*=|fetch\(/);
++ assert.doesNotMatch(html,/data-theme-choice|id="themeBtn"/);
++});
++test('localization loads before UI dynamic messages',()=>assert.ok(html.indexOf('src="i18n.js')<html.indexOf('src="mobile-ui.js')));
++test('both language controls reach one native dialog',()=>{
++ assert.equal((html.match(/data-open-language/g)||[]).length,2);
++ assert.match(html,/<dialog[^>]+id="languageDialog"/);assert.match(html,/aria-labelledby="languageTitle"/);
++});
+--- a/tests/browser/run_colorful_tests.py
++++ b/tests/browser/run_colorful_tests.py
+@@ -27,8 +27,8 @@
+   h=re.sub(r'<link[^>]+rel="stylesheet"[^>]*>','',h)
+   h=re.sub(r'<script[^>]+src="[^"]+"[^>]*></script>','',h)
+   self.page.set_content(h, wait_until="domcontentloaded")
+-  for f in ['style.css','apple-colorful.css']:self.page.add_style_tag(content=(self.app_root/f).read_text())
+-  for f in ['canvas-zoom.js','app.js','mobile-ui.js']:self.page.add_script_tag(content=(self.app_root/f).read_text())
++  for f in ['style.css','apple-colorful.css','languages.css']:self.page.add_style_tag(content=(self.app_root/f).read_text())
++  for f in ['i18n.js','canvas-zoom.js','app.js','mobile-ui.js']:self.page.add_script_tag(content=(self.app_root/f).read_text())
+  def compact(self):return self.page.locator('#toolsToggle').is_visible()
+  def open_tools(self):
+   if self.compact() and not self.page.locator('body').evaluate("e=>e.classList.contains('tools-open')"):
+--- /dev/null
++++ b/tests/browser/run_language_tests.py
+@@ -0,0 +1,144 @@
++"""Seven-language UI tests against the actual files and the existing drawing regression.
++Default: local HTTP. --inline: exact source injection (no HTTP/cache/storage claim).
++Browser preference roundtrip uses explicitly labelled mock storage in --inline mode.
++"""
++from __future__ import annotations
++import argparse,contextlib,functools,hashlib,http.server,json,shutil,sys,threading,unittest
++from pathlib import Path
++from playwright.sync_api import sync_playwright
++import run_colorful_tests as base
++import run_browser_tests as old
++ROOT=Path(__file__).resolve().parents[2]
++LOCALES=['en','fr','pt','es','zh-Hans','ja','ko']
++NATIVE=['English','Français','Português','Español','简体中文','日本語','한국어']
++PROFILES=base.PROFILES
++PROFILES['phone_tiny_landscape']=dict(viewport=dict(width=568,height=320),device_scale_factor=2,has_touch=True,is_mobile=True)
++old.PROFILES.update(PROFILES)
++class LanguageCases(base.ColorfulCases):
++ def language_button(self):
++  return '#languageDockBtn' if self.compact() else '#languageBtn'
++ def select_language(self,language):
++  old.BrowserCases.click(self,self.language_button())
++  self.page.locator(f'[data-language="{language}"]').click()
++  self.settle()
++ def translated(self,key):
++  return self.page.evaluate('k=>HappyI18n.t(k)',key)
++ def read_art_state(self):
++  return dict(bitmap=self.digest(),state=self.page.evaluate('''()=>({history:[...history],redo:[...redo],color,size,tool,background,zoom:canvasView.zoom,x:canvasStage.scrollLeft,y:canvasStage.scrollTop})'''))
++ def test_61_all_seven_languages_translate_visible_controls(self):
++  for locale in LOCALES:
++   with self.subTest(language=locale):
++    self.select_language(locale)
++    self.assertEqual(self.page.locator('html').get_attribute('lang'),locale)
++    for sel,key in [('#brushBtn > span','brush'),('#saveBtn .action-text','save'),('#pagesSection h2','pages'),('#zoomFitBtn','fit'),('.upload-control > span','upload'),('#confirmModal h3','newQuestion')]:
++     self.assertEqual(self.page.locator(sel).inner_text(),self.translated(key))
++    self.assertEqual(self.page.locator('#saveBtn').get_attribute('aria-label'),self.translated('save'))
++    self.assertEqual(self.page.locator('#canvasViewport').get_attribute('aria-label'),self.translated('canvasArea'))
++ def test_62_switch_preserves_pixels_history_tool_color_zoom_and_scroll(self):
++  self.color('#00cc66');self.click('#brushBtn');self.stroke([(80,80),(150,100)]);self.stroke([(80,120),(150,140)])
++  self.click('#undoBtn');self.settle();self.zoom(2)
++  self.page.evaluate('()=>{canvasStage.scrollLeft=30;canvasStage.scrollTop=25}');self.settle()
++  before=self.read_art_state()
++  for locale in LOCALES:
++   self.select_language(locale);self.assertEqual(self.read_art_state(),before)
++  self.click('#redoBtn');self.settle();self.assertNotEqual(self.digest(),before['bitmap'])
++ def test_63_native_language_names_and_checked_state(self):
++  self.select_language('zh-Hans');old.BrowserCases.click(self,self.language_button())
++  self.assertEqual(self.page.locator('.language-option > span:first-child').all_text_contents(),NATIVE)
++  self.assertEqual(self.page.locator('.language-option[aria-pressed="true"]').count(),1)
++  self.assertEqual(self.page.locator('.language-option[aria-pressed="true"]').get_attribute('data-language'),'zh-Hans')
++  self.assertEqual([self.page.locator(f'[data-language="{x}"]').get_attribute('lang') for x in LOCALES],LOCALES)
++  self.page.locator('#closeLanguage').click()
++ def test_64_new_and_clear_confirmations_translate_without_clearing_on_cancel(self):
++  self.stroke([(80,80),(160,80)]);before=self.digest()
++  for locale in LOCALES:
++   self.select_language(locale);self.click('#newBtn')
++   self.assertEqual(self.page.locator('#confirmModal h3').inner_text(),self.translated('newQuestion'))
++   self.assertEqual(self.page.locator('#confirmModal p').inner_text(),self.translated('newWarning'))
++   self.click('#cancelNew');self.assertEqual(self.digest(),before)
++   message=[]
++   def handle(d):message.append(d.message);d.dismiss()
++   self.page.once('dialog',handle);self.click('#clearBtn')
++   self.assertEqual(message,[self.translated('clearQuestion')]);self.assertEqual(self.digest(),before)
++ def test_65_dynamic_color_names_and_large_view_remain_translated(self):
++  self.select_language('zh-Hans');self.click('.swatch:nth-child(7)');self.click('#sparkleBtn')
++  self.assertEqual(self.page.locator('.swatch:nth-child(7)').get_attribute('aria-label'),'蓝色')
++  self.click('#zoomLargeBtn');self.assertEqual(self.page.locator('#viewNotice').inner_text(),self.translated('largeNotice'))
++  self.select_language('fr');self.assertEqual(self.page.locator('#viewNotice').inner_text(),self.translated('largeNotice'))
++  self.click('.swatch:nth-child(2)');self.assertEqual(self.page.locator('.swatch:nth-child(2)').get_attribute('aria-label'),'Rouge')
++  self.click('#zoomFitBtn');self.select_language('ko');self.assertEqual(self.page.locator('#viewNotice').inner_text(),'')
++ def test_66_modal_focus_escape_and_underlying_canvas_protection(self):
++  self.stroke([(80,80),(160,80)]);before=self.digest();old.BrowserCases.click(self,self.language_button())
++  self.assertTrue(self.page.locator('#languageDialog').evaluate('e=>e.open'))
++  self.assertTrue(self.page.evaluate("!!document.activeElement.closest('#languageDialog')"))
++  for _ in range(12):
++   self.page.keyboard.press('Tab');self.assertTrue(self.page.evaluate("document.activeElement===document.body || !!document.activeElement.closest('#languageDialog')"))
++  self.page.keyboard.press('Escape');self.assertFalse(self.page.locator('#languageDialog').evaluate('e=>e.open'))
++  self.assertEqual(self.page.evaluate('document.activeElement.id'),self.language_button()[1:]);self.assertEqual(self.digest(),before)
++ def test_67_all_languages_fit_controls_sidebar_and_picker(self):
++  for locale in LOCALES:
++   with self.subTest(language=locale):
++    self.select_language(locale);self.assert_layout();self.open_tools();self.assert_layout()
++    # Visible sidebar buttons must fit within their own text containers horizontally.
++    overflow=self.page.locator('.tool-buttons button,.pages button,.backgrounds button').evaluate_all('(els)=>els.filter(e=>e.getClientRects().length && e.scrollWidth>e.clientWidth+2).map(e=>e.id||e.textContent)')
++    self.assertEqual(overflow,[]);self.close_tools()
++    old.BrowserCases.click(self,self.language_button());r=self.page.locator('#languageDialog').bounding_box();vp=self.page.viewport_size
++    self.assertGreaterEqual(r['x'],0);self.assertGreaterEqual(r['y'],0)
++    self.assertLessEqual(r['x']+r['width'],vp['width']+1);self.assertLessEqual(r['y']+r['height'],vp['height']+1)
++    for l in LOCALES:
++     option=self.page.locator(f'[data-language="{l}"]');option.scroll_into_view_if_needed();b=option.bounding_box();self.assertGreaterEqual(b['height'],44)
++    self.page.locator('#closeLanguage').click()
++  self.page.screenshot(path=str(self.evidence/f'{self.profile_name}-korean.png'))
++ def test_68_storage_preference_roundtrip_simulated_when_inline(self):
++  self.context.close()
++  storage_script="""(()=>{const data={};Object.defineProperty(window,'localStorage',{configurable:true,value:{getItem:k=>data[k]??null,setItem:(k,v)=>{data[k]=String(v)}}});})()"""
++  self.context=self.browser.new_context(**PROFILES[self.profile_name]);self.page=self.context.new_page();self.page.set_default_timeout(10000);self.errors=[];self.page.on('pageerror',lambda e:self.errors.append(str(e)))
++  if self.inline:self.page.evaluate(storage_script)
++  self.load_app();self.settle();self.select_language('ja')
++  stored=self.page.evaluate("localStorage.getItem('happy-colors.language')");self.assertEqual(stored,'ja')
++  if self.inline:
++   self.page.close();self.page=self.context.new_page();self.page.set_default_timeout(10000);self.page.on('pageerror',lambda e:self.errors.append(str(e)));self.page.evaluate(storage_script);self.page.evaluate("v=>localStorage.setItem('happy-colors.language',v)",stored);self.load_app()
++  else:self.page.reload()
++  self.settle();self.assertEqual(self.page.locator('html').get_attribute('lang'),'ja');self.assertEqual(self.page.locator('#saveBtn').get_attribute('aria-label'),'保存')
++ def test_69_blocked_storage_does_not_break_language_switch(self):
++  self.context.close();self.context=self.browser.new_context(**PROFILES[self.profile_name]);self.page=self.context.new_page();self.page.set_default_timeout(10000);self.errors=[];self.page.on('pageerror',lambda e:self.errors.append(str(e)))
++  script="Object.defineProperty(window,'localStorage',{configurable:true,get(){throw new DOMException('Blocked','SecurityError')}})"
++  if self.inline:self.page.evaluate(script)
++  else:self.context.add_init_script(script)
++  self.load_app();self.settle();self.assertEqual(self.page.locator('html').get_attribute('lang'),'en')
++  self.select_language('es');self.assertEqual(self.page.locator('#saveBtn').get_attribute('aria-label'),'Guardar')
++  self.click('#zoomFitBtn');self.stroke([(80,80),(160,80)]);self.assertGreater(self.pixel(120,80)[3],0)
++ def test_70_picker_does_not_reintroduce_style_switcher(self):
++  self.select_language('pt');self.assertEqual(self.page.locator('#themeBtn,#themeDialog,[data-theme-choice]').count(),0)
++  self.assertEqual(self.page.locator('html').get_attribute('data-ui'),'colorful-1')
++  if self.compact():
++   self.assertFalse(self.page.locator('#languageBtn').is_visible());self.assertTrue(self.page.locator('#languageDockBtn').is_visible())
++  else:self.assertTrue(self.page.locator('#languageBtn').is_visible())
++ def test_71_translated_tools_still_draw_fill_undo_zoom_and_export(self):
++  self.select_language('fr');self.enclosed_shape();self.color('#00cc66');self.click('#bucketBtn');self.tap_art(100,100)
++  self.assertEqual(self.pixel(100,100),[0,204,102,255]);filled=self.digest()
++  self.select_language('ko');self.click('#undoBtn');self.settle();self.assertEqual(self.pixel(100,100)[3],0)
++  self.click('#redoBtn');self.settle();self.assertEqual(self.digest(),filled);self.zoom(2);self.select_language('es');self.assertEqual(self.digest(),filled)
++  with self.page.expect_download() as info:self.click('#saveBtn')
++  path=self.evidence/f'{self.profile_name}-translated-export.png';info.value.save_as(path)
++  from PIL import Image
++  im=Image.open(path);self.assertEqual(im.size,(filled['width'],filled['height']))
++
++def main():
++ p=argparse.ArgumentParser();p.add_argument('--inline',action='store_true');p.add_argument('--profiles',nargs='+',choices=list(PROFILES),default=['desktop','tablet_landscape','phone_landscape','phone_portrait']);p.add_argument('--only-languages',action='store_true');p.add_argument('--tests',nargs='+');p.add_argument('--evidence',type=Path,default=ROOT/'evidence/languages/browser');args=p.parse_args();args.evidence.mkdir(parents=True,exist_ok=True)
++ server=http.server.ThreadingHTTPServer(('127.0.0.1',0),functools.partial(old.QuietHandler,directory=str(ROOT)));threading.Thread(target=server.serve_forever,daemon=True).start()
++ try:
++  with sync_playwright() as pw:
++   browser=pw.chromium.launch(headless=True,**({} if Path(pw.chromium.executable_path).exists() else {'executable_path':shutil.which('chromium')}))
++   suite=unittest.TestSuite()
++   for profile in args.profiles:
++    cls=type(f'chromium_{profile}',(LanguageCases,),dict(profile_name=profile,browser=browser,inline=args.inline,app_root=ROOT,base_url=f'http://127.0.0.1:{server.server_port}/',evidence=args.evidence))
++    for name in unittest.defaultTestLoader.getTestCaseNames(LanguageCases):
++     if args.only_languages and int(name.split('_')[1])<61:continue
++     if args.tests and name not in args.tests:continue
++     suite.addTest(cls(name))
++   old.JsonResult.records=[];result=unittest.TextTestRunner(verbosity=2,resultclass=old.JsonResult).run(suite)
++   report=dict(browser='Chromium',browser_version=browser.version,transport='exact local source injection' if args.inline else 'local HTTP',storage='simulated preference roundtrip; real API blocked on this origin' if args.inline else 'real browser localStorage',tests_run=result.testsRun,failures=len(result.failures),errors=len(result.errors),skipped=len(result.skipped),results=result.records)
++   (args.evidence/'results.json').write_text(json.dumps(report,ensure_ascii=False,indent=2));browser.close();return 0 if result.wasSuccessful() else 1
++ finally:server.shutdown();server.server_close()
++if __name__=='__main__':sys.exit(main())

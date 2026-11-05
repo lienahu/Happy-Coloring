@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "test": "node --test tests/unit/*.test.cjs"
+    "test": "node --test tests/unit/*.test.cjs",
+    "test:ui": "python tests/browser/run_language_tests.py",
+    "test:languages": "python tests/browser/run_language_tests.py --only-languages",
+    "test:save": "python tests/browser/run_save_tests.py --save-only"
   },
   "engines": {
     "node": ">=20"

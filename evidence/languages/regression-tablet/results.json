@@ -1,0 +1,390 @@
+{
+  "browser": "Chromium",
+  "browser_version": "144.0.7559.96",
+  "transport": "exact local source injection",
+  "storage": "simulated preference roundtrip; real API blocked on this origin",
+  "tests_run": 63,
+  "failures": 1,
+  "errors": 0,
+  "skipped": 0,
+  "results": [
+    {
+      "test": "__main__.chromium_tablet_landscape.test_01_layout_and_touch_targets",
+      "status": "passed",
+      "seconds": 6.172,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_landscape.test_02_rotation_preserves_exact_pixels_and_aspect",
+      "status": "passed",
+      "seconds": 4.303,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_landscape.test_03_browser_bar_height_changes_do_not_rebuild_bitmap",
+      "status": "passed",
+      "seconds": 3.079,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_landscape.test_04_brush_and_exact_undo_redo",
+      "status": "passed",
+      "seconds": 2.724,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_landscape.test_05_sparkle_leaves_paint_and_highlights",
+      "status": "passed",
+      "seconds": 2.401,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_landscape.test_06_eraser_then_undo_restores_exact_pixels",
+      "status": "passed",
+      "seconds": 3.665,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_landscape.test_07_bucket_self_drawn_closed_region",
+      "status": "passed",
+      "seconds": 3.308,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_landscape.test_08_bucket_after_resize_hits_same_region",
+      "status": "passed",
+      "seconds": 3.937,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_landscape.test_09_bucket_builtin_and_other_page_buttons",
+      "status": "passed",
+      "seconds": 5.383,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_landscape.test_10_upload_after_scrolling_opens_native_filechooser",
+      "status": "passed",
+      "seconds": 4.697,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_landscape.test_11_draw_after_rotation_maps_to_pointer",
+      "status": "passed",
+      "seconds": 2.529,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_landscape.test_12_rapid_taps_and_dblclick_keep_scale_and_toolbar",
+      "status": "passed",
+      "seconds": 8.68,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_landscape.test_13_multi_pointer_and_cancel_recovery",
+      "status": "passed",
+      "seconds": 4.143,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_landscape.test_14_twenty_step_undo_limit",
+      "status": "passed",
+      "seconds": 12.094,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_landscape.test_15_sticker_background_and_png_export",
+      "status": "passed",
+      "seconds": 1.87,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_landscape.test_16_new_confirmation_does_not_clear_on_cancel",
+      "status": "passed",
+      "seconds": 2.571,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_landscape.test_17_touch_gesture_handlers_scoped_away_from_upload",
+      "status": "passed",
+      "seconds": 1.061,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_landscape.test_18_actual_touch_swipe_draws_without_scrolling",
+      "status": "passed",
+      "seconds": 1.251,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_landscape.test_19_actual_toolbar_touch_scroll_keeps_header",
+      "status": "passed",
+      "seconds": 1.922,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_landscape.test_20_after_eraser_templates_and_uploads_are_visible",
+      "status": "passed",
+      "seconds": 1.995,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_landscape.test_21_zoom_buttons_and_fit_preserve_exact_pixels",
+      "status": "passed",
+      "seconds": 2.341,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_landscape.test_22_actual_two_finger_pinch_changes_canvas_not_page",
+      "status": "passed",
+      "seconds": 1.994,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_landscape.test_23_two_finger_pan_preserves_view_scale_and_art",
+      "status": "passed",
+      "seconds": 1.734,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_landscape.test_24_pinch_rolls_back_unfinished_stroke_without_undo_entry",
+      "status": "passed",
+      "seconds": 1.612,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_landscape.test_25_bucket_selected_pinch_does_not_fill",
+      "status": "passed",
+      "seconds": 2.037,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_landscape.test_26_sticker_selected_pinch_does_not_stamp",
+      "status": "passed",
+      "seconds": 2.065,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_landscape.test_27_horizontal_and_vertical_scroll_sliders_move_only_canvas",
+      "status": "passed",
+      "seconds": 1.605,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_landscape.test_28_brush_after_zoom_and_scroll_hits_correct_artwork",
+      "status": "passed",
+      "seconds": 1.88,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_landscape.test_29_sparkle_and_eraser_work_while_zoomed",
+      "status": "passed",
+      "seconds": 2.571,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_landscape.test_30_self_drawn_bucket_fills_after_zoom_and_scroll",
+      "status": "passed",
+      "seconds": 2.013,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_landscape.test_31_template_fill_after_zoom_does_not_leak_through_eye",
+      "status": "passed",
+      "seconds": 1.928,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_landscape.test_32_uploaded_picture_fill_at_zoom_and_reupload",
+      "status": "passed",
+      "seconds": 1.9,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_landscape.test_33_rotation_while_zoomed_preserves_pixels_and_zoom",
+      "status": "passed",
+      "seconds": 1.704,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_landscape.test_34_save_exports_entire_picture_not_only_zoomed_view",
+      "status": "passed",
+      "seconds": 1.879,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_landscape.test_35_zoomed_double_taps_do_not_zoom_the_page",
+      "status": "passed",
+      "seconds": 1.492,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_landscape.test_36_pen_pointer_ignores_palm_touches",
+      "status": "passed",
+      "seconds": 1.135,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_landscape.test_37_blur_during_gesture_recovers_without_marks",
+      "status": "passed",
+      "seconds": 1.284,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_landscape.test_38_zoom_visual_layout_and_scroll_to_edges",
+      "status": "passed",
+      "seconds": 2.89,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_landscape.test_39_trusted_finger_brush_hits_zoomed_scrolled_canvas",
+      "status": "passed",
+      "seconds": 1.253,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_landscape.test_40_zoom_anchor_stays_under_the_finger_midpoint",
+      "status": "passed",
+      "seconds": 1.182,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_landscape.test_41_single_fixed_interface_no_style_switcher",
+      "status": "passed",
+      "seconds": 1.006,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_landscape.test_42_drawer_open_close_does_not_change_zoom_or_pixels",
+      "status": "passed",
+      "seconds": 1.351,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_landscape.test_43_quick_palette_and_tool_selection",
+      "status": "passed",
+      "seconds": 2.021,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_landscape.test_44_large_view_is_view_only_and_fit_recovers",
+      "status": "passed",
+      "seconds": 2.036,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_landscape.test_45_phone_landscape_auto_large_from_portrait_preserves_picture",
+      "status": "passed",
+      "seconds": 1.895,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_landscape.test_46_safe_area_simulation_does_not_cover_buttons",
+      "status": "passed",
+      "seconds": 1.772,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_landscape.test_47_drawer_keyboard_and_focus_return",
+      "status": "passed",
+      "seconds": 1.183,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_landscape.test_48_blocked_storage_does_not_affect_fixed_interface",
+      "status": "passed",
+      "seconds": 1.695,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_landscape.test_49_ui_uses_single_accent_but_paint_remains_separate",
+      "status": "passed",
+      "seconds": 1.978,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_landscape.test_50_reduced_motion_preserves_art_and_chrome",
+      "status": "passed",
+      "seconds": 1.403,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_landscape.test_51_selected_controls_have_accessible_labels_and_states",
+      "status": "passed",
+      "seconds": 1.409,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_landscape.test_52_ui_design_does_not_contaminate_saved_background",
+      "status": "passed",
+      "seconds": 4.211,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_landscape.test_61_all_seven_languages_translate_visible_controls",
+      "status": "passed",
+      "seconds": 4.625,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_landscape.test_62_switch_preserves_pixels_history_tool_color_zoom_and_scroll",
+      "status": "failed",
+      "seconds": 4.631,
+      "detail": "Traceback (most recent call last):\n  File \"/mnt/data/happy-coloring-languages/tests/browser/run_language_tests.py\", line 43, in test_62_switch_preserves_pixels_history_tool_color_zoom_and_scroll\n    self.select_language(locale);self.assertEqual(self.read_art_state(),before)\n                                 ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: {'bit[203425 chars]'brush', 'background': '#ffffff', 'zoom': 2, 'x': 29, 'y': 25}} != {'bit[203425 chars]'brush', 'background': '#ffffff', 'zoom': 2, 'x': 30, 'y': 25}}\nDiff is 203694 characters long. Set self.maxDiff to None to see it.\n"
+    },
+    {
+      "test": "__main__.chromium_tablet_landscape.test_63_native_language_names_and_checked_state",
+      "status": "passed",
+      "seconds": 2.341,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_landscape.test_64_new_and_clear_confirmations_translate_without_clearing_on_cancel",
+      "status": "passed",
+      "seconds": 8.227,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_landscape.test_65_dynamic_color_names_and_large_view_remain_translated",
+      "status": "passed",
+      "seconds": 3.719,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_landscape.test_66_modal_focus_escape_and_underlying_canvas_protection",
+      "status": "passed",
+      "seconds": 1.524,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_landscape.test_67_all_languages_fit_controls_sidebar_and_picker",
+      "status": "passed",
+      "seconds": 15.663,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_landscape.test_68_storage_preference_roundtrip_simulated_when_inline",
+      "status": "passed",
+      "seconds": 3.227,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_landscape.test_69_blocked_storage_does_not_break_language_switch",
+      "status": "passed",
+      "seconds": 1.984,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_landscape.test_70_picker_does_not_reintroduce_style_switcher",
+      "status": "passed",
+      "seconds": 1.044,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_landscape.test_71_translated_tools_still_draw_fill_undo_zoom_and_export",
+      "status": "passed",
+      "seconds": 2.845,
+      "detail": ""
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "app.js": {
+    "exit_code": 0,
+    "stderr": ""
+  },
+  "canvas-zoom.js": {
+    "exit_code": 0,
+    "stderr": ""
+  },
+  "mobile-ui.js": {
+    "exit_code": 0,
+    "stderr": ""
+  },
+  "i18n.js": {
+    "exit_code": 0,
+    "stderr": ""
+  }
+}

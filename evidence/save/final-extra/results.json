@@ -1,0 +1,120 @@
+{
+  "browser": "Chromium",
+  "browser_version": "144.0.7559.96",
+  "transport": "exact local source injection",
+  "native_share": "mocked API capability/outcomes; no native iOS sheet tested",
+  "tests_run": 18,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "results": [
+    {
+      "test": "__main__.chromium_phone_mini_portrait.test_80_save_tap_opens_full_picture_preview",
+      "status": "passed",
+      "seconds": 1.508,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_mini_portrait.test_81_download_png_preserves_full_dimensions_pixels_background",
+      "status": "passed",
+      "seconds": 1.524,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_mini_portrait.test_88_encode_failure_shows_retry_and_never_clears_drawing",
+      "status": "passed",
+      "seconds": 0.994,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_mini_portrait.test_91_all_languages_save_labels_fit_and_close_stays_reachable",
+      "status": "passed",
+      "seconds": 4.99,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_mini_portrait.test_92_preview_is_outside_gesture_blocking_regions_and_allows_context_menu",
+      "status": "passed",
+      "seconds": 0.768,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_mini_portrait.test_94_language_change_and_rotation_keep_prepared_export_identical",
+      "status": "passed",
+      "seconds": 1.004,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_tiny_landscape.test_80_save_tap_opens_full_picture_preview",
+      "status": "passed",
+      "seconds": 0.973,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_tiny_landscape.test_81_download_png_preserves_full_dimensions_pixels_background",
+      "status": "passed",
+      "seconds": 1.62,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_tiny_landscape.test_88_encode_failure_shows_retry_and_never_clears_drawing",
+      "status": "passed",
+      "seconds": 0.932,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_tiny_landscape.test_91_all_languages_save_labels_fit_and_close_stays_reachable",
+      "status": "passed",
+      "seconds": 4.914,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_tiny_landscape.test_92_preview_is_outside_gesture_blocking_regions_and_allows_context_menu",
+      "status": "passed",
+      "seconds": 0.675,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_tiny_landscape.test_94_language_change_and_rotation_keep_prepared_export_identical",
+      "status": "passed",
+      "seconds": 1.012,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_portrait.test_80_save_tap_opens_full_picture_preview",
+      "status": "passed",
+      "seconds": 1.471,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_portrait.test_81_download_png_preserves_full_dimensions_pixels_background",
+      "status": "passed",
+      "seconds": 1.813,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_portrait.test_88_encode_failure_shows_retry_and_never_clears_drawing",
+      "status": "passed",
+      "seconds": 1.303,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_portrait.test_91_all_languages_save_labels_fit_and_close_stays_reachable",
+      "status": "passed",
+      "seconds": 6.527,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_portrait.test_92_preview_is_outside_gesture_blocking_regions_and_allows_context_menu",
+      "status": "passed",
+      "seconds": 0.935,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_portrait.test_94_language_change_and_rotation_keep_prepared_export_identical",
+      "status": "passed",
+      "seconds": 1.314,
+      "detail": ""
+    }
+  ]
+}

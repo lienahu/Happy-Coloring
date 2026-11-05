@@ -232,18 +232,13 @@ undoBtn.onclick=()=>{if(history.length>1){redo.push(history.pop());restore(histo
 redoBtn.onclick=()=>{if(redo.length){let s=redo.pop();history.push(s);restore(s);buttons()}};
 
 function clearAll(){++restoreTicket;ctx.clearRect(0,0,W(),H());snap()}
-clearBtn.onclick=()=>{if(confirm("Clear this picture?"))clearAll()};
+clearBtn.onclick=()=>{if(confirm(window.HappyI18n ? window.HappyI18n.t("clearQuestion") : "Clear this picture?"))clearAll()};
 newBtn.onclick=()=>confirmModal.classList.remove("hidden");
 cancelNew.onclick=()=>confirmModal.classList.add("hidden");
 confirmNew.onclick=()=>{confirmModal.classList.add("hidden");clearAll()};
 
-saveBtn.onclick=()=>{
- const out=document.createElement("canvas");
- out.width=canvas.width;out.height=canvas.height;
- let o=out.getContext("2d");
- o.fillStyle=background;o.fillRect(0,0,out.width,out.height);o.drawImage(canvas,0,0);
- let a=document.createElement("a");a.download="my-coloring.png";a.href=out.toDataURL();a.click()
-};
+// Keep export UI separate from the drawing and gesture engines.
+saveBtn.onclick=()=>window.HappySave.open(canvas,background,saveBtn);
 
 document.querySelectorAll(".bg").forEach(b=>b.onclick=()=>{
  background=b.dataset.bg;canvas.style.background=background;

@@ -1,0 +1,7 @@
+saveBtn.onclick=()=>{
+ const out=document.createElement("canvas");
+ out.width=canvas.width;out.height=canvas.height;
+ let o=out.getContext("2d");
+ o.fillStyle=background;o.fillRect(0,0,out.width,out.height);o.drawImage(canvas,0,0);
+ let a=document.createElement("a");a.download="my-coloring.png";a.href=out.toDataURL();a.click()
+};

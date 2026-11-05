@@ -1,0 +1,18 @@
+{
+  "check_returncode": 0,
+  "apply_returncode": 0,
+  "files_identical": {
+    "index.html": true,
+    "app.js": true,
+    "mobile-ui.js": true,
+    "i18n.js": true,
+    "languages.css": true,
+    "package.json": true,
+    "LANGUAGES-README.md": true,
+    "docs/LANGUAGES-DEVICE-CHECKLIST.md": true,
+    "docs/LANGUAGES-TEST-REPORT.md": true,
+    "tests/unit/languages.test.cjs": true,
+    "tests/browser/run_colorful_tests.py": true,
+    "tests/browser/run_language_tests.py": true
+  }
+}

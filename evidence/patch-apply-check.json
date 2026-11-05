@@ -1,0 +1,18 @@
+{
+  "base_commit": "7cbbeff631c9ae9b0e519cb824f6917c4a3afd17",
+  "apply_check": "passed",
+  "files_equal_to_tested_copy": {
+    "index.html": true,
+    "apple-colorful.css": true,
+    "mobile-ui.js": true,
+    "package.json": true,
+    "tests/unit/colorful.test.cjs": true,
+    "tests/browser/run_colorful_tests.py": true,
+    "COLORFUL-README.zh-CN.md": true,
+    "docs/COLORFUL-DEVICE-CHECKLIST.md": true,
+    "app.js": true,
+    "canvas-zoom.js": true,
+    "style.css": true
+  },
+  "remote_changes": false
+}

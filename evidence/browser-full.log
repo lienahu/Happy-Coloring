@@ -1,0 +1,290 @@
+test_01_layout_and_touch_targets (__main__.chromium_desktop.test_01_layout_and_touch_targets) ... ok
+test_02_rotation_preserves_exact_pixels_and_aspect (__main__.chromium_desktop.test_02_rotation_preserves_exact_pixels_and_aspect) ... ok
+test_03_browser_bar_height_changes_do_not_rebuild_bitmap (__main__.chromium_desktop.test_03_browser_bar_height_changes_do_not_rebuild_bitmap) ... ok
+test_04_brush_and_exact_undo_redo (__main__.chromium_desktop.test_04_brush_and_exact_undo_redo) ... ok
+test_05_sparkle_leaves_paint_and_highlights (__main__.chromium_desktop.test_05_sparkle_leaves_paint_and_highlights) ... ok
+test_06_eraser_then_undo_restores_exact_pixels (__main__.chromium_desktop.test_06_eraser_then_undo_restores_exact_pixels) ... ok
+test_07_bucket_self_drawn_closed_region (__main__.chromium_desktop.test_07_bucket_self_drawn_closed_region) ... ok
+test_08_bucket_after_resize_hits_same_region (__main__.chromium_desktop.test_08_bucket_after_resize_hits_same_region) ... ok
+test_09_bucket_builtin_and_other_page_buttons (__main__.chromium_desktop.test_09_bucket_builtin_and_other_page_buttons) ... ok
+test_10_upload_after_scrolling_opens_native_filechooser (__main__.chromium_desktop.test_10_upload_after_scrolling_opens_native_filechooser) ... FAIL
+test_11_draw_after_rotation_maps_to_pointer (__main__.chromium_desktop.test_11_draw_after_rotation_maps_to_pointer) ... ok
+test_12_rapid_taps_and_dblclick_keep_scale_and_toolbar (__main__.chromium_desktop.test_12_rapid_taps_and_dblclick_keep_scale_and_toolbar) ... ok
+test_13_multi_pointer_and_cancel_recovery (__main__.chromium_desktop.test_13_multi_pointer_and_cancel_recovery) ... ok
+test_14_twenty_step_undo_limit (__main__.chromium_desktop.test_14_twenty_step_undo_limit) ... ok
+test_15_sticker_background_and_png_export (__main__.chromium_desktop.test_15_sticker_background_and_png_export) ... ok
+test_16_new_confirmation_does_not_clear_on_cancel (__main__.chromium_desktop.test_16_new_confirmation_does_not_clear_on_cancel) ... ok
+test_17_touch_gesture_handlers_scoped_away_from_upload (__main__.chromium_desktop.test_17_touch_gesture_handlers_scoped_away_from_upload) ... ok
+test_18_actual_touch_swipe_draws_without_scrolling (__main__.chromium_desktop.test_18_actual_touch_swipe_draws_without_scrolling) ... skipped 'Touch-only case'
+test_19_actual_toolbar_touch_scroll_keeps_header (__main__.chromium_desktop.test_19_actual_toolbar_touch_scroll_keeps_header) ... skipped 'Touch-only case'
+test_20_after_eraser_templates_and_uploads_are_visible (__main__.chromium_desktop.test_20_after_eraser_templates_and_uploads_are_visible) ... ok
+test_21_zoom_buttons_and_fit_preserve_exact_pixels (__main__.chromium_desktop.test_21_zoom_buttons_and_fit_preserve_exact_pixels) ... ok
+test_22_actual_two_finger_pinch_changes_canvas_not_page (__main__.chromium_desktop.test_22_actual_two_finger_pinch_changes_canvas_not_page) ... skipped 'Touch-only case; desktop uses the visible zoom controls'
+test_23_two_finger_pan_preserves_view_scale_and_art (__main__.chromium_desktop.test_23_two_finger_pan_preserves_view_scale_and_art) ... skipped 'Touch-only case; desktop uses the visible zoom controls'
+test_24_pinch_rolls_back_unfinished_stroke_without_undo_entry (__main__.chromium_desktop.test_24_pinch_rolls_back_unfinished_stroke_without_undo_entry) ... skipped 'Touch-only case; desktop uses the visible zoom controls'
+test_25_bucket_selected_pinch_does_not_fill (__main__.chromium_desktop.test_25_bucket_selected_pinch_does_not_fill) ... skipped 'Touch-only case; desktop uses the visible zoom controls'
+test_26_sticker_selected_pinch_does_not_stamp (__main__.chromium_desktop.test_26_sticker_selected_pinch_does_not_stamp) ... skipped 'Touch-only case; desktop uses the visible zoom controls'
+test_27_horizontal_and_vertical_scroll_sliders_move_only_canvas (__main__.chromium_desktop.test_27_horizontal_and_vertical_scroll_sliders_move_only_canvas) ... ok
+test_28_brush_after_zoom_and_scroll_hits_correct_artwork (__main__.chromium_desktop.test_28_brush_after_zoom_and_scroll_hits_correct_artwork) ... ok
+test_29_sparkle_and_eraser_work_while_zoomed (__main__.chromium_desktop.test_29_sparkle_and_eraser_work_while_zoomed) ... ok
+test_30_self_drawn_bucket_fills_after_zoom_and_scroll (__main__.chromium_desktop.test_30_self_drawn_bucket_fills_after_zoom_and_scroll) ... ok
+test_31_template_fill_after_zoom_does_not_leak_through_eye (__main__.chromium_desktop.test_31_template_fill_after_zoom_does_not_leak_through_eye) ... ok
+test_32_uploaded_picture_fill_at_zoom_and_reupload (__main__.chromium_desktop.test_32_uploaded_picture_fill_at_zoom_and_reupload) ... ok
+test_33_rotation_while_zoomed_preserves_pixels_and_zoom (__main__.chromium_desktop.test_33_rotation_while_zoomed_preserves_pixels_and_zoom) ... ok
+test_34_save_exports_entire_picture_not_only_zoomed_view (__main__.chromium_desktop.test_34_save_exports_entire_picture_not_only_zoomed_view) ... ok
+test_35_zoomed_double_taps_do_not_zoom_the_page (__main__.chromium_desktop.test_35_zoomed_double_taps_do_not_zoom_the_page) ... ok
+test_36_pen_pointer_ignores_palm_touches (__main__.chromium_desktop.test_36_pen_pointer_ignores_palm_touches) ... ok
+test_37_blur_during_gesture_recovers_without_marks (__main__.chromium_desktop.test_37_blur_during_gesture_recovers_without_marks) ... skipped 'Touch-only case; desktop uses the visible zoom controls'
+test_38_zoom_visual_layout_and_scroll_to_edges (__main__.chromium_desktop.test_38_zoom_visual_layout_and_scroll_to_edges) ... ok
+test_39_trusted_finger_brush_hits_zoomed_scrolled_canvas (__main__.chromium_desktop.test_39_trusted_finger_brush_hits_zoomed_scrolled_canvas) ... skipped 'Touch-only case; desktop uses the visible zoom controls'
+test_40_zoom_anchor_stays_under_the_finger_midpoint (__main__.chromium_desktop.test_40_zoom_anchor_stays_under_the_finger_midpoint) ... ok
+test_41_single_fixed_interface_no_style_switcher (__main__.chromium_desktop.test_41_single_fixed_interface_no_style_switcher) ... ok
+test_42_drawer_open_close_does_not_change_zoom_or_pixels (__main__.chromium_desktop.test_42_drawer_open_close_does_not_change_zoom_or_pixels) ... ok
+test_43_quick_palette_and_tool_selection (__main__.chromium_desktop.test_43_quick_palette_and_tool_selection) ... ok
+test_44_large_view_is_view_only_and_fit_recovers (__main__.chromium_desktop.test_44_large_view_is_view_only_and_fit_recovers) ... ok
+test_45_phone_landscape_auto_large_from_portrait_preserves_picture (__main__.chromium_desktop.test_45_phone_landscape_auto_large_from_portrait_preserves_picture) ... ok
+test_46_safe_area_simulation_does_not_cover_buttons (__main__.chromium_desktop.test_46_safe_area_simulation_does_not_cover_buttons) ... ERROR
+test_47_drawer_keyboard_and_focus_return (__main__.chromium_desktop.test_47_drawer_keyboard_and_focus_return) ... ok
+test_48_blocked_storage_does_not_affect_fixed_interface (__main__.chromium_desktop.test_48_blocked_storage_does_not_affect_fixed_interface) ... ok
+test_49_ui_uses_single_accent_but_paint_remains_separate (__main__.chromium_desktop.test_49_ui_uses_single_accent_but_paint_remains_separate) ... ok
+test_50_reduced_motion_preserves_art_and_chrome (__main__.chromium_desktop.test_50_reduced_motion_preserves_art_and_chrome) ... ok
+test_51_selected_controls_have_accessible_labels_and_states (__main__.chromium_desktop.test_51_selected_controls_have_accessible_labels_and_states) ... ok
+test_52_ui_design_does_not_contaminate_saved_background (__main__.chromium_desktop.test_52_ui_design_does_not_contaminate_saved_background) ... ok
+test_01_layout_and_touch_targets (__main__.chromium_tablet_landscape.test_01_layout_and_touch_targets) ... ok
+test_02_rotation_preserves_exact_pixels_and_aspect (__main__.chromium_tablet_landscape.test_02_rotation_preserves_exact_pixels_and_aspect) ... ok
+test_03_browser_bar_height_changes_do_not_rebuild_bitmap (__main__.chromium_tablet_landscape.test_03_browser_bar_height_changes_do_not_rebuild_bitmap) ... ok
+test_04_brush_and_exact_undo_redo (__main__.chromium_tablet_landscape.test_04_brush_and_exact_undo_redo) ... ok
+test_05_sparkle_leaves_paint_and_highlights (__main__.chromium_tablet_landscape.test_05_sparkle_leaves_paint_and_highlights) ... ok
+test_06_eraser_then_undo_restores_exact_pixels (__main__.chromium_tablet_landscape.test_06_eraser_then_undo_restores_exact_pixels) ... ok
+test_07_bucket_self_drawn_closed_region (__main__.chromium_tablet_landscape.test_07_bucket_self_drawn_closed_region) ... ok
+test_08_bucket_after_resize_hits_same_region (__main__.chromium_tablet_landscape.test_08_bucket_after_resize_hits_same_region) ... ok
+test_09_bucket_builtin_and_other_page_buttons (__main__.chromium_tablet_landscape.test_09_bucket_builtin_and_other_page_buttons) ... ok
+test_10_upload_after_scrolling_opens_native_filechooser (__main__.chromium_tablet_landscape.test_10_upload_after_scrolling_opens_native_filechooser) ... FAIL
+test_11_draw_after_rotation_maps_to_pointer (__main__.chromium_tablet_landscape.test_11_draw_after_rotation_maps_to_pointer) ... ok
+test_12_rapid_taps_and_dblclick_keep_scale_and_toolbar (__main__.chromium_tablet_landscape.test_12_rapid_taps_and_dblclick_keep_scale_and_toolbar) ... ok
+test_13_multi_pointer_and_cancel_recovery (__main__.chromium_tablet_landscape.test_13_multi_pointer_and_cancel_recovery) ... ok
+test_14_twenty_step_undo_limit (__main__.chromium_tablet_landscape.test_14_twenty_step_undo_limit) ... ok
+test_15_sticker_background_and_png_export (__main__.chromium_tablet_landscape.test_15_sticker_background_and_png_export) ... ok
+test_16_new_confirmation_does_not_clear_on_cancel (__main__.chromium_tablet_landscape.test_16_new_confirmation_does_not_clear_on_cancel) ... ok
+test_17_touch_gesture_handlers_scoped_away_from_upload (__main__.chromium_tablet_landscape.test_17_touch_gesture_handlers_scoped_away_from_upload) ... ok
+test_18_actual_touch_swipe_draws_without_scrolling (__main__.chromium_tablet_landscape.test_18_actual_touch_swipe_draws_without_scrolling) ... ok
+test_19_actual_toolbar_touch_scroll_keeps_header (__main__.chromium_tablet_landscape.test_19_actual_toolbar_touch_scroll_keeps_header) ... ok
+test_20_after_eraser_templates_and_uploads_are_visible (__main__.chromium_tablet_landscape.test_20_after_eraser_templates_and_uploads_are_visible) ... ok
+test_21_zoom_buttons_and_fit_preserve_exact_pixels (__main__.chromium_tablet_landscape.test_21_zoom_buttons_and_fit_preserve_exact_pixels) ... ok
+test_22_actual_two_finger_pinch_changes_canvas_not_page (__main__.chromium_tablet_landscape.test_22_actual_two_finger_pinch_changes_canvas_not_page) ... ok
+test_23_two_finger_pan_preserves_view_scale_and_art (__main__.chromium_tablet_landscape.test_23_two_finger_pan_preserves_view_scale_and_art) ... ok
+test_24_pinch_rolls_back_unfinished_stroke_without_undo_entry (__main__.chromium_tablet_landscape.test_24_pinch_rolls_back_unfinished_stroke_without_undo_entry) ... ok
+test_25_bucket_selected_pinch_does_not_fill (__main__.chromium_tablet_landscape.test_25_bucket_selected_pinch_does_not_fill) ... ok
+test_26_sticker_selected_pinch_does_not_stamp (__main__.chromium_tablet_landscape.test_26_sticker_selected_pinch_does_not_stamp) ... ok
+test_27_horizontal_and_vertical_scroll_sliders_move_only_canvas (__main__.chromium_tablet_landscape.test_27_horizontal_and_vertical_scroll_sliders_move_only_canvas) ... ok
+test_28_brush_after_zoom_and_scroll_hits_correct_artwork (__main__.chromium_tablet_landscape.test_28_brush_after_zoom_and_scroll_hits_correct_artwork) ... ok
+test_29_sparkle_and_eraser_work_while_zoomed (__main__.chromium_tablet_landscape.test_29_sparkle_and_eraser_work_while_zoomed) ... ok
+test_30_self_drawn_bucket_fills_after_zoom_and_scroll (__main__.chromium_tablet_landscape.test_30_self_drawn_bucket_fills_after_zoom_and_scroll) ... ok
+test_31_template_fill_after_zoom_does_not_leak_through_eye (__main__.chromium_tablet_landscape.test_31_template_fill_after_zoom_does_not_leak_through_eye) ... ok
+test_32_uploaded_picture_fill_at_zoom_and_reupload (__main__.chromium_tablet_landscape.test_32_uploaded_picture_fill_at_zoom_and_reupload) ... ok
+test_33_rotation_while_zoomed_preserves_pixels_and_zoom (__main__.chromium_tablet_landscape.test_33_rotation_while_zoomed_preserves_pixels_and_zoom) ... ok
+test_34_save_exports_entire_picture_not_only_zoomed_view (__main__.chromium_tablet_landscape.test_34_save_exports_entire_picture_not_only_zoomed_view) ... ok
+test_35_zoomed_double_taps_do_not_zoom_the_page (__main__.chromium_tablet_landscape.test_35_zoomed_double_taps_do_not_zoom_the_page) ... ok
+test_36_pen_pointer_ignores_palm_touches (__main__.chromium_tablet_landscape.test_36_pen_pointer_ignores_palm_touches) ... ok
+test_37_blur_during_gesture_recovers_without_marks (__main__.chromium_tablet_landscape.test_37_blur_during_gesture_recovers_without_marks) ... ok
+test_38_zoom_visual_layout_and_scroll_to_edges (__main__.chromium_tablet_landscape.test_38_zoom_visual_layout_and_scroll_to_edges) ... ok
+test_39_trusted_finger_brush_hits_zoomed_scrolled_canvas (__main__.chromium_tablet_landscape.test_39_trusted_finger_brush_hits_zoomed_scrolled_canvas) ... ok
+test_40_zoom_anchor_stays_under_the_finger_midpoint (__main__.chromium_tablet_landscape.test_40_zoom_anchor_stays_under_the_finger_midpoint) ... ok
+test_41_single_fixed_interface_no_style_switcher (__main__.chromium_tablet_landscape.test_41_single_fixed_interface_no_style_switcher) ... ok
+test_42_drawer_open_close_does_not_change_zoom_or_pixels (__main__.chromium_tablet_landscape.test_42_drawer_open_close_does_not_change_zoom_or_pixels) ... ok
+test_43_quick_palette_and_tool_selection (__main__.chromium_tablet_landscape.test_43_quick_palette_and_tool_selection) ... ok
+test_44_large_view_is_view_only_and_fit_recovers (__main__.chromium_tablet_landscape.test_44_large_view_is_view_only_and_fit_recovers) ... ok
+test_45_phone_landscape_auto_large_from_portrait_preserves_picture (__main__.chromium_tablet_landscape.test_45_phone_landscape_auto_large_from_portrait_preserves_picture) ... ok
+test_46_safe_area_simulation_does_not_cover_buttons (__main__.chromium_tablet_landscape.test_46_safe_area_simulation_does_not_cover_buttons) ... ok
+test_47_drawer_keyboard_and_focus_return (__main__.chromium_tablet_landscape.test_47_drawer_keyboard_and_focus_return) ... ok
+test_48_blocked_storage_does_not_affect_fixed_interface (__main__.chromium_tablet_landscape.test_48_blocked_storage_does_not_affect_fixed_interface) ... ok
+test_49_ui_uses_single_accent_but_paint_remains_separate (__main__.chromium_tablet_landscape.test_49_ui_uses_single_accent_but_paint_remains_separate) ... ok
+test_50_reduced_motion_preserves_art_and_chrome (__main__.chromium_tablet_landscape.test_50_reduced_motion_preserves_art_and_chrome) ... ok
+test_51_selected_controls_have_accessible_labels_and_states (__main__.chromium_tablet_landscape.test_51_selected_controls_have_accessible_labels_and_states) ... ok
+test_52_ui_design_does_not_contaminate_saved_background (__main__.chromium_tablet_landscape.test_52_ui_design_does_not_contaminate_saved_background) ... ok
+test_01_layout_and_touch_targets (__main__.chromium_phone_landscape.test_01_layout_and_touch_targets) ... ok
+test_02_rotation_preserves_exact_pixels_and_aspect (__main__.chromium_phone_landscape.test_02_rotation_preserves_exact_pixels_and_aspect) ... ok
+test_03_browser_bar_height_changes_do_not_rebuild_bitmap (__main__.chromium_phone_landscape.test_03_browser_bar_height_changes_do_not_rebuild_bitmap) ... ok
+test_04_brush_and_exact_undo_redo (__main__.chromium_phone_landscape.test_04_brush_and_exact_undo_redo) ... ok
+test_05_sparkle_leaves_paint_and_highlights (__main__.chromium_phone_landscape.test_05_sparkle_leaves_paint_and_highlights) ... ok
+test_06_eraser_then_undo_restores_exact_pixels (__main__.chromium_phone_landscape.test_06_eraser_then_undo_restores_exact_pixels) ... ok
+test_07_bucket_self_drawn_closed_region (__main__.chromium_phone_landscape.test_07_bucket_self_drawn_closed_region) ... ok
+test_08_bucket_after_resize_hits_same_region (__main__.chromium_phone_landscape.test_08_bucket_after_resize_hits_same_region) ... ok
+test_09_bucket_builtin_and_other_page_buttons (__main__.chromium_phone_landscape.test_09_bucket_builtin_and_other_page_buttons) ... ok
+test_10_upload_after_scrolling_opens_native_filechooser (__main__.chromium_phone_landscape.test_10_upload_after_scrolling_opens_native_filechooser) ... ok
+test_11_draw_after_rotation_maps_to_pointer (__main__.chromium_phone_landscape.test_11_draw_after_rotation_maps_to_pointer) ... ok
+test_12_rapid_taps_and_dblclick_keep_scale_and_toolbar (__main__.chromium_phone_landscape.test_12_rapid_taps_and_dblclick_keep_scale_and_toolbar) ... ok
+test_13_multi_pointer_and_cancel_recovery (__main__.chromium_phone_landscape.test_13_multi_pointer_and_cancel_recovery) ... ok
+test_14_twenty_step_undo_limit (__main__.chromium_phone_landscape.test_14_twenty_step_undo_limit) ... ok
+test_15_sticker_background_and_png_export (__main__.chromium_phone_landscape.test_15_sticker_background_and_png_export) ... ok
+test_16_new_confirmation_does_not_clear_on_cancel (__main__.chromium_phone_landscape.test_16_new_confirmation_does_not_clear_on_cancel) ... ok
+test_17_touch_gesture_handlers_scoped_away_from_upload (__main__.chromium_phone_landscape.test_17_touch_gesture_handlers_scoped_away_from_upload) ... ok
+test_18_actual_touch_swipe_draws_without_scrolling (__main__.chromium_phone_landscape.test_18_actual_touch_swipe_draws_without_scrolling) ... ok
+test_19_actual_toolbar_touch_scroll_keeps_header (__main__.chromium_phone_landscape.test_19_actual_toolbar_touch_scroll_keeps_header) ... ok
+test_20_after_eraser_templates_and_uploads_are_visible (__main__.chromium_phone_landscape.test_20_after_eraser_templates_and_uploads_are_visible) ... ok
+test_21_zoom_buttons_and_fit_preserve_exact_pixels (__main__.chromium_phone_landscape.test_21_zoom_buttons_and_fit_preserve_exact_pixels) ... ok
+test_22_actual_two_finger_pinch_changes_canvas_not_page (__main__.chromium_phone_landscape.test_22_actual_two_finger_pinch_changes_canvas_not_page) ... ok
+test_23_two_finger_pan_preserves_view_scale_and_art (__main__.chromium_phone_landscape.test_23_two_finger_pan_preserves_view_scale_and_art) ... ok
+test_24_pinch_rolls_back_unfinished_stroke_without_undo_entry (__main__.chromium_phone_landscape.test_24_pinch_rolls_back_unfinished_stroke_without_undo_entry) ... ok
+test_25_bucket_selected_pinch_does_not_fill (__main__.chromium_phone_landscape.test_25_bucket_selected_pinch_does_not_fill) ... ok
+test_26_sticker_selected_pinch_does_not_stamp (__main__.chromium_phone_landscape.test_26_sticker_selected_pinch_does_not_stamp) ... ok
+test_27_horizontal_and_vertical_scroll_sliders_move_only_canvas (__main__.chromium_phone_landscape.test_27_horizontal_and_vertical_scroll_sliders_move_only_canvas) ... ok
+test_28_brush_after_zoom_and_scroll_hits_correct_artwork (__main__.chromium_phone_landscape.test_28_brush_after_zoom_and_scroll_hits_correct_artwork) ... ok
+test_29_sparkle_and_eraser_work_while_zoomed (__main__.chromium_phone_landscape.test_29_sparkle_and_eraser_work_while_zoomed) ... ok
+test_30_self_drawn_bucket_fills_after_zoom_and_scroll (__main__.chromium_phone_landscape.test_30_self_drawn_bucket_fills_after_zoom_and_scroll) ... ok
+test_31_template_fill_after_zoom_does_not_leak_through_eye (__main__.chromium_phone_landscape.test_31_template_fill_after_zoom_does_not_leak_through_eye) ... ok
+test_32_uploaded_picture_fill_at_zoom_and_reupload (__main__.chromium_phone_landscape.test_32_uploaded_picture_fill_at_zoom_and_reupload) ... ok
+test_33_rotation_while_zoomed_preserves_pixels_and_zoom (__main__.chromium_phone_landscape.test_33_rotation_while_zoomed_preserves_pixels_and_zoom) ... ok
+test_34_save_exports_entire_picture_not_only_zoomed_view (__main__.chromium_phone_landscape.test_34_save_exports_entire_picture_not_only_zoomed_view) ... ok
+test_35_zoomed_double_taps_do_not_zoom_the_page (__main__.chromium_phone_landscape.test_35_zoomed_double_taps_do_not_zoom_the_page) ... ok
+test_36_pen_pointer_ignores_palm_touches (__main__.chromium_phone_landscape.test_36_pen_pointer_ignores_palm_touches) ... ok
+test_37_blur_during_gesture_recovers_without_marks (__main__.chromium_phone_landscape.test_37_blur_during_gesture_recovers_without_marks) ... ok
+test_38_zoom_visual_layout_and_scroll_to_edges (__main__.chromium_phone_landscape.test_38_zoom_visual_layout_and_scroll_to_edges) ... ok
+test_39_trusted_finger_brush_hits_zoomed_scrolled_canvas (__main__.chromium_phone_landscape.test_39_trusted_finger_brush_hits_zoomed_scrolled_canvas) ... ok
+test_40_zoom_anchor_stays_under_the_finger_midpoint (__main__.chromium_phone_landscape.test_40_zoom_anchor_stays_under_the_finger_midpoint) ... ok
+test_41_single_fixed_interface_no_style_switcher (__main__.chromium_phone_landscape.test_41_single_fixed_interface_no_style_switcher) ... ok
+test_42_drawer_open_close_does_not_change_zoom_or_pixels (__main__.chromium_phone_landscape.test_42_drawer_open_close_does_not_change_zoom_or_pixels) ... ok
+test_43_quick_palette_and_tool_selection (__main__.chromium_phone_landscape.test_43_quick_palette_and_tool_selection) ... ok
+test_44_large_view_is_view_only_and_fit_recovers (__main__.chromium_phone_landscape.test_44_large_view_is_view_only_and_fit_recovers) ... ok
+test_45_phone_landscape_auto_large_from_portrait_preserves_picture (__main__.chromium_phone_landscape.test_45_phone_landscape_auto_large_from_portrait_preserves_picture) ... ok
+test_46_safe_area_simulation_does_not_cover_buttons (__main__.chromium_phone_landscape.test_46_safe_area_simulation_does_not_cover_buttons) ... ok
+test_47_drawer_keyboard_and_focus_return (__main__.chromium_phone_landscape.test_47_drawer_keyboard_and_focus_return) ... ok
+test_48_blocked_storage_does_not_affect_fixed_interface (__main__.chromium_phone_landscape.test_48_blocked_storage_does_not_affect_fixed_interface) ... ok
+test_49_ui_uses_single_accent_but_paint_remains_separate (__main__.chromium_phone_landscape.test_49_ui_uses_single_accent_but_paint_remains_separate) ... ok
+test_50_reduced_motion_preserves_art_and_chrome (__main__.chromium_phone_landscape.test_50_reduced_motion_preserves_art_and_chrome) ... ok
+test_51_selected_controls_have_accessible_labels_and_states (__main__.chromium_phone_landscape.test_51_selected_controls_have_accessible_labels_and_states) ... ok
+test_52_ui_design_does_not_contaminate_saved_background (__main__.chromium_phone_landscape.test_52_ui_design_does_not_contaminate_saved_background) ... ok
+test_01_layout_and_touch_targets (__main__.chromium_phone_portrait.test_01_layout_and_touch_targets) ... ok
+test_02_rotation_preserves_exact_pixels_and_aspect (__main__.chromium_phone_portrait.test_02_rotation_preserves_exact_pixels_and_aspect) ... ok
+test_03_browser_bar_height_changes_do_not_rebuild_bitmap (__main__.chromium_phone_portrait.test_03_browser_bar_height_changes_do_not_rebuild_bitmap) ... ok
+test_04_brush_and_exact_undo_redo (__main__.chromium_phone_portrait.test_04_brush_and_exact_undo_redo) ... ok
+test_05_sparkle_leaves_paint_and_highlights (__main__.chromium_phone_portrait.test_05_sparkle_leaves_paint_and_highlights) ... ok
+test_06_eraser_then_undo_restores_exact_pixels (__main__.chromium_phone_portrait.test_06_eraser_then_undo_restores_exact_pixels) ... ok
+test_07_bucket_self_drawn_closed_region (__main__.chromium_phone_portrait.test_07_bucket_self_drawn_closed_region) ... ok
+test_08_bucket_after_resize_hits_same_region (__main__.chromium_phone_portrait.test_08_bucket_after_resize_hits_same_region) ... ok
+test_09_bucket_builtin_and_other_page_buttons (__main__.chromium_phone_portrait.test_09_bucket_builtin_and_other_page_buttons) ... ok
+test_10_upload_after_scrolling_opens_native_filechooser (__main__.chromium_phone_portrait.test_10_upload_after_scrolling_opens_native_filechooser) ... FAIL
+test_11_draw_after_rotation_maps_to_pointer (__main__.chromium_phone_portrait.test_11_draw_after_rotation_maps_to_pointer) ... ok
+test_12_rapid_taps_and_dblclick_keep_scale_and_toolbar (__main__.chromium_phone_portrait.test_12_rapid_taps_and_dblclick_keep_scale_and_toolbar) ... ok
+test_13_multi_pointer_and_cancel_recovery (__main__.chromium_phone_portrait.test_13_multi_pointer_and_cancel_recovery) ... ok
+test_14_twenty_step_undo_limit (__main__.chromium_phone_portrait.test_14_twenty_step_undo_limit) ... ok
+test_15_sticker_background_and_png_export (__main__.chromium_phone_portrait.test_15_sticker_background_and_png_export) ... ok
+test_16_new_confirmation_does_not_clear_on_cancel (__main__.chromium_phone_portrait.test_16_new_confirmation_does_not_clear_on_cancel) ... ok
+test_17_touch_gesture_handlers_scoped_away_from_upload (__main__.chromium_phone_portrait.test_17_touch_gesture_handlers_scoped_away_from_upload) ... ok
+test_18_actual_touch_swipe_draws_without_scrolling (__main__.chromium_phone_portrait.test_18_actual_touch_swipe_draws_without_scrolling) ... ok
+test_19_actual_toolbar_touch_scroll_keeps_header (__main__.chromium_phone_portrait.test_19_actual_toolbar_touch_scroll_keeps_header) ... ok
+test_20_after_eraser_templates_and_uploads_are_visible (__main__.chromium_phone_portrait.test_20_after_eraser_templates_and_uploads_are_visible) ... ok
+test_21_zoom_buttons_and_fit_preserve_exact_pixels (__main__.chromium_phone_portrait.test_21_zoom_buttons_and_fit_preserve_exact_pixels) ... ok
+test_22_actual_two_finger_pinch_changes_canvas_not_page (__main__.chromium_phone_portrait.test_22_actual_two_finger_pinch_changes_canvas_not_page) ... ok
+test_23_two_finger_pan_preserves_view_scale_and_art (__main__.chromium_phone_portrait.test_23_two_finger_pan_preserves_view_scale_and_art) ... ok
+test_24_pinch_rolls_back_unfinished_stroke_without_undo_entry (__main__.chromium_phone_portrait.test_24_pinch_rolls_back_unfinished_stroke_without_undo_entry) ... ok
+test_25_bucket_selected_pinch_does_not_fill (__main__.chromium_phone_portrait.test_25_bucket_selected_pinch_does_not_fill) ... ok
+test_26_sticker_selected_pinch_does_not_stamp (__main__.chromium_phone_portrait.test_26_sticker_selected_pinch_does_not_stamp) ... ok
+test_27_horizontal_and_vertical_scroll_sliders_move_only_canvas (__main__.chromium_phone_portrait.test_27_horizontal_and_vertical_scroll_sliders_move_only_canvas) ... ok
+test_28_brush_after_zoom_and_scroll_hits_correct_artwork (__main__.chromium_phone_portrait.test_28_brush_after_zoom_and_scroll_hits_correct_artwork) ... ok
+test_29_sparkle_and_eraser_work_while_zoomed (__main__.chromium_phone_portrait.test_29_sparkle_and_eraser_work_while_zoomed) ... ok
+test_30_self_drawn_bucket_fills_after_zoom_and_scroll (__main__.chromium_phone_portrait.test_30_self_drawn_bucket_fills_after_zoom_and_scroll) ... ok
+test_31_template_fill_after_zoom_does_not_leak_through_eye (__main__.chromium_phone_portrait.test_31_template_fill_after_zoom_does_not_leak_through_eye) ... ok
+test_32_uploaded_picture_fill_at_zoom_and_reupload (__main__.chromium_phone_portrait.test_32_uploaded_picture_fill_at_zoom_and_reupload) ... ok
+test_33_rotation_while_zoomed_preserves_pixels_and_zoom (__main__.chromium_phone_portrait.test_33_rotation_while_zoomed_preserves_pixels_and_zoom) ... ok
+test_34_save_exports_entire_picture_not_only_zoomed_view (__main__.chromium_phone_portrait.test_34_save_exports_entire_picture_not_only_zoomed_view) ... ok
+test_35_zoomed_double_taps_do_not_zoom_the_page (__main__.chromium_phone_portrait.test_35_zoomed_double_taps_do_not_zoom_the_page) ... ok
+test_36_pen_pointer_ignores_palm_touches (__main__.chromium_phone_portrait.test_36_pen_pointer_ignores_palm_touches) ... ok
+test_37_blur_during_gesture_recovers_without_marks (__main__.chromium_phone_portrait.test_37_blur_during_gesture_recovers_without_marks) ... ok
+test_38_zoom_visual_layout_and_scroll_to_edges (__main__.chromium_phone_portrait.test_38_zoom_visual_layout_and_scroll_to_edges) ... ok
+test_39_trusted_finger_brush_hits_zoomed_scrolled_canvas (__main__.chromium_phone_portrait.test_39_trusted_finger_brush_hits_zoomed_scrolled_canvas) ... ok
+test_40_zoom_anchor_stays_under_the_finger_midpoint (__main__.chromium_phone_portrait.test_40_zoom_anchor_stays_under_the_finger_midpoint) ... ok
+test_41_single_fixed_interface_no_style_switcher (__main__.chromium_phone_portrait.test_41_single_fixed_interface_no_style_switcher) ... ok
+test_42_drawer_open_close_does_not_change_zoom_or_pixels (__main__.chromium_phone_portrait.test_42_drawer_open_close_does_not_change_zoom_or_pixels) ... ok
+test_43_quick_palette_and_tool_selection (__main__.chromium_phone_portrait.test_43_quick_palette_and_tool_selection) ... ok
+test_44_large_view_is_view_only_and_fit_recovers (__main__.chromium_phone_portrait.test_44_large_view_is_view_only_and_fit_recovers) ... ok
+test_45_phone_landscape_auto_large_from_portrait_preserves_picture (__main__.chromium_phone_portrait.test_45_phone_landscape_auto_large_from_portrait_preserves_picture) ... ok
+test_46_safe_area_simulation_does_not_cover_buttons (__main__.chromium_phone_portrait.test_46_safe_area_simulation_does_not_cover_buttons) ... ok
+test_47_drawer_keyboard_and_focus_return (__main__.chromium_phone_portrait.test_47_drawer_keyboard_and_focus_return) ... ok
+test_48_blocked_storage_does_not_affect_fixed_interface (__main__.chromium_phone_portrait.test_48_blocked_storage_does_not_affect_fixed_interface) ... ok
+test_49_ui_uses_single_accent_but_paint_remains_separate (__main__.chromium_phone_portrait.test_49_ui_uses_single_accent_but_paint_remains_separate) ... ok
+test_50_reduced_motion_preserves_art_and_chrome (__main__.chromium_phone_portrait.test_50_reduced_motion_preserves_art_and_chrome) ... ok
+test_51_selected_controls_have_accessible_labels_and_states (__main__.chromium_phone_portrait.test_51_selected_controls_have_accessible_labels_and_states) ... ok
+test_52_ui_design_does_not_contaminate_saved_background (__main__.chromium_phone_portrait.test_52_ui_design_does_not_contaminate_saved_background) ... ok
+
+======================================================================
+ERROR: test_46_safe_area_simulation_does_not_cover_buttons (__main__.chromium_desktop.test_46_safe_area_simulation_does_not_cover_buttons)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/data/hc-apple-colorful-work/tests/browser/run_colorful_tests.py", line 106, in test_46_safe_area_simulation_does_not_cover_buttons
+    self.open_tools();r=self.page.locator('.tools').bounding_box();self.assertGreaterEqual(r['x'],59);self.assertLessEqual(r['x']+r['width'],851-59)
+    ~~~~~~~~~~~~~~~^^
+  File "/mnt/data/hc-apple-colorful-work/tests/browser/run_colorful_tests.py", line 35, in open_tools
+    self.page.locator('#toolsToggle').tap();self.settle()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/opt/pyvenv/lib/python3.13/site-packages/playwright/sync_api/_generated.py", line 17805, in tap
+    self._sync(
+    ~~~~~~~~~~^
+        self._impl_obj.tap(
+        ^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+        )
+        ^
+    )
+    ^
+  File "/opt/pyvenv/lib/python3.13/site-packages/playwright/_impl/_sync_base.py", line 115, in _sync
+    return task.result()
+           ~~~~~~~~~~~^^
+  File "/opt/pyvenv/lib/python3.13/site-packages/playwright/_impl/_locator.py", line 639, in tap
+    return await self._frame.tap(
+           ^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "/opt/pyvenv/lib/python3.13/site-packages/playwright/_impl/_frame.py", line 596, in tap
+    await self._channel.send("tap", self._timeout, locals_to_params(locals()))
+  File "/opt/pyvenv/lib/python3.13/site-packages/playwright/_impl/_connection.py", line 69, in send
+    return await self._connection.wrap_api_call(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "/opt/pyvenv/lib/python3.13/site-packages/playwright/_impl/_connection.py", line 559, in wrap_api_call
+    raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+playwright._impl._errors.Error: Locator.tap: The page does not support tap. Use hasTouch context option to enable touch support.
+
+======================================================================
+FAIL: test_10_upload_after_scrolling_opens_native_filechooser (__main__.chromium_desktop.test_10_upload_after_scrolling_opens_native_filechooser)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/data/hc-apple-colorful-work/tests/browser/run_colorful_tests.py", line 63, in test_10_upload_after_scrolling_opens_native_filechooser
+    self.open_tools();super().test_10_upload_after_scrolling_opens_native_filechooser()
+                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/mnt/data/hc-apple-colorful-work/tests/browser/run_browser_tests.py", line 235, in test_10_upload_after_scrolling_opens_native_filechooser
+    self.assertGreater(self.page.locator('.tools').evaluate('(e)=>e.scrollTop'),0)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 not greater than 0
+
+======================================================================
+FAIL: test_10_upload_after_scrolling_opens_native_filechooser (__main__.chromium_tablet_landscape.test_10_upload_after_scrolling_opens_native_filechooser)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/data/hc-apple-colorful-work/tests/browser/run_colorful_tests.py", line 63, in test_10_upload_after_scrolling_opens_native_filechooser
+    self.open_tools();super().test_10_upload_after_scrolling_opens_native_filechooser()
+                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/mnt/data/hc-apple-colorful-work/tests/browser/run_browser_tests.py", line 235, in test_10_upload_after_scrolling_opens_native_filechooser
+    self.assertGreater(self.page.locator('.tools').evaluate('(e)=>e.scrollTop'),0)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 not greater than 0
+
+======================================================================
+FAIL: test_10_upload_after_scrolling_opens_native_filechooser (__main__.chromium_phone_portrait.test_10_upload_after_scrolling_opens_native_filechooser)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/data/hc-apple-colorful-work/tests/browser/run_colorful_tests.py", line 63, in test_10_upload_after_scrolling_opens_native_filechooser
+    self.open_tools()
+    
+  File "/mnt/data/hc-apple-colorful-work/tests/browser/run_browser_tests.py", line 235, in test_10_upload_after_scrolling_opens_native_filechooser
+    self.assertGreater(self.page.locator('.tools').evaluate('(e)=>e.scrollTop'),0)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 not greater than 0
+
+----------------------------------------------------------------------
+Ran 208 tests in 322.079s
+
+FAILED (failures=3, errors=1, skipped=9)

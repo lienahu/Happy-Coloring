@@ -293,7 +293,8 @@ class BrowserCases(unittest.TestCase):
     def test_15_sticker_background_and_png_export(self):
         self.click('[data-bg="#ffe5ef"]');self.click('[data-sticker="⭐"]');self.tap_art(120,120)
         self.assertGreater(self.pixel(120,120)[3],0)
-        with self.page.expect_download() as event:self.click('#saveBtn')
+        self.click('#saveBtn');self.page.wait_for_function("document.getElementById('downloadPicture').getAttribute('aria-disabled')==='false'")
+        with self.page.expect_download() as event:self.click('#downloadPicture')
         download=event.value;target=self.evidence/f'{self.profile_name}-saved.png';download.save_as(str(target))
         content=target.read_bytes();self.assertTrue(content.startswith(b'\x89PNG\r\n\x1a\n'))
         self.assertEqual(int.from_bytes(content[16:20],'big'),self.digest()['width'])
@@ -513,7 +514,8 @@ class BrowserCases(unittest.TestCase):
     def test_34_save_exports_entire_picture_not_only_zoomed_view(self):
         self.color('#ff0000');self.stroke([(60,80),(130,80)])
         width,height=self.page.evaluate('[canvas.width,canvas.height]');self.zoom(4)
-        with self.page.expect_download() as event:self.click('#saveBtn')
+        self.click('#saveBtn');self.page.wait_for_function("document.getElementById('downloadPicture').getAttribute('aria-disabled')==='false'")
+        with self.page.expect_download() as event:self.click('#downloadPicture')
         target=self.evidence/f'{self.profile_name}-zoom-full-export.png';event.value.save_as(str(target));content=target.read_bytes()
         self.assertEqual(int.from_bytes(content[16:20],'big'),width);self.assertEqual(int.from_bytes(content[20:24],'big'),height)
         import base64
