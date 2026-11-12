@@ -1,0 +1,10 @@
+{
+  "node": "v22.16.0",
+  "playwright": "1.57.0",
+  "chromium": "144.0.7559.96",
+  "browser_navigation": "http://127.0.0.1 was attempted, ERR_BLOCKED_BY_ADMINISTRATOR",
+  "browser_fallback": "exact source injection, with original PNG bytes supplied via a test-only Image.src mapping",
+  "http_resources": "Python client, actual static HTTP server under /Happy-Coloring/ (not browser)",
+  "webkit": "not installed; no WebKit run",
+  "physical_iOS": "not connected; no physical iPhone, iPad, share sheet or photo picker tested"
+}

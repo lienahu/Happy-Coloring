@@ -1,0 +1,26 @@
+test_100_unicorn_matches_upload_and_fill (__main__.chromium_phone_small_landscape.test_100_unicorn_matches_upload_and_fill) ... ok
+test_101_princess_matches_upload_and_fill (__main__.chromium_phone_small_landscape.test_101_princess_matches_upload_and_fill) ... ok
+test_102_cat_matches_upload_and_fill (__main__.chromium_phone_small_landscape.test_102_cat_matches_upload_and_fill) ... ok
+test_103_butterfly_matches_upload_and_fill (__main__.chromium_phone_small_landscape.test_103_butterfly_matches_upload_and_fill) ... ok
+test_104_dino_matches_upload_and_fill (__main__.chromium_phone_small_landscape.test_104_dino_matches_upload_and_fill) ... ok
+test_110_unicorn_zoom_fill_undo_redo_export (__main__.chromium_phone_small_landscape.test_110_unicorn_zoom_fill_undo_redo_export) ... ok
+test_111_princess_zoom_fill_undo_redo_export (__main__.chromium_phone_small_landscape.test_111_princess_zoom_fill_undo_redo_export) ... ok
+test_112_cat_zoom_fill_undo_redo_export (__main__.chromium_phone_small_landscape.test_112_cat_zoom_fill_undo_redo_export) ... ok
+test_113_butterfly_zoom_fill_undo_redo_export (__main__.chromium_phone_small_landscape.test_113_butterfly_zoom_fill_undo_redo_export) ... ok
+test_114_dino_zoom_fill_undo_redo_export (__main__.chromium_phone_small_landscape.test_114_dino_zoom_fill_undo_redo_export) ... ok
+test_120_template_switch_undo_restores_previous_template (__main__.chromium_phone_small_landscape.test_120_template_switch_undo_restores_previous_template) ... ok
+test_121_seven_language_template_buttons_still_map_to_correct_files (__main__.chromium_phone_small_landscape.test_121_seven_language_template_buttons_still_map_to_correct_files) ... ok
+test_122_template_load_after_eraser_and_uploaded_picture (__main__.chromium_phone_small_landscape.test_122_template_load_after_eraser_and_uploaded_picture) ... ok
+test_123_import_preserves_zoom_scroll_background_color_size_and_tool (__main__.chromium_phone_small_landscape.test_123_import_preserves_zoom_scroll_background_color_size_and_tool) ... ok
+test_124_template_rotation_preserves_image_and_fill_coordinate (__main__.chromium_phone_small_landscape.test_124_template_rotation_preserves_image_and_fill_coordinate) ... ok
+test_125_failed_image_keeps_drawing_and_reports_localized_error (__main__.chromium_phone_small_landscape.test_125_failed_image_keeps_drawing_and_reports_localized_error) ... ok
+test_126_latest_image_selection_wins_not_late_first_decode (__main__.chromium_phone_small_landscape.test_126_latest_image_selection_wins_not_late_first_decode) ... ok
+test_127_blank_cancels_pending_image (__main__.chromium_phone_small_landscape.test_127_blank_cancels_pending_image) ... ok
+test_128_drawing_action_cancels_late_image_completion (__main__.chromium_phone_small_landscape.test_128_drawing_action_cancels_late_image_completion) ... ok
+test_129_repeated_template_selection_does_not_duplicate_handlers (__main__.chromium_phone_small_landscape.test_129_repeated_template_selection_does_not_duplicate_handlers) ... ok
+test_130_template_assets_keep_original_resolution_and_readable_canvas (__main__.chromium_phone_small_landscape.test_130_template_assets_keep_original_resolution_and_readable_canvas) ... ok
+
+----------------------------------------------------------------------
+Ran 21 tests in 228.021s
+
+OK

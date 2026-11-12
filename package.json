@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "test": "node --test tests/unit/*.test.cjs",
-    "test:ui": "python tests/browser/run_language_tests.py",
+    "test:ui": "python tests/browser/run_template_tests.py",
     "test:languages": "python tests/browser/run_language_tests.py --only-languages",
-    "test:save": "python tests/browser/run_save_tests.py --save-only"
+    "test:save": "python tests/browser/run_save_tests.py --save-only",
+    "test:templates": "python tests/browser/run_template_tests.py --templates-only"
   },
   "engines": {
     "node": ">=20"
