@@ -1,0 +1,216 @@
+--- a/app.js
++++ b/app.js
+@@ -245,36 +245,94 @@
+  document.querySelectorAll(".bg").forEach(x=>x.classList.remove("active"));b.classList.add("active")
+ });
+ 
+-function line(x1,y1,x2,y2){ctx.moveTo(x1,y1);ctx.lineTo(x2,y2)}
+-function circle(x,y,r){ctx.moveTo(x+r,y);ctx.arc(x,y,r,0,Math.PI*2)}
++// PICTURE-SOURCE-BEGIN: templates and Upload share this one import path.
++// The five files are the supplied originals, not CSS backgrounds or extra layers.
++const coloringPages=Object.freeze({
++ unicorn:"assets/coloring-pages/unicorn.png",
++ princess:"assets/coloring-pages/princess.png",
++ cat:"assets/coloring-pages/cat.png",
++ butterfly:"assets/coloring-pages/butterfly.png",
++ dino:"assets/coloring-pages/dinosaur.png"
++});
++let pictureRequest=0,cancelPictureRequest=null,pictureLoadPending=false;
++
++function pictureLoadError(){
++ const fallback="This picture could not be opened. Your drawing is unchanged. Please try again.";
++ window.alert(window.HappyI18n ? window.HappyI18n.t("pictureLoadError") : fallback);
++}
++
++function loadPictureSource(src,release=()=>{}){
++ // A later selection wins. Stop waiting for the earlier image and release its URL.
++ if(cancelPictureRequest)cancelPictureRequest();
++ const request=++pictureRequest,revision=restoreTicket;
++ pictureLoadPending=true;
++ return new Promise(resolve=>{
++   const im=new Image();let finished=false,timer=null;
++   const current=()=>request===pictureRequest && revision===restoreTicket;
++   function finish(ok){
++     if(finished)return;
++     finished=true;clearTimeout(timer);im.onload=null;im.onerror=null;
++     if(request===pictureRequest){cancelPictureRequest=null;pictureLoadPending=false;}
++     release();resolve(ok);
++   }
++   function fail(){
++     const report=current();finish(false);
++     if(report)pictureLoadError();
++   }
++   cancelPictureRequest=()=>{finish(false);im.src="";};
++   im.onload=()=>{
++     if(!current()){finish(false);return;}
++     // Decode/readability is validated BEFORE clearing the child's existing art.
++     // This temporary import buffer is copied 1:1; it is NOT an overlay layer.
++     let prepared;
++     try{
++       const iw=im.naturalWidth||im.width,ih=im.naturalHeight||im.height;
++       if(!(iw>0&&ih>0&&W()>0&&H()>0))throw new Error("Invalid image size");
++       prepared=document.createElement("canvas");
++       prepared.width=canvas.width;prepared.height=canvas.height;
++       const pc=prepared.getContext("2d",{willReadFrequently:true});
++       pc.setTransform(canvas.width/W(),0,0,canvas.height/H(),0,0);
++       const s=Math.min(W()/iw,H()/ih),nw=iw*s,nh=ih*s;
++       pc.drawImage(im,(W()-nw)/2,(H()-nh)/2,nw,nh);
++       // Refuse unreadable/tainted sources without tainting the real canvas.
++       pc.getImageData(0,0,1,1);
++     }catch(_){fail();return;}
++     if(!current()){finish(false);return;}
++     canvasInput.cancel();end();++restoreTicket;
++     ctx.save();ctx.globalCompositeOperation="source-over";
++     ctx.setTransform(1,0,0,1,0,0);
++     ctx.clearRect(0,0,canvas.width,canvas.height);
++     ctx.drawImage(prepared,0,0);ctx.restore();snap();
++     finish(true);
++   };
++   im.onerror=fail;
++   timer=setTimeout(fail,30000);
++   try{im.src=src;}catch(_){fail();}
++ });
++}
++
+ function page(name){
+- ++restoreTicket;ctx.clearRect(0,0,W(),H());ctx.save();ctx.globalCompositeOperation="source-over";ctx.strokeStyle="#252525";ctx.lineWidth=4;ctx.lineCap="round";ctx.lineJoin="round";ctx.beginPath();
+- let w=W(),h=H(),cx=w/2,cy=h/2;
+- if(name==="blank"){ctx.restore();snap();return}
+- if(name==="unicorn"){circle(cx,cy,110);circle(cx-42,cy-20,9);circle(cx+42,cy-20,9);ctx.moveTo(cx-40,cy+45);ctx.quadraticCurveTo(cx,cy+70,cx+40,cy+45);ctx.moveTo(cx,cy-110);line(cx,cy-110,cx+18,cy-190);line(cx+18,cy-190,cx+42,cy-108);ctx.moveTo(cx-100,cy-55);line(cx-150,cy-100,cx-115,cy-20);ctx.moveTo(cx+100,cy-55);line(cx+150,cy-100,cx+115,cy-20)}
+- if(name==="princess"){circle(cx,cy-45,80);ctx.moveTo(cx-80,cy-90);line(cx-50,cy-150,cx-10,cy-105);line(cx-10,cy-105,cx+25,cy-155);line(cx+25,cy-155,cx+75,cy-95);ctx.moveTo(cx-25,cy-20);circle(cx-28,cy-35,7);circle(cx+28,cy-35,7);ctx.moveTo(cx-35,cy+10);ctx.quadraticCurveTo(cx,cy+35,cx+35,cy+10);ctx.moveTo(cx-70,cy+40);line(cx-150,cy+210,cx+150,cy+210);line(cx+150,cy+210,cx+70,cy+40)}
+- if(name==="cat"){circle(cx,cy,105);ctx.moveTo(cx-80,cy-75);line(cx-120,cy-150,cx-35,cy-110);ctx.moveTo(cx+80,cy-75);line(cx+120,cy-150,cx+35,cy-110);circle(cx-38,cy-18,9);circle(cx+38,cy-18,9);ctx.moveTo(cx,cy);line(cx-12,cy+18,cx+12,cy+18);ctx.moveTo(cx,cy+18);ctx.quadraticCurveTo(cx-20,cy+40,cx-40,cy+28);ctx.moveTo(cx,cy+18);ctx.quadraticCurveTo(cx+20,cy+40,cx+40,cy+28)}
+- if(name==="butterfly"){ctx.moveTo(cx,cy-100);line(cx,cy+120,cx,cy-100);circle(cx,cy-120,18);ctx.moveTo(cx-5,cy-80);ctx.bezierCurveTo(cx-180,cy-210,cx-210,cy+10,cx-20,cy+20);ctx.moveTo(cx+5,cy-80);ctx.bezierCurveTo(cx+180,cy-210,cx+210,cy+10,cx+20,cy+20);ctx.moveTo(cx-15,cy+15);ctx.bezierCurveTo(cx-150,cy+10,cx-160,cy+180,cx-5,cy+105);ctx.moveTo(cx+15,cy+15);ctx.bezierCurveTo(cx+150,cy+10,cx+160,cy+180,cx+5,cy+105)}
+- if(name==="dino"){ctx.moveTo(cx-160,cy+100);ctx.bezierCurveTo(cx-220,cy-40,cx-80,cy-170,cx+40,cy-100);ctx.bezierCurveTo(cx+140,cy-150,cx+180,cy-60,cx+120,cy);ctx.bezierCurveTo(cx+90,cy+30,cx+95,cy+100,cx+160,cy+130);ctx.moveTo(cx-160,cy+100);ctx.bezierCurveTo(cx-40,cy+130,cx+70,cy+120,cx+160,cy+130);circle(cx+65,cy-75,7)}
+- ctx.stroke();ctx.restore();snap()
++ if(name==="blank"){
++   if(cancelPictureRequest)cancelPictureRequest();
++   canvasInput.cancel();end();clearAll();return;
++ }
++ if(Object.prototype.hasOwnProperty.call(coloringPages,name)){
++   return loadPictureSource(coloringPages[name]);
++ }
+ }
+ document.querySelectorAll(".pageBtn").forEach(b=>b.onclick=()=>page(b.dataset.page));
+ 
++let uploadRequest=0;
+ imageUpload.onchange=e=>{
+- const f=e.target.files&&e.target.files[0];if(!f)return;
+- const url=URL.createObjectURL(f),im=new Image();
+- im.onload=()=>{
+-   ++restoreTicket;
+-   ctx.save();ctx.globalCompositeOperation="source-over";
+-   ctx.clearRect(0,0,W(),H());
+-   let s=Math.min(W()/im.width,H()/im.height),nw=im.width*s,nh=im.height*s;
+-   ctx.drawImage(im,(W()-nw)/2,(H()-nh)/2,nw,nh);
+-   ctx.restore();snap();
++ const input=e.target,f=input.files&&input.files[0];if(!f)return;
++ const request=++uploadRequest,url=URL.createObjectURL(f);
++ return loadPictureSource(url,()=>{
+    URL.revokeObjectURL(url);
+-   e.target.value="";
+- };
+- im.src=url;
++   // An older request must not clear the selection of a newer upload.
++   if(request===uploadRequest)input.value="";
++ });
+ };
++// PICTURE-SOURCE-END
+ 
+ // Layout can change on every browser-toolbar animation. Only CSS changes;
+ // canvas.width/canvas.height are never reassigned after first initialization.
+--- a/index.html
++++ b/index.html
+@@ -14,7 +14,7 @@
+ <header>
+ <div class="brand-cluster">
+ <button aria-controls="artTools" aria-expanded="false" aria-label="Open art tools" class="icon-button mobile-only" data-i18n-aria="openTools" id="toolsToggle" type="button"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"></path></svg></button>
+-<div class="brand"><span class="brand-mark"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18h1a2 2 0 0 0 1-3.7 1.5 1.5 0 0 1 .7-2.8H17a4 4 0 0 0 4-4C21 6 17 3 12 3Z"></path><circle cx="7" cy="11" r=".8"></circle><circle cx="9" cy="7" r=".8"></circle><circle cx="14" cy="6.5" r=".8"></circle><circle cx="17" cy="10" r=".8"></circle></svg></span><span class="brand-name">Happy <b>Colors</b><small class="build-tag">Colorful S1</small></span></div>
++<div class="brand"><span class="brand-mark"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18h1a2 2 0 0 0 1-3.7 1.5 1.5 0 0 1 .7-2.8H17a4 4 0 0 0 4-4C21 6 17 3 12 3Z"></path><circle cx="7" cy="11" r=".8"></circle><circle cx="9" cy="7" r=".8"></circle><circle cx="14" cy="6.5" r=".8"></circle><circle cx="17" cy="10" r=".8"></circle></svg></span><span class="brand-name">Happy <b>Colors</b><small class="build-tag">Colorful P1</small></span></div>
+ </div>
+ <div aria-label="Canvas zoom controls" class="canvas-view-tools" data-i18n-aria="zoomControls" role="group">
+ <button aria-label="Zoom canvas out" data-i18n-aria="zoomOut" data-i18n-title="zoomOut" id="zoomOutBtn" title="Zoom out" type="button">−</button>
+@@ -116,9 +116,9 @@
+ <button class="danger" data-i18n="startNew" id="confirmNew">Start new</button>
+ </div>
+ </div>
+-<script src="i18n.js?v=colorful-save-1"></script><script src="canvas-zoom.js?v=colorful-save-1"></script>
++<script src="i18n.js?v=picture-templates-1"></script><script src="canvas-zoom.js?v=colorful-save-1"></script>
+ <script src="save-picture.js?v=colorful-save-1"></script>
+-<script src="app.js?v=colorful-save-1"></script>
++<script src="app.js?v=picture-templates-1"></script>
+ <script src="mobile-ui.js?v=colorful-save-1"></script>
+ <dialog aria-describedby="languageHint" aria-labelledby="languageTitle" class="language-dialog" id="languageDialog"><div class="language-heading"><h2 data-i18n="chooseLanguage" id="languageTitle">Choose a language</h2><button aria-label="Close" class="icon-button" data-i18n-aria="close" id="closeLanguage" type="button"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"></path></svg></button></div><p data-i18n="languageHint" id="languageHint">Change the menus, not your drawing.</p><div class="language-options"><button aria-pressed="false" class="language-option" data-language="en" lang="en" type="button"><span>English</span><span aria-hidden="true" class="language-check"></span></button><button aria-pressed="false" class="language-option" data-language="fr" lang="fr" type="button"><span>Français</span><span aria-hidden="true" class="language-check"></span></button><button aria-pressed="false" class="language-option" data-language="pt" lang="pt" type="button"><span>Português</span><span aria-hidden="true" class="language-check"></span></button><button aria-pressed="false" class="language-option" data-language="es" lang="es" type="button"><span>Español</span><span aria-hidden="true" class="language-check"></span></button><button aria-pressed="false" class="language-option" data-language="zh-Hans" lang="zh-Hans" type="button"><span>简体中文</span><span aria-hidden="true" class="language-check"></span></button><button aria-pressed="false" class="language-option" data-language="ja" lang="ja" type="button"><span>日本語</span><span aria-hidden="true" class="language-check"></span></button><button aria-pressed="false" class="language-option" data-language="ko" lang="ko" type="button"><span>한국어</span><span aria-hidden="true" class="language-check"></span></button></div></dialog>
+ <dialog id="saveDialog" class="save-dialog" aria-labelledby="saveTitle" aria-describedby="saveInstructions">
+--- a/i18n.js
++++ b/i18n.js
+@@ -6,6 +6,7 @@
+   'use strict';
+   const dictionaries = {
+   "en": {
++    "pictureLoadError": "This picture could not be opened. Your drawing is unchanged. Please try again.",
+     "language": "Language",
+     "chooseLanguage": "Choose a language",
+     "languageHint": "Change the menus, not your drawing.",
+@@ -121,6 +122,7 @@
+     "saveRetry": "Try again"
+   },
+   "fr": {
++    "pictureLoadError": "Impossible d’ouvrir cette image. Votre dessin n’a pas été modifié. Veuillez réessayer.",
+     "language": "Langue",
+     "chooseLanguage": "Choisir une langue",
+     "languageHint": "Seuls les menus changent, pas votre dessin.",
+@@ -236,6 +238,7 @@
+     "saveRetry": "Réessayer"
+   },
+   "pt": {
++    "pictureLoadError": "Não foi possível abrir esta imagem. O desenho não foi alterado. Tente novamente.",
+     "language": "Idioma",
+     "chooseLanguage": "Escolher um idioma",
+     "languageHint": "Muda os menus, não o desenho.",
+@@ -351,6 +354,7 @@
+     "saveRetry": "Tentar novamente"
+   },
+   "es": {
++    "pictureLoadError": "No se pudo abrir esta imagen. Tu dibujo no ha cambiado. Inténtalo de nuevo.",
+     "language": "Idioma",
+     "chooseLanguage": "Elegir un idioma",
+     "languageHint": "Cambian los menús, no tu dibujo.",
+@@ -466,6 +470,7 @@
+     "saveRetry": "Reintentar"
+   },
+   "zh-Hans": {
++    "pictureLoadError": "无法打开这张图片，当前画作未被修改。请重试。",
+     "language": "语言",
+     "chooseLanguage": "选择语言",
+     "languageHint": "只更改菜单语言，不改变画作。",
+@@ -581,6 +586,7 @@
+     "saveRetry": "重试"
+   },
+   "ja": {
++    "pictureLoadError": "この画像を開けませんでした。描いた絵は変更されていません。もう一度お試しください。",
+     "language": "言語",
+     "chooseLanguage": "言語を選ぶ",
+     "languageHint": "メニューの言語だけが変わります。絵はそのままです。",
+@@ -696,6 +702,7 @@
+     "saveRetry": "再試行"
+   },
+   "ko": {
++    "pictureLoadError": "이 그림을 열 수 없습니다. 그리던 그림은 변경되지 않았습니다. 다시 시도해 주세요.",
+     "language": "언어",
+     "chooseLanguage": "언어 선택",
+     "languageHint": "메뉴 언어만 바뀌고 그림은 그대로 유지돼요.",
+--- a/package.json
++++ b/package.json
+@@ -4,9 +4,10 @@
+   "private": true,
+   "scripts": {
+     "test": "node --test tests/unit/*.test.cjs",
+-    "test:ui": "python tests/browser/run_language_tests.py",
++    "test:ui": "python tests/browser/run_template_tests.py",
+     "test:languages": "python tests/browser/run_language_tests.py --only-languages",
+-    "test:save": "python tests/browser/run_save_tests.py --save-only"
++    "test:save": "python tests/browser/run_save_tests.py --save-only",
++    "test:templates": "python tests/browser/run_template_tests.py --templates-only"
+   },
+   "engines": {
+     "node": ">=20"

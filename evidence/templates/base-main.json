@@ -1,0 +1,60 @@
+{
+  "ref": "64b3732c61dc24dcb20ed221d0ba171fb186e24a",
+  "files": {
+    "app.js": {
+      "github_blob": "f291bfa1afd37eb65a83483175cbf17435986d21",
+      "local_blob": "f291bfa1afd37eb65a83483175cbf17435986d21",
+      "equal": true
+    },
+    "apple-colorful.css": {
+      "github_blob": "d86ab2b98b15b01cf1dd0e554fb0a788ecd3fd28",
+      "local_blob": "d86ab2b98b15b01cf1dd0e554fb0a788ecd3fd28",
+      "equal": true
+    },
+    "canvas-zoom.js": {
+      "github_blob": "a72eb0844b6bd879dc8d109dcbc92c936f2a6346",
+      "local_blob": "a72eb0844b6bd879dc8d109dcbc92c936f2a6346",
+      "equal": true
+    },
+    "i18n.js": {
+      "github_blob": "692f35a270a0df86893c488143561dab3d35f8a3",
+      "local_blob": "692f35a270a0df86893c488143561dab3d35f8a3",
+      "equal": true
+    },
+    "index.html": {
+      "github_blob": "61d9e2b90ff56b2156bbcfbdd0243ea23ac4ae59",
+      "local_blob": "61d9e2b90ff56b2156bbcfbdd0243ea23ac4ae59",
+      "equal": true
+    },
+    "languages.css": {
+      "github_blob": "79eca2f551a0cc3449ac5be19a7eba88629f7277",
+      "local_blob": "79eca2f551a0cc3449ac5be19a7eba88629f7277",
+      "equal": true
+    },
+    "mobile-ui.js": {
+      "github_blob": "07f495060ba6782cb7bd609c7131049851f8d724",
+      "local_blob": "07f495060ba6782cb7bd609c7131049851f8d724",
+      "equal": true
+    },
+    "save-picture.css": {
+      "github_blob": "d80872b5a198df1714e6c16a689bd003355465ca",
+      "local_blob": "d80872b5a198df1714e6c16a689bd003355465ca",
+      "equal": true
+    },
+    "save-picture.js": {
+      "github_blob": "4d720124152547b6481ab0d63e8caa3a378489d7",
+      "local_blob": "4d720124152547b6481ab0d63e8caa3a378489d7",
+      "equal": true
+    },
+    "style.css": {
+      "github_blob": "2eebafd0b41bc627be5c59408e1ba5f68e447d1a",
+      "local_blob": "2eebafd0b41bc627be5c59408e1ba5f68e447d1a",
+      "equal": true
+    },
+    "package.json": {
+      "github_blob": "bb39e5901e9d1b8e64b183f3d22736208cc7cbdd",
+      "local_blob": "bb39e5901e9d1b8e64b183f3d22736208cc7cbdd",
+      "equal": true
+    }
+  }
+}

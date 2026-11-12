@@ -245,36 +245,94 @@ document.querySelectorAll(".bg").forEach(b=>b.onclick=()=>{
  document.querySelectorAll(".bg").forEach(x=>x.classList.remove("active"));b.classList.add("active")
 });
 
-function line(x1,y1,x2,y2){ctx.moveTo(x1,y1);ctx.lineTo(x2,y2)}
-function circle(x,y,r){ctx.moveTo(x+r,y);ctx.arc(x,y,r,0,Math.PI*2)}
+// PICTURE-SOURCE-BEGIN: templates and Upload share this one import path.
+// The five files are the supplied originals, not CSS backgrounds or extra layers.
+const coloringPages=Object.freeze({
+ unicorn:"assets/coloring-pages/unicorn.png",
+ princess:"assets/coloring-pages/princess.png",
+ cat:"assets/coloring-pages/cat.png",
+ butterfly:"assets/coloring-pages/butterfly.png",
+ dino:"assets/coloring-pages/dinosaur.png"
+});
+let pictureRequest=0,cancelPictureRequest=null,pictureLoadPending=false;
+
+function pictureLoadError(){
+ const fallback="This picture could not be opened. Your drawing is unchanged. Please try again.";
+ window.alert(window.HappyI18n ? window.HappyI18n.t("pictureLoadError") : fallback);
+}
+
+function loadPictureSource(src,release=()=>{}){
+ // A later selection wins. Stop waiting for the earlier image and release its URL.
+ if(cancelPictureRequest)cancelPictureRequest();
+ const request=++pictureRequest,revision=restoreTicket;
+ pictureLoadPending=true;
+ return new Promise(resolve=>{
+   const im=new Image();let finished=false,timer=null;
+   const current=()=>request===pictureRequest && revision===restoreTicket;
+   function finish(ok){
+     if(finished)return;
+     finished=true;clearTimeout(timer);im.onload=null;im.onerror=null;
+     if(request===pictureRequest){cancelPictureRequest=null;pictureLoadPending=false;}
+     release();resolve(ok);
+   }
+   function fail(){
+     const report=current();finish(false);
+     if(report)pictureLoadError();
+   }
+   cancelPictureRequest=()=>{finish(false);im.src="";};
+   im.onload=()=>{
+     if(!current()){finish(false);return;}
+     // Decode/readability is validated BEFORE clearing the child's existing art.
+     // This temporary import buffer is copied 1:1; it is NOT an overlay layer.
+     let prepared;
+     try{
+       const iw=im.naturalWidth||im.width,ih=im.naturalHeight||im.height;
+       if(!(iw>0&&ih>0&&W()>0&&H()>0))throw new Error("Invalid image size");
+       prepared=document.createElement("canvas");
+       prepared.width=canvas.width;prepared.height=canvas.height;
+       const pc=prepared.getContext("2d",{willReadFrequently:true});
+       pc.setTransform(canvas.width/W(),0,0,canvas.height/H(),0,0);
+       const s=Math.min(W()/iw,H()/ih),nw=iw*s,nh=ih*s;
+       pc.drawImage(im,(W()-nw)/2,(H()-nh)/2,nw,nh);
+       // Refuse unreadable/tainted sources without tainting the real canvas.
+       pc.getImageData(0,0,1,1);
+     }catch(_){fail();return;}
+     if(!current()){finish(false);return;}
+     canvasInput.cancel();end();++restoreTicket;
+     ctx.save();ctx.globalCompositeOperation="source-over";
+     ctx.setTransform(1,0,0,1,0,0);
+     ctx.clearRect(0,0,canvas.width,canvas.height);
+     ctx.drawImage(prepared,0,0);ctx.restore();snap();
+     finish(true);
+   };
+   im.onerror=fail;
+   timer=setTimeout(fail,30000);
+   try{im.src=src;}catch(_){fail();}
+ });
+}
+
 function page(name){
- ++restoreTicket;ctx.clearRect(0,0,W(),H());ctx.save();ctx.globalCompositeOperation="source-over";ctx.strokeStyle="#252525";ctx.lineWidth=4;ctx.lineCap="round";ctx.lineJoin="round";ctx.beginPath();
- let w=W(),h=H(),cx=w/2,cy=h/2;
- if(name==="blank"){ctx.restore();snap();return}
- if(name==="unicorn"){circle(cx,cy,110);circle(cx-42,cy-20,9);circle(cx+42,cy-20,9);ctx.moveTo(cx-40,cy+45);ctx.quadraticCurveTo(cx,cy+70,cx+40,cy+45);ctx.moveTo(cx,cy-110);line(cx,cy-110,cx+18,cy-190);line(cx+18,cy-190,cx+42,cy-108);ctx.moveTo(cx-100,cy-55);line(cx-150,cy-100,cx-115,cy-20);ctx.moveTo(cx+100,cy-55);line(cx+150,cy-100,cx+115,cy-20)}
- if(name==="princess"){circle(cx,cy-45,80);ctx.moveTo(cx-80,cy-90);line(cx-50,cy-150,cx-10,cy-105);line(cx-10,cy-105,cx+25,cy-155);line(cx+25,cy-155,cx+75,cy-95);ctx.moveTo(cx-25,cy-20);circle(cx-28,cy-35,7);circle(cx+28,cy-35,7);ctx.moveTo(cx-35,cy+10);ctx.quadraticCurveTo(cx,cy+35,cx+35,cy+10);ctx.moveTo(cx-70,cy+40);line(cx-150,cy+210,cx+150,cy+210);line(cx+150,cy+210,cx+70,cy+40)}
- if(name==="cat"){circle(cx,cy,105);ctx.moveTo(cx-80,cy-75);line(cx-120,cy-150,cx-35,cy-110);ctx.moveTo(cx+80,cy-75);line(cx+120,cy-150,cx+35,cy-110);circle(cx-38,cy-18,9);circle(cx+38,cy-18,9);ctx.moveTo(cx,cy);line(cx-12,cy+18,cx+12,cy+18);ctx.moveTo(cx,cy+18);ctx.quadraticCurveTo(cx-20,cy+40,cx-40,cy+28);ctx.moveTo(cx,cy+18);ctx.quadraticCurveTo(cx+20,cy+40,cx+40,cy+28)}
- if(name==="butterfly"){ctx.moveTo(cx,cy-100);line(cx,cy+120,cx,cy-100);circle(cx,cy-120,18);ctx.moveTo(cx-5,cy-80);ctx.bezierCurveTo(cx-180,cy-210,cx-210,cy+10,cx-20,cy+20);ctx.moveTo(cx+5,cy-80);ctx.bezierCurveTo(cx+180,cy-210,cx+210,cy+10,cx+20,cy+20);ctx.moveTo(cx-15,cy+15);ctx.bezierCurveTo(cx-150,cy+10,cx-160,cy+180,cx-5,cy+105);ctx.moveTo(cx+15,cy+15);ctx.bezierCurveTo(cx+150,cy+10,cx+160,cy+180,cx+5,cy+105)}
- if(name==="dino"){ctx.moveTo(cx-160,cy+100);ctx.bezierCurveTo(cx-220,cy-40,cx-80,cy-170,cx+40,cy-100);ctx.bezierCurveTo(cx+140,cy-150,cx+180,cy-60,cx+120,cy);ctx.bezierCurveTo(cx+90,cy+30,cx+95,cy+100,cx+160,cy+130);ctx.moveTo(cx-160,cy+100);ctx.bezierCurveTo(cx-40,cy+130,cx+70,cy+120,cx+160,cy+130);circle(cx+65,cy-75,7)}
- ctx.stroke();ctx.restore();snap()
+ if(name==="blank"){
+   if(cancelPictureRequest)cancelPictureRequest();
+   canvasInput.cancel();end();clearAll();return;
+ }
+ if(Object.prototype.hasOwnProperty.call(coloringPages,name)){
+   return loadPictureSource(coloringPages[name]);
+ }
 }
 document.querySelectorAll(".pageBtn").forEach(b=>b.onclick=()=>page(b.dataset.page));
 
+let uploadRequest=0;
 imageUpload.onchange=e=>{
- const f=e.target.files&&e.target.files[0];if(!f)return;
- const url=URL.createObjectURL(f),im=new Image();
- im.onload=()=>{
-   ++restoreTicket;
-   ctx.save();ctx.globalCompositeOperation="source-over";
-   ctx.clearRect(0,0,W(),H());
-   let s=Math.min(W()/im.width,H()/im.height),nw=im.width*s,nh=im.height*s;
-   ctx.drawImage(im,(W()-nw)/2,(H()-nh)/2,nw,nh);
-   ctx.restore();snap();
+ const input=e.target,f=input.files&&input.files[0];if(!f)return;
+ const request=++uploadRequest,url=URL.createObjectURL(f);
+ return loadPictureSource(url,()=>{
    URL.revokeObjectURL(url);
-   e.target.value="";
- };
- im.src=url;
+   // An older request must not clear the selection of a newer upload.
+   if(request===uploadRequest)input.value="";
+ });
 };
+// PICTURE-SOURCE-END
 
 // Layout can change on every browser-toolbar animation. Only CSS changes;
 // canvas.width/canvas.height are never reassigned after first initialization.

@@ -1,0 +1,138 @@
+{
+  "browser": "Chromium",
+  "browser_version": "144.0.7559.96",
+  "transport": "exact source injection; original PNG bytes substituted for relative image URLs",
+  "native_share": "mocked API only",
+  "tests_run": 21,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "results": [
+    {
+      "test": "__main__.chromium_tablet_portrait.test_100_unicorn_matches_upload_and_fill",
+      "status": "passed",
+      "seconds": 10.598,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_portrait.test_101_princess_matches_upload_and_fill",
+      "status": "passed",
+      "seconds": 6.882,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_portrait.test_102_cat_matches_upload_and_fill",
+      "status": "passed",
+      "seconds": 7.633,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_portrait.test_103_butterfly_matches_upload_and_fill",
+      "status": "passed",
+      "seconds": 8.532,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_portrait.test_104_dino_matches_upload_and_fill",
+      "status": "passed",
+      "seconds": 8.232,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_portrait.test_110_unicorn_zoom_fill_undo_redo_export",
+      "status": "passed",
+      "seconds": 11.246,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_portrait.test_111_princess_zoom_fill_undo_redo_export",
+      "status": "passed",
+      "seconds": 10.344,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_portrait.test_112_cat_zoom_fill_undo_redo_export",
+      "status": "passed",
+      "seconds": 11.864,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_portrait.test_113_butterfly_zoom_fill_undo_redo_export",
+      "status": "passed",
+      "seconds": 17.862,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_portrait.test_114_dino_zoom_fill_undo_redo_export",
+      "status": "passed",
+      "seconds": 14.278,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_portrait.test_120_template_switch_undo_restores_previous_template",
+      "status": "passed",
+      "seconds": 9.751,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_portrait.test_121_seven_language_template_buttons_still_map_to_correct_files",
+      "status": "passed",
+      "seconds": 42.237,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_portrait.test_122_template_load_after_eraser_and_uploaded_picture",
+      "status": "passed",
+      "seconds": 7.264,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_portrait.test_123_import_preserves_zoom_scroll_background_color_size_and_tool",
+      "status": "passed",
+      "seconds": 6.78,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_portrait.test_124_template_rotation_preserves_image_and_fill_coordinate",
+      "status": "passed",
+      "seconds": 6.279,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_portrait.test_125_failed_image_keeps_drawing_and_reports_localized_error",
+      "status": "passed",
+      "seconds": 12.396,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_portrait.test_126_latest_image_selection_wins_not_late_first_decode",
+      "status": "passed",
+      "seconds": 5.807,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_portrait.test_127_blank_cancels_pending_image",
+      "status": "passed",
+      "seconds": 6.001,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_portrait.test_128_drawing_action_cancels_late_image_completion",
+      "status": "passed",
+      "seconds": 5.661,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_portrait.test_129_repeated_template_selection_does_not_duplicate_handlers",
+      "status": "passed",
+      "seconds": 6.566,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_tablet_portrait.test_130_template_assets_keep_original_resolution_and_readable_canvas",
+      "status": "passed",
+      "seconds": 12.379,
+      "detail": ""
+    }
+  ]
+}

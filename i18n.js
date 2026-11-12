@@ -6,6 +6,7 @@
   'use strict';
   const dictionaries = {
   "en": {
+    "pictureLoadError": "This picture could not be opened. Your drawing is unchanged. Please try again.",
     "language": "Language",
     "chooseLanguage": "Choose a language",
     "languageHint": "Change the menus, not your drawing.",
@@ -121,6 +122,7 @@
     "saveRetry": "Try again"
   },
   "fr": {
+    "pictureLoadError": "Impossible d’ouvrir cette image. Votre dessin n’a pas été modifié. Veuillez réessayer.",
     "language": "Langue",
     "chooseLanguage": "Choisir une langue",
     "languageHint": "Seuls les menus changent, pas votre dessin.",
@@ -236,6 +238,7 @@
     "saveRetry": "Réessayer"
   },
   "pt": {
+    "pictureLoadError": "Não foi possível abrir esta imagem. O desenho não foi alterado. Tente novamente.",
     "language": "Idioma",
     "chooseLanguage": "Escolher um idioma",
     "languageHint": "Muda os menus, não o desenho.",
@@ -351,6 +354,7 @@
     "saveRetry": "Tentar novamente"
   },
   "es": {
+    "pictureLoadError": "No se pudo abrir esta imagen. Tu dibujo no ha cambiado. Inténtalo de nuevo.",
     "language": "Idioma",
     "chooseLanguage": "Elegir un idioma",
     "languageHint": "Cambian los menús, no tu dibujo.",
@@ -466,6 +470,7 @@
     "saveRetry": "Reintentar"
   },
   "zh-Hans": {
+    "pictureLoadError": "无法打开这张图片，当前画作未被修改。请重试。",
     "language": "语言",
     "chooseLanguage": "选择语言",
     "languageHint": "只更改菜单语言，不改变画作。",
@@ -581,6 +586,7 @@
     "saveRetry": "重试"
   },
   "ja": {
+    "pictureLoadError": "この画像を開けませんでした。描いた絵は変更されていません。もう一度お試しください。",
     "language": "言語",
     "chooseLanguage": "言語を選ぶ",
     "languageHint": "メニューの言語だけが変わります。絵はそのままです。",
@@ -696,6 +702,7 @@
     "saveRetry": "再試行"
   },
   "ko": {
+    "pictureLoadError": "이 그림을 열 수 없습니다. 그리던 그림은 변경되지 않았습니다. 다시 시도해 주세요.",
     "language": "언어",
     "chooseLanguage": "언어 선택",
     "languageHint": "메뉴 언어만 바뀌고 그림은 그대로 유지돼요.",

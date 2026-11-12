@@ -1,0 +1,27 @@
+[
+  {
+    "file": "app.js",
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "file": "i18n.js",
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "file": "canvas-zoom.js",
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "file": "mobile-ui.js",
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "file": "save-picture.js",
+    "exit_code": 0,
+    "stderr": ""
+  }
+]

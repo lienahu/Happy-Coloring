@@ -1,0 +1,22 @@
+{
+  "dinosaur.png": {
+    "source": "Baby Sauropod Coloring Page-3.png",
+    "sha256": "cd058009616929d676c09b5471cce4f1888c2fe9190ca3552d7c945a767f5010"
+  },
+  "butterfly.png": {
+    "source": "Cute Butterfly Coloring Page-1.png",
+    "sha256": "5c4f42c85fea79c2a3e9ec7fdee2d03acf93b325d4d9b3315ead1ca3c67603a0"
+  },
+  "cat.png": {
+    "source": "Cute Seated Kitten Coloring Page-4.png",
+    "sha256": "78e55c615905dd198a9265f26c184d88c1c7d753252e81d63d98a738b1966b23"
+  },
+  "princess.png": {
+    "source": "Smiling crowned princess coloring page-2.png",
+    "sha256": "d2f251a473a40392bc6aea4444534d306f6234feb76e923b0876c501eda421ab"
+  },
+  "unicorn.png": {
+    "source": "unicorn-simple.png",
+    "sha256": "4594a4968dc309cc523b065859242a8dd43e93394aac6f58338e82733f2d360a"
+  }
+}
