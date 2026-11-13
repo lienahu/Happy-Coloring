@@ -1,0 +1,46 @@
+{
+  "tests_run": 638,
+  "passed": 627,
+  "skipped": 11,
+  "failures": 0,
+  "errors": 0,
+  "profiles": {
+    "desktop": {
+      "tests_run": 148,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 11
+    },
+    "tablet_landscape": {
+      "tests_run": 148,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "phone_portrait": {
+      "tests_run": 148,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "phone_landscape": {
+      "tests_run": 148,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "phone_mini_portrait": {
+      "tests_run": 23,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "phone_tiny_landscape": {
+      "tests_run": 23,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "note": "Only the final full runs are counted. Loops over 15 styles, 30 assets or 7 languages remain one case, not multiplied."
+}

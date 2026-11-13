@@ -1,0 +1,149 @@
+{
+  "browser": "Chromium",
+  "browser_version": "144.0.7559.96",
+  "transport": "exact local source injection; catalog fetch and image source requests supplied with original local bytes",
+  "tests_run": 23,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "results": [
+    {
+      "test": "__main__.chromium_phone_mini_portrait.test_300_fill_picker_has_15_choices_and_closes_after_selection",
+      "status": "passed",
+      "seconds": 2.684,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_mini_portrait.test_301_all_15_styles_fill_inside_closed_square_only",
+      "status": "passed",
+      "seconds": 10.462,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_mini_portrait.test_302_refill_dots_to_stars_to_solid_replaces_entire_region",
+      "status": "passed",
+      "seconds": 4.345,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_mini_portrait.test_303_undo_redo_restore_pattern_membership",
+      "status": "passed",
+      "seconds": 3.413,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_mini_portrait.test_304_black_and_white_patterns_are_visible_and_refillable",
+      "status": "passed",
+      "seconds": 3.374,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_mini_portrait.test_305_zoomed_pattern_fill_uses_artwork_coordinates",
+      "status": "passed",
+      "seconds": 2.109,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_mini_portrait.test_306_brush_boundary_after_pattern_keeps_other_side",
+      "status": "passed",
+      "seconds": 3.802,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_mini_portrait.test_307_clear_and_import_reset_region_records",
+      "status": "passed",
+      "seconds": 2.498,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_mini_portrait.test_308_pattern_survives_save_with_full_pixels_and_background",
+      "status": "passed",
+      "seconds": 2.443,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_mini_portrait.test_309_pattern_picker_and_sizes_do_not_stack",
+      "status": "passed",
+      "seconds": 1.925,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_mini_portrait.test_310_no_catalog_or_template_library_reads_at_startup",
+      "status": "passed",
+      "seconds": 1.417,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_mini_portrait.test_311_catalog_three_tiers_each_ten_and_pagination",
+      "status": "passed",
+      "seconds": 3.628,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_mini_portrait.test_312_only_active_thumbnail_page_loaded_no_full_images",
+      "status": "passed",
+      "seconds": 2.102,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_mini_portrait.test_313_selected_card_alone_reads_full_picture",
+      "status": "passed",
+      "seconds": 2.045,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_mini_portrait.test_314_all_30_templates_load_and_pattern_fill_closed_region",
+      "status": "passed",
+      "seconds": 36.05,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_mini_portrait.test_315_library_failure_preserves_art_and_retry",
+      "status": "passed",
+      "seconds": 2.151,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_mini_portrait.test_316_image_failure_preserves_art_and_history",
+      "status": "passed",
+      "seconds": 1.795,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_mini_portrait.test_317_closing_while_loading_cancels_change",
+      "status": "passed",
+      "seconds": 2.772,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_mini_portrait.test_318_newest_library_selection_wins",
+      "status": "passed",
+      "seconds": 2.308,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_mini_portrait.test_319_seven_languages_fit_picker_and_library",
+      "status": "passed",
+      "seconds": 8.043,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_mini_portrait.test_320_browsing_tabs_never_changes_drawing_or_history",
+      "status": "passed",
+      "seconds": 2.193,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_mini_portrait.test_321_keyboard_tabs_and_escape",
+      "status": "passed",
+      "seconds": 1.98,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_mini_portrait.test_322_preview_screenshots",
+      "status": "passed",
+      "seconds": 4.65,
+      "detail": ""
+    }
+  ]
+}

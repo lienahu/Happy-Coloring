@@ -1,0 +1,1266 @@
+--- a/index.html
++++ b/index.html
+@@ -9,12 +9,14 @@
+ <meta content="#eee8ff" name="theme-color"/>
+ <link href="apple-colorful.css?v=colorful-save-1" rel="stylesheet"/>
+ <link href="languages.css?v=colorful-save-1" rel="stylesheet"/><link href="save-picture.css?v=colorful-save-1" rel="stylesheet"/>
++<link href="context-tools.css?v=fill-library-1" rel="stylesheet"/>
++<link rel="stylesheet" href="fill-library.css?v=fill-library-1">
+ </head>
+ <body>
+ <header>
+ <div class="brand-cluster">
+ <button aria-controls="artTools" aria-expanded="false" aria-label="Open art tools" class="icon-button mobile-only" data-i18n-aria="openTools" id="toolsToggle" type="button"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"></path></svg></button>
+-<div class="brand"><span class="brand-mark"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18h1a2 2 0 0 0 1-3.7 1.5 1.5 0 0 1 .7-2.8H17a4 4 0 0 0 4-4C21 6 17 3 12 3Z"></path><circle cx="7" cy="11" r=".8"></circle><circle cx="9" cy="7" r=".8"></circle><circle cx="14" cy="6.5" r=".8"></circle><circle cx="17" cy="10" r=".8"></circle></svg></span><span class="brand-name">Happy <b>Colors</b><small class="build-tag">Colorful P1</small></span></div>
++<div class="brand"><span class="brand-mark"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18h1a2 2 0 0 0 1-3.7 1.5 1.5 0 0 1 .7-2.8H17a4 4 0 0 0 4-4C21 6 17 3 12 3Z"></path><circle cx="7" cy="11" r=".8"></circle><circle cx="9" cy="7" r=".8"></circle><circle cx="14" cy="6.5" r=".8"></circle><circle cx="17" cy="10" r=".8"></circle></svg></span><span class="brand-name">Happy <b>Colors</b><small class="build-tag">Colorful F1</small></span></div>
+ </div>
+ <div aria-label="Canvas zoom controls" class="canvas-view-tools" data-i18n-aria="zoomControls" role="group">
+ <button aria-label="Zoom canvas out" data-i18n-aria="zoomOut" data-i18n-title="zoomOut" id="zoomOutBtn" title="Zoom out" type="button">−</button>
+@@ -32,12 +34,28 @@
+ <button aria-controls="languageDialog" aria-haspopup="dialog" aria-label="Language" class="icon-button desktop-language" data-i18n-aria="language" data-i18n-title="language" data-open-language="" id="languageBtn" title="Language" type="button"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><ellipse cx="12" cy="12" rx="4" ry="9"></ellipse><path d="M3 12h18M5 6.5h14M5 17.5h14"></path></svg></button></header>
+ <main>
+ <aside aria-label="Art tools" class="tools" data-i18n-aria="drawingTools" id="artTools">
+-<div class="drawer-heading"><div><h2 data-i18n="drawingTools">Drawing tools</h2></div><button aria-label="Close art tools" class="icon-button mobile-only" data-i18n-aria="closeTools" id="closeTools" type="button"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"></path></svg></button></div><section class="tool-buttons" id="toolsSection">
+-<button class="active" data-i18n-aria="brush" data-i18n-title="brush" id="brushBtn"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="m14 4 6 6-9 9-6-6 9-9Z"></path><path d="m4 14-1 7 7-1M13 5l6 6"></path></svg><span data-i18n="brush">Brush</span></button>
+-<button data-i18n-aria="sparkle" data-i18n-title="sparkle" id="sparkleBtn"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="m12 3 2.4 6.6L21 12l-6.6 2.4L12 21l-2.4-6.6L3 12l6.6-2.4L12 3ZM20 2v4M18 4h4"></path></svg><span data-i18n="sparkle">Sparkle</span></button>
+-<button data-i18n-aria="fill" data-i18n-title="fill" id="bucketBtn"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="m8 3 11 11-8 7-9-9 8-9ZM4 10h12"></path><path d="M21 14s-2 3-2 4a2 2 0 0 0 4 0c0-1-2-4-2-4Z"></path></svg><span data-i18n="fill">Fill</span></button>
+-<button data-i18n-aria="outline" data-i18n-title="outline" id="outlineBtn"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="m14 4 6 6-9 9-6-6 9-9Z"></path><path d="m4 14-1 7 7-1M13 5l6 6"></path></svg><span data-i18n="outline">Outline</span></button>
+-<button data-i18n-aria="eraser" data-i18n-title="eraser" id="eraserBtn"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="m3 13 9-10 9 8-9 10H9l-6-5v-3ZM8 8l9 8M12 21h9"></path></svg><span data-i18n="eraser">Eraser</span></button>
++<div class="drawer-heading"><div><h2 id="toolsPanelTitle" data-i18n="drawingTools">Drawing tools</h2></div><button aria-label="Close art tools" class="icon-button mobile-only" data-i18n-aria="closeTools" id="closeTools" type="button"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"></path></svg></button></div><section class="tool-buttons" id="toolsSection">
++<button class="active" data-i18n-aria="brush" data-i18n-title="brush" aria-controls="sizesSection" aria-expanded="false" id="brushBtn"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="m14 4 6 6-9 9-6-6 9-9Z"></path><path d="m4 14-1 7 7-1M13 5l6 6"></path></svg><span data-i18n="brush">Brush</span></button>
++<section id="sizesSection" class="inline-sizes" hidden aria-labelledby="brushSizesTitle">
++<h2 id="brushSizesTitle" data-i18n="brushSize">Brush Size</h2>
++<div class="brushes">
++<button type="button" class="brush" data-size="2" data-i18n-aria="extraSmall" data-i18n-title="extraSmall"><i style="--dot:3px"></i><span data-i18n="extraSmallShort">XS</span><small>2 px</small></button>
++<button aria-label="Small brush" class="brush active" data-i18n-aria="small" data-i18n-title="small" data-size="8"><i style="--dot:6px"></i><span data-i18n="smallShort">S</span></button>
++<button aria-label="M brush" class="brush" data-i18n-aria="medium" data-i18n-title="medium" data-size="16"><i style="--dot:10px"></i><span data-i18n="mediumShort">M</span></button>
++<button aria-label="L brush" class="brush" data-i18n-aria="largeBrush" data-i18n-title="largeBrush" data-size="28"><i style="--dot:16px"></i><span data-i18n="largeShort">L</span></button>
++<button aria-label="XL brush" class="brush" data-i18n-aria="extraLarge" data-i18n-title="extraLarge" data-size="44"><i style="--dot:22px"></i><span data-i18n="extraLargeShort">XL</span></button>
++</div>
++</section>
++<button data-i18n-aria="sparkle" data-i18n-title="sparkle" aria-controls="sizesSection" aria-expanded="false" id="sparkleBtn"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="m12 3 2.4 6.6L21 12l-6.6 2.4L12 21l-2.4-6.6L3 12l6.6-2.4L12 3ZM20 2v4M18 4h4"></path></svg><span data-i18n="sparkle">Sparkle</span></button>
++<button data-i18n-aria="fill" data-i18n-title="fill" id="bucketBtn" aria-controls="fillStylesSection" aria-expanded="false"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="m8 3 11 11-8 7-9-9 8-9ZM4 10h12"></path><path d="M21 14s-2 3-2 4a2 2 0 0 0 4 0c0-1-2-4-2-4Z"></path></svg><span data-i18n="fill">Fill</span></button>
++<div id="fillStylesSection" class="fill-style-picker" hidden aria-labelledby="fillStyleTitle">
++<h3 id="fillStyleTitle" data-i18n="fillStyle">Fill style</h3>
++<div id="fillStyleGrid" class="fill-style-grid" role="group" aria-labelledby="fillStyleTitle"></div>
++</div>
++<button data-i18n-aria="outline" data-i18n-title="outline" aria-controls="sizesSection" aria-expanded="false" id="outlineBtn"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="m14 4 6 6-9 9-6-6 9-9Z"></path><path d="m4 14-1 7 7-1M13 5l6 6"></path></svg><span data-i18n="outline">Outline</span></button>
++<button data-i18n-aria="eraser" data-i18n-title="eraser" aria-controls="sizesSection" aria-expanded="false" id="eraserBtn"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="m3 13 9-10 9 8-9 10H9l-6-5v-3ZM8 8l9 8M12 21h9"></path></svg><span data-i18n="eraser">Eraser</span></button>
++
++<button type="button" id="selectionBtn" data-i18n-aria="selectArea" data-i18n-title="selectArea" aria-pressed="false" aria-controls="selectionPanel"><svg aria-hidden="true" class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-dasharray="3 2" d="M4 4h16v16H4z"/><path d="m9 15 6-6m-4 0h4v4"/></svg><span data-i18n="selectShort">Select</span></button>
+ <button data-i18n-aria="clear" data-i18n-title="clear" id="clearBtn"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="M4 6h16M9 6V3h6v3M6 6l1 15h10l1-15M10 10v7M14 10v7"></path></svg><span data-i18n="clear">Clear</span></button>
+ </section>
+ <section id="colorsSection">
+@@ -45,20 +63,14 @@
+ <div class="palette" id="palette"></div>
+ <label class="custom-color"><span data-i18n="moreColors">More colors</span><input data-i18n-aria="moreColors" id="colorPicker" type="color" value="#ff4f87"/></label>
+ </section>
+-<section id="sizesSection">
+-<h2 data-i18n="brushSize">Brush Size</h2>
+-<div class="brushes">
+-<button aria-label="Small brush" class="brush active" data-i18n-aria="small" data-i18n-title="small" data-size="8"><i style="--dot:6px"></i><span data-i18n="smallShort">S</span></button>
+-<button aria-label="M brush" class="brush" data-i18n-aria="medium" data-i18n-title="medium" data-size="16"><i style="--dot:10px"></i><span data-i18n="mediumShort">M</span></button>
+-<button aria-label="L brush" class="brush" data-i18n-aria="largeBrush" data-i18n-title="largeBrush" data-size="28"><i style="--dot:16px"></i><span data-i18n="largeShort">L</span></button>
+-<button aria-label="XL brush" class="brush" data-i18n-aria="extraLarge" data-i18n-title="extraLarge" data-size="44"><i style="--dot:22px"></i><span data-i18n="extraLargeShort">XL</span></button>
+-</div>
+-</section><section aria-label="Import picture" class="picture-import" data-i18n-aria="importPicture"><label class="upload-control" for="imageUpload">
++<section aria-label="Import picture" class="picture-import" id="uploadSection" data-i18n-aria="importPicture"><label class="upload-control" for="imageUpload">
+ <svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 16V3m-5 5 5-5 5 5M4 15v6h16v-6"></path></svg><span data-i18n="upload">Upload picture</span>
+ <input accept="image/*" data-i18n-aria="upload" id="imageUpload" type="file"/>
+ </label></section>
+ <section id="pagesSection">
+ <h2 data-i18n="pages">Coloring Pages</h2>
++<button id="openTemplateLibrary" class="library-launch" type="button" aria-haspopup="dialog" aria-controls="templateLibraryDialog"><span class="library-launch-icon" aria-hidden="true">▦</span><span><strong data-i18n="libraryTitle">Picture library</strong><small data-i18n="libraryIntro">30 pictures · 3 levels</small></span></button>
++<p class="library-shortcuts-label" data-i18n="quickTemplates">Quick picks</p>
+ <div class="pages">
+ <button class="pageBtn" data-i18n-aria="blank" data-page="blank"><span aria-hidden="true">⬜</span> <span data-i18n="blank">Blank</span></button>
+ <button class="pageBtn" data-i18n-aria="unicorn" data-page="unicorn"><span aria-hidden="true">🦄</span> <span data-i18n="unicorn">Unicorn</span></button>
+@@ -82,7 +94,7 @@
+ </div>
+ <div class="tiny" data-i18n="stickerHint">Pick a sticker, then tap the picture.</div>
+ </section>
+-<section class="background-section">
++<section class="background-section" id="backgroundSection">
+ <h2 data-i18n="background">Background</h2>
+ <div class="backgrounds">
+ <button class="bg active" data-bg="#ffffff" data-i18n-aria="white"><span aria-hidden="true">⬜</span> <span data-i18n="white">White</span></button>
+@@ -116,10 +128,25 @@
+ <button class="danger" data-i18n="startNew" id="confirmNew">Start new</button>
+ </div>
+ </div>
+-<script src="i18n.js?v=picture-templates-1"></script><script src="canvas-zoom.js?v=colorful-save-1"></script>
++
++<dialog id="templateLibraryDialog" class="template-library" aria-labelledby="libraryTitle">
++ <div class="library-header"><div><h2 id="libraryTitle" data-i18n="libraryTitle">Picture library</h2><p data-i18n="libraryHint">Choose a level, then choose a picture.</p></div><button id="closeTemplateLibrary" type="button" data-i18n-aria="close" aria-label="Close">✕</button></div>
++ <div class="library-levels" role="tablist" data-i18n-aria="difficulty" aria-label="Difficulty">
++  <button type="button" id="level-easy" data-level="easy" role="tab" aria-controls="libraryGrid" aria-selected="true" data-i18n="levelEasy">Easy</button>
++  <button type="button" id="level-medium" data-level="medium" role="tab" aria-controls="libraryGrid" aria-selected="false" tabindex="-1" data-i18n="levelMedium">Medium</button>
++  <button type="button" id="level-hard" data-level="hard" role="tab" aria-controls="libraryGrid" aria-selected="false" tabindex="-1" data-i18n="levelHard">Hard</button>
++ </div>
++ <p id="libraryStatus" class="library-status" role="status" aria-live="polite"></p>
++ <div id="libraryScroll" class="library-scroll"><div id="libraryGrid" class="library-grid" role="tabpanel" aria-labelledby="level-easy"></div></div>
++ <div class="library-footer"><button id="libraryPrev" type="button" data-i18n="previousPage">Previous</button><output id="libraryPageCount"></output><button id="libraryNext" type="button" data-i18n="nextPage">Next</button><button id="libraryRetry" hidden type="button" data-i18n="retryLibrary">Retry</button></div>
++</dialog>
++
++<script src="fill-patterns.js?v=fill-library-1"></script>
++<script src="i18n.js?v=fill-library-1"></script><script src="canvas-zoom.js?v=colorful-save-1"></script>
+ <script src="save-picture.js?v=colorful-save-1"></script>
+-<script src="app.js?v=picture-templates-1"></script>
+-<script src="mobile-ui.js?v=colorful-save-1"></script>
++<script src="app.js?v=fill-library-1"></script>
++<script src="selection-resize.js?v=fill-library-1"></script>
++<script src="mobile-ui.js?v=fill-library-1"></script>
+ <dialog aria-describedby="languageHint" aria-labelledby="languageTitle" class="language-dialog" id="languageDialog"><div class="language-heading"><h2 data-i18n="chooseLanguage" id="languageTitle">Choose a language</h2><button aria-label="Close" class="icon-button" data-i18n-aria="close" id="closeLanguage" type="button"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"></path></svg></button></div><p data-i18n="languageHint" id="languageHint">Change the menus, not your drawing.</p><div class="language-options"><button aria-pressed="false" class="language-option" data-language="en" lang="en" type="button"><span>English</span><span aria-hidden="true" class="language-check"></span></button><button aria-pressed="false" class="language-option" data-language="fr" lang="fr" type="button"><span>Français</span><span aria-hidden="true" class="language-check"></span></button><button aria-pressed="false" class="language-option" data-language="pt" lang="pt" type="button"><span>Português</span><span aria-hidden="true" class="language-check"></span></button><button aria-pressed="false" class="language-option" data-language="es" lang="es" type="button"><span>Español</span><span aria-hidden="true" class="language-check"></span></button><button aria-pressed="false" class="language-option" data-language="zh-Hans" lang="zh-Hans" type="button"><span>简体中文</span><span aria-hidden="true" class="language-check"></span></button><button aria-pressed="false" class="language-option" data-language="ja" lang="ja" type="button"><span>日本語</span><span aria-hidden="true" class="language-check"></span></button><button aria-pressed="false" class="language-option" data-language="ko" lang="ko" type="button"><span>한국어</span><span aria-hidden="true" class="language-check"></span></button></div></dialog>
+ <dialog id="saveDialog" class="save-dialog" aria-labelledby="saveTitle" aria-describedby="saveInstructions">
+   <div class="save-heading">
+@@ -141,5 +168,6 @@
+     </div>
+   </div>
+ </dialog>
++<script src="fill-library-ui.js?v=fill-library-1"></script>
+ </body>
+ </html>
+--- a/app.js
++++ b/app.js
+@@ -34,7 +34,7 @@
+   }
+   canvasView.reflow();
+ }
+-function snap(){history.push(canvas.toDataURL());if(history.length>21)history.shift();redo=[];buttons()}
++function snap(){history.push(canvas.toDataURL());if(history.length>21)history.shift();redo=[];if(window.HappyFill)window.HappyFill.remember(history.at(-1),[...history,...redo]);buttons()}
+ function buttons(){undoBtn.disabled=history.length<2;redoBtn.disabled=!redo.length}
+ // Do not let an eraser's destination-out mode erase an undo snapshot.
+ let restoreTicket=0;
+@@ -42,6 +42,7 @@
+  const ticket=++restoreTicket,im=new Image();
+  im.onload=()=>{
+    if(ticket!==restoreTicket)return;
++   if(window.HappyFill)window.HappyFill.restore(src);
+    ctx.save();ctx.globalCompositeOperation="source-over";
+    ctx.clearRect(0,0,W(),H());ctx.drawImage(im,0,0,W(),H());ctx.restore();
+  };
+@@ -58,6 +59,8 @@
+  const sx=canvas.width/W(),sy=canvas.height/H();
+  const x0=Math.floor(xCss*sx),y0=Math.floor(yCss*sy);
+  if(x0<0||y0<0||x0>=canvas.width||y0>=canvas.height)return;
++ // PATTERN-DISPATCH: normal solid fills retain the accepted implementation.
++ if(window.HappyFill && window.HappyFill.needsPatternPath())return window.HappyFill.paint(ctx,canvas,x0,y0,fillHex,W());
+  const im=ctx.getImageData(0,0,canvas.width,canvas.height),d=im.data,w=im.width,h=im.height;
+  const ii=(y0*w+x0)*4,target=[d[ii],d[ii+1],d[ii+2],d[ii+3]],fill=hex(fillHex),tol=45;
+  if(Math.abs(target[0]-fill[0])+Math.abs(target[1]-fill[1])+Math.abs(target[2]-fill[2])+Math.abs(target[3]-fill[3])<10)return;
+@@ -231,7 +234,7 @@
+ undoBtn.onclick=()=>{if(history.length>1){redo.push(history.pop());restore(history.at(-1));buttons()}};
+ redoBtn.onclick=()=>{if(redo.length){let s=redo.pop();history.push(s);restore(s);buttons()}};
+ 
+-function clearAll(){++restoreTicket;ctx.clearRect(0,0,W(),H());snap()}
++function clearAll(){if(window.HappyFill)window.HappyFill.reset();++restoreTicket;ctx.clearRect(0,0,W(),H());snap()}
+ clearBtn.onclick=()=>{if(confirm(window.HappyI18n ? window.HappyI18n.t("clearQuestion") : "Clear this picture?"))clearAll()};
+ newBtn.onclick=()=>confirmModal.classList.remove("hidden");
+ cancelNew.onclick=()=>confirmModal.classList.add("hidden");
+@@ -302,7 +305,7 @@
+      ctx.save();ctx.globalCompositeOperation="source-over";
+      ctx.setTransform(1,0,0,1,0,0);
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+-     ctx.drawImage(prepared,0,0);ctx.restore();snap();
++     ctx.drawImage(prepared,0,0);ctx.restore();if(window.HappyFill)window.HappyFill.reset();snap();
+      finish(true);
+    };
+    im.onerror=fail;
+--- a/i18n.js
++++ b/i18n.js
+@@ -119,7 +119,54 @@
+     "saveExportError": "The picture could not be prepared. Close this panel and try again. Your drawing has not been cleared.",
+     "saveDownloadRequested": "Download requested. Check Files or Downloads. This does not automatically add the picture to Photos.",
+     "saveOpenRequested": "The image should open in a new tab. Save it there, then return to this drawing tab.",
+-    "saveRetry": "Try again"
++    "saveRetry": "Try again",
++    "extraSmall": "Extra fine brush (2 px)",
++    "extraSmallShort": "XS",
++    "selectArea": "Select and resize an area",
++    "selectShort": "Select",
++    "selectionTitle": "Selected area",
++    "selectHint": "Drag a box around the part to resize.",
++    "resizeHint": "Only this box changes. Enlarged content is clipped at its edges.",
++    "selectionCancel": "Cancel",
++    "selectionApply": "Apply",
++    "selectionAgain": "Select again",
++    "selectionScale": "Selection size",
++    "selectionSmaller": "Shrink selected area",
++    "selectionLarger": "Enlarge selected area",
++    "selectionMin": "Drag a larger box.",
++    "selectionStale": "The drawing changed. Please select again.",
++    "selectionError": "Could not resize. Your drawing is unchanged.",
++    "pattern_solid": "Solid",
++    "pattern_sparkle": "Sparkle",
++    "pattern_horizontal": "Horizontal",
++    "pattern_vertical": "Vertical",
++    "pattern_diagonalLeft": "Diagonal \\",
++    "pattern_diagonalRight": "Diagonal /",
++    "pattern_waves": "Waves",
++    "pattern_dots": "Dots",
++    "pattern_stars": "Stars",
++    "pattern_triangles": "Triangles",
++    "pattern_hearts": "Hearts",
++    "pattern_flowers": "Flowers",
++    "pattern_checker": "Checker",
++    "pattern_grid": "Grid",
++    "pattern_diamonds": "Diamonds",
++    "fillStyle": "Fill style",
++    "libraryTitle": "Picture library",
++    "libraryIntro": "30 pictures · 3 levels",
++    "quickTemplates": "Quick picks",
++    "libraryHint": "Choose a level, then choose a picture.",
++    "difficulty": "Difficulty",
++    "levelEasy": "Easy",
++    "levelMedium": "Medium",
++    "levelHard": "Hard",
++    "previousPage": "Previous",
++    "nextPage": "Next",
++    "retryLibrary": "Retry",
++    "libraryLoading": "Loading pictures…",
++    "libraryError": "The library could not be loaded. Please retry.",
++    "pictureLoading": "Opening picture…",
++    "libraryImageError": "Picture not loaded. Your drawing is unchanged."
+   },
+   "fr": {
+     "pictureLoadError": "Impossible d’ouvrir cette image. Votre dessin n’a pas été modifié. Veuillez réessayer.",
+@@ -235,7 +282,54 @@
+     "saveExportError": "Impossible de préparer le dessin. Fermez ce panneau et réessayez. Le dessin n’a pas été effacé.",
+     "saveDownloadRequested": "Téléchargement demandé. Regardez dans Fichiers ou Téléchargements. L’image n’est pas ajoutée automatiquement à Photos.",
+     "saveOpenRequested": "L’image devrait s’ouvrir dans un nouvel onglet. Enregistrez-la, puis revenez à l’onglet du dessin.",
+-    "saveRetry": "Réessayer"
++    "saveRetry": "Réessayer",
++    "extraSmall": "Pinceau très fin (2 px)",
++    "extraSmallShort": "XS",
++    "selectArea": "Sélectionner et redimensionner une zone",
++    "selectShort": "Sélection",
++    "selectionTitle": "Zone sélectionnée",
++    "selectHint": "Trace un cadre autour de la zone à redimensionner.",
++    "resizeHint": "Seul ce cadre change. Ce qui dépasse ses bords est masqué.",
++    "selectionCancel": "Annuler",
++    "selectionApply": "Appliquer",
++    "selectionAgain": "Resélectionner",
++    "selectionScale": "Taille de la sélection",
++    "selectionSmaller": "Réduire la sélection",
++    "selectionLarger": "Agrandir la sélection",
++    "selectionMin": "Trace un cadre plus grand.",
++    "selectionStale": "Le dessin a changé. Sélectionne à nouveau.",
++    "selectionError": "Redimensionnement impossible. Ton dessin est intact.",
++    "pattern_solid": "Uni",
++    "pattern_sparkle": "Paillettes",
++    "pattern_horizontal": "Horizontales",
++    "pattern_vertical": "Verticales",
++    "pattern_diagonalLeft": "Diagonales \\",
++    "pattern_diagonalRight": "Diagonales /",
++    "pattern_waves": "Vagues",
++    "pattern_dots": "Pois",
++    "pattern_stars": "Étoiles",
++    "pattern_triangles": "Triangles",
++    "pattern_hearts": "Cœurs",
++    "pattern_flowers": "Fleurs",
++    "pattern_checker": "Damier",
++    "pattern_grid": "Quadrillage",
++    "pattern_diamonds": "Losanges",
++    "fillStyle": "Style de remplissage",
++    "libraryTitle": "Bibliothèque",
++    "libraryIntro": "30 images · 3 niveaux",
++    "quickTemplates": "Accès rapide",
++    "libraryHint": "Choisis un niveau, puis une image.",
++    "difficulty": "Difficulté",
++    "levelEasy": "Facile",
++    "levelMedium": "Moyen",
++    "levelHard": "Difficile",
++    "previousPage": "Précédent",
++    "nextPage": "Suivant",
++    "retryLibrary": "Réessayer",
++    "libraryLoading": "Chargement…",
++    "libraryError": "Impossible de charger la bibliothèque. Réessaie.",
++    "pictureLoading": "Ouverture de l’image…",
++    "libraryImageError": "Image non chargée. Ton dessin est conservé."
+   },
+   "pt": {
+     "pictureLoadError": "Não foi possível abrir esta imagem. O desenho não foi alterado. Tente novamente.",
+@@ -351,7 +445,54 @@
+     "saveExportError": "Não foi possível preparar o desenho. Feche este painel e tente novamente. O desenho não foi apagado.",
+     "saveDownloadRequested": "Descarregamento solicitado. Procure em Ficheiros ou Descargas. A imagem não é adicionada automaticamente a Fotografias.",
+     "saveOpenRequested": "A imagem deverá abrir num novo separador. Guarde-a e volte ao separador do desenho.",
+-    "saveRetry": "Tentar novamente"
++    "saveRetry": "Tentar novamente",
++    "extraSmall": "Pincel muito fino (2 px)",
++    "extraSmallShort": "XS",
++    "selectArea": "Selecionar e redimensionar uma área",
++    "selectShort": "Selecionar",
++    "selectionTitle": "Área selecionada",
++    "selectHint": "Desenha uma caixa à volta da área a redimensionar.",
++    "resizeHint": "Só esta caixa muda. O conteúdo fora das bordas fica cortado.",
++    "selectionCancel": "Cancelar",
++    "selectionApply": "Aplicar",
++    "selectionAgain": "Selecionar de novo",
++    "selectionScale": "Tamanho da seleção",
++    "selectionSmaller": "Reduzir a área selecionada",
++    "selectionLarger": "Ampliar a área selecionada",
++    "selectionMin": "Desenha uma caixa maior.",
++    "selectionStale": "O desenho mudou. Seleciona novamente.",
++    "selectionError": "Não foi possível redimensionar. O desenho não foi alterado.",
++    "pattern_solid": "Sólido",
++    "pattern_sparkle": "Brilhos",
++    "pattern_horizontal": "Horizontal",
++    "pattern_vertical": "Vertical",
++    "pattern_diagonalLeft": "Diagonal \\",
++    "pattern_diagonalRight": "Diagonal /",
++    "pattern_waves": "Ondas",
++    "pattern_dots": "Bolinhas",
++    "pattern_stars": "Estrelas",
++    "pattern_triangles": "Triângulos",
++    "pattern_hearts": "Corações",
++    "pattern_flowers": "Flores",
++    "pattern_checker": "Xadrez",
++    "pattern_grid": "Grelha",
++    "pattern_diamonds": "Losangos",
++    "fillStyle": "Estilo de preenchimento",
++    "libraryTitle": "Biblioteca",
++    "libraryIntro": "30 desenhos · 3 níveis",
++    "quickTemplates": "Escolhas rápidas",
++    "libraryHint": "Escolhe um nível e um desenho.",
++    "difficulty": "Dificuldade",
++    "levelEasy": "Fácil",
++    "levelMedium": "Médio",
++    "levelHard": "Difícil",
++    "previousPage": "Anterior",
++    "nextPage": "Seguinte",
++    "retryLibrary": "Tentar de novo",
++    "libraryLoading": "A carregar desenhos…",
++    "libraryError": "Não foi possível carregar. Tenta de novo.",
++    "pictureLoading": "A abrir desenho…",
++    "libraryImageError": "O desenho não abriu. A tua imagem está intacta."
+   },
+   "es": {
+     "pictureLoadError": "No se pudo abrir esta imagen. Tu dibujo no ha cambiado. Inténtalo de nuevo.",
+@@ -467,7 +608,54 @@
+     "saveExportError": "No se pudo preparar el dibujo. Cierra este panel y vuelve a intentarlo. El dibujo no se ha borrado.",
+     "saveDownloadRequested": "Descarga solicitada. Busca en Archivos o Descargas. La imagen no se añade automáticamente a Fotos.",
+     "saveOpenRequested": "La imagen debería abrirse en otra pestaña. Guárdala allí y vuelve a la pestaña del dibujo.",
+-    "saveRetry": "Reintentar"
++    "saveRetry": "Reintentar",
++    "extraSmall": "Pincel muy fino (2 px)",
++    "extraSmallShort": "XS",
++    "selectArea": "Seleccionar y cambiar el tamaño de una zona",
++    "selectShort": "Seleccionar",
++    "selectionTitle": "Zona seleccionada",
++    "selectHint": "Dibuja un recuadro alrededor de la zona.",
++    "resizeHint": "Solo cambia este recuadro. Lo que sobrepasa sus bordes se recorta.",
++    "selectionCancel": "Cancelar",
++    "selectionApply": "Aplicar",
++    "selectionAgain": "Volver a seleccionar",
++    "selectionScale": "Tamaño de la selección",
++    "selectionSmaller": "Reducir la zona seleccionada",
++    "selectionLarger": "Ampliar la zona seleccionada",
++    "selectionMin": "Dibuja un recuadro más grande.",
++    "selectionStale": "El dibujo cambió. Selecciona de nuevo.",
++    "selectionError": "No se pudo cambiar el tamaño. Tu dibujo sigue igual.",
++    "pattern_solid": "Sólido",
++    "pattern_sparkle": "Brillos",
++    "pattern_horizontal": "Horizontal",
++    "pattern_vertical": "Vertical",
++    "pattern_diagonalLeft": "Diagonal \\",
++    "pattern_diagonalRight": "Diagonal /",
++    "pattern_waves": "Ondas",
++    "pattern_dots": "Lunares",
++    "pattern_stars": "Estrellas",
++    "pattern_triangles": "Triángulos",
++    "pattern_hearts": "Corazones",
++    "pattern_flowers": "Flores",
++    "pattern_checker": "Tablero",
++    "pattern_grid": "Cuadrícula",
++    "pattern_diamonds": "Rombos",
++    "fillStyle": "Estilo de relleno",
++    "libraryTitle": "Biblioteca",
++    "libraryIntro": "30 dibujos · 3 niveles",
++    "quickTemplates": "Accesos rápidos",
++    "libraryHint": "Elige un nivel y después un dibujo.",
++    "difficulty": "Dificultad",
++    "levelEasy": "Fácil",
++    "levelMedium": "Medio",
++    "levelHard": "Difícil",
++    "previousPage": "Anterior",
++    "nextPage": "Siguiente",
++    "retryLibrary": "Reintentar",
++    "libraryLoading": "Cargando dibujos…",
++    "libraryError": "No se pudo cargar la biblioteca. Inténtalo otra vez.",
++    "pictureLoading": "Abriendo dibujo…",
++    "libraryImageError": "No se abrió la imagen. Tu dibujo sigue intacto."
+   },
+   "zh-Hans": {
+     "pictureLoadError": "无法打开这张图片，当前画作未被修改。请重试。",
+@@ -583,7 +771,54 @@
+     "saveExportError": "无法生成图片。请关闭面板后重试，画作没有被清空。",
+     "saveDownloadRequested": "已请求下载，请查看“文件”或“下载”。图片不会自动添加到“照片”。",
+     "saveOpenRequested": "图片应在新标签页中打开。保存后请返回绘画标签页。",
+-    "saveRetry": "重试"
++    "saveRetry": "重试",
++    "extraSmall": "极细画笔（2 像素）",
++    "extraSmallShort": "极细",
++    "selectArea": "框选区域并调整大小",
++    "selectShort": "框选",
++    "selectionTitle": "选区大小",
++    "selectHint": "拖出一个框，选中要调整的部分。",
++    "resizeHint": "只修改框内；放大后超出选框的部分会被裁掉。",
++    "selectionCancel": "取消",
++    "selectionApply": "应用",
++    "selectionAgain": "重新框选",
++    "selectionScale": "选区缩放比例",
++    "selectionSmaller": "缩小选区内容",
++    "selectionLarger": "放大选区内容",
++    "selectionMin": "请拖出一个更大的选框。",
++    "selectionStale": "画作已经变化，请重新框选。",
++    "selectionError": "无法调整大小，原画作保持不变。",
++    "pattern_solid": "纯色",
++    "pattern_sparkle": "闪光",
++    "pattern_horizontal": "横条纹",
++    "pattern_vertical": "竖条纹",
++    "pattern_diagonalLeft": "左斜纹 \\",
++    "pattern_diagonalRight": "右斜纹 /",
++    "pattern_waves": "波浪线",
++    "pattern_dots": "圆点",
++    "pattern_stars": "星星",
++    "pattern_triangles": "三角形",
++    "pattern_hearts": "爱心",
++    "pattern_flowers": "小花",
++    "pattern_checker": "棋盘格",
++    "pattern_grid": "交叉网格",
++    "pattern_diamonds": "菱形",
++    "fillStyle": "填充样式",
++    "libraryTitle": "图案库",
++    "libraryIntro": "30 张图案 · 3 种难度",
++    "quickTemplates": "快捷模板",
++    "libraryHint": "先选难度，再选一张喜欢的图。",
++    "difficulty": "难度",
++    "levelEasy": "容易",
++    "levelMedium": "一般",
++    "levelHard": "困难",
++    "previousPage": "上一页",
++    "nextPage": "下一页",
++    "retryLibrary": "重试",
++    "libraryLoading": "正在读取图案…",
++    "libraryError": "图案库加载失败，请重试。",
++    "pictureLoading": "正在打开图案…",
++    "libraryImageError": "图案没有载入，当前画作保持不变。"
+   },
+   "ja": {
+     "pictureLoadError": "この画像を開けませんでした。描いた絵は変更されていません。もう一度お試しください。",
+@@ -699,7 +934,54 @@
+     "saveExportError": "画像を準備できませんでした。この画面を閉じて再試行してください。絵は消えていません。",
+     "saveDownloadRequested": "ダウンロードを要求しました。「ファイル」や「ダウンロード」を確認してください。「写真」には自動追加されません。",
+     "saveOpenRequested": "画像が新しいタブで開きます。保存後、このお絵かきタブに戻ってください。",
+-    "saveRetry": "再試行"
++    "saveRetry": "再試行",
++    "extraSmall": "極細のブラシ（2 px）",
++    "extraSmallShort": "極細",
++    "selectArea": "範囲を選んでサイズを変える",
++    "selectShort": "範囲選択",
++    "selectionTitle": "選んだ範囲",
++    "selectHint": "大きさを変えたい部分を四角く囲んでね。",
++    "resizeHint": "枠の中だけ変わります。拡大で枠から出る部分は切れます。",
++    "selectionCancel": "キャンセル",
++    "selectionApply": "適用",
++    "selectionAgain": "選び直す",
++    "selectionScale": "選択範囲の倍率",
++    "selectionSmaller": "選択範囲を縮小",
++    "selectionLarger": "選択範囲を拡大",
++    "selectionMin": "もう少し大きく囲んでね。",
++    "selectionStale": "絵が変わりました。もう一度選んでね。",
++    "selectionError": "サイズを変えられませんでした。絵はそのままです。",
++    "pattern_solid": "単色",
++    "pattern_sparkle": "きらきら",
++    "pattern_horizontal": "横しま",
++    "pattern_vertical": "縦しま",
++    "pattern_diagonalLeft": "斜め \\",
++    "pattern_diagonalRight": "斜め /",
++    "pattern_waves": "波",
++    "pattern_dots": "水玉",
++    "pattern_stars": "星",
++    "pattern_triangles": "三角",
++    "pattern_hearts": "ハート",
++    "pattern_flowers": "花",
++    "pattern_checker": "市松模様",
++    "pattern_grid": "格子",
++    "pattern_diamonds": "ひし形",
++    "fillStyle": "塗りつぶしの模様",
++    "libraryTitle": "ぬりえライブラリ",
++    "libraryIntro": "30 枚 · 3 つの難易度",
++    "quickTemplates": "すぐに選ぶ",
++    "libraryHint": "難易度を選んでから、絵を選ぼう。",
++    "difficulty": "難易度",
++    "levelEasy": "かんたん",
++    "levelMedium": "ふつう",
++    "levelHard": "むずかしい",
++    "previousPage": "前へ",
++    "nextPage": "次へ",
++    "retryLibrary": "もう一度",
++    "libraryLoading": "絵を読み込み中…",
++    "libraryError": "読み込めませんでした。もう一度試してね。",
++    "pictureLoading": "絵を開いています…",
++    "libraryImageError": "絵を開けませんでした。今の絵はそのままです。"
+   },
+   "ko": {
+     "pictureLoadError": "이 그림을 열 수 없습니다. 그리던 그림은 변경되지 않았습니다. 다시 시도해 주세요.",
+@@ -815,7 +1097,54 @@
+     "saveExportError": "이미지를 준비할 수 없어요. 이 창을 닫고 다시 시도하세요. 그림은 지워지지 않았어요.",
+     "saveDownloadRequested": "다운로드를 요청했어요. 파일 앱이나 다운로드 폴더를 확인하세요. 사진 앱에는 자동으로 추가되지 않아요.",
+     "saveOpenRequested": "이미지가 새 탭에서 열려요. 저장한 뒤 이 그림 탭으로 돌아오세요.",
+-    "saveRetry": "다시 시도"
++    "saveRetry": "다시 시도",
++    "extraSmall": "아주 가는 브러시 (2 px)",
++    "extraSmallShort": "극세",
++    "selectArea": "영역을 선택하고 크기 바꾸기",
++    "selectShort": "영역 선택",
++    "selectionTitle": "선택 영역",
++    "selectHint": "크기를 바꿀 부분에 네모를 그려 주세요.",
++    "resizeHint": "네모 안만 바뀌어요. 확대하면 테두리 밖은 잘려요.",
++    "selectionCancel": "취소",
++    "selectionApply": "적용",
++    "selectionAgain": "다시 선택",
++    "selectionScale": "선택 영역 배율",
++    "selectionSmaller": "선택 영역 축소",
++    "selectionLarger": "선택 영역 확대",
++    "selectionMin": "네모를 더 크게 그려 주세요.",
++    "selectionStale": "그림이 바뀌었어요. 다시 선택해 주세요.",
++    "selectionError": "크기를 바꾸지 못했어요. 그림은 그대로예요.",
++    "pattern_solid": "단색",
++    "pattern_sparkle": "반짝이",
++    "pattern_horizontal": "가로 줄",
++    "pattern_vertical": "세로 줄",
++    "pattern_diagonalLeft": "대각선 \\",
++    "pattern_diagonalRight": "대각선 /",
++    "pattern_waves": "물결",
++    "pattern_dots": "물방울",
++    "pattern_stars": "별",
++    "pattern_triangles": "삼각형",
++    "pattern_hearts": "하트",
++    "pattern_flowers": "꽃",
++    "pattern_checker": "체크",
++    "pattern_grid": "격자",
++    "pattern_diamonds": "마름모",
++    "fillStyle": "채우기 무늬",
++    "libraryTitle": "그림 라이브러리",
++    "libraryIntro": "그림 30개 · 난이도 3단계",
++    "quickTemplates": "빠른 선택",
++    "libraryHint": "난이도를 고른 다음 그림을 골라요.",
++    "difficulty": "난이도",
++    "levelEasy": "쉬움",
++    "levelMedium": "보통",
++    "levelHard": "어려움",
++    "previousPage": "이전",
++    "nextPage": "다음",
++    "retryLibrary": "다시 시도",
++    "libraryLoading": "그림을 불러오는 중…",
++    "libraryError": "그림 목록을 불러오지 못했어요. 다시 시도해 주세요.",
++    "pictureLoading": "그림을 여는 중…",
++    "libraryImageError": "그림을 열지 못했어요. 지금 그림은 그대로예요."
+   }
+ };
+   const languages = [{"code": "en", "name": "English"}, {"code": "fr", "name": "Français"}, {"code": "pt", "name": "Português"}, {"code": "es", "name": "Español"}, {"code": "zh-Hans", "name": "简体中文"}, {"code": "ja", "name": "日本語"}, {"code": "ko", "name": "한국어"}];
+--- a/mobile-ui.js
++++ b/mobile-ui.js
+@@ -8,7 +8,12 @@
+     if (![pw, ph, vw, vh].every(n => Number.isFinite(n) && n > 0)) return 1;
+     return Math.min(4, Math.max(1, Math.max(vw / pw, vh / ph) / Math.min(vw / pw, vh / ph)));
+   }
+-  const api = { isCompact, isPhoneLandscape, coverZoom };
++  function panelSections(sectionId) {
++    const groups = { toolsSection:['toolsSection'], colorsSection:['colorsSection','backgroundSection'],
++      pagesSection:['pagesSection','uploadSection'], stickersSection:['stickersSection'] };
++    return Object.hasOwn(groups,sectionId) ? [...groups[sectionId]] : [...groups.toolsSection];
++  }
++  const api = { isCompact, isPhoneLandscape, coverZoom, panelSections };
+   if (typeof module !== 'undefined' && module.exports) module.exports = api;
+   root.StudioLayout = api;
+   if (typeof document === 'undefined') return;
+@@ -16,8 +21,35 @@
+   const tools = $('artTools'), toggle = $('toolsToggle'), closeTools = $('closeTools');
+   const shade = $('drawerShade'), stage = $('canvasViewport'), dock = document.querySelector('.quick-dock');
+   let opener = toggle, pending = 0, compact = false, landscape = false, initialized = false;
++  let currentPanel = 'toolsSection';
++  const sizes = $('sizesSection'), sizeTools = ['brushBtn','sparkleBtn','outlineBtn','eraserBtn'];
++  let sizeOpener = null;
++  function collapseSizes() {
++    sizes.hidden = true; sizeOpener = null;
++    sizeTools.forEach(id => $(id).setAttribute('aria-expanded','false'));
++  }
++  function revealSizes(button) {
++    if(root.HappyFillUI)root.HappyFillUI.close();
++    const already = sizeOpener === button && !sizes.hidden;
++    collapseSizes();
++    if (already) return;
++    button.after(sizes); sizes.hidden = false; sizeOpener = button;
++    button.setAttribute('aria-expanded','true');
++    // Keep the actual size buttons visible, including on a short landscape phone.
++    requestAnimationFrame(() => sizes.scrollIntoView({block:'nearest',behavior:'instant'}));
++  }
++  function showPanel(sectionId) {
++    const allowed = panelSections(sectionId);
++    currentPanel = allowed[0];
++    [...tools.children].filter(el => el.tagName === 'SECTION').forEach(el => {el.hidden = compact && !allowed.includes(el.id);});
++    const key = {toolsSection:'drawingTools',colorsSection:'colors',pagesSection:'pages',stickersSection:'stickers'}[currentPanel];
++    $('toolsPanelTitle').dataset.i18n = compact ? key : 'drawingTools';
++    $('toolsPanelTitle').textContent = root.HappyI18n ? root.HappyI18n.t(compact ? key : 'drawingTools') : 'Drawing tools';
++  }
+   function cancelInput() { if (canvasInput) canvasInput.reset(); end(); }
+   function closeDrawer(focus = true) {
++    if(root.HappyFillUI)root.HappyFillUI.close();
++    collapseSizes();
+     document.body.classList.remove('tools-open');
+     toggle.setAttribute('aria-expanded', 'false');
+     shade.hidden = true;
+@@ -25,17 +57,14 @@
+     stage.inert = false; dock.inert = false;
+     if (focus && compact) (opener || toggle).focus({ preventScroll: true });
+   }
+-  function openDrawer(sectionId = '', source = toggle) {
++  function openDrawer(sectionId = 'toolsSection', source = toggle) {
+     if (!compact) return;
+     cancelInput(); opener = source;
+     document.body.classList.add('tools-open');
+     toggle.setAttribute('aria-expanded', 'true');
+     tools.setAttribute('role', 'dialog'); tools.setAttribute('aria-modal', 'true');
+     shade.hidden = false; stage.inert = true; dock.inert = true;
+-    if (sectionId) {
+-      const section = $(sectionId);
+-      tools.scrollTop = section ? Math.max(0, section.offsetTop - tools.offsetTop - 8) : 0;
+-    } else tools.scrollTop = 0;
++    collapseSizes(); showPanel(sectionId); tools.scrollTop = 0;
+     closeTools.focus({ preventScroll: true });
+   }
+   toggle.addEventListener('click', () => {
+@@ -44,10 +73,29 @@
+   closeTools.addEventListener('click', () => closeDrawer());
+   shade.addEventListener('click', () => closeDrawer());
+   document.querySelectorAll('[data-open-section]').forEach(b => b.addEventListener('click', () => openDrawer(b.dataset.openSection, b)));
+-  // Selecting a tool/page closes the mobile drawer, so the picture is immediately usable.
++  // Inline size picker: select the tool FIRST via its existing renderer binding,
++  // then disclose just its size choices. Choosing a width closes the panel.
++  sizeTools.forEach(id => $(id).addEventListener('click', () => revealSizes($(id))));
+   tools.addEventListener('click', e => {
+-    if (!compact || !e.target.closest('.tool-buttons button,.pageBtn,[data-sticker]')) return;
+-    closeDrawer(false);
++    const button = e.target.closest('button');
++    if (!button) return;
++    if (sizeTools.includes(button.id) || button.id==='bucketBtn' || button.closest('#fillStylesSection')) return;
++    if (button.matches('.brush')) {
++      const opener=sizeOpener;collapseSizes();
++      if(compact)closeDrawer(false);else (opener || $('brushBtn')).focus({preventScroll:true});
++      return;
++    }
++    if (button.matches('.tool-buttons button,.pageBtn,[data-sticker],.swatch,.bg')) {
++      collapseSizes();if(compact)closeDrawer(false);
++    }
++  });
++  $('colorPicker').addEventListener('change', () => {if(compact)closeDrawer(false)});
++  // Outside click/Escape dismiss the inline picker without changing the drawing.
++  document.addEventListener('click', e => {
++    if (!sizes.hidden && !e.target.closest('#sizesSection,[aria-controls="sizesSection"]')) collapseSizes();
++  },true);
++  document.addEventListener('keydown', e => {
++    if(e.key==='Escape' && !sizes.hidden && !compact){e.preventDefault();const opener=sizeOpener;collapseSizes();opener?.focus({preventScroll:true});}
+   });
+   $('imageUpload').addEventListener('change', () => closeDrawer(false));
+   // Inert protects the canvas behind the drawer; focus stays inside the temporary tool panel.
+@@ -97,6 +145,7 @@
+     if (initialized && (compact !== nextCompact || landscape !== nextLandscape)) closeDrawer(false);
+     const enteredLandscape = nextLandscape && (!initialized || !landscape);
+     compact = nextCompact; landscape = nextLandscape; initialized = true;
++    showPanel(currentPanel);
+     fitCanvas();
+     // At the default fit scale only: use the wider phone work area on rotation.
+     // Existing manual zoom is kept. Cover is a VIEW: no crop or pixel resize is saved.
+@@ -107,5 +156,5 @@
+   window.addEventListener('orientationchange', schedule, { passive: true });
+   window.addEventListener('pageshow', schedule, { passive: true });
+   layout();
+-  root.HappyStudio = { openDrawer, closeDrawer, largeView };
++  root.HappyStudio = { openDrawer, closeDrawer, largeView, collapseSizes };
+ })(typeof globalThis === 'undefined' ? window : globalThis);
+--- a/selection-resize.js
++++ b/selection-resize.js
+@@ -0,0 +1,213 @@
++/* Rectangle-only raster resize. Preview is separate; Apply writes only the selected
++ * bitmap rectangle, once, using putImageData. No Fill or view-zoom code is replaced. */
++(function (root) {
++  'use strict';
++  const MIN_SCALE = .25, MAX_SCALE = 3;
++  const clamp = (n, lo, hi) => Math.min(hi, Math.max(lo, n));
++  function limitScale(n) { return Number.isFinite(n) ? clamp(n, MIN_SCALE, MAX_SCALE) : 1; }
++  function rectFromPoints(a, b, width, height) {
++    if (![a?.x,a?.y,b?.x,b?.y,width,height].every(Number.isFinite) || width < 1 || height < 1) return null;
++    const x = clamp(Math.floor(Math.min(a.x,b.x)),0,width), y = clamp(Math.floor(Math.min(a.y,b.y)),0,height);
++    const right = clamp(Math.ceil(Math.max(a.x,b.x)),0,width), bottom = clamp(Math.ceil(Math.max(a.y,b.y)),0,height);
++    return right > x && bottom > y ? {x,y,width:right-x,height:bottom-y} : null;
++  }
++  function scaledDestination(width, height, scale) {
++    scale = limitScale(scale);
++    return {x:width*(1-scale)/2,y:height*(1-scale)/2,width:width*scale,height:height*scale};
++  }
++  function bitmapPoint(client, box, width, height) {
++    if (!box || !(box.width>0 && box.height>0)) return null;
++    return {x:clamp((client.clientX-box.left)*width/box.width,0,width),
++            y:clamp((client.clientY-box.top)*height/box.height,0,height)};
++  }
++  const helpers = { MIN_SCALE, MAX_SCALE, limitScale, rectFromPoints, scaledDestination, bitmapPoint };
++  if (typeof module !== 'undefined' && module.exports) module.exports = helpers;
++  root.SelectionMath = helpers;
++  if (typeof document === 'undefined') return;
++  const button = document.getElementById('selectionBtn');
++  if (!button) return;
++  const paper = document.getElementById('canvas');
++  const surface = document.getElementById('canvasSurface');
++  const wrap = document.querySelector('.canvas-wrap');
++  const stage = document.getElementById('canvasViewport');
++  const tr = key => root.HappyI18n ? root.HappyI18n.t(key) : key;
++  const layer = document.createElement('div');
++  layer.id='selectionLayer'; layer.className='selection-layer'; layer.hidden=true;
++  layer.setAttribute('aria-hidden','true');
++  const preview = document.createElement('canvas');preview.id='selectionPreview';
++  const box = document.createElement('div');box.id='selectionBox';box.className='selection-box';box.hidden=true;
++  layer.append(preview,box);surface.append(layer);
++  const panel = document.createElement('div');panel.id='selectionPanel';panel.className='selection-panel';panel.hidden=true;
++  panel.setAttribute('role','group');panel.setAttribute('aria-labelledby','selectionTitle');
++  // Static markup; translated strings are written using textContent below.
++  panel.innerHTML='<div class="selection-row"><strong id="selectionTitle" data-i18n="selectionTitle"></strong>'+ 
++    '<button id="selectionAgain" type="button" data-i18n-title="selectionAgain" data-i18n-aria="selectionAgain">▣</button>'+ 
++    '<button id="selectionMinus" type="button" data-i18n-aria="selectionSmaller">−</button>'+ 
++    '<output id="selectionPercent" data-i18n-aria="selectionScale">100%</output>'+ 
++    '<button id="selectionPlus" type="button" data-i18n-aria="selectionLarger">+</button>'+ 
++    '<button id="selectionApply" type="button" class="selection-apply" data-i18n="selectionApply"></button>'+ 
++    '<button id="selectionCancel" type="button" data-i18n="selectionCancel"></button></div>'+ 
++    '<p id="selectionHelp" role="status" aria-live="polite"></p>';
++  wrap.prepend(panel);
++  const $ = id => document.getElementById(id);
++  const locked = [$('undoBtn'),$('redoBtn'),$('saveBtn')];
++  let active=false, rect=null, source=null, original=null, stamp='', scale=1, startPoint=null;
++  let sourceWidth=0, sourceHeight=0, selectingId=null, gesture=null, blocked=false, messageKey='selectHint';
++  const pointers=new Map();
++  let queued=0;
++  const distance=(a,b)=>Math.hypot(a.clientX-b.clientX,a.clientY-b.clientY);
++  function stop(e) { if(e.cancelable)e.preventDefault();e.stopPropagation(); }
++  function releasePointers() {
++    const ids=[...pointers.keys()];pointers.clear();selectingId=null;startPoint=null;gesture=null;blocked=false;
++    for (const id of ids) { try { if(layer.hasPointerCapture(id))layer.releasePointerCapture(id); } catch(_) {} }
++  }
++  function syncStrings() {
++    panel.querySelectorAll('[data-i18n]').forEach(el=>{el.textContent=tr(el.dataset.i18n)});
++    panel.querySelectorAll('[data-i18n-aria]').forEach(el=>el.setAttribute('aria-label',tr(el.dataset.i18nAria)));
++    panel.querySelectorAll('[data-i18n-title]').forEach(el=>el.title=tr(el.dataset.i18nTitle));
++    $('selectionHelp').textContent=tr(messageKey);
++  }
++  function position() {
++    if(!active)return;
++    for(const prop of ['left','top','width','height'])layer.style[prop]=paper.style[prop];
++    if(!rect){box.hidden=true;preview.hidden=true;return;}
++    const sx=paper.getBoundingClientRect().width/paper.width, sy=paper.getBoundingClientRect().height/paper.height;
++    const style={left:`${rect.x*sx}px`,top:`${rect.y*sy}px`,width:`${rect.width*sx}px`,height:`${rect.height*sy}px`};
++    Object.assign(box.style,style);Object.assign(preview.style,style);box.hidden=false;
++  }
++  function schedulePosition() { if(!queued)queued=requestAnimationFrame(()=>{queued=0;position()}); }
++  function updateControls() {
++    $('selectionMinus').disabled=!source || scale<=MIN_SCALE;
++    $('selectionPlus').disabled=!source || scale>=MAX_SCALE;
++    $('selectionApply').disabled=!source;
++    $('selectionAgain').disabled=!rect;
++    $('selectionPercent').value=`${Math.round(scale*100)}%`;
++    $('selectionPercent').textContent=`${Math.round(scale*100)}%`;
++    syncStrings();position();
++  }
++  function render() {
++    if(!source || !rect)return;
++    if(preview.width!==rect.width)preview.width=rect.width;
++    if(preview.height!==rect.height)preview.height=rect.height;
++    const pc=preview.getContext('2d',{willReadFrequently:true});
++    pc.clearRect(0,0,preview.width,preview.height);
++    if(Math.abs(scale-1)<1e-9)pc.putImageData(original,0,0);
++    else {
++      const d=scaledDestination(rect.width,rect.height,scale);
++      // Nearest-neighbour avoids introducing new gray fringes into line art.
++      pc.imageSmoothingEnabled=false;pc.drawImage(source,d.x,d.y,d.width,d.height);
++    }
++    preview.style.background=background;preview.hidden=false;position();
++  }
++  function setScale(n) { if(!source)return;scale=limitScale(n);render();updateControls(); }
++  function resetSelection() {
++    releasePointers();rect=null;source=null;original=null;stamp='';scale=1;preview.hidden=true;box.hidden=true;
++    messageKey='selectHint';updateControls();
++  }
++  function finish(focus=true) {
++    if(!active)return;
++    active=false;releasePointers();rect=null;source=null;original=null;stamp='';
++    panel.hidden=true;layer.hidden=true;preview.hidden=true;box.hidden=true;
++    document.body.classList.remove('selection-editing');button.classList.remove('active');button.setAttribute('aria-pressed','false');
++    $('saveBtn').disabled=false;buttons();
++    if(focus) { if(button.getClientRects().length)button.focus({preventScroll:true});else stage.focus({preventScroll:true}); }
++    scheduleLayout();
++  }
++  function begin() {
++    if(active){finish();return;}
++    if(!W() || !H())return;
++    if(root.HappyStudio)root.HappyStudio.closeDrawer(false);
++    canvasInput.reset();end();
++    if(cancelPictureRequest)cancelPictureRequest();
++    active=true;resetSelection();panel.hidden=false;layer.hidden=false;
++    document.body.classList.add('selection-editing');button.classList.add('active');button.setAttribute('aria-pressed','true');
++    locked.forEach(el=>{el.disabled=true});
++    scheduleLayout();schedulePosition();stage.focus({preventScroll:true});
++  }
++  function capture(r) {
++    try {
++      const image=ctx.getImageData(r.x,r.y,r.width,r.height);
++      const next=document.createElement('canvas');next.width=r.width;next.height=r.height;
++      next.getContext('2d').putImageData(image,0,0);
++      // Preview never alters the real canvas. This signature refuses stale commits.
++      stamp=paper.toDataURL();sourceWidth=paper.width;sourceHeight=paper.height;
++      original=image;source=next;rect=r;scale=1;messageKey='resizeHint';render();updateControls();
++    } catch(_) { resetSelection();messageKey='selectionError';syncStrings(); }
++  }
++  function apply() {
++    if(!active || !source || !rect)return false;
++    if(paper.width!==sourceWidth || paper.height!==sourceHeight || paper.toDataURL()!==stamp) {
++      resetSelection();messageKey='selectionStale';syncStrings();return false;
++    }
++    if(Math.abs(scale-1)<1e-9){finish();return false;}
++    const r=rect, before=original, oldHistory=history.slice(), oldRedo=redo.slice();
++    try {
++      const result=preview.getContext('2d').getImageData(0,0,r.width,r.height);
++      // Bitmap coordinates. putImageData ignores the current drawing transform and
++      // compositing mode; no pixel outside this rectangle is written.
++      ctx.putImageData(result,r.x,r.y);++restoreTicket;if(root.HappyFill)root.HappyFill.invalidateRect(r,paper.width,paper.height);snap();finish();return true;
++    } catch(_) {
++      ctx.putImageData(before,r.x,r.y);history=oldHistory;redo=oldRedo;
++      messageKey='selectionError';updateControls();return false;
++    }
++  }
++  function point(e){return bitmapPoint(e,paper.getBoundingClientRect(),paper.width,paper.height);}
++  function inside(q,r){return q&&r&&q.x>=r.x&&q.y>=r.y&&q.x<=r.x+r.width&&q.y<=r.y+r.height;}
++  layer.addEventListener('pointerdown',e=>{
++    if(!active || e.button!==0)return;
++    stop(e);pointers.set(e.pointerId,{clientX:e.clientX,clientY:e.clientY});
++    try{layer.setPointerCapture(e.pointerId)}catch(_){}
++    if(blocked)return;
++    if(pointers.size>2){gesture=null;blocked=true;return;}
++    if(pointers.size===1 && !source) {selectingId=e.pointerId;startPoint=point(e);rect=null;position();return;}
++    if(pointers.size===2) {
++      if(!source){rect=null;selectingId=null;startPoint=null;blocked=true;position();return;}
++      const pair=[...pointers.values()];
++      if(pair.every(v=>inside(point(v),rect)))gesture={scale,distance:Math.max(8,distance(...pair)),ids:[...pointers.keys()]};
++      else blocked=true;
++    }
++  },{passive:false});
++  layer.addEventListener('pointermove',e=>{
++    if(!active || !pointers.has(e.pointerId))return;
++    stop(e);pointers.set(e.pointerId,{clientX:e.clientX,clientY:e.clientY});
++    if(blocked)return;
++    if(gesture){const pair=gesture.ids.map(id=>pointers.get(id));if(pair.every(Boolean))setScale(gesture.scale*distance(...pair)/gesture.distance);}
++    else if(e.pointerId===selectingId && startPoint){rect=rectFromPoints(startPoint,point(e),paper.width,paper.height);position();}
++  },{passive:false});
++  function up(e,cancelled=false) {
++    if(!active || !pointers.has(e.pointerId))return;
++    stop(e);
++    if(!cancelled && !blocked && selectingId===e.pointerId && startPoint) {
++      const r=rectFromPoints(startPoint,point(e),paper.width,paper.height),css=paper.getBoundingClientRect();
++      if(r && r.width*css.width/paper.width>=10 && r.height*css.height/paper.height>=10)capture(r);
++      else {rect=null;messageKey='selectionMin';updateControls();}
++    } else if(cancelled && selectingId===e.pointerId && !source){rect=null;messageKey='selectHint';updateControls();}
++    pointers.delete(e.pointerId);selectingId=null;startPoint=null;gesture=null;
++    blocked=pointers.size>0;
++    try{if(layer.hasPointerCapture(e.pointerId))layer.releasePointerCapture(e.pointerId)}catch(_){}
++  }
++  layer.addEventListener('pointerup',e=>up(e),{passive:false});
++  layer.addEventListener('pointercancel',e=>up(e,true),{passive:false});
++  layer.addEventListener('lostpointercapture',e=>up(e,true));
++  layer.addEventListener('contextmenu',stop);
++  $('selectionMinus').addEventListener('click',()=>setScale(Math.round((scale-.25)*100)/100));
++  $('selectionPlus').addEventListener('click',()=>setScale(Math.round((scale+.25)*100)/100));
++  $('selectionApply').addEventListener('click',apply);
++  $('selectionCancel').addEventListener('click',()=>finish());
++  $('selectionAgain').addEventListener('click',resetSelection);
++  button.addEventListener('click',begin);
++  // Choosing another tool/import safely abandons uncommitted preview first.
++  document.addEventListener('click',e=>{
++    if(!active || e.target.closest('#selectionPanel,#selectionBtn'))return;
++    if(e.target.closest('.tool-buttons button,.pageBtn,.swatch,.bg,[data-sticker],#newBtn,#imageUpload,#toolsToggle,[data-open-section]'))finish(false);
++  },true);
++  document.addEventListener('change',e=>{if(active && e.target.id==='imageUpload')finish(false)},true);
++  document.addEventListener('keydown',e=>{if(active&&e.key==='Escape'&&!document.querySelector('dialog[open]')){e.preventDefault();finish();}});
++  document.addEventListener('happy-language-change',syncStrings);
++  window.addEventListener('blur',()=>releasePointers());
++  document.addEventListener('visibilitychange',()=>{if(document.hidden)finish(false)});
++  window.addEventListener('resize',()=>{if(active){releasePointers();if(!source){rect=null;position();}schedulePosition();}},{passive:true});
++  new MutationObserver(schedulePosition).observe(paper,{attributes:true,attributeFilter:['style']});
++  root.HappySelection={begin,cancel:finish,apply,setScale,isActive:()=>active,getState:()=>({active,rect:rect?{...rect}:null,scale,ready:Boolean(source)})};
++  syncStrings();
++})(typeof globalThis==='undefined'?window:globalThis);
+--- a/context-tools.css
++++ b/context-tools.css
+@@ -0,0 +1,37 @@
++/* Feature-scoped additions: leave the accepted Colorful and zoom styles intact. */
++#artTools section[hidden],#selectionPanel[hidden],#selectionLayer[hidden],#selectionBox[hidden],#selectionPreview[hidden] {display:none!important;}
++#toolsSection {align-content:start;}
++#toolsSection .inline-sizes {
++  grid-column:1 / -1; margin:0 0 8px;padding:12px 8px;
++  background:rgba(244,236,255,.86);border:1px solid #dbc8f6;border-radius:14px;
++}
++#toolsSection .inline-sizes h2 {font-size:12px;margin:0 0 8px;}
++#toolsSection .brushes {display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px;}
++#toolsSection .brushes .brush {min-width:0;min-height:52px;padding:5px 2px;gap:4px;font-size:11px;}
++#toolsSection .brushes small {font-size:9px;line-height:1;color:#645475;}
++#toolsSection button[aria-controls="sizesSection"]::after {content:'⌄';margin-left:auto;font-size:14px;}
++#toolsSection button[aria-expanded="true"]::after {content:'⌃';}
++#selectionBtn.active {color:var(--accent);background:var(--soft);outline:2px solid var(--accent);outline-offset:-2px;}
++.selection-panel {flex:0 0 auto;order:-1;z-index:2;padding:8px 10px;background:rgba(255,255,255,.94);border:1px solid #ddcef5;border-radius:14px;box-shadow:0 3px 12px #39255112;}
++.selection-row {display:flex;align-items:center;gap:5px;flex-wrap:wrap;}
++#selectionTitle {font-size:13px;margin-right:auto;color:#48315f;}
++.selection-row button {min-height:44px;min-width:44px;padding:7px 10px;font-size:13px;border:1px solid #e4d7f5;background:#f7f1ff;box-shadow:none;}
++#selectionApply {background:#6b36d8;color:white;border-color:#6b36d8;}
++#selectionPercent {min-width:48px;text-align:center;font-size:13px;font-variant-numeric:tabular-nums;}
++#selectionHelp {font-size:11px;line-height:16px;margin:5px 0 0;color:#63546f;}
++.selection-editing .canvas-wrap>.hint {display:none;}
++.selection-layer {position:absolute;z-index:5;touch-action:none;user-select:none;-webkit-user-select:none;cursor:crosshair;overflow:hidden;}
++#selectionPreview {position:absolute;min-width:0;min-height:0;max-width:none;max-height:none;display:block;border:0;border-radius:0;box-shadow:none;pointer-events:none;}
++.selection-box {position:absolute;border:2px dashed #773dce;background:transparent;outline:1px solid rgba(255,255,255,.9);pointer-events:none;box-sizing:border-box;}
++@media (max-width:700px), (max-width:1024px) and (max-height:500px) {
++ .tools .drawer-heading {position:sticky;top:-18px;background:#f8f3ff;z-index:3;padding:9px 0;margin-bottom:12px;}
++ #toolsPanelTitle {font-size:15px;}
++ .selection-panel {padding:5px 6px;border-radius:10px;}
++ #selectionTitle {display:none;}
++ .selection-row {gap:3px;justify-content:center;}
++ .selection-row button {font-size:12px;padding:5px 7px;}
++ #selectionHelp {font-size:10px;line-height:14px;margin-top:4px;}
++ #selectionPercent {min-width:40px;font-size:12px;}
++}
++@media (max-width:359px) { .selection-row button {padding-inline:4px;} #selectionAgain {min-width:40px;} }
++@media (forced-colors:active) {.selection-box{border-color:Highlight;} #selectionApply{border:2px solid ButtonText;}}
+--- a/fill-patterns.js
++++ b/fill-patterns.js
+@@ -0,0 +1,139 @@
++/* Fill patterns: region membership is separate from decorative pixels.
++ * Pure helpers are exported for tests. Uses the SAME 4-neighbour RGBA tolerance
++ * as the accepted solid Fill. A span mask limits writes to the selected region.
++ * Record snapshots make pattern->pattern and pattern->solid re-fill undoable.
++ */
++(function(root){
++ 'use strict';
++ const STYLES=Object.freeze(['solid','sparkle','horizontal','vertical','diagonalLeft','diagonalRight','waves','dots','stars','triangles','hearts','flowers','checker','grid','diamonds']);
++ const validStyle=id=>STYLES.includes(id)?id:'solid';
++ function rgb(hex){
++   if(typeof hex!=='string'||!/^#[0-9a-f]{6}$/i.test(hex))throw new TypeError('Expected #RRGGBB');
++   const n=parseInt(hex.slice(1),16);return [n>>>16,(n>>>8)&255,n&255,255];
++ }
++ function region(data,w,h,x,y,labels=null,tolerance=45){
++   if(!Number.isInteger(w)||!Number.isInteger(h)||w<1||h<1||data.length!==w*h*4)throw new RangeError('Invalid bitmap');
++   x=Math.floor(x);y=Math.floor(y);
++   const mask=new Uint8Array(w*h),spans=[];
++   if(!Number.isFinite(x)||!Number.isFinite(y)||x<0||y<0||x>=w||y>=h)return {mask,spans:new Uint32Array(),count:0};
++   const seed=y*w+x,i=seed*4,target=[data[i],data[i+1],data[i+2],data[i+3]],label=labels?labels[seed]:0;
++   const matches=p=>{
++     if(mask[p])return false;
++     if(label)return labels[p]===label;
++     if(labels&&labels[p])return false;
++     const j=p*4;return Math.abs(data[j]-target[0])+Math.abs(data[j+1]-target[1])+Math.abs(data[j+2]-target[2])+Math.abs(data[j+3]-target[3])<=tolerance;
++   };
++   const stack=[seed];let count=0;
++   while(stack.length){
++     const p=stack.pop();if(!matches(p))continue;
++     const row=Math.floor(p/w),min=row*w,max=min+w;let left=p;
++     while(left>min&&matches(left-1))left--;
++     let q=left,above=false,below=false;
++     while(q<max&&matches(q)){
++       mask[q]=1;count++;
++       if(row>0){const ok=matches(q-w);if(ok&&!above)stack.push(q-w);above=ok;}
++       if(row<h-1){const ok=matches(q+w);if(ok&&!below)stack.push(q+w);below=ok;}
++       q++;
++     }
++     spans.push(left,q-left);
++   }
++   return {mask,spans:Uint32Array.from(spans),count};
++ }
++ function subtract(spans,mask){
++   const out=[];
++   for(let k=0;k<spans.length;k+=2){let start=-1,end=spans[k]+spans[k+1];
++     for(let p=spans[k];p<end;p++){
++       if(!mask[p]){if(start<0)start=p;}
++       else if(start>=0){out.push(start,p-start);start=-1;}
++     }
++     if(start>=0)out.push(start,end-start);
++   }
++   return Uint32Array.from(out);
++ }
++ function tileIndex(rec,p,w){return (((Math.floor(p/w)%rec.tile.height)*rec.tile.width)+(p%w)%rec.tile.width)*4;}
++ function labelsFor(records,data,w,h){
++   const labels=new Uint32Array(w*h);
++   records.forEach((rec,index)=>{
++     for(let k=0;k<rec.spans.length;k+=2){const end=rec.spans[k]+rec.spans[k+1];for(let p=rec.spans[k];p<end;p++){
++       const i=p*4,j=tileIndex(rec,p,w),t=rec.tile.data;
++       // New brush marks/erasing are NOT flattened; they become new boundaries.
++       if(data[i]===t[j]&&data[i+1]===t[j+1]&&data[i+2]===t[j+2]&&data[i+3]===t[j+3])labels[p]=index+1;
++     }}
++   });return labels;
++ }
++ function paintPixels(data,w,spans,tile){
++   let changed=false;
++   for(let k=0;k<spans.length;k+=2){const end=spans[k]+spans[k+1];for(let p=spans[k];p<end;p++){
++     const i=p*4,j=((Math.floor(p/w)%tile.height)*tile.width+(p%w)%tile.width)*4;
++     for(let c=0;c<4;c++){if(data[i+c]!==tile.data[j+c])changed=true;data[i+c]=tile.data[j+c];}
++   }}return changed;
++ }
++ function makeTile(style,hex,ratio=1){
++   style=validStyle(style);const rgba=rgb(hex),factor=Math.max(1,Math.min(3,ratio));
++   const side=style==='solid'?1:Math.round(40*factor),tile=document.createElement('canvas');tile.width=tile.height=side;
++   const c=tile.getContext('2d',{willReadFrequently:true});c.fillStyle=hex;c.fillRect(0,0,side,side);
++   if(style==='solid')return c.getImageData(0,0,side,side);
++   c.scale(side/40,side/40);
++   const lum=.2126*rgba[0]+.7152*rgba[1]+.0722*rgba[2],mix=lum>210?0:255;
++   const ink=rgba.slice(0,3).map(v=>Math.round(v+(mix-v)*(mix? .74:.46)));
++   c.fillStyle=c.strokeStyle=`rgb(${ink.join(',')})`;c.lineWidth=4;c.lineCap='round';c.lineJoin='round';
++   const circle=(x,y,r)=>{c.beginPath();c.arc(x,y,r,0,Math.PI*2);c.fill();};
++   const star=(x,y,r,inner=0.45,points=5)=>{c.beginPath();for(let k=0;k<points*2;k++){const a=-Math.PI/2+k*Math.PI/points,rr=k%2?r*inner:r;const xx=x+Math.cos(a)*rr,yy=y+Math.sin(a)*rr;k?c.lineTo(xx,yy):c.moveTo(xx,yy);}c.closePath();c.fill();};
++   if(style==='horizontal'){c.fillRect(0,6,40,6);c.fillRect(0,26,40,6);}
++   if(style==='vertical'){c.fillRect(6,0,6,40);c.fillRect(26,0,6,40);}
++   if(style==='diagonalLeft'||style==='diagonalRight'){
++     for(let d=-40;d<=60;d+=20){c.beginPath();if(style==='diagonalLeft'){c.moveTo(d,0);c.lineTo(d+40,40);}else{c.moveTo(d,40);c.lineTo(d+40,0);}c.stroke();}
++   }
++   if(style==='waves'){for(let y of [10,30]){c.beginPath();c.moveTo(0,y);c.bezierCurveTo(6,y-8,14,y-8,20,y);c.bezierCurveTo(26,y+8,34,y+8,40,y);c.stroke();}}
++   if(style==='dots'){circle(10,10,4);circle(30,30,4);}
++   if(style==='stars'){star(20,20,11);}
++   if(style==='triangles'){c.beginPath();c.moveTo(20,9);c.lineTo(31,30);c.lineTo(9,30);c.closePath();c.fill();}
++   if(style==='hearts'){c.beginPath();c.moveTo(20,32);c.bezierCurveTo(0,20,7,6,20,15);c.bezierCurveTo(33,6,40,20,20,32);c.fill();}
++   if(style==='flowers'){for(let a=0;a<6;a++)circle(20+Math.cos(a*Math.PI/3)*8,20+Math.sin(a*Math.PI/3)*8,5);circle(20,20,4);}
++   if(style==='checker'){c.fillRect(0,0,20,20);c.fillRect(20,20,20,20);}
++   if(style==='grid'){c.fillRect(0,0,40,3);c.fillRect(0,0,3,40);c.fillRect(20,0,3,40);c.fillRect(0,20,40,3);}
++   if(style==='diamonds'){c.beginPath();c.moveTo(20,6);c.lineTo(30,20);c.lineTo(20,34);c.lineTo(10,20);c.closePath();c.fill();}
++   if(style==='sparkle'){star(13,13,8,.2,4);star(31,29,5,.2,4);circle(29,7,1.5);circle(6,33,1.3);circle(21,28,1.8);}
++   return c.getImageData(0,0,side,side);
++ }
++ class HistoryRegions {
++   constructor(){this.current=[];this.states=new Map();}
++   reset(){this.current=[];}
++   remember(src,keep){this.states.set(src,this.current);const live=new Set(keep);for(const key of this.states.keys())if(!live.has(key))this.states.delete(key);}
++   restore(src){this.current=this.states.get(src)||[];}
++   applyMask(mask,spans,tile,isPattern){
++     const next=[];
++     for(const rec of this.current){const remaining=subtract(rec.spans,mask);if(remaining.length)next.push({...rec,spans:remaining});}
++     if(isPattern&&spans.length)next.push({spans,tile});this.current=next;
++   }
++ }
++ const api={STYLES,validStyle,rgb,region,subtract,labelsFor,paintPixels,HistoryRegions,makeTile};
++ if(typeof module!=='undefined'&&module.exports)module.exports=api;
++ root.FillPatterns=api;
++ if(typeof document==='undefined')return;
++ const history=new HistoryRegions();let selected='solid';
++ root.HappyFill={
++   getStyle:()=>selected,
++   setStyle:id=>{selected=validStyle(id);return selected;},
++   needsPatternPath:()=>selected!=='solid'||history.current.length>0,
++   reset:()=>history.reset(),
++   invalidateRect:(r,w,h)=>{
++     const mask=new Uint8Array(w*h);
++     for(let y=Math.max(0,r.y);y<Math.min(h,r.y+r.height);y++)mask.fill(1,y*w+Math.max(0,r.x),y*w+Math.min(w,r.x+r.width));
++     history.applyMask(mask,new Uint32Array(),null,false);
++   },
++   remember:(src,keep)=>history.remember(src,keep),
++   restore:src=>history.restore(src),
++   paint(context,canvas,x,y,hex,paperWidth){
++     const w=canvas.width,h=canvas.height,img=context.getImageData(0,0,w,h);
++     const labels=history.current.length?labelsFor(history.current,img.data,w,h):null;
++     const result=region(img.data,w,h,x,y,labels);
++     if(!result.count)return false;
++     const tile=makeTile(selected,hex,w/paperWidth);
++     const changed=paintPixels(img.data,w,result.spans,tile);
++     if(changed){context.putImageData(img,0,0);history.applyMask(result.mask,result.spans,tile,selected!=='solid');}
++     return changed;
++   },
++   debug:()=>({records:history.current.length,snapshots:history.states.size})
++ };
++})(typeof globalThis==='undefined'?window:globalThis);
+--- a/fill-library-ui.js
++++ b/fill-library-ui.js
+@@ -0,0 +1,123 @@
++/* Inline Fill choices + demand-loaded picture library. No remote services.
++ * No full template URLs are assigned to any Image until a card is selected.
++ */
++(function(root){
++ 'use strict';
++ const LEVELS=['easy','medium','hard'],PAGE_SIZE=6;
++ function pageItems(items,level,page=0,size=PAGE_SIZE){
++   const list=items.filter(x=>x.level===level),total=Math.max(1,Math.ceil(list.length/size));
++   page=Math.max(0,Math.min(total-1,Number.isFinite(page)?Math.trunc(page):0));
++   return {items:list.slice(page*size,(page+1)*size),page,total,count:list.length};
++ }
++ function safeAsset(path){return typeof path==='string'&&/^assets\/[a-zA-Z0-9_./-]+\.(png|webp|svg)$/.test(path)&&!path.split('/').includes('..');}
++ function validateCatalog(data){
++   if(!data||!Array.isArray(data.items))throw Error('Invalid catalog');const ids=new Set();
++   for(const e of data.items){
++     if(!e||!/^[-a-z0-9]+$/.test(e.id)||ids.has(e.id)||!LEVELS.includes(e.level)||!safeAsset(e.src)||!safeAsset(e.thumb)||e.src===e.thumb||!e.title||!e.title.en)throw Error('Invalid template');
++     ids.add(e.id);
++   }
++   return data.items;
++ }
++ const api={LEVELS,PAGE_SIZE,pageItems,validateCatalog,safeAsset};
++ if(typeof module!=='undefined'&&module.exports)module.exports=api;
++ root.TemplateCatalog=api;if(typeof document==='undefined')return;
++ const $=id=>document.getElementById(id),tr=k=>root.HappyI18n?root.HappyI18n.t(k):k;
++ const picker=$('fillStylesSection'),fillButton=$('bucketBtn'),grid=$('fillStyleGrid');
++ function closeFill(){picker.hidden=true;fillButton.setAttribute('aria-expanded','false');}
++ function syncFill(){
++   grid.querySelectorAll('[data-fill-style]').forEach(button=>{
++     const selected=button.dataset.fillStyle===root.HappyFill.getStyle();
++     button.classList.toggle('selected',selected);button.setAttribute('aria-pressed',String(selected));
++     button.querySelector('.fill-style-name').textContent=tr('pattern_'+button.dataset.fillStyle);
++     const sample=button.querySelector('canvas'),c=sample.getContext('2d'),tile=root.FillPatterns.makeTile(button.dataset.fillStyle,color,1);
++     const t=document.createElement('canvas');t.width=tile.width;t.height=tile.height;t.getContext('2d').putImageData(tile,0,0);
++     c.fillStyle=c.createPattern(t,'repeat');c.fillRect(0,0,sample.width,sample.height);
++   });
++ }
++ root.FillPatterns.STYLES.forEach(id=>{
++   const b=document.createElement('button');b.type='button';b.className='fill-style-option';b.dataset.fillStyle=id;b.setAttribute('aria-pressed',String(id==='solid'));
++   const sample=document.createElement('canvas');sample.width=72;sample.height=44;sample.setAttribute('aria-hidden','true');
++   const name=document.createElement('span');name.className='fill-style-name';b.append(sample,name);grid.append(b);
++   b.addEventListener('click',()=>{
++     root.HappyFill.setStyle(id);syncFill();closeFill();
++     if(root.StudioLayout.isCompact(innerWidth,innerHeight))root.HappyStudio.closeDrawer(false);else fillButton.focus({preventScroll:true});
++   });
++ });
++ fillButton.addEventListener('click',()=>{
++   const open=picker.hidden;root.HappyStudio.collapseSizes();closeFill();if(!open)return;
++   syncFill();picker.hidden=false;fillButton.setAttribute('aria-expanded','true');
++   requestAnimationFrame(()=>picker.scrollIntoView({block:'nearest',behavior:'instant'}));
++ });
++ document.addEventListener('click',e=>{if(!picker.hidden&&!e.target.closest('#fillStylesSection,#bucketBtn'))closeFill();},true);
++ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!picker.hidden){closeFill();}});
++ root.HappyFillUI={close:closeFill};syncFill();
++ const dialog=$('templateLibraryDialog'),cards=$('libraryGrid'),scroll=$('libraryScroll'),status=$('libraryStatus');
++ let catalog=null,catalogPromise=null,level='easy',page=0,selection=0,pending=false,opener=null,observer=null;
++ const counters={manifestLoads:0,thumbsAssigned:[],fullSelections:[]};
++ const language=()=>root.HappyI18n?root.HappyI18n.getLanguage():'en';
++ function title(item){return item.title[language()]||item.title.en;}
++ function stopObserver(){if(observer){observer.disconnect();observer=null;}}
++ function thumbs(){
++   stopObserver();
++   const assign=image=>{if(image.dataset.src){const src=image.dataset.src;image.src=src;delete image.dataset.src;counters.thumbsAssigned.push(src);}};
++   if('IntersectionObserver' in window){observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){assign(e.target);observer.unobserve(e.target);}}),{root:scroll,rootMargin:'80px'});cards.querySelectorAll('img').forEach(im=>observer.observe(im));}
++   else cards.querySelectorAll('img').forEach(assign);
++ }
++ function render(){
++   if(!catalog)return;stopObserver();cards.replaceChildren();
++   const result=pageItems(catalog,level,page);page=result.page;
++   document.querySelectorAll('[data-level]').forEach(b=>{const yes=b.dataset.level===level;b.setAttribute('aria-selected',String(yes));b.tabIndex=yes?0:-1;});
++   cards.setAttribute('aria-labelledby','level-'+level);scroll.scrollTop=0;
++   for(const item of result.items){
++     const b=document.createElement('button');b.type='button';b.className='library-card';b.dataset.templateId=item.id;b.setAttribute('aria-label',title(item));
++     const im=new Image();im.width=192;im.height=192;im.loading='lazy';im.decoding='async';im.alt='';im.dataset.src=item.thumb;
++     im.onerror=()=>{im.hidden=true;b.classList.add('thumbnail-failed');};
++     const text=document.createElement('span');text.textContent=title(item);b.append(im,text);b.addEventListener('click',()=>choose(item));cards.append(b);
++   }
++   $('libraryPrev').disabled=page===0;$('libraryNext').disabled=page===result.total-1;
++   $('libraryPageCount').textContent=`${page+1} / ${result.total} · ${result.count}`;
++   if(!pending)status.textContent='';thumbs();
++ }
++ async function getCatalog(){
++   if(catalog)return catalog;
++   if(!catalogPromise){counters.manifestLoads++;catalogPromise=fetch('assets/template-library/catalog.json?v=1',{cache:'no-cache'})
++     .then(r=>{if(!r.ok)throw Error('Catalog HTTP '+r.status);return r.json();})
++     .then(data=>{catalog=validateCatalog(data);return catalog;})
++     .catch(err=>{catalogPromise=null;throw err;});}
++   return catalogPromise;
++ }
++ async function startLibrary(){
++   status.textContent=tr('libraryLoading');$('libraryRetry').hidden=true;
++   try{await getCatalog();if(dialog.open)render();}
++   catch(_){if(dialog.open){status.textContent=tr('libraryError');$('libraryRetry').hidden=false;}}
++ }
++ async function choose(item){
++   const ticket=++selection;pending=true;status.textContent=tr('pictureLoading');cards.setAttribute('aria-busy','true');
++   counters.fullSelections.push(item.src);
++   // Existing loader handles decoding, same-origin safety, race cancellation and undo.
++   const ok=await loadPictureSource(item.src);
++   if(ticket!==selection)return;
++   pending=false;cards.removeAttribute('aria-busy');
++   if(ok){dialog.close();}else if(dialog.open){status.textContent=tr('libraryImageError');}
++ }
++ $('openTemplateLibrary').addEventListener('click',()=>{
++   closeFill();root.HappyStudio.closeDrawer(false);opener=$('openTemplateLibrary');
++   canvasInput.cancel();end();if(root.HappySelection?.isActive())root.HappySelection.cancel?.();
++   if(!dialog.open)dialog.showModal();$('closeTemplateLibrary').focus({preventScroll:true});startLibrary();
++ });
++ $('closeTemplateLibrary').addEventListener('click',()=>dialog.close());
++ dialog.addEventListener('close',()=>{
++   stopObserver();++selection;
++   if(pending&&cancelPictureRequest)cancelPictureRequest();pending=false;cards.removeAttribute('aria-busy');
++   // On a phone the library launch button is hidden with the closed drawer.
++   const target=opener?.getClientRects().length?opener:document.querySelector('[data-open-section="pagesSection"]');target?.focus({preventScroll:true});
++ });
++ function levelChange(next){if(!LEVELS.includes(next))return;level=next;page=0;render();}
++ document.querySelectorAll('[data-level]').forEach(b=>{
++   b.addEventListener('click',()=>levelChange(b.dataset.level));
++   b.addEventListener('keydown',e=>{let i=LEVELS.indexOf(level);if(e.key==='ArrowRight')i=(i+1)%3;else if(e.key==='ArrowLeft')i=(i+2)%3;else return;e.preventDefault();levelChange(LEVELS[i]);$('level-'+level).focus();});
++ });
++ $('libraryPrev').addEventListener('click',()=>{page--;render();});$('libraryNext').addEventListener('click',()=>{page++;render();});$('libraryRetry').addEventListener('click',startLibrary);
++ document.addEventListener('happy-language-change',()=>{syncFill();if(dialog.open)render();});
++ root.HappyLibrary={getState:()=>({level,page,pending,count:catalog?.length||0}),debug:()=>JSON.parse(JSON.stringify(counters))};
++})(typeof globalThis==='undefined'?window:globalThis);
+--- a/fill-library.css
++++ b/fill-library.css
+@@ -0,0 +1,39 @@
++/* Fixed Apple Colorful chrome, inline Fill picker and a lazy picture library. */
++.fill-style-picker[hidden],#libraryRetry[hidden] {display:none!important}
++.fill-style-picker {grid-column:1/-1; border:1px solid #cfc2ed; border-radius:16px;padding:10px;background:rgba(255,255,255,.87);margin:4px 0 8px;}
++.fill-style-picker h3 {font-size:13px;color:#4e3b77;margin:0 0 8px;}
++.fill-style-grid {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;}
++.fill-style-option {padding:5px!important;min-width:0;min-height:66px;border-radius:10px!important;background:#fff!important;display:flex;flex-direction:column;gap:3px;align-items:center;}
++.fill-style-option canvas {width:100%!important;height:32px!important;min-height:0!important;min-width:0;box-shadow:none!important;border:1px solid #ded8ec;border-radius:6px;touch-action:manipulation;}
++.fill-style-option .fill-style-name {font-size:10px;line-height:1.2;word-break:normal;overflow-wrap:anywhere;text-align:center;color:#35264c;}
++.fill-style-option.selected {outline:2px solid #9057e5;outline-offset:0;}
++.library-launch {display:flex;gap:10px;align-items:center;justify-content:flex-start;width:100%;text-align:left!important;background:linear-gradient(120deg,#ede4ff,#e9f3ff)!important;padding:12px!important;}
++.library-launch span {min-width:0}.library-launch strong {display:block;font-size:14px;}.library-launch small {display:block;font-size:11px;margin-top:3px;white-space:normal;}
++.library-launch-icon {font-size:28px;color:#7a40c6}.library-shortcuts-label {font-size:11px;color:#6a5c7c;margin:14px 0 7px;}
++.template-library {width:min(720px,calc(100vw - 24px));height:min(790px,calc(var(--app-height,100dvh) - 24px));max-height:calc(100dvh - 24px);max-width:none;margin:auto;padding:0;border:1px solid #dfd3f4;border-radius:24px;background:linear-gradient(140deg,#fdfbff,#f0edfc 75%,#fbeaf4);color:#30243f;box-shadow:0 24px 90px #35244d44;overflow:hidden;}
++.template-library[open] {display:flex;flex-direction:column;}
++.template-library::backdrop {background:#23133366;backdrop-filter:blur(4px);}
++.library-header {display:flex;flex:0 0 auto;justify-content:space-between;gap:12px;align-items:flex-start;padding:18px 20px 10px;}
++.library-header h2 {font-size:23px;text-transform:none;letter-spacing:-.4px;color:#30243f;margin:0;}
++.library-header p {margin:6px 0 0;font-size:13px;color:#6d5b83;}
++#closeTemplateLibrary {flex:0 0 44px;width:44px;height:44px;padding:0;font-size:20px;background:white;}
++.library-levels {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;flex:0 0 auto;margin:0 20px;border-radius:15px;background:#e4dcf1;padding:4px;}
++.library-levels button {min-height:44px;background:transparent;box-shadow:none;padding:6px 4px;font-size:14px;}
++.library-levels button[aria-selected=true] {background:#fff;color:#7132ba;box-shadow:0 2px 7px #3e26591a;}
++.library-status {flex:0 0 auto;min-height:17px;font-size:12px;line-height:17px;margin:6px 20px;}
++.library-scroll {flex:1 1 0;min-height:0;overflow:auto;overscroll-behavior:contain;padding:4px 20px 16px;touch-action:pan-y;}
++.library-grid {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;}
++.library-card {display:flex;flex-direction:column;align-items:center;padding:8px!important;gap:7px;min-width:0;background:rgba(255,255,255,.9)!important;border:1px solid #e2d9ef!important;border-radius:16px!important;box-shadow:0 4px 10px #44285a0a;}
++.library-card img {width:100%;height:auto;aspect-ratio:1;object-fit:contain;background:white;border-radius:10px;}
++.library-card span {font-size:12px;line-height:1.35;min-height:32px;display:flex;align-items:center;justify-content:center;text-align:center;overflow-wrap:anywhere;}
++.library-card:hover {border-color:#9d6adc!important;}
++.library-card.thumbnail-failed:before {content:'▧';display:block;font-size:50px;min-height:80px;}
++.library-footer {display:flex;align-items:center;justify-content:center;gap:12px;flex:0 0 auto;padding:10px 18px;border-top:1px solid #e5dcf2;background:#ffffffa6;}
++.library-footer button {min-height:44px;font-size:13px;}.library-footer output {font-size:12px;white-space:nowrap;}
++@media(max-width:550px){.template-library{border-radius:19px;}.library-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;}.library-header{padding:12px 12px 8px;}.library-header h2{font-size:20px;}.library-header p{font-size:12px;}.library-levels{margin:0 12px;}.library-scroll{padding:4px 12px 12px;}.library-status{margin:5px 12px;}.library-footer{gap:6px;padding:8px;}.library-footer button{padding:6px 10px;}.fill-style-grid{grid-template-columns:repeat(3,minmax(0,1fr));}}
++@media(max-height:450px){.template-library{height:calc(100dvh - 12px);max-height:calc(100dvh - 12px);}.library-header{padding:7px 14px 4px;align-items:center;}.library-header h2{font-size:19px}.library-header p{display:none;}.library-levels{margin:0 12px;padding:2px;}.library-status{margin:2px 12px;min-height:14px;line-height:14px;}.library-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;}.library-footer{padding:4px 12px;}.library-scroll{padding:4px 12px 8px;}.library-card span{font-size:11px;}.library-card{padding:5px!important;}}
++@media(prefers-reduced-motion:reduce){.template-library *{scroll-behavior:auto!important;}}
++
++.tool-buttons > button:not(.fill-style-option) {column-gap:6px!important;}
++.tool-buttons > button > span {word-break:normal;overflow-wrap:normal;font-size:12px;}
++.tool-buttons > button > .ui-icon {flex-shrink:0;width:20px;height:20px;}
+--- a/package.json
++++ b/package.json
+@@ -4,10 +4,13 @@
+   "private": true,
+   "scripts": {
+     "test": "node --test tests/unit/*.test.cjs",
+-    "test:ui": "python tests/browser/run_template_tests.py",
++    "test:ui": "python tests/browser/run_fill_library_tests.py",
+     "test:languages": "python tests/browser/run_language_tests.py --only-languages",
+     "test:save": "python tests/browser/run_save_tests.py --save-only",
+-    "test:templates": "python tests/browser/run_template_tests.py --templates-only"
++    "test:templates": "python tests/browser/run_template_tests.py --templates-only",
++    "test:context": "python tests/browser/run_context_tests.py --new-only",
++    "test:fill-library": "python tests/browser/run_fill_library_tests.py --new-only",
++    "test:library-resources": "python tests/check_library_resources.py"
+   },
+   "engines": {
+     "node": ">=20"

@@ -1,0 +1,155 @@
+{
+  "browser": "Chromium",
+  "browser_version": "144.0.7559.96",
+  "transport": "exact source injection and original PNG data URL substitution",
+  "tests_run": 24,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "results": [
+    {
+      "test": "__main__.chromium_phone_landscape.test_200_brush_opens_inline_sizes_and_xs_closes",
+      "status": "passed",
+      "seconds": 1.73,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_landscape.test_201_each_phone_menu_has_only_related_sections",
+      "status": "passed",
+      "seconds": 1.848,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_landscape.test_202_all_five_widths_work_without_duplicate_history",
+      "status": "passed",
+      "seconds": 2.588,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_landscape.test_203_other_size_tools_keep_their_tool",
+      "status": "passed",
+      "seconds": 1.794,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_landscape.test_204_size_picker_outside_and_escape_close_without_paint",
+      "status": "passed",
+      "seconds": 1.136,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_landscape.test_205_context_controls_translate_all_languages",
+      "status": "passed",
+      "seconds": 5.399,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_landscape.test_206_rotation_closes_drawer_without_losing_size",
+      "status": "passed",
+      "seconds": 1.438,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_landscape.test_210_selection_preview_changes_no_real_pixels_or_history",
+      "status": "passed",
+      "seconds": 1.5,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_landscape.test_211_apply_enlargement_changes_only_selected_rectangle",
+      "status": "passed",
+      "seconds": 1.997,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_landscape.test_212_shrink_only_selected_area_and_undo_redo_exact",
+      "status": "passed",
+      "seconds": 2.374,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_landscape.test_213_cancel_and_identity_add_no_undo_step",
+      "status": "passed",
+      "seconds": 1.896,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_landscape.test_214_select_with_actual_touch_keeps_canvas_clean",
+      "status": "passed",
+      "seconds": 1.762,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_landscape.test_215_pinch_inside_selected_area_not_whole_canvas",
+      "status": "passed",
+      "seconds": 1.751,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_landscape.test_216_fill_after_resize_still_works",
+      "status": "passed",
+      "seconds": 2.039,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_landscape.test_217_select_after_zoom_and_pan_keeps_coordinates",
+      "status": "passed",
+      "seconds": 1.606,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_landscape.test_218_rotation_preserves_pending_selection_and_pixels",
+      "status": "passed",
+      "seconds": 1.455,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_landscape.test_219_other_tool_discards_preview_before_drawing",
+      "status": "passed",
+      "seconds": 1.806,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_landscape.test_220_stale_drawing_cannot_be_overwritten",
+      "status": "passed",
+      "seconds": 1.516,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_landscape.test_221_tiny_selection_rejected_no_undo",
+      "status": "passed",
+      "seconds": 1.339,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_landscape.test_222_reselect_clears_only_the_preview",
+      "status": "passed",
+      "seconds": 1.578,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_landscape.test_223_save_exports_applied_changes_not_selection_border",
+      "status": "passed",
+      "seconds": 1.842,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_landscape.test_224_selection_controls_fit_seven_languages",
+      "status": "passed",
+      "seconds": 5.915,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_landscape.test_225_selection_on_original_unicorn_and_preview_screenshot",
+      "status": "passed",
+      "seconds": 2.616,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_landscape.test_226_xs_picker_screenshot",
+      "status": "passed",
+      "seconds": 1.528,
+      "detail": ""
+    }
+  ]
+}

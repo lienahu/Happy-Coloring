@@ -1,0 +1,2282 @@
+
+> happy-coloring-tests@1.0.0 test
+> node --test tests/unit/*.test.cjs
+
+TAP version 13
+# Subtest: responsive classification 393x852
+ok 1 - responsive classification 393x852
+  ---
+  duration_ms: 0.882524
+  type: 'test'
+  ...
+# Subtest: responsive classification 852x393
+ok 2 - responsive classification 852x393
+  ---
+  duration_ms: 0.159321
+  type: 'test'
+  ...
+# Subtest: responsive classification 667x375
+ok 3 - responsive classification 667x375
+  ---
+  duration_ms: 0.17827
+  type: 'test'
+  ...
+# Subtest: responsive classification 568x320
+ok 4 - responsive classification 568x320
+  ---
+  duration_ms: 0.113231
+  type: 'test'
+  ...
+# Subtest: responsive classification 320x568
+ok 5 - responsive classification 320x568
+  ---
+  duration_ms: 0.127052
+  type: 'test'
+  ...
+# Subtest: responsive classification 1024x500
+ok 6 - responsive classification 1024x500
+  ---
+  duration_ms: 0.058669
+  type: 'test'
+  ...
+# Subtest: responsive classification 1180x820
+ok 7 - responsive classification 1180x820
+  ---
+  duration_ms: 0.123517
+  type: 'test'
+  ...
+# Subtest: responsive classification 820x1180
+ok 8 - responsive classification 820x1180
+  ---
+  duration_ms: 0.076726
+  type: 'test'
+  ...
+# Subtest: responsive classification 507x1024
+ok 9 - responsive classification 507x1024
+  ---
+  duration_ms: 0.251229
+  type: 'test'
+  ...
+# Subtest: responsive classification 1280x800
+ok 10 - responsive classification 1280x800
+  ---
+  duration_ms: 0.25779
+  type: 'test'
+  ...
+# Subtest: large view preserves scale aspect using one scalar
+ok 11 - large view preserves scale aspect using one scalar
+  ---
+  duration_ms: 0.164829
+  type: 'test'
+  ...
+# Subtest: matched aspect needs no additional zoom
+ok 12 - matched aspect needs no additional zoom
+  ---
+  duration_ms: 0.075765
+  type: 'test'
+  ...
+# Subtest: large view clamps to the existing 400 percent zoom maximum
+ok 13 - large view clamps to the existing 400 percent zoom maximum
+  ---
+  duration_ms: 0.065378
+  type: 'test'
+  ...
+# Subtest: invalid/zero geometry is harmless
+ok 14 - invalid/zero geometry is harmless
+  ---
+  duration_ms: 0.076826
+  type: 'test'
+  ...
+# Subtest: narrower wide paper uses width cover correctly
+ok 15 - narrower wide paper uses width cover correctly
+  ---
+  duration_ms: 0.954903
+  type: 'test'
+  ...
+# Subtest: all six runtime dependencies exist and are referenced
+ok 16 - all six runtime dependencies exist and are referenced
+  ---
+  duration_ms: 0.361126
+  type: 'test'
+  ...
+# Subtest: only fixed Colorful marker is shipped
+ok 17 - only fixed Colorful marker is shipped
+  ---
+  duration_ms: 0.160823
+  type: 'test'
+  ...
+# Subtest: style button and picker are removed, not just hidden
+ok 18 - style button and picker are removed, not just hidden
+  ---
+  duration_ms: 0.13249
+  type: 'test'
+  ...
+# Subtest: old theme APIs cannot be invoked
+ok 19 - old theme APIs cannot be invoked
+  ---
+  duration_ms: 0.089966
+  type: 'test'
+  ...
+# Subtest: saved preferences and URL theme parameter are not consumed
+ok 20 - saved preferences and URL theme parameter are not consumed
+  ---
+  duration_ms: 0.088324
+  type: 'test'
+  ...
+# Subtest: stylesheet has no selectable palette branches
+ok 21 - stylesheet has no selectable palette branches
+  ---
+  duration_ms: 0.090407
+  type: 'test'
+  ...
+# Subtest: built-in canvas and UI color layers are kept separate
+ok 22 - built-in canvas and UI color layers are kept separate
+  ---
+  duration_ms: 0.103927
+  type: 'test'
+  ...
+# Subtest: accessible labels and pressed states are provided
+ok 23 - accessible labels and pressed states are provided
+  ---
+  duration_ms: 0.078709
+  type: 'test'
+  ...
+# Subtest: opaque fallback and reduced transparency fallback included
+ok 24 - opaque fallback and reduced transparency fallback included
+  ---
+  duration_ms: 0.054412
+  type: 'test'
+  ...
+# Subtest: reduced motion and forced colors remain supported
+ok 25 - reduced motion and forced colors remain supported
+  ---
+  duration_ms: 0.054322
+  type: 'test'
+  ...
+# Subtest: native file picker remains in the markup
+ok 26 - native file picker remains in the markup
+  ---
+  duration_ms: 0.097908
+  type: 'test'
+  ...
+# Subtest: all DOM IDs are unique
+ok 27 - all DOM IDs are unique
+  ---
+  duration_ms: 0.19215
+  type: 'test'
+  ...
+# Subtest: no external runtime font/script/style dependencies
+ok 28 - no external runtime font/script/style dependencies
+  ---
+  duration_ms: 0.17203
+  type: 'test'
+  ...
+# Subtest: selection scale NaN has bounded value 1
+ok 29 - selection scale NaN has bounded value 1
+  ---
+  duration_ms: 1.581881
+  type: 'test'
+  ...
+# Subtest: selection scale Infinity has bounded value 1
+ok 30 - selection scale Infinity has bounded value 1
+  ---
+  duration_ms: 0.090286
+  type: 'test'
+  ...
+# Subtest: selection scale -Infinity has bounded value 1
+ok 31 - selection scale -Infinity has bounded value 1
+  ---
+  duration_ms: 0.100933
+  type: 'test'
+  ...
+# Subtest: selection scale 0 has bounded value 0.25
+ok 32 - selection scale 0 has bounded value 0.25
+  ---
+  duration_ms: 0.089045
+  type: 'test'
+  ...
+# Subtest: selection scale -2 has bounded value 0.25
+ok 33 - selection scale -2 has bounded value 0.25
+  ---
+  duration_ms: 0.063306
+  type: 'test'
+  ...
+# Subtest: selection scale 0.25 has bounded value 0.25
+ok 34 - selection scale 0.25 has bounded value 0.25
+  ---
+  duration_ms: 0.056946
+  type: 'test'
+  ...
+# Subtest: selection scale 0.5 has bounded value 0.5
+ok 35 - selection scale 0.5 has bounded value 0.5
+  ---
+  duration_ms: 0.050006
+  type: 'test'
+  ...
+# Subtest: selection scale 1 has bounded value 1
+ok 36 - selection scale 1 has bounded value 1
+  ---
+  duration_ms: 0.045489
+  type: 'test'
+  ...
+# Subtest: selection scale 1.75 has bounded value 1.75
+ok 37 - selection scale 1.75 has bounded value 1.75
+  ---
+  duration_ms: 0.256057
+  type: 'test'
+  ...
+# Subtest: selection scale 3 has bounded value 3
+ok 38 - selection scale 3 has bounded value 3
+  ---
+  duration_ms: 0.25796
+  type: 'test'
+  ...
+# Subtest: selection scale 10 has bounded value 3
+ok 39 - selection scale 10 has bounded value 3
+  ---
+  duration_ms: 0.100451
+  type: 'test'
+  ...
+# Subtest: rectangle normalizes/clamps [{"x":10,"y":20},{"x":80,"y":70}]
+ok 40 - rectangle normalizes/clamps [{"x":10,"y":20},{"x":80,"y":70}]
+  ---
+  duration_ms: 0.593707
+  type: 'test'
+  ...
+# Subtest: rectangle normalizes/clamps [{"x":80,"y":70},{"x":10,"y":20}]
+ok 41 - rectangle normalizes/clamps [{"x":80,"y":70},{"x":10,"y":20}]
+  ---
+  duration_ms: 0.062735
+  type: 'test'
+  ...
+# Subtest: rectangle normalizes/clamps [{"x":-5,"y":-6},{"x":110,"y":120}]
+ok 42 - rectangle normalizes/clamps [{"x":-5,"y":-6},{"x":110,"y":120}]
+  ---
+  duration_ms: 0.044347
+  type: 'test'
+  ...
+# Subtest: rectangle normalizes/clamps [{"x":10.2,"y":20.7},{"x":31.2,"y":40.7}]
+ok 43 - rectangle normalizes/clamps [{"x":10.2,"y":20.7},{"x":31.2,"y":40.7}]
+  ---
+  duration_ms: 0.038007
+  type: 'test'
+  ...
+# Subtest: rectangle normalizes/clamps [{"x":0,"y":0},{"x":0,"y":0}]
+ok 44 - rectangle normalizes/clamps [{"x":0,"y":0},{"x":0,"y":0}]
+  ---
+  duration_ms: 0.034111
+  type: 'test'
+  ...
+# Subtest: rectangle normalizes/clamps [{"x":120,"y":0},{"x":130,"y":10}]
+ok 45 - rectangle normalizes/clamps [{"x":120,"y":0},{"x":130,"y":10}]
+  ---
+  duration_ms: 0.029795
+  type: 'test'
+  ...
+# Subtest: rectangle normalizes/clamps [{"x":null,"y":0},{"x":10,"y":10}]
+ok 46 - rectangle normalizes/clamps [{"x":null,"y":0},{"x":10,"y":10}]
+  ---
+  duration_ms: 0.11244
+  type: 'test'
+  ...
+# Subtest: scale 0.25 keeps center and aspect
+ok 47 - scale 0.25 keeps center and aspect
+  ---
+  duration_ms: 0.22497
+  type: 'test'
+  ...
+# Subtest: scale 0.5 keeps center and aspect
+ok 48 - scale 0.5 keeps center and aspect
+  ---
+  duration_ms: 3.435623
+  type: 'test'
+  ...
+# Subtest: scale 1 keeps center and aspect
+ok 49 - scale 1 keeps center and aspect
+  ---
+  duration_ms: 0.066991
+  type: 'test'
+  ...
+# Subtest: scale 1.5 keeps center and aspect
+ok 50 - scale 1.5 keeps center and aspect
+  ---
+  duration_ms: 0.044347
+  type: 'test'
+  ...
+# Subtest: scale 2 keeps center and aspect
+ok 51 - scale 2 keeps center and aspect
+  ---
+  duration_ms: 0.033181
+  type: 'test'
+  ...
+# Subtest: scale 3 keeps center and aspect
+ok 52 - scale 3 keeps center and aspect
+  ---
+  duration_ms: 0.030947
+  type: 'test'
+  ...
+# Subtest: pointer map at zoom 1 DPR 1
+ok 53 - pointer map at zoom 1 DPR 1
+  ---
+  duration_ms: 0.206572
+  type: 'test'
+  ...
+# Subtest: pointer map at zoom 2 DPR 2
+ok 54 - pointer map at zoom 2 DPR 2
+  ---
+  duration_ms: 0.059781
+  type: 'test'
+  ...
+# Subtest: pointer map at zoom 4 DPR 3
+ok 55 - pointer map at zoom 4 DPR 3
+  ---
+  duration_ms: 0.042975
+  type: 'test'
+  ...
+# Subtest: pointer outside paper is clipped to its edges
+ok 56 - pointer outside paper is clipped to its edges
+  ---
+  duration_ms: 0.065099
+  type: 'test'
+  ...
+# Subtest: zero-width mapping returns null
+ok 57 - zero-width mapping returns null
+  ---
+  duration_ms: 0.050687
+  type: 'test'
+  ...
+# Subtest: panel toolsSection includes only its own related controls
+ok 58 - panel toolsSection includes only its own related controls
+  ---
+  duration_ms: 0.214134
+  type: 'test'
+  ...
+# Subtest: panel colorsSection includes only its own related controls
+ok 59 - panel colorsSection includes only its own related controls
+  ---
+  duration_ms: 0.054222
+  type: 'test'
+  ...
+# Subtest: panel pagesSection includes only its own related controls
+ok 60 - panel pagesSection includes only its own related controls
+  ---
+  duration_ms: 0.038919
+  type: 'test'
+  ...
+# Subtest: panel stickersSection includes only its own related controls
+ok 61 - panel stickersSection includes only its own related controls
+  ---
+  duration_ms: 0.034722
+  type: 'test'
+  ...
+# Subtest: unknown panel  falls back safely
+ok 62 - unknown panel  falls back safely
+  ---
+  duration_ms: 0.055554
+  type: 'test'
+  ...
+# Subtest: unknown panel unknown falls back safely
+ok 63 - unknown panel unknown falls back safely
+  ---
+  duration_ms: 0.036485
+  type: 'test'
+  ...
+# Subtest: unknown panel __proto__ falls back safely
+ok 64 - unknown panel __proto__ falls back safely
+  ---
+  duration_ms: 0.036996
+  type: 'test'
+  ...
+# Subtest: unknown panel constructor falls back safely
+ok 65 - unknown panel constructor falls back safely
+  ---
+  duration_ms: 0.034883
+  type: 'test'
+  ...
+# Subtest: unknown panel null falls back safely
+ok 66 - unknown panel null falls back safely
+  ---
+  duration_ms: 0.033851
+  type: 'test'
+  ...
+# Subtest: panel results cannot mutate shared configuration
+ok 67 - panel results cannot mutate shared configuration
+  ---
+  duration_ms: 0.064557
+  type: 'test'
+  ...
+# Subtest: exactly five brush widths and no duplicate size buttons
+ok 68 - exactly five brush widths and no duplicate size buttons
+  ---
+  duration_ms: 0.17859
+  type: 'test'
+  ...
+# Subtest: size picker starts hidden and has its own heading
+ok 69 - size picker starts hidden and has its own heading
+  ---
+  duration_ms: 0.200923
+  type: 'test'
+  ...
+# Subtest: size picker is immediately after brush, before sparkle
+ok 70 - size picker is immediately after brush, before sparkle
+  ---
+  duration_ms: 0.132139
+  type: 'test'
+  ...
+# Subtest: brushBtn discloses a single shared size picker
+ok 71 - brushBtn discloses a single shared size picker
+  ---
+  duration_ms: 0.065449
+  type: 'test'
+  ...
+# Subtest: sparkleBtn discloses a single shared size picker
+ok 72 - sparkleBtn discloses a single shared size picker
+  ---
+  duration_ms: 0.041572
+  type: 'test'
+  ...
+# Subtest: outlineBtn discloses a single shared size picker
+ok 73 - outlineBtn discloses a single shared size picker
+  ---
+  duration_ms: 0.301716
+  type: 'test'
+  ...
+# Subtest: eraserBtn discloses a single shared size picker
+ok 74 - eraserBtn discloses a single shared size picker
+  ---
+  duration_ms: 0.057477
+  type: 'test'
+  ...
+# Subtest: selection is a separate module loaded after engine
+ok 75 - selection is a separate module loaded after engine
+  ---
+  duration_ms: 0.07252
+  type: 'test'
+  ...
+# Subtest: en translates all contextual and selection strings
+ok 76 - en translates all contextual and selection strings
+  ---
+  duration_ms: 0.470291
+  type: 'test'
+  ...
+# Subtest: fr translates all contextual and selection strings
+ok 77 - fr translates all contextual and selection strings
+  ---
+  duration_ms: 0.063616
+  type: 'test'
+  ...
+# Subtest: pt translates all contextual and selection strings
+ok 78 - pt translates all contextual and selection strings
+  ---
+  duration_ms: 0.042494
+  type: 'test'
+  ...
+# Subtest: es translates all contextual and selection strings
+ok 79 - es translates all contextual and selection strings
+  ---
+  duration_ms: 0.038799
+  type: 'test'
+  ...
+# Subtest: zh-Hans translates all contextual and selection strings
+ok 80 - zh-Hans translates all contextual and selection strings
+  ---
+  duration_ms: 0.03927
+  type: 'test'
+  ...
+# Subtest: ja translates all contextual and selection strings
+ok 81 - ja translates all contextual and selection strings
+  ---
+  duration_ms: 0.037516
+  type: 'test'
+  ...
+# Subtest: ko translates all contextual and selection strings
+ok 82 - ko translates all contextual and selection strings
+  ---
+  duration_ms: 0.035744
+  type: 'test'
+  ...
+# Subtest: app.js outside explicit pattern hooks matches accepted baseline
+ok 83 - app.js outside explicit pattern hooks matches accepted baseline
+  ---
+  duration_ms: 0.963786
+  type: 'test'
+  ...
+# Subtest: canvas-zoom.js outside explicit pattern hooks matches accepted baseline
+ok 84 - canvas-zoom.js outside explicit pattern hooks matches accepted baseline
+  ---
+  duration_ms: 0.138309
+  type: 'test'
+  ...
+# Subtest: selection cannot rescale or resize the whole artwork canvas
+ok 85 - selection cannot rescale or resize the whole artwork canvas
+  ---
+  duration_ms: 0.560748
+  type: 'test'
+  ...
+# Subtest: selection uses a read-only preview until Apply
+ok 86 - selection uses a read-only preview until Apply
+  ---
+  duration_ms: 0.219972
+  type: 'test'
+  ...
+# Subtest: style solid has all seven labels
+ok 87 - style solid has all seven labels
+  ---
+  duration_ms: 1.159272
+  type: 'test'
+  ...
+# Subtest: style sparkle has all seven labels
+ok 88 - style sparkle has all seven labels
+  ---
+  duration_ms: 0.134934
+  type: 'test'
+  ...
+# Subtest: style horizontal has all seven labels
+ok 89 - style horizontal has all seven labels
+  ---
+  duration_ms: 0.114363
+  type: 'test'
+  ...
+# Subtest: style vertical has all seven labels
+ok 90 - style vertical has all seven labels
+  ---
+  duration_ms: 0.579295
+  type: 'test'
+  ...
+# Subtest: style diagonalLeft has all seven labels
+ok 91 - style diagonalLeft has all seven labels
+  ---
+  duration_ms: 0.100782
+  type: 'test'
+  ...
+# Subtest: style diagonalRight has all seven labels
+ok 92 - style diagonalRight has all seven labels
+  ---
+  duration_ms: 0.06622
+  type: 'test'
+  ...
+# Subtest: style waves has all seven labels
+ok 93 - style waves has all seven labels
+  ---
+  duration_ms: 0.055765
+  type: 'test'
+  ...
+# Subtest: style dots has all seven labels
+ok 94 - style dots has all seven labels
+  ---
+  duration_ms: 0.048443
+  type: 'test'
+  ...
+# Subtest: style stars has all seven labels
+ok 95 - style stars has all seven labels
+  ---
+  duration_ms: 0.255946
+  type: 'test'
+  ...
+# Subtest: style triangles has all seven labels
+ok 96 - style triangles has all seven labels
+  ---
+  duration_ms: 0.537202
+  type: 'test'
+  ...
+# Subtest: style hearts has all seven labels
+ok 97 - style hearts has all seven labels
+  ---
+  duration_ms: 0.107973
+  type: 'test'
+  ...
+# Subtest: style flowers has all seven labels
+ok 98 - style flowers has all seven labels
+  ---
+  duration_ms: 0.048273
+  type: 'test'
+  ...
+# Subtest: style checker has all seven labels
+ok 99 - style checker has all seven labels
+  ---
+  duration_ms: 0.034813
+  type: 'test'
+  ...
+# Subtest: style grid has all seven labels
+ok 100 - style grid has all seven labels
+  ---
+  duration_ms: 0.031358
+  type: 'test'
+  ...
+# Subtest: style diamonds has all seven labels
+ok 101 - style diamonds has all seven labels
+  ---
+  duration_ms: 0.030286
+  type: 'test'
+  ...
+# Subtest: 15 unique styles
+ok 102 - 15 unique styles
+  ---
+  duration_ms: 0.05963
+  type: 'test'
+  ...
+# Subtest: invalid style __proto__ resolves solid
+ok 103 - invalid style __proto__ resolves solid
+  ---
+  duration_ms: 0.04647
+  type: 'test'
+  ...
+# Subtest: invalid style constructor resolves solid
+ok 104 - invalid style constructor resolves solid
+  ---
+  duration_ms: 0.027722
+  type: 'test'
+  ...
+# Subtest: invalid style bad resolves solid
+ok 105 - invalid style bad resolves solid
+  ---
+  duration_ms: 0.092741
+  type: 'test'
+  ...
+# Subtest: invalid style null resolves solid
+ok 106 - invalid style null resolves solid
+  ---
+  duration_ms: 0.041903
+  type: 'test'
+  ...
+# Subtest: invalid style undefined resolves solid
+ok 107 - invalid style undefined resolves solid
+  ---
+  duration_ms: 0.028503
+  type: 'test'
+  ...
+# Subtest: parse \#000000
+ok 108 - parse \#000000
+  ---
+  duration_ms: 0.1717
+  type: 'test'
+  ...
+# Subtest: parse \#ffffff
+ok 109 - parse \#ffffff
+  ---
+  duration_ms: 1.041404
+  type: 'test'
+  ...
+# Subtest: parse \#ff4f87
+ok 110 - parse \#ff4f87
+  ---
+  duration_ms: 0.061934
+  type: 'test'
+  ...
+# Subtest: reject invalid color red
+ok 111 - reject invalid color red
+  ---
+  duration_ms: 0.27741
+  type: 'test'
+  ...
+# Subtest: reject invalid color \#abc
+ok 112 - reject invalid color \#abc
+  ---
+  duration_ms: 0.062084
+  type: 'test'
+  ...
+# Subtest: reject invalid color \#00000000
+ok 113 - reject invalid color \#00000000
+  ---
+  duration_ms: 0.045179
+  type: 'test'
+  ...
+# Subtest: reject invalid color null
+ok 114 - reject invalid color null
+  ---
+  duration_ms: 0.036145
+  type: 'test'
+  ...
+# Subtest: scanline is equivalent to accepted four-neighbour RGBA mask 1
+ok 115 - scanline is equivalent to accepted four-neighbour RGBA mask 1
+  ---
+  duration_ms: 1.248817
+  type: 'test'
+  ...
+# Subtest: scanline is equivalent to accepted four-neighbour RGBA mask 2
+ok 116 - scanline is equivalent to accepted four-neighbour RGBA mask 2
+  ---
+  duration_ms: 0.512444
+  type: 'test'
+  ...
+# Subtest: scanline is equivalent to accepted four-neighbour RGBA mask 3
+ok 117 - scanline is equivalent to accepted four-neighbour RGBA mask 3
+  ---
+  duration_ms: 0.464512
+  type: 'test'
+  ...
+# Subtest: scanline is equivalent to accepted four-neighbour RGBA mask 4
+ok 118 - scanline is equivalent to accepted four-neighbour RGBA mask 4
+  ---
+  duration_ms: 0.5029
+  type: 'test'
+  ...
+# Subtest: scanline is equivalent to accepted four-neighbour RGBA mask 5
+ok 119 - scanline is equivalent to accepted four-neighbour RGBA mask 5
+  ---
+  duration_ms: 0.233794
+  type: 'test'
+  ...
+# Subtest: scanline is equivalent to accepted four-neighbour RGBA mask 6
+ok 120 - scanline is equivalent to accepted four-neighbour RGBA mask 6
+  ---
+  duration_ms: 0.287304
+  type: 'test'
+  ...
+# Subtest: scanline is equivalent to accepted four-neighbour RGBA mask 7
+ok 121 - scanline is equivalent to accepted four-neighbour RGBA mask 7
+  ---
+  duration_ms: 0.250789
+  type: 'test'
+  ...
+# Subtest: scanline is equivalent to accepted four-neighbour RGBA mask 8
+ok 122 - scanline is equivalent to accepted four-neighbour RGBA mask 8
+  ---
+  duration_ms: 0.265581
+  type: 'test'
+  ...
+# Subtest: scanline is equivalent to accepted four-neighbour RGBA mask 9
+ok 123 - scanline is equivalent to accepted four-neighbour RGBA mask 9
+  ---
+  duration_ms: 0.233664
+  type: 'test'
+  ...
+# Subtest: scanline is equivalent to accepted four-neighbour RGBA mask 10
+ok 124 - scanline is equivalent to accepted four-neighbour RGBA mask 10
+  ---
+  duration_ms: 0.285181
+  type: 'test'
+  ...
+# Subtest: scanline is equivalent to accepted four-neighbour RGBA mask 11
+ok 125 - scanline is equivalent to accepted four-neighbour RGBA mask 11
+  ---
+  duration_ms: 0.309898
+  type: 'test'
+  ...
+# Subtest: scanline is equivalent to accepted four-neighbour RGBA mask 12
+ok 126 - scanline is equivalent to accepted four-neighbour RGBA mask 12
+  ---
+  duration_ms: 0.381367
+  type: 'test'
+  ...
+# Subtest: scanline is equivalent to accepted four-neighbour RGBA mask 13
+ok 127 - scanline is equivalent to accepted four-neighbour RGBA mask 13
+  ---
+  duration_ms: 1.241076
+  type: 'test'
+  ...
+# Subtest: scanline is equivalent to accepted four-neighbour RGBA mask 14
+ok 128 - scanline is equivalent to accepted four-neighbour RGBA mask 14
+  ---
+  duration_ms: 0.647579
+  type: 'test'
+  ...
+# Subtest: scanline is equivalent to accepted four-neighbour RGBA mask 15
+ok 129 - scanline is equivalent to accepted four-neighbour RGBA mask 15
+  ---
+  duration_ms: 0.202616
+  type: 'test'
+  ...
+# Subtest: scanline is equivalent to accepted four-neighbour RGBA mask 16
+ok 130 - scanline is equivalent to accepted four-neighbour RGBA mask 16
+  ---
+  duration_ms: 0.238951
+  type: 'test'
+  ...
+# Subtest: transparent black pixels can be selected (alpha not ignored)
+ok 131 - transparent black pixels can be selected (alpha not ignored)
+  ---
+  duration_ms: 0.126291
+  type: 'test'
+  ...
+# Subtest: diagonally adjacent squares are not connected
+ok 132 - diagonally adjacent squares are not connected
+  ---
+  duration_ms: 0.100522
+  type: 'test'
+  ...
+# Subtest: out of bounds seed -1,1 does not paint
+ok 133 - out of bounds seed -1,1 does not paint
+  ---
+  duration_ms: 0.067081
+  type: 'test'
+  ...
+# Subtest: out of bounds seed 1,-1 does not paint
+ok 134 - out of bounds seed 1,-1 does not paint
+  ---
+  duration_ms: 0.037247
+  type: 'test'
+  ...
+# Subtest: out of bounds seed 5,1 does not paint
+ok 135 - out of bounds seed 5,1 does not paint
+  ---
+  duration_ms: 0.036936
+  type: 'test'
+  ...
+# Subtest: out of bounds seed 1,5 does not paint
+ok 136 - out of bounds seed 1,5 does not paint
+  ---
+  duration_ms: 0.030396
+  type: 'test'
+  ...
+# Subtest: out of bounds seed NaN,1 does not paint
+ok 137 - out of bounds seed NaN,1 does not paint
+  ---
+  duration_ms: 0.029614
+  type: 'test'
+  ...
+# Subtest: out of bounds seed Infinity,2 does not paint
+ok 138 - out of bounds seed Infinity,2 does not paint
+  ---
+  duration_ms: 0.028994
+  type: 'test'
+  ...
+# Subtest: solid no-op and outside bytes are preserved
+ok 139 - solid no-op and outside bytes are preserved
+  ---
+  duration_ms: 0.299774
+  type: 'test'
+  ...
+# Subtest: pattern samples align in artwork coordinates
+ok 140 - pattern samples align in artwork coordinates
+  ---
+  duration_ms: 0.170057
+  type: 'test'
+  ...
+# Subtest: record labels join pattern motifs into a single paint region
+ok 141 - record labels join pattern motifs into a single paint region
+  ---
+  duration_ms: 0.259993
+  type: 'test'
+  ...
+# Subtest: brush marks interrupt semantic patterns rather than getting flattened
+ok 142 - brush marks interrupt semantic patterns rather than getting flattened
+  ---
+  duration_ms: 0.273132
+  type: 'test'
+  ...
+# Subtest: pattern black pixels never merge with an unrelated black outline
+ok 143 - pattern black pixels never merge with an unrelated black outline
+  ---
+  duration_ms: 0.104488
+  type: 'test'
+  ...
+# Subtest: span subtraction retains unaffected sides
+ok 144 - span subtraction retains unaffected sides
+  ---
+  duration_ms: 0.220544
+  type: 'test'
+  ...
+# Subtest: history reset/restore retains immutable pattern states and prunes evicted history
+ok 145 - history reset/restore retains immutable pattern states and prunes evicted history
+  ---
+  duration_ms: 0.411552
+  type: 'test'
+  ...
+# Subtest: repainting part removes overlap from older records
+ok 146 - repainting part removes overlap from older records
+  ---
+  duration_ms: 0.133091
+  type: 'test'
+  ...
+# Subtest: catalog has 30 unique complete entries, no placeholder items
+ok 147 - catalog has 30 unique complete entries, no placeholder items
+  ---
+  duration_ms: 1.629002
+  type: 'test'
+  ...
+# Subtest: easy has 10 actual templates, paginated 6 + 4
+ok 148 - easy has 10 actual templates, paginated 6 + 4
+  ---
+  duration_ms: 0.164799
+  type: 'test'
+  ...
+# Subtest: medium has 10 actual templates, paginated 6 + 4
+ok 149 - medium has 10 actual templates, paginated 6 + 4
+  ---
+  duration_ms: 0.058839
+  type: 'test'
+  ...
+# Subtest: hard has 10 actual templates, paginated 6 + 4
+ok 150 - hard has 10 actual templates, paginated 6 + 4
+  ---
+  duration_ms: 0.32456
+  type: 'test'
+  ...
+# Subtest: the same catalog code supports 50 per tier without UI changes
+ok 151 - the same catalog code supports 50 per tier without UI changes
+  ---
+  duration_ms: 0.133001
+  type: 'test'
+  ...
+# Subtest: reject unsafe catalog source https://bad.test/x.png
+ok 152 - reject unsafe catalog source https://bad.test/x.png
+  ---
+  duration_ms: 0.060271
+  type: 'test'
+  ...
+# Subtest: reject unsafe catalog source ../x.png
+ok 153 - reject unsafe catalog source ../x.png
+  ---
+  duration_ms: 0.070166
+  type: 'test'
+  ...
+# Subtest: reject unsafe catalog source assets/../x.png
+ok 154 - reject unsafe catalog source assets/../x.png
+  ---
+  duration_ms: 0.048864
+  type: 'test'
+  ...
+# Subtest: reject unsafe catalog source data:image/png,foo
+ok 155 - reject unsafe catalog source data:image/png,foo
+  ---
+  duration_ms: 0.035363
+  type: 'test'
+  ...
+# Subtest: reject unsafe catalog source javascript:foo
+ok 156 - reject unsafe catalog source javascript:foo
+  ---
+  duration_ms: 0.03319
+  type: 'test'
+  ...
+# Subtest: reject unsafe catalog source assets/x.html
+ok 157 - reject unsafe catalog source assets/x.html
+  ---
+  duration_ms: 0.03311
+  type: 'test'
+  ...
+# Subtest: duplicate IDs are rejected
+ok 158 - duplicate IDs are rejected
+  ---
+  duration_ms: 0.108124
+  type: 'test'
+  ...
+# Subtest: HTML never preloads gallery full images
+ok 159 - HTML never preloads gallery full images
+  ---
+  duration_ms: 0.335096
+  type: 'test'
+  ...
+# Subtest: normal fill source is unchanged outside the explicit dispatch and history hooks
+ok 160 - normal fill source is unchanged outside the explicit dispatch and history hooks
+  ---
+  duration_ms: 0.578935
+  type: 'test'
+  ...
+# Subtest: exactly seven requested languages in the selector
+ok 161 - exactly seven requested languages in the selector
+  ---
+  duration_ms: 1.864177
+  type: 'test'
+  ...
+# Subtest: en: complete nonempty message catalogue
+ok 162 - en: complete nonempty message catalogue
+  ---
+  duration_ms: 0.520407
+  type: 'test'
+  ...
+# Subtest: en: translation returns every exact message
+ok 163 - en: translation returns every exact message
+  ---
+  duration_ms: 0.365432
+  type: 'test'
+  ...
+# Subtest: en: native option exists and keeps its own language tag
+ok 164 - en: native option exists and keeps its own language tag
+  ---
+  duration_ms: 0.117708
+  type: 'test'
+  ...
+# Subtest: fr: complete nonempty message catalogue
+ok 165 - fr: complete nonempty message catalogue
+  ---
+  duration_ms: 0.176447
+  type: 'test'
+  ...
+# Subtest: fr: translation returns every exact message
+ok 166 - fr: translation returns every exact message
+  ---
+  duration_ms: 0.156687
+  type: 'test'
+  ...
+# Subtest: fr: native option exists and keeps its own language tag
+ok 167 - fr: native option exists and keeps its own language tag
+  ---
+  duration_ms: 0.061473
+  type: 'test'
+  ...
+# Subtest: pt: complete nonempty message catalogue
+ok 168 - pt: complete nonempty message catalogue
+  ---
+  duration_ms: 0.180193
+  type: 'test'
+  ...
+# Subtest: pt: translation returns every exact message
+ok 169 - pt: translation returns every exact message
+  ---
+  duration_ms: 0.495929
+  type: 'test'
+  ...
+# Subtest: pt: native option exists and keeps its own language tag
+ok 170 - pt: native option exists and keeps its own language tag
+  ---
+  duration_ms: 0.41065
+  type: 'test'
+  ...
+# Subtest: es: complete nonempty message catalogue
+ok 171 - es: complete nonempty message catalogue
+  ---
+  duration_ms: 0.827621
+  type: 'test'
+  ...
+# Subtest: es: translation returns every exact message
+ok 172 - es: translation returns every exact message
+  ---
+  duration_ms: 0.137017
+  type: 'test'
+  ...
+# Subtest: es: native option exists and keeps its own language tag
+ok 173 - es: native option exists and keeps its own language tag
+  ---
+  duration_ms: 0.054673
+  type: 'test'
+  ...
+# Subtest: zh-Hans: complete nonempty message catalogue
+ok 174 - zh-Hans: complete nonempty message catalogue
+  ---
+  duration_ms: 0.251189
+  type: 'test'
+  ...
+# Subtest: zh-Hans: translation returns every exact message
+ok 175 - zh-Hans: translation returns every exact message
+  ---
+  duration_ms: 0.10598
+  type: 'test'
+  ...
+# Subtest: zh-Hans: native option exists and keeps its own language tag
+ok 176 - zh-Hans: native option exists and keeps its own language tag
+  ---
+  duration_ms: 0.040852
+  type: 'test'
+  ...
+# Subtest: ja: complete nonempty message catalogue
+ok 177 - ja: complete nonempty message catalogue
+  ---
+  duration_ms: 0.130838
+  type: 'test'
+  ...
+# Subtest: ja: translation returns every exact message
+ok 178 - ja: translation returns every exact message
+  ---
+  duration_ms: 0.135655
+  type: 'test'
+  ...
+# Subtest: ja: native option exists and keeps its own language tag
+ok 179 - ja: native option exists and keeps its own language tag
+  ---
+  duration_ms: 0.043847
+  type: 'test'
+  ...
+# Subtest: ko: complete nonempty message catalogue
+ok 180 - ko: complete nonempty message catalogue
+  ---
+  duration_ms: 0.124479
+  type: 'test'
+  ...
+# Subtest: ko: translation returns every exact message
+ok 181 - ko: translation returns every exact message
+  ---
+  duration_ms: 0.103035
+  type: 'test'
+  ...
+# Subtest: ko: native option exists and keeps its own language tag
+ok 182 - ko: native option exists and keeps its own language tag
+  ---
+  duration_ms: 0.038618
+  type: 'test'
+  ...
+# Subtest: resolve locale "fr-CA"
+ok 183 - resolve locale "fr-CA"
+  ---
+  duration_ms: 0.060311
+  type: 'test'
+  ...
+# Subtest: resolve locale "fr-FR"
+ok 184 - resolve locale "fr-FR"
+  ---
+  duration_ms: 0.03268
+  type: 'test'
+  ...
+# Subtest: resolve locale "pt-BR"
+ok 185 - resolve locale "pt-BR"
+  ---
+  duration_ms: 0.032689
+  type: 'test'
+  ...
+# Subtest: resolve locale "pt-PT"
+ok 186 - resolve locale "pt-PT"
+  ---
+  duration_ms: 0.027231
+  type: 'test'
+  ...
+# Subtest: resolve locale "es-MX"
+ok 187 - resolve locale "es-MX"
+  ---
+  duration_ms: 0.026991
+  type: 'test'
+  ...
+# Subtest: resolve locale "zh-CN"
+ok 188 - resolve locale "zh-CN"
+  ---
+  duration_ms: 0.056856
+  type: 'test'
+  ...
+# Subtest: resolve locale "zh"
+ok 189 - resolve locale "zh"
+  ---
+  duration_ms: 0.062815
+  type: 'test'
+  ...
+# Subtest: resolve locale "zh-Hans"
+ok 190 - resolve locale "zh-Hans"
+  ---
+  duration_ms: 0.074853
+  type: 'test'
+  ...
+# Subtest: resolve locale "ja-JP"
+ok 191 - resolve locale "ja-JP"
+  ---
+  duration_ms: 0.081834
+  type: 'test'
+  ...
+# Subtest: resolve locale "ko-KR"
+ok 192 - resolve locale "ko-KR"
+  ---
+  duration_ms: 0.111368
+  type: 'test'
+  ...
+# Subtest: resolve locale "EN_us"
+ok 193 - resolve locale "EN_us"
+  ---
+  duration_ms: 0.076365
+  type: 'test'
+  ...
+# Subtest: resolve locale "  fr  "
+ok 194 - resolve locale "  fr  "
+  ---
+  duration_ms: 0.036906
+  type: 'test'
+  ...
+# Subtest: resolve locale "de-DE"
+ok 195 - resolve locale "de-DE"
+  ---
+  duration_ms: 0.04664
+  type: 'test'
+  ...
+# Subtest: resolve locale "__proto__"
+ok 196 - resolve locale "__proto__"
+  ---
+  duration_ms: 0.07994
+  type: 'test'
+  ...
+# Subtest: resolve locale "constructor"
+ok 197 - resolve locale "constructor"
+  ---
+  duration_ms: 0.052739
+  type: 'test'
+  ...
+# Subtest: resolve locale ""
+ok 198 - resolve locale ""
+  ---
+  duration_ms: 0.038088
+  type: 'test'
+  ...
+# Subtest: resolve locale null
+ok 199 - resolve locale null
+  ---
+  duration_ms: 0.030937
+  type: 'test'
+  ...
+# Subtest: resolve locale 42
+ok 200 - resolve locale 42
+  ---
+  duration_ms: 0.068433
+  type: 'test'
+  ...
+# Subtest: every HTML translation key is present in every catalogue
+ok 201 - every HTML translation key is present in every catalogue
+  ---
+  duration_ms: 0.955384
+  type: 'test'
+  ...
+# Subtest: missing message safely returns a readable key
+ok 202 - missing message safely returns a readable key
+  ---
+  duration_ms: 0.10605
+  type: 'test'
+  ...
+# Subtest: unsupported locale safely falls back to English
+ok 203 - unsupported locale safely falls back to English
+  ---
+  duration_ms: 0.084558
+  type: 'test'
+  ...
+# Subtest: missing preference defaults to English
+ok 204 - missing preference defaults to English
+  ---
+  duration_ms: 0.172391
+  type: 'test'
+  ...
+# Subtest: stored preference restores French Canadian as French
+ok 205 - stored preference restores French Canadian as French
+  ---
+  duration_ms: 0.107743
+  type: 'test'
+  ...
+# Subtest: blocked storage reads do not break initialization
+ok 206 - blocked storage reads do not break initialization
+  ---
+  duration_ms: 0.188996
+  type: 'test'
+  ...
+# Subtest: absent storage does not break the picker
+ok 207 - absent storage does not break the picker
+  ---
+  duration_ms: 0.119
+  type: 'test'
+  ...
+# Subtest: blocked storage writes are handled
+ok 208 - blocked storage writes are handled
+  ---
+  duration_ms: 0.124448
+  type: 'test'
+  ...
+# Subtest: saved language uses a dedicated key and canonical code
+ok 209 - saved language uses a dedicated key and canonical code
+  ---
+  duration_ms: 0.185841
+  type: 'test'
+  ...
+# Subtest: valid storage roundtrip restores all seven choices
+ok 210 - valid storage roundtrip restores all seven choices
+  ---
+  duration_ms: 0.222777
+  type: 'test'
+  ...
+# Subtest: app changes remain confined to Clear, Save, and the shared picture import block
+ok 211 - app changes remain confined to Clear, Save, and the shared picture import block
+  ---
+  duration_ms: 1.357832
+  type: 'test'
+  ...
+# Subtest: canvas zoom source is unchanged, allowing LF/CRLF checkout conversion
+ok 212 - canvas zoom source is unchanged, allowing LF/CRLF checkout conversion
+  ---
+  duration_ms: 0.137588
+  type: 'test'
+  ...
+# Subtest: Clear uses the selected language and still cancels safely
+ok 213 - Clear uses the selected language and still cancels safely
+  ---
+  duration_ms: 3.55975
+  type: 'test'
+  ...
+# Subtest: picker cannot change canvas pixels or tool IDs
+ok 214 - picker cannot change canvas pixels or tool IDs
+  ---
+  duration_ms: 1.367127
+  type: 'test'
+  ...
+# Subtest: localization loads before UI dynamic messages
+ok 215 - localization loads before UI dynamic messages
+  ---
+  duration_ms: 0.174814
+  type: 'test'
+  ...
+# Subtest: both language controls reach one native dialog
+ok 216 - both language controls reach one native dialog
+  ---
+  duration_ms: 0.207884
+  type: 'test'
+  ...
+# Subtest: template unicorn maps to the supplied unicorn.png through the shared loader
+ok 217 - template unicorn maps to the supplied unicorn.png through the shared loader
+  ---
+  duration_ms: 21.812508
+  type: 'test'
+  ...
+# Subtest: unicorn.png is byte-identical to the user's uploaded image
+ok 218 - unicorn.png is byte-identical to the user's uploaded image
+  ---
+  duration_ms: 4.641004
+  type: 'test'
+  ...
+# Subtest: template princess maps to the supplied princess.png through the shared loader
+ok 219 - template princess maps to the supplied princess.png through the shared loader
+  ---
+  duration_ms: 1.928975
+  type: 'test'
+  ...
+# Subtest: princess.png is byte-identical to the user's uploaded image
+ok 220 - princess.png is byte-identical to the user's uploaded image
+  ---
+  duration_ms: 2.239575
+  type: 'test'
+  ...
+# Subtest: template cat maps to the supplied cat.png through the shared loader
+ok 221 - template cat maps to the supplied cat.png through the shared loader
+  ---
+  duration_ms: 1.79971
+  type: 'test'
+  ...
+# Subtest: cat.png is byte-identical to the user's uploaded image
+ok 222 - cat.png is byte-identical to the user's uploaded image
+  ---
+  duration_ms: 3.327248
+  type: 'test'
+  ...
+# Subtest: template butterfly maps to the supplied butterfly.png through the shared loader
+ok 223 - template butterfly maps to the supplied butterfly.png through the shared loader
+  ---
+  duration_ms: 2.398295
+  type: 'test'
+  ...
+# Subtest: butterfly.png is byte-identical to the user's uploaded image
+ok 224 - butterfly.png is byte-identical to the user's uploaded image
+  ---
+  duration_ms: 1.904258
+  type: 'test'
+  ...
+# Subtest: template dino maps to the supplied dinosaur.png through the shared loader
+ok 225 - template dino maps to the supplied dinosaur.png through the shared loader
+  ---
+  duration_ms: 1.433817
+  type: 'test'
+  ...
+# Subtest: dinosaur.png is byte-identical to the user's uploaded image
+ok 226 - dinosaur.png is byte-identical to the user's uploaded image
+  ---
+  duration_ms: 2.190281
+  type: 'test'
+  ...
+# Subtest: prototype property names cannot be loaded as templates
+ok 227 - prototype property names cannot be loaded as templates
+  ---
+  duration_ms: 9.014345
+  type: 'test'
+  ...
+# Subtest: load waits for decode before changing drawing or history
+ok 228 - load waits for decode before changing drawing or history
+  ---
+  duration_ms: 1.710395
+  type: 'test'
+  ...
+# Subtest: aspect fitting is centered without stretching
+ok 229 - aspect fitting is centered without stretching
+  ---
+  duration_ms: 1.439116
+  type: 'test'
+  ...
+# Subtest: wide uploaded image uses the identical centered fit
+ok 230 - wide uploaded image uses the identical centered fit
+  ---
+  duration_ms: 1.638657
+  type: 'test'
+  ...
+# Subtest: image loading never changes the real bitmap dimensions
+ok 231 - image loading never changes the real bitmap dimensions
+  ---
+  duration_ms: 1.838058
+  type: 'test'
+  ...
+# Subtest: successful load creates exactly one undo state and clears redo
+ok 232 - successful load creates exactly one undo state and clears redo
+  ---
+  duration_ms: 2.425886
+  type: 'test'
+  ...
+# Subtest: switching pictures preserves the selected tool, color and size
+ok 233 - switching pictures preserves the selected tool, color and size
+  ---
+  duration_ms: 2.709896
+  type: 'test'
+  ...
+# Subtest: blank cancels an unfinished load without subsequently painting it
+ok 234 - blank cancels an unfinished load without subsequently painting it
+  ---
+  duration_ms: 5.008018
+  type: 'test'
+  ...
+# Subtest: newest selection wins even when old decoder reports late
+ok 235 - newest selection wins even when old decoder reports late
+  ---
+  duration_ms: 2.609403
+  type: 'test'
+  ...
+# Subtest: later artwork action invalidates a pending image: clearAll
+ok 236 - later artwork action invalidates a pending image: clearAll
+  ---
+  duration_ms: 2.782746
+  type: 'test'
+  ...
+# Subtest: later artwork action invalidates a pending image: restore
+ok 237 - later artwork action invalidates a pending image: restore
+  ---
+  duration_ms: 1.563824
+  type: 'test'
+  ...
+# Subtest: later artwork action invalidates a pending image: start
+ok 238 - later artwork action invalidates a pending image: start
+  ---
+  duration_ms: 1.552627
+  type: 'test'
+  ...
+# Subtest: failed decode leaves existing artwork/history untouched and reports an error
+ok 239 - failed decode leaves existing artwork/history untouched and reports an error
+  ---
+  duration_ms: 1.28362
+  type: 'test'
+  ...
+# Subtest: zero size image is refused before clearing live artwork
+ok 240 - zero size image is refused before clearing live artwork
+  ---
+  duration_ms: 2.415361
+  type: 'test'
+  ...
+# Subtest: unreadable staging image cannot taint the live canvas
+ok 241 - unreadable staging image cannot taint the live canvas
+  ---
+  duration_ms: 1.391723
+  type: 'test'
+  ...
+# Subtest: upload handler calls the same loader and releases its blob URL
+ok 242 - upload handler calls the same loader and releases its blob URL
+  ---
+  duration_ms: 1.395509
+  type: 'test'
+  ...
+# Subtest: failed uploads release object URLs and allow choosing the same file again
+ok 243 - failed uploads release object URLs and allow choosing the same file again
+  ---
+  duration_ms: 1.254987
+  type: 'test'
+  ...
+# Subtest: cancelling an upload releases its object URL exactly once
+ok 244 - cancelling an upload releases its object URL exactly once
+  ---
+  duration_ms: 1.207565
+  type: 'test'
+  ...
+# Subtest: cancellation of previous upload cannot reset newer file selection
+ok 245 - cancellation of previous upload cannot reset newer file selection
+  ---
+  duration_ms: 1.238982
+  type: 'test'
+  ...
+# Subtest: cancelled native file picker changes nothing
+ok 246 - cancelled native file picker changes nothing
+  ---
+  duration_ms: 1.213324
+  type: 'test'
+  ...
+# Subtest: timeout preserves artwork and releases upload resources
+ok 247 - timeout preserves artwork and releases upload resources
+  ---
+  duration_ms: 2.673781
+  type: 'test'
+  ...
+# Subtest: en has a localized import error
+ok 248 - en has a localized import error
+  ---
+  duration_ms: 2.212785
+  type: 'test'
+  ...
+# Subtest: fr has a localized import error
+ok 249 - fr has a localized import error
+  ---
+  duration_ms: 0.106571
+  type: 'test'
+  ...
+# Subtest: pt has a localized import error
+ok 250 - pt has a localized import error
+  ---
+  duration_ms: 0.09889
+  type: 'test'
+  ...
+# Subtest: es has a localized import error
+ok 251 - es has a localized import error
+  ---
+  duration_ms: 0.088464
+  type: 'test'
+  ...
+# Subtest: zh-Hans has a localized import error
+ok 252 - zh-Hans has a localized import error
+  ---
+  duration_ms: 0.09256
+  type: 'test'
+  ...
+# Subtest: ja has a localized import error
+ok 253 - ja has a localized import error
+  ---
+  duration_ms: 0.164689
+  type: 'test'
+  ...
+# Subtest: ko has a localized import error
+ok 254 - ko has a localized import error
+  ---
+  duration_ms: 0.093441
+  type: 'test'
+  ...
+# Subtest: canvas-zoom.js unchanged from live main
+ok 255 - canvas-zoom.js unchanged from live main
+  ---
+  duration_ms: 0.375268
+  type: 'test'
+  ...
+# Subtest: save-picture.js unchanged from live main
+ok 256 - save-picture.js unchanged from live main
+  ---
+  duration_ms: 0.236367
+  type: 'test'
+  ...
+# Subtest: style.css unchanged from live main
+ok 257 - style.css unchanged from live main
+  ---
+  duration_ms: 0.176396
+  type: 'test'
+  ...
+# Subtest: apple-colorful.css unchanged from live main
+ok 258 - apple-colorful.css unchanged from live main
+  ---
+  duration_ms: 0.394697
+  type: 'test'
+  ...
+# Subtest: languages.css unchanged from live main
+ok 259 - languages.css unchanged from live main
+  ---
+  duration_ms: 0.242807
+  type: 'test'
+  ...
+# Subtest: save-picture.css unchanged from live main
+ok 260 - save-picture.css unchanged from live main
+  ---
+  duration_ms: 0.139621
+  type: 'test'
+  ...
+# Subtest: app prefix and suffix outside the image block remain identical to main
+ok 261 - app prefix and suffix outside the image block remain identical to main
+  ---
+  duration_ms: 0.561648
+  type: 'test'
+  ...
+# Subtest: export uses full bitmap dimensions, not CSS zoom or viewport
+ok 262 - export uses full bitmap dimensions, not CSS zoom or viewport
+  ---
+  duration_ms: 2.631137
+  type: 'test'
+  ...
+# Subtest: background is composited before drawing
+ok 263 - background is composited before drawing
+  ---
+  duration_ms: 0.182716
+  type: 'test'
+  ...
+# Subtest: no background defaults to white, never UI gradient
+ok 264 - no background defaults to white, never UI gradient
+  ---
+  duration_ms: 0.096566
+  type: 'test'
+  ...
+# Subtest: source canvas is never resized or cleared by composing
+ok 265 - source canvas is never resized or cleared by composing
+  ---
+  duration_ms: 0.222306
+  type: 'test'
+  ...
+# Subtest: reject invalid bitmap null
+ok 266 - reject invalid bitmap null
+  ---
+  duration_ms: 0.335276
+  type: 'test'
+  ...
+# Subtest: reject invalid bitmap {}
+ok 267 - reject invalid bitmap {}
+  ---
+  duration_ms: 0.075484
+  type: 'test'
+  ...
+# Subtest: reject invalid bitmap {"width":0,"height":5}
+ok 268 - reject invalid bitmap {"width":0,"height":5}
+  ---
+  duration_ms: 0.123015
+  type: 'test'
+  ...
+# Subtest: reject invalid bitmap {"width":2,"height":0}
+ok 269 - reject invalid bitmap {"width":2,"height":0}
+  ---
+  duration_ms: 0.05923
+  type: 'test'
+  ...
+# Subtest: reject invalid bitmap {"width":-1,"height":2}
+ok 270 - reject invalid bitmap {"width":-1,"height":2}
+  ---
+  duration_ms: 0.215997
+  type: 'test'
+  ...
+# Subtest: reject invalid bitmap {"width":2.1,"height":10}
+ok 271 - reject invalid bitmap {"width":2.1,"height":10}
+  ---
+  duration_ms: 0.254805
+  type: 'test'
+  ...
+# Subtest: reject invalid bitmap {"width":null,"height":2}
+ok 272 - reject invalid bitmap {"width":null,"height":2}
+  ---
+  duration_ms: 0.15913
+  type: 'test'
+  ...
+# Subtest: unavailable context fails without changing artwork
+ok 273 - unavailable context fails without changing artwork
+  ---
+  duration_ms: 0.114623
+  type: 'test'
+  ...
+# Subtest: PNG encoder produces a typed Blob
+ok 274 - PNG encoder produces a typed Blob
+  ---
+  duration_ms: 0.31071
+  type: 'test'
+  ...
+# Subtest: reject null PNG callback
+ok 275 - reject null PNG callback
+  ---
+  duration_ms: 0.30457
+  type: 'test'
+  ...
+# Subtest: reject empty PNG callback
+ok 276 - reject empty PNG callback
+  ---
+  duration_ms: 0.248475
+  type: 'test'
+  ...
+# Subtest: reject wrong MIME PNG callback
+ok 277 - reject wrong MIME PNG callback
+  ---
+  duration_ms: 0.12591
+  type: 'test'
+  ...
+# Subtest: SecurityError during export is caught
+ok 278 - SecurityError during export is caught
+  ---
+  duration_ms: 0.258651
+  type: 'test'
+  ...
+# Subtest: missing toBlob is caught
+ok 279 - missing toBlob is caught
+  ---
+  duration_ms: 0.224249
+  type: 'test'
+  ...
+# Subtest: encoder timeout leaves a recoverable error
+ok 280 - encoder timeout leaves a recoverable error
+  ---
+  duration_ms: 11.716228
+  type: 'test'
+  ...
+# Subtest: late encoder callback cannot replace timeout result
+ok 281 - late encoder callback cannot replace timeout result
+  ---
+  duration_ms: 7.191288
+  type: 'test'
+  ...
+# Subtest: native File has PNG MIME, ASCII filename and exact bytes
+ok 282 - native File has PNG MIME, ASCII filename and exact bytes
+  ---
+  duration_ms: 0.771326
+  type: 'test'
+  ...
+# Subtest: missing File falls back without breaking preview/download
+ok 283 - missing File falls back without breaking preview/download
+  ---
+  duration_ms: 0.139801
+  type: 'test'
+  ...
+# Subtest: throwing File constructor falls back
+ok 284 - throwing File constructor falls back
+  ---
+  duration_ms: 0.234684
+  type: 'test'
+  ...
+# Subtest: capability check sends only the actual File array
+ok 285 - capability check sends only the actual File array
+  ---
+  duration_ms: 0.21136
+  type: 'test'
+  ...
+# Subtest: insecure origins never call native sharing capability
+ok 286 - insecure origins never call native sharing capability
+  ---
+  duration_ms: 0.111178
+  type: 'test'
+  ...
+# Subtest: safe capability fallback: missing navigator
+ok 287 - safe capability fallback: missing navigator
+  ---
+  duration_ms: 0.096476
+  type: 'test'
+  ...
+# Subtest: safe capability fallback: missing share
+ok 288 - safe capability fallback: missing share
+  ---
+  duration_ms: 0.124268
+  type: 'test'
+  ...
+# Subtest: safe capability fallback: missing canShare
+ok 289 - safe capability fallback: missing canShare
+  ---
+  duration_ms: 0.068634
+  type: 'test'
+  ...
+# Subtest: safe capability fallback: reject file
+ok 290 - safe capability fallback: reject file
+  ---
+  duration_ms: 0.092941
+  type: 'test'
+  ...
+# Subtest: safe capability fallback: throws
+ok 291 - safe capability fallback: throws
+  ---
+  duration_ms: 0.130838
+  type: 'test'
+  ...
+# Subtest: capability rejects a missing File
+ok 292 - capability rejects a missing File
+  ---
+  duration_ms: 0.187513
+  type: 'test'
+  ...
+# Subtest: cancel has neutral feedback, not failed-save claim
+ok 293 - cancel has neutral feedback, not failed-save claim
+  ---
+  duration_ms: 0.180072
+  type: 'test'
+  ...
+# Subtest: share failure fallback: NotAllowedError
+ok 294 - share failure fallback: NotAllowedError
+  ---
+  duration_ms: 0.121163
+  type: 'test'
+  ...
+# Subtest: share failure fallback: DataError
+ok 295 - share failure fallback: DataError
+  ---
+  duration_ms: 0.078238
+  type: 'test'
+  ...
+# Subtest: share failure fallback: TypeError
+ok 296 - share failure fallback: TypeError
+  ---
+  duration_ms: 0.067953
+  type: 'test'
+  ...
+# Subtest: share failure fallback: InvalidStateError
+ok 297 - share failure fallback: InvalidStateError
+  ---
+  duration_ms: 0.064467
+  type: 'test'
+  ...
+# Subtest: share failure fallback: null
+ok 298 - share failure fallback: null
+  ---
+  duration_ms: 0.055193
+  type: 'test'
+  ...
+# Subtest: en: all 19 save messages translated
+ok 299 - en: all 19 save messages translated
+  ---
+  duration_ms: 0.282056
+  type: 'test'
+  ...
+# Subtest: fr: all 19 save messages translated
+ok 300 - fr: all 19 save messages translated
+  ---
+  duration_ms: 0.09267
+  type: 'test'
+  ...
+# Subtest: pt: all 19 save messages translated
+ok 301 - pt: all 19 save messages translated
+  ---
+  duration_ms: 0.088053
+  type: 'test'
+  ...
+# Subtest: es: all 19 save messages translated
+ok 302 - es: all 19 save messages translated
+  ---
+  duration_ms: 0.069205
+  type: 'test'
+  ...
+# Subtest: zh-Hans: all 19 save messages translated
+ok 303 - zh-Hans: all 19 save messages translated
+  ---
+  duration_ms: 4.087909
+  type: 'test'
+  ...
+# Subtest: ja: all 19 save messages translated
+ok 304 - ja: all 19 save messages translated
+  ---
+  duration_ms: 0.102275
+  type: 'test'
+  ...
+# Subtest: ko: all 19 save messages translated
+ok 305 - ko: all 19 save messages translated
+  ---
+  duration_ms: 0.067482
+  type: 'test'
+  ...
+# Subtest: save module and stylesheet referenced with version keys
+ok 306 - save module and stylesheet referenced with version keys
+  ---
+  duration_ms: 0.234024
+  type: 'test'
+  ...
+# Subtest: share is called with prebuilt File, not after encoding in the click handler
+ok 307 - share is called with prebuilt File, not after encoding in the click handler
+  ---
+  duration_ms: 0.270008
+  type: 'test'
+  ...
+# Subtest: save preview is a real img and links preserve drawing tab
+ok 308 - save preview is a real img and links preserve drawing tab
+  ---
+  duration_ms: 0.240744
+  type: 'test'
+  ...
+# Subtest: preview allows native touch-and-hold
+ok 309 - preview allows native touch-and-hold
+  ---
+  duration_ms: 0.167413
+  type: 'test'
+  ...
+# Subtest: local export has no external network or automatic popup dependency
+ok 310 - local export has no external network or automatic popup dependency
+  ---
+  duration_ms: 0.144468
+  type: 'test'
+  ...
+# Subtest: save module leaves the renderer, undo and zoom functions alone
+ok 311 - save module leaves the renderer, undo and zoom functions alone
+  ---
+  duration_ms: 0.153752
+  type: 'test'
+  ...
+# Subtest: bitmap initialized once at the selected DPI
+ok 312 - bitmap initialized once at the selected DPI
+  ---
+  duration_ms: 5.963178
+  type: 'test'
+  ...
+# Subtest: rotation preserves bitmap dimensions and does not resample pixels
+ok 313 - rotation preserves bitmap dimensions and does not resample pixels
+  ---
+  duration_ms: 1.118571
+  type: 'test'
+  ...
+# Subtest: twenty browser-chrome resizes never rewrite bitmap
+ok 314 - twenty browser-chrome resizes never rewrite bitmap
+  ---
+  duration_ms: 3.045754
+  type: 'test'
+  ...
+# Subtest: display fit uses one scale factor on both axes
+ok 315 - display fit uses one scale factor on both axes
+  ---
+  duration_ms: 1.965441
+  type: 'test'
+  ...
+# Subtest: zero-sized layout is ignored
+ok 316 - zero-sized layout is ignored
+  ---
+  duration_ms: 1.004478
+  type: 'test'
+  ...
+# Subtest: DPR above two is bounded for mobile memory
+ok 317 - DPR above two is bounded for mobile memory
+  ---
+  duration_ms: 2.223331
+  type: 'test'
+  ...
+# Subtest: DPR change does not change logical artwork coordinates
+ok 318 - DPR change does not change logical artwork coordinates
+  ---
+  duration_ms: 1.589643
+  type: 'test'
+  ...
+# Subtest: pointer origin maps to artwork origin
+ok 319 - pointer origin maps to artwork origin
+  ---
+  duration_ms: 1.183999
+  type: 'test'
+  ...
+# Subtest: pointer mapping follows CSS scale after rotation
+ok 320 - pointer mapping follows CSS scale after rotation
+  ---
+  duration_ms: 7.051999
+  type: 'test'
+  ...
+# Subtest: small screens keep a positive paper size and correct aspect
+ok 321 - small screens keep a positive paper size and correct aspect
+  ---
+  duration_ms: 1.246364
+  type: 'test'
+  ...
+# Subtest: viewport uses visible height at scale one
+ok 322 - viewport uses visible height at scale one
+  ---
+  duration_ms: 5.534044
+  type: 'test'
+  ...
+# Subtest: pinch scale is not treated as a new document height
+ok 323 - pinch scale is not treated as a new document height
+  ---
+  duration_ms: 2.443062
+  type: 'test'
+  ...
+# Subtest: window height fallback without VisualViewport
+ok 324 - window height fallback without VisualViewport
+  ---
+  duration_ms: 0.991579
+  type: 'test'
+  ...
+# Subtest: many resize notifications coalesce to one animation frame
+ok 325 - many resize notifications coalesce to one animation frame
+  ---
+  duration_ms: 1.205302
+  type: 'test'
+  ...
+# Subtest: secondary pointer cannot start a drawing
+ok 326 - secondary pointer cannot start a drawing
+  ---
+  duration_ms: 8.289693
+  type: 'test'
+  ...
+# Subtest: right mouse button cannot start a drawing
+ok 327 - right mouse button cannot start a drawing
+  ---
+  duration_ms: 2.984281
+  type: 'test'
+  ...
+# Subtest: second pointer cannot replace a current stroke
+ok 328 - second pointer cannot replace a current stroke
+  ---
+  duration_ms: 4.826235
+  type: 'test'
+  ...
+# Subtest: foreign pointerup cannot finish the active stroke
+ok 329 - foreign pointerup cannot finish the active stroke
+  ---
+  duration_ms: 1.371042
+  type: 'test'
+  ...
+# Subtest: pointercancel ends the stroke once
+ok 330 - pointercancel ends the stroke once
+  ---
+  duration_ms: 1.354417
+  type: 'test'
+  ...
+# Subtest: rotation ends an active stroke before changing display frame
+ok 331 - rotation ends an active stroke before changing display frame
+  ---
+  duration_ms: 5.182524
+  type: 'test'
+  ...
+# Subtest: Fill button activates the actual bucket tool
+ok 332 - Fill button activates the actual bucket tool
+  ---
+  duration_ms: 0.986181
+  type: 'test'
+  ...
+# Subtest: all five tool buttons retain their IDs and handlers
+ok 333 - all five tool buttons retain their IDs and handlers
+  ---
+  duration_ms: 2.906352
+  type: 'test'
+  ...
+# Subtest: undo history retains twenty actions plus initial state
+ok 334 - undo history retains twenty actions plus initial state
+  ---
+  duration_ms: 0.836515
+  type: 'test'
+  ...
+# Subtest: undo restore uses source-over even after eraser
+ok 335 - undo restore uses source-over even after eraser
+  ---
+  duration_ms: 0.89295
+  type: 'test'
+  ...
+# Subtest: out-of-order undo image decodes cannot replace newest state
+ok 336 - out-of-order undo image decodes cannot replace newest state
+  ---
+  duration_ms: 0.876405
+  type: 'test'
+  ...
+# Subtest: clear invalidates an outstanding asynchronous restore
+ok 337 - clear invalidates an outstanding asynchronous restore
+  ---
+  duration_ms: 1.245292
+  type: 'test'
+  ...
+# Subtest: dark fill on transparent pixels is not incorrectly treated as no-op
+ok 338 - dark fill on transparent pixels is not incorrectly treated as no-op
+  ---
+  duration_ms: 1.079762
+  type: 'test'
+  ...
+# Subtest: flood fill remains inside a closed boundary
+ok 339 - flood fill remains inside a closed boundary
+  ---
+  duration_ms: 0.84691
+  type: 'test'
+  ...
+# Subtest: out-of-bounds fill returns without reading pixels
+ok 340 - out-of-bounds fill returns without reading pixels
+  ---
+  duration_ms: 0.83358
+  type: 'test'
+  ...
+# Subtest: drawing surface cancels touch gestures locally only
+ok 341 - drawing surface cancels touch gestures locally only
+  ---
+  duration_ms: 2.027014
+  type: 'test'
+  ...
+# Subtest: single-finger toolbar touch is not blocked
+ok 342 - single-finger toolbar touch is not blocked
+  ---
+  duration_ms: 1.274877
+  type: 'test'
+  ...
+# Subtest: two-finger toolbar gesture is blocked
+ok 343 - two-finger toolbar gesture is blocked
+  ---
+  duration_ms: 0.802243
+  type: 'test'
+  ...
+# Subtest: upload control is exempt from double-click prevention
+ok 344 - upload control is exempt from double-click prevention
+  ---
+  duration_ms: 0.771326
+  type: 'test'
+  ...
+# Subtest: template import resets eraser composition while rendering
+ok 345 - template import resets eraser composition while rendering
+  ---
+  duration_ms: 1.334708
+  type: 'test'
+  ...
+# Subtest: zoom clamps to fit through 400 percent
+ok 346 - zoom clamps to fit through 400 percent
+  ---
+  duration_ms: 1.87193
+  type: 'test'
+  ...
+# Subtest: non-finite zoom safely falls back to fit
+ok 347 - non-finite zoom safely falls back to fit
+  ---
+  duration_ms: 0.154694
+  type: 'test'
+  ...
+# Subtest: invalid geometry is ignored
+ok 348 - invalid geometry is ignored
+  ---
+  duration_ms: 0.188284
+  type: 'test'
+  ...
+# Subtest: fit centers a portrait paper in a landscape viewport
+ok 349 - fit centers a portrait paper in a landscape viewport
+  ---
+  duration_ms: 0.240884
+  type: 'test'
+  ...
+# Subtest: zoom geometry preserves paper aspect ratio
+ok 350 - zoom geometry preserves paper aspect ratio
+  ---
+  duration_ms: 0.113181
+  type: 'test'
+  ...
+# Subtest: anchor is held exactly when scrolling is not clamped
+ok 351 - anchor is held exactly when scrolling is not clamped
+  ---
+  duration_ms: 0.165771
+  type: 'test'
+  ...
+# Subtest: anchor scrolling is bounded at paper edges
+ok 352 - anchor scrolling is bounded at paper edges
+  ---
+  duration_ms: 1.215737
+  type: 'test'
+  ...
+# Subtest: fit never has scrolling overflow
+ok 353 - fit never has scrolling overflow
+  ---
+  duration_ms: 0.13265
+  type: 'test'
+  ...
+# Subtest: midpoint and distance use client coordinates
+ok 354 - midpoint and distance use client coordinates
+  ---
+  duration_ms: 0.386084
+  type: 'test'
+  ...
+# Subtest: zoom buttons never write artwork bitmap or history
+ok 355 - zoom buttons never write artwork bitmap or history
+  ---
+  duration_ms: 4.712232
+  type: 'test'
+  ...
+# Subtest: Fit resets the view only
+ok 356 - Fit resets the view only
+  ---
+  duration_ms: 1.524324
+  type: 'test'
+  ...
+# Subtest: zoom scroll controls appear only when the paper overflows
+ok 357 - zoom scroll controls appear only when the paper overflows
+  ---
+  duration_ms: 0.951578
+  type: 'test'
+  ...
+# Subtest: scroll slider controls only the canvas viewport
+ok 358 - scroll slider controls only the canvas viewport
+  ---
+  duration_ms: 1.134354
+  type: 'test'
+  ...
+# Subtest: rotation keeps zoom and one artwork bitmap
+ok 359 - rotation keeps zoom and one artwork bitmap
+  ---
+  duration_ms: 1.096397
+  type: 'test'
+  ...
+# Subtest: coordinate mapping accounts for canvas zoom
+ok 360 - coordinate mapping accounts for canvas zoom
+  ---
+  duration_ms: 2.980975
+  type: 'test'
+  ...
+# Subtest: zoom is absent from the 20-step drawing history
+ok 361 - zoom is absent from the 20-step drawing history
+  ---
+  duration_ms: 1.937328
+  type: 'test'
+  ...
+# Subtest: one touch begins pending without painting or filling
+ok 362 - one touch begins pending without painting or filling
+  ---
+  duration_ms: 0.478042
+  type: 'test'
+  ...
+# Subtest: tap tool commits exactly once on release
+ok 363 - tap tool commits exactly once on release
+  ---
+  duration_ms: 0.253784
+  type: 'test'
+  ...
+# Subtest: two fingers never commit bucket or sticker taps
+ok 364 - two fingers never commit bucket or sticker taps
+  ---
+  duration_ms: 0.336819
+  type: 'test'
+  ...
+# Subtest: finger motion beyond tap tolerance cancels a bucket tap
+ok 365 - finger motion beyond tap tolerance cancels a bucket tap
+  ---
+  duration_ms: 0.230919
+  type: 'test'
+  ...
+# Subtest: movement starts one normal stroke then finishes once
+ok 366 - movement starts one normal stroke then finishes once
+  ---
+  duration_ms: 0.593917
+  type: 'test'
+  ...
+# Subtest: second finger rolls back only the unfinished touch stroke
+ok 367 - second finger rolls back only the unfinished touch stroke
+  ---
+  duration_ms: 0.210689
+  type: 'test'
+  ...
+# Subtest: pinch distance doubles the view zoom
+ok 368 - pinch distance doubles the view zoom
+  ---
+  duration_ms: 0.274806
+  type: 'test'
+  ...
+# Subtest: two-finger translation pans without changing zoom
+ok 369 - two-finger translation pans without changing zoom
+  ---
+  duration_ms: 0.274234
+  type: 'test'
+  ...
+# Subtest: one remaining finger after pinch cannot accidentally paint
+ok 370 - one remaining finger after pinch cannot accidentally paint
+  ---
+  duration_ms: 0.220764
+  type: 'test'
+  ...
+# Subtest: third finger does not replace the two active pinch anchors
+ok 371 - third finger does not replace the two active pinch anchors
+  ---
+  duration_ms: 0.154463
+  type: 'test'
+  ...
+# Subtest: cancelled stroke rolls back and recovers for next touch
+ok 372 - cancelled stroke rolls back and recovers for next touch
+  ---
+  duration_ms: 0.139941
+  type: 'test'
+  ...
+# Subtest: blur reset releases all contacts and restores idle
+ok 373 - blur reset releases all contacts and restores idle
+  ---
+  duration_ms: 0.129225
+  type: 'test'
+  ...
+# Subtest: rotation cancels gestures until all old contacts lift
+ok 374 - rotation cancels gestures until all old contacts lift
+  ---
+  duration_ms: 0.131799
+  type: 'test'
+  ...
+# Subtest: Pencil or mouse active stroke blocks palm touches
+ok 375 - Pencil or mouse active stroke blocks palm touches
+  ---
+  duration_ms: 0.201745
+  type: 'test'
+  ...
+# Subtest: single touch on the gutter never draws
+ok 376 - single touch on the gutter never draws
+  ---
+  duration_ms: 0.097117
+  type: 'test'
+  ...
+# Subtest: near-coincident fingertips produce finite zoom
+ok 377 - near-coincident fingertips produce finite zoom
+  ---
+  duration_ms: 0.099801
+  type: 'test'
+  ...
+# Subtest: foreign pointer cancellation does not end a tracked touch
+ok 378 - foreign pointer cancellation does not end a tracked touch
+  ---
+  duration_ms: 0.069965
+  type: 'test'
+  ...
+1..378
+# tests 378
+# suites 0
+# pass 378
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 421.574638

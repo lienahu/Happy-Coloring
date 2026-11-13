@@ -4,10 +4,13 @@
   "private": true,
   "scripts": {
     "test": "node --test tests/unit/*.test.cjs",
-    "test:ui": "python tests/browser/run_template_tests.py",
+    "test:ui": "python tests/browser/run_fill_library_tests.py",
     "test:languages": "python tests/browser/run_language_tests.py --only-languages",
     "test:save": "python tests/browser/run_save_tests.py --save-only",
-    "test:templates": "python tests/browser/run_template_tests.py --templates-only"
+    "test:templates": "python tests/browser/run_template_tests.py --templates-only",
+    "test:context": "python tests/browser/run_context_tests.py --new-only",
+    "test:fill-library": "python tests/browser/run_fill_library_tests.py --new-only",
+    "test:library-resources": "python tests/check_library_resources.py"
   },
   "engines": {
     "node": ">=20"

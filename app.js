@@ -34,7 +34,7 @@ function fitCanvas(){
   }
   canvasView.reflow();
 }
-function snap(){history.push(canvas.toDataURL());if(history.length>21)history.shift();redo=[];buttons()}
+function snap(){history.push(canvas.toDataURL());if(history.length>21)history.shift();redo=[];if(window.HappyFill)window.HappyFill.remember(history.at(-1),[...history,...redo]);buttons()}
 function buttons(){undoBtn.disabled=history.length<2;redoBtn.disabled=!redo.length}
 // Do not let an eraser's destination-out mode erase an undo snapshot.
 let restoreTicket=0;
@@ -42,6 +42,7 @@ function restore(src){
  const ticket=++restoreTicket,im=new Image();
  im.onload=()=>{
    if(ticket!==restoreTicket)return;
+   if(window.HappyFill)window.HappyFill.restore(src);
    ctx.save();ctx.globalCompositeOperation="source-over";
    ctx.clearRect(0,0,W(),H());ctx.drawImage(im,0,0,W(),H());ctx.restore();
  };
@@ -58,6 +59,8 @@ function floodFill(xCss,yCss,fillHex){
  const sx=canvas.width/W(),sy=canvas.height/H();
  const x0=Math.floor(xCss*sx),y0=Math.floor(yCss*sy);
  if(x0<0||y0<0||x0>=canvas.width||y0>=canvas.height)return;
+ // PATTERN-DISPATCH: normal solid fills retain the accepted implementation.
+ if(window.HappyFill && window.HappyFill.needsPatternPath())return window.HappyFill.paint(ctx,canvas,x0,y0,fillHex,W());
  const im=ctx.getImageData(0,0,canvas.width,canvas.height),d=im.data,w=im.width,h=im.height;
  const ii=(y0*w+x0)*4,target=[d[ii],d[ii+1],d[ii+2],d[ii+3]],fill=hex(fillHex),tol=45;
  if(Math.abs(target[0]-fill[0])+Math.abs(target[1]-fill[1])+Math.abs(target[2]-fill[2])+Math.abs(target[3]-fill[3])<10)return;
@@ -231,7 +234,7 @@ document.querySelectorAll(".stickers button").forEach(b=>b.onclick=()=>{
 undoBtn.onclick=()=>{if(history.length>1){redo.push(history.pop());restore(history.at(-1));buttons()}};
 redoBtn.onclick=()=>{if(redo.length){let s=redo.pop();history.push(s);restore(s);buttons()}};
 
-function clearAll(){++restoreTicket;ctx.clearRect(0,0,W(),H());snap()}
+function clearAll(){if(window.HappyFill)window.HappyFill.reset();++restoreTicket;ctx.clearRect(0,0,W(),H());snap()}
 clearBtn.onclick=()=>{if(confirm(window.HappyI18n ? window.HappyI18n.t("clearQuestion") : "Clear this picture?"))clearAll()};
 newBtn.onclick=()=>confirmModal.classList.remove("hidden");
 cancelNew.onclick=()=>confirmModal.classList.add("hidden");
@@ -302,7 +305,7 @@ function loadPictureSource(src,release=()=>{}){
      ctx.save();ctx.globalCompositeOperation="source-over";
      ctx.setTransform(1,0,0,1,0,0);
      ctx.clearRect(0,0,canvas.width,canvas.height);
-     ctx.drawImage(prepared,0,0);ctx.restore();snap();
+     ctx.drawImage(prepared,0,0);ctx.restore();if(window.HappyFill)window.HappyFill.reset();snap();
      finish(true);
    };
    im.onerror=fail;

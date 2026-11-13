@@ -1,0 +1,28 @@
+test_300_fill_picker_has_15_choices_and_closes_after_selection (__main__.chromium_phone_tiny_landscape.test_300_fill_picker_has_15_choices_and_closes_after_selection) ... ok
+test_301_all_15_styles_fill_inside_closed_square_only (__main__.chromium_phone_tiny_landscape.test_301_all_15_styles_fill_inside_closed_square_only) ... ok
+test_302_refill_dots_to_stars_to_solid_replaces_entire_region (__main__.chromium_phone_tiny_landscape.test_302_refill_dots_to_stars_to_solid_replaces_entire_region) ... ok
+test_303_undo_redo_restore_pattern_membership (__main__.chromium_phone_tiny_landscape.test_303_undo_redo_restore_pattern_membership) ... ok
+test_304_black_and_white_patterns_are_visible_and_refillable (__main__.chromium_phone_tiny_landscape.test_304_black_and_white_patterns_are_visible_and_refillable) ... ok
+test_305_zoomed_pattern_fill_uses_artwork_coordinates (__main__.chromium_phone_tiny_landscape.test_305_zoomed_pattern_fill_uses_artwork_coordinates) ... ok
+test_306_brush_boundary_after_pattern_keeps_other_side (__main__.chromium_phone_tiny_landscape.test_306_brush_boundary_after_pattern_keeps_other_side) ... ok
+test_307_clear_and_import_reset_region_records (__main__.chromium_phone_tiny_landscape.test_307_clear_and_import_reset_region_records) ... ok
+test_308_pattern_survives_save_with_full_pixels_and_background (__main__.chromium_phone_tiny_landscape.test_308_pattern_survives_save_with_full_pixels_and_background) ... ok
+test_309_pattern_picker_and_sizes_do_not_stack (__main__.chromium_phone_tiny_landscape.test_309_pattern_picker_and_sizes_do_not_stack) ... ok
+test_310_no_catalog_or_template_library_reads_at_startup (__main__.chromium_phone_tiny_landscape.test_310_no_catalog_or_template_library_reads_at_startup) ... ok
+test_311_catalog_three_tiers_each_ten_and_pagination (__main__.chromium_phone_tiny_landscape.test_311_catalog_three_tiers_each_ten_and_pagination) ... ok
+test_312_only_active_thumbnail_page_loaded_no_full_images (__main__.chromium_phone_tiny_landscape.test_312_only_active_thumbnail_page_loaded_no_full_images) ... ok
+test_313_selected_card_alone_reads_full_picture (__main__.chromium_phone_tiny_landscape.test_313_selected_card_alone_reads_full_picture) ... ok
+test_314_all_30_templates_load_and_pattern_fill_closed_region (__main__.chromium_phone_tiny_landscape.test_314_all_30_templates_load_and_pattern_fill_closed_region) ... ok
+test_315_library_failure_preserves_art_and_retry (__main__.chromium_phone_tiny_landscape.test_315_library_failure_preserves_art_and_retry) ... ok
+test_316_image_failure_preserves_art_and_history (__main__.chromium_phone_tiny_landscape.test_316_image_failure_preserves_art_and_history) ... ok
+test_317_closing_while_loading_cancels_change (__main__.chromium_phone_tiny_landscape.test_317_closing_while_loading_cancels_change) ... ok
+test_318_newest_library_selection_wins (__main__.chromium_phone_tiny_landscape.test_318_newest_library_selection_wins) ... ok
+test_319_seven_languages_fit_picker_and_library (__main__.chromium_phone_tiny_landscape.test_319_seven_languages_fit_picker_and_library) ... ok
+test_320_browsing_tabs_never_changes_drawing_or_history (__main__.chromium_phone_tiny_landscape.test_320_browsing_tabs_never_changes_drawing_or_history) ... ok
+test_321_keyboard_tabs_and_escape (__main__.chromium_phone_tiny_landscape.test_321_keyboard_tabs_and_escape) ... ok
+test_322_preview_screenshots (__main__.chromium_phone_tiny_landscape.test_322_preview_screenshots) ... ok
+
+----------------------------------------------------------------------
+Ran 23 tests in 105.738s
+
+OK

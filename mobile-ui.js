@@ -8,7 +8,12 @@
     if (![pw, ph, vw, vh].every(n => Number.isFinite(n) && n > 0)) return 1;
     return Math.min(4, Math.max(1, Math.max(vw / pw, vh / ph) / Math.min(vw / pw, vh / ph)));
   }
-  const api = { isCompact, isPhoneLandscape, coverZoom };
+  function panelSections(sectionId) {
+    const groups = { toolsSection:['toolsSection'], colorsSection:['colorsSection','backgroundSection'],
+      pagesSection:['pagesSection','uploadSection'], stickersSection:['stickersSection'] };
+    return Object.hasOwn(groups,sectionId) ? [...groups[sectionId]] : [...groups.toolsSection];
+  }
+  const api = { isCompact, isPhoneLandscape, coverZoom, panelSections };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   root.StudioLayout = api;
   if (typeof document === 'undefined') return;
@@ -16,8 +21,35 @@
   const tools = $('artTools'), toggle = $('toolsToggle'), closeTools = $('closeTools');
   const shade = $('drawerShade'), stage = $('canvasViewport'), dock = document.querySelector('.quick-dock');
   let opener = toggle, pending = 0, compact = false, landscape = false, initialized = false;
+  let currentPanel = 'toolsSection';
+  const sizes = $('sizesSection'), sizeTools = ['brushBtn','sparkleBtn','outlineBtn','eraserBtn'];
+  let sizeOpener = null;
+  function collapseSizes() {
+    sizes.hidden = true; sizeOpener = null;
+    sizeTools.forEach(id => $(id).setAttribute('aria-expanded','false'));
+  }
+  function revealSizes(button) {
+    if(root.HappyFillUI)root.HappyFillUI.close();
+    const already = sizeOpener === button && !sizes.hidden;
+    collapseSizes();
+    if (already) return;
+    button.after(sizes); sizes.hidden = false; sizeOpener = button;
+    button.setAttribute('aria-expanded','true');
+    // Keep the actual size buttons visible, including on a short landscape phone.
+    requestAnimationFrame(() => sizes.scrollIntoView({block:'nearest',behavior:'instant'}));
+  }
+  function showPanel(sectionId) {
+    const allowed = panelSections(sectionId);
+    currentPanel = allowed[0];
+    [...tools.children].filter(el => el.tagName === 'SECTION').forEach(el => {el.hidden = compact && !allowed.includes(el.id);});
+    const key = {toolsSection:'drawingTools',colorsSection:'colors',pagesSection:'pages',stickersSection:'stickers'}[currentPanel];
+    $('toolsPanelTitle').dataset.i18n = compact ? key : 'drawingTools';
+    $('toolsPanelTitle').textContent = root.HappyI18n ? root.HappyI18n.t(compact ? key : 'drawingTools') : 'Drawing tools';
+  }
   function cancelInput() { if (canvasInput) canvasInput.reset(); end(); }
   function closeDrawer(focus = true) {
+    if(root.HappyFillUI)root.HappyFillUI.close();
+    collapseSizes();
     document.body.classList.remove('tools-open');
     toggle.setAttribute('aria-expanded', 'false');
     shade.hidden = true;
@@ -25,17 +57,14 @@
     stage.inert = false; dock.inert = false;
     if (focus && compact) (opener || toggle).focus({ preventScroll: true });
   }
-  function openDrawer(sectionId = '', source = toggle) {
+  function openDrawer(sectionId = 'toolsSection', source = toggle) {
     if (!compact) return;
     cancelInput(); opener = source;
     document.body.classList.add('tools-open');
     toggle.setAttribute('aria-expanded', 'true');
     tools.setAttribute('role', 'dialog'); tools.setAttribute('aria-modal', 'true');
     shade.hidden = false; stage.inert = true; dock.inert = true;
-    if (sectionId) {
-      const section = $(sectionId);
-      tools.scrollTop = section ? Math.max(0, section.offsetTop - tools.offsetTop - 8) : 0;
-    } else tools.scrollTop = 0;
+    collapseSizes(); showPanel(sectionId); tools.scrollTop = 0;
     closeTools.focus({ preventScroll: true });
   }
   toggle.addEventListener('click', () => {
@@ -44,10 +73,29 @@
   closeTools.addEventListener('click', () => closeDrawer());
   shade.addEventListener('click', () => closeDrawer());
   document.querySelectorAll('[data-open-section]').forEach(b => b.addEventListener('click', () => openDrawer(b.dataset.openSection, b)));
-  // Selecting a tool/page closes the mobile drawer, so the picture is immediately usable.
+  // Inline size picker: select the tool FIRST via its existing renderer binding,
+  // then disclose just its size choices. Choosing a width closes the panel.
+  sizeTools.forEach(id => $(id).addEventListener('click', () => revealSizes($(id))));
   tools.addEventListener('click', e => {
-    if (!compact || !e.target.closest('.tool-buttons button,.pageBtn,[data-sticker]')) return;
-    closeDrawer(false);
+    const button = e.target.closest('button');
+    if (!button) return;
+    if (sizeTools.includes(button.id) || button.id==='bucketBtn' || button.closest('#fillStylesSection')) return;
+    if (button.matches('.brush')) {
+      const opener=sizeOpener;collapseSizes();
+      if(compact)closeDrawer(false);else (opener || $('brushBtn')).focus({preventScroll:true});
+      return;
+    }
+    if (button.matches('.tool-buttons button,.pageBtn,[data-sticker],.swatch,.bg')) {
+      collapseSizes();if(compact)closeDrawer(false);
+    }
+  });
+  $('colorPicker').addEventListener('change', () => {if(compact)closeDrawer(false)});
+  // Outside click/Escape dismiss the inline picker without changing the drawing.
+  document.addEventListener('click', e => {
+    if (!sizes.hidden && !e.target.closest('#sizesSection,[aria-controls="sizesSection"]')) collapseSizes();
+  },true);
+  document.addEventListener('keydown', e => {
+    if(e.key==='Escape' && !sizes.hidden && !compact){e.preventDefault();const opener=sizeOpener;collapseSizes();opener?.focus({preventScroll:true});}
   });
   $('imageUpload').addEventListener('change', () => closeDrawer(false));
   // Inert protects the canvas behind the drawer; focus stays inside the temporary tool panel.
@@ -97,6 +145,7 @@
     if (initialized && (compact !== nextCompact || landscape !== nextLandscape)) closeDrawer(false);
     const enteredLandscape = nextLandscape && (!initialized || !landscape);
     compact = nextCompact; landscape = nextLandscape; initialized = true;
+    showPanel(currentPanel);
     fitCanvas();
     // At the default fit scale only: use the wider phone work area on rotation.
     // Existing manual zoom is kept. Cover is a VIEW: no crop or pixel resize is saved.
@@ -107,5 +156,5 @@
   window.addEventListener('orientationchange', schedule, { passive: true });
   window.addEventListener('pageshow', schedule, { passive: true });
   layout();
-  root.HappyStudio = { openDrawer, closeDrawer, largeView };
+  root.HappyStudio = { openDrawer, closeDrawer, largeView, collapseSizes };
 })(typeof globalThis === 'undefined' ? window : globalThis);

@@ -1,0 +1,55 @@
+{
+  "base_commit": "497b49e8d94fa666f2b524b9082fbb406b00e94e",
+  "unit": {
+    "passed": 304,
+    "failed": 0
+  },
+  "browser": {
+    "run": 572,
+    "passed": 561,
+    "skipped": 11,
+    "failed": 0
+  },
+  "runs": {
+    "final-desktop": {
+      "tests_run": 125,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 11,
+      "browser_version": "144.0.7559.96",
+      "transport": "exact source injection and original PNG data URL substitution"
+    },
+    "final-tablet_landscape": {
+      "tests_run": 125,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "browser_version": "144.0.7559.96",
+      "transport": "exact source injection and original PNG data URL substitution"
+    },
+    "final-phone_portrait": {
+      "tests_run": 125,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "browser_version": "144.0.7559.96",
+      "transport": "exact source injection and original PNG data URL substitution"
+    },
+    "final-phone_landscape": {
+      "tests_run": 125,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "browser_version": "144.0.7559.96",
+      "transport": "exact source injection and original PNG data URL substitution"
+    },
+    "extra": {
+      "tests_run": 72,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "browser_version": "144.0.7559.96",
+      "transport": "exact source injection and original PNG data URL substitution"
+    }
+  }
+}

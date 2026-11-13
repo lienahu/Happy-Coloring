@@ -9,12 +9,14 @@
 <meta content="#eee8ff" name="theme-color"/>
 <link href="apple-colorful.css?v=colorful-save-1" rel="stylesheet"/>
 <link href="languages.css?v=colorful-save-1" rel="stylesheet"/><link href="save-picture.css?v=colorful-save-1" rel="stylesheet"/>
+<link href="context-tools.css?v=fill-library-1" rel="stylesheet"/>
+<link rel="stylesheet" href="fill-library.css?v=fill-library-1">
 </head>
 <body>
 <header>
 <div class="brand-cluster">
 <button aria-controls="artTools" aria-expanded="false" aria-label="Open art tools" class="icon-button mobile-only" data-i18n-aria="openTools" id="toolsToggle" type="button"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"></path></svg></button>
-<div class="brand"><span class="brand-mark"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18h1a2 2 0 0 0 1-3.7 1.5 1.5 0 0 1 .7-2.8H17a4 4 0 0 0 4-4C21 6 17 3 12 3Z"></path><circle cx="7" cy="11" r=".8"></circle><circle cx="9" cy="7" r=".8"></circle><circle cx="14" cy="6.5" r=".8"></circle><circle cx="17" cy="10" r=".8"></circle></svg></span><span class="brand-name">Happy <b>Colors</b><small class="build-tag">Colorful P1</small></span></div>
+<div class="brand"><span class="brand-mark"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18h1a2 2 0 0 0 1-3.7 1.5 1.5 0 0 1 .7-2.8H17a4 4 0 0 0 4-4C21 6 17 3 12 3Z"></path><circle cx="7" cy="11" r=".8"></circle><circle cx="9" cy="7" r=".8"></circle><circle cx="14" cy="6.5" r=".8"></circle><circle cx="17" cy="10" r=".8"></circle></svg></span><span class="brand-name">Happy <b>Colors</b><small class="build-tag">Colorful F1</small></span></div>
 </div>
 <div aria-label="Canvas zoom controls" class="canvas-view-tools" data-i18n-aria="zoomControls" role="group">
 <button aria-label="Zoom canvas out" data-i18n-aria="zoomOut" data-i18n-title="zoomOut" id="zoomOutBtn" title="Zoom out" type="button">−</button>
@@ -32,12 +34,28 @@
 <button aria-controls="languageDialog" aria-haspopup="dialog" aria-label="Language" class="icon-button desktop-language" data-i18n-aria="language" data-i18n-title="language" data-open-language="" id="languageBtn" title="Language" type="button"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><ellipse cx="12" cy="12" rx="4" ry="9"></ellipse><path d="M3 12h18M5 6.5h14M5 17.5h14"></path></svg></button></header>
 <main>
 <aside aria-label="Art tools" class="tools" data-i18n-aria="drawingTools" id="artTools">
-<div class="drawer-heading"><div><h2 data-i18n="drawingTools">Drawing tools</h2></div><button aria-label="Close art tools" class="icon-button mobile-only" data-i18n-aria="closeTools" id="closeTools" type="button"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"></path></svg></button></div><section class="tool-buttons" id="toolsSection">
-<button class="active" data-i18n-aria="brush" data-i18n-title="brush" id="brushBtn"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="m14 4 6 6-9 9-6-6 9-9Z"></path><path d="m4 14-1 7 7-1M13 5l6 6"></path></svg><span data-i18n="brush">Brush</span></button>
-<button data-i18n-aria="sparkle" data-i18n-title="sparkle" id="sparkleBtn"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="m12 3 2.4 6.6L21 12l-6.6 2.4L12 21l-2.4-6.6L3 12l6.6-2.4L12 3ZM20 2v4M18 4h4"></path></svg><span data-i18n="sparkle">Sparkle</span></button>
-<button data-i18n-aria="fill" data-i18n-title="fill" id="bucketBtn"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="m8 3 11 11-8 7-9-9 8-9ZM4 10h12"></path><path d="M21 14s-2 3-2 4a2 2 0 0 0 4 0c0-1-2-4-2-4Z"></path></svg><span data-i18n="fill">Fill</span></button>
-<button data-i18n-aria="outline" data-i18n-title="outline" id="outlineBtn"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="m14 4 6 6-9 9-6-6 9-9Z"></path><path d="m4 14-1 7 7-1M13 5l6 6"></path></svg><span data-i18n="outline">Outline</span></button>
-<button data-i18n-aria="eraser" data-i18n-title="eraser" id="eraserBtn"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="m3 13 9-10 9 8-9 10H9l-6-5v-3ZM8 8l9 8M12 21h9"></path></svg><span data-i18n="eraser">Eraser</span></button>
+<div class="drawer-heading"><div><h2 id="toolsPanelTitle" data-i18n="drawingTools">Drawing tools</h2></div><button aria-label="Close art tools" class="icon-button mobile-only" data-i18n-aria="closeTools" id="closeTools" type="button"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"></path></svg></button></div><section class="tool-buttons" id="toolsSection">
+<button class="active" data-i18n-aria="brush" data-i18n-title="brush" aria-controls="sizesSection" aria-expanded="false" id="brushBtn"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="m14 4 6 6-9 9-6-6 9-9Z"></path><path d="m4 14-1 7 7-1M13 5l6 6"></path></svg><span data-i18n="brush">Brush</span></button>
+<section id="sizesSection" class="inline-sizes" hidden aria-labelledby="brushSizesTitle">
+<h2 id="brushSizesTitle" data-i18n="brushSize">Brush Size</h2>
+<div class="brushes">
+<button type="button" class="brush" data-size="2" data-i18n-aria="extraSmall" data-i18n-title="extraSmall"><i style="--dot:3px"></i><span data-i18n="extraSmallShort">XS</span><small>2 px</small></button>
+<button aria-label="Small brush" class="brush active" data-i18n-aria="small" data-i18n-title="small" data-size="8"><i style="--dot:6px"></i><span data-i18n="smallShort">S</span></button>
+<button aria-label="M brush" class="brush" data-i18n-aria="medium" data-i18n-title="medium" data-size="16"><i style="--dot:10px"></i><span data-i18n="mediumShort">M</span></button>
+<button aria-label="L brush" class="brush" data-i18n-aria="largeBrush" data-i18n-title="largeBrush" data-size="28"><i style="--dot:16px"></i><span data-i18n="largeShort">L</span></button>
+<button aria-label="XL brush" class="brush" data-i18n-aria="extraLarge" data-i18n-title="extraLarge" data-size="44"><i style="--dot:22px"></i><span data-i18n="extraLargeShort">XL</span></button>
+</div>
+</section>
+<button data-i18n-aria="sparkle" data-i18n-title="sparkle" aria-controls="sizesSection" aria-expanded="false" id="sparkleBtn"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="m12 3 2.4 6.6L21 12l-6.6 2.4L12 21l-2.4-6.6L3 12l6.6-2.4L12 3ZM20 2v4M18 4h4"></path></svg><span data-i18n="sparkle">Sparkle</span></button>
+<button data-i18n-aria="fill" data-i18n-title="fill" id="bucketBtn" aria-controls="fillStylesSection" aria-expanded="false"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="m8 3 11 11-8 7-9-9 8-9ZM4 10h12"></path><path d="M21 14s-2 3-2 4a2 2 0 0 0 4 0c0-1-2-4-2-4Z"></path></svg><span data-i18n="fill">Fill</span></button>
+<div id="fillStylesSection" class="fill-style-picker" hidden aria-labelledby="fillStyleTitle">
+<h3 id="fillStyleTitle" data-i18n="fillStyle">Fill style</h3>
+<div id="fillStyleGrid" class="fill-style-grid" role="group" aria-labelledby="fillStyleTitle"></div>
+</div>
+<button data-i18n-aria="outline" data-i18n-title="outline" aria-controls="sizesSection" aria-expanded="false" id="outlineBtn"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="m14 4 6 6-9 9-6-6 9-9Z"></path><path d="m4 14-1 7 7-1M13 5l6 6"></path></svg><span data-i18n="outline">Outline</span></button>
+<button data-i18n-aria="eraser" data-i18n-title="eraser" aria-controls="sizesSection" aria-expanded="false" id="eraserBtn"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="m3 13 9-10 9 8-9 10H9l-6-5v-3ZM8 8l9 8M12 21h9"></path></svg><span data-i18n="eraser">Eraser</span></button>
+
+<button type="button" id="selectionBtn" data-i18n-aria="selectArea" data-i18n-title="selectArea" aria-pressed="false" aria-controls="selectionPanel"><svg aria-hidden="true" class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-dasharray="3 2" d="M4 4h16v16H4z"/><path d="m9 15 6-6m-4 0h4v4"/></svg><span data-i18n="selectShort">Select</span></button>
 <button data-i18n-aria="clear" data-i18n-title="clear" id="clearBtn"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="M4 6h16M9 6V3h6v3M6 6l1 15h10l1-15M10 10v7M14 10v7"></path></svg><span data-i18n="clear">Clear</span></button>
 </section>
 <section id="colorsSection">
@@ -45,20 +63,14 @@
 <div class="palette" id="palette"></div>
 <label class="custom-color"><span data-i18n="moreColors">More colors</span><input data-i18n-aria="moreColors" id="colorPicker" type="color" value="#ff4f87"/></label>
 </section>
-<section id="sizesSection">
-<h2 data-i18n="brushSize">Brush Size</h2>
-<div class="brushes">
-<button aria-label="Small brush" class="brush active" data-i18n-aria="small" data-i18n-title="small" data-size="8"><i style="--dot:6px"></i><span data-i18n="smallShort">S</span></button>
-<button aria-label="M brush" class="brush" data-i18n-aria="medium" data-i18n-title="medium" data-size="16"><i style="--dot:10px"></i><span data-i18n="mediumShort">M</span></button>
-<button aria-label="L brush" class="brush" data-i18n-aria="largeBrush" data-i18n-title="largeBrush" data-size="28"><i style="--dot:16px"></i><span data-i18n="largeShort">L</span></button>
-<button aria-label="XL brush" class="brush" data-i18n-aria="extraLarge" data-i18n-title="extraLarge" data-size="44"><i style="--dot:22px"></i><span data-i18n="extraLargeShort">XL</span></button>
-</div>
-</section><section aria-label="Import picture" class="picture-import" data-i18n-aria="importPicture"><label class="upload-control" for="imageUpload">
+<section aria-label="Import picture" class="picture-import" id="uploadSection" data-i18n-aria="importPicture"><label class="upload-control" for="imageUpload">
 <svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 16V3m-5 5 5-5 5 5M4 15v6h16v-6"></path></svg><span data-i18n="upload">Upload picture</span>
 <input accept="image/*" data-i18n-aria="upload" id="imageUpload" type="file"/>
 </label></section>
 <section id="pagesSection">
 <h2 data-i18n="pages">Coloring Pages</h2>
+<button id="openTemplateLibrary" class="library-launch" type="button" aria-haspopup="dialog" aria-controls="templateLibraryDialog"><span class="library-launch-icon" aria-hidden="true">▦</span><span><strong data-i18n="libraryTitle">Picture library</strong><small data-i18n="libraryIntro">30 pictures · 3 levels</small></span></button>
+<p class="library-shortcuts-label" data-i18n="quickTemplates">Quick picks</p>
 <div class="pages">
 <button class="pageBtn" data-i18n-aria="blank" data-page="blank"><span aria-hidden="true">⬜</span> <span data-i18n="blank">Blank</span></button>
 <button class="pageBtn" data-i18n-aria="unicorn" data-page="unicorn"><span aria-hidden="true">🦄</span> <span data-i18n="unicorn">Unicorn</span></button>
@@ -82,7 +94,7 @@
 </div>
 <div class="tiny" data-i18n="stickerHint">Pick a sticker, then tap the picture.</div>
 </section>
-<section class="background-section">
+<section class="background-section" id="backgroundSection">
 <h2 data-i18n="background">Background</h2>
 <div class="backgrounds">
 <button class="bg active" data-bg="#ffffff" data-i18n-aria="white"><span aria-hidden="true">⬜</span> <span data-i18n="white">White</span></button>
@@ -116,10 +128,25 @@
 <button class="danger" data-i18n="startNew" id="confirmNew">Start new</button>
 </div>
 </div>
-<script src="i18n.js?v=picture-templates-1"></script><script src="canvas-zoom.js?v=colorful-save-1"></script>
+
+<dialog id="templateLibraryDialog" class="template-library" aria-labelledby="libraryTitle">
+ <div class="library-header"><div><h2 id="libraryTitle" data-i18n="libraryTitle">Picture library</h2><p data-i18n="libraryHint">Choose a level, then choose a picture.</p></div><button id="closeTemplateLibrary" type="button" data-i18n-aria="close" aria-label="Close">✕</button></div>
+ <div class="library-levels" role="tablist" data-i18n-aria="difficulty" aria-label="Difficulty">
+  <button type="button" id="level-easy" data-level="easy" role="tab" aria-controls="libraryGrid" aria-selected="true" data-i18n="levelEasy">Easy</button>
+  <button type="button" id="level-medium" data-level="medium" role="tab" aria-controls="libraryGrid" aria-selected="false" tabindex="-1" data-i18n="levelMedium">Medium</button>
+  <button type="button" id="level-hard" data-level="hard" role="tab" aria-controls="libraryGrid" aria-selected="false" tabindex="-1" data-i18n="levelHard">Hard</button>
+ </div>
+ <p id="libraryStatus" class="library-status" role="status" aria-live="polite"></p>
+ <div id="libraryScroll" class="library-scroll"><div id="libraryGrid" class="library-grid" role="tabpanel" aria-labelledby="level-easy"></div></div>
+ <div class="library-footer"><button id="libraryPrev" type="button" data-i18n="previousPage">Previous</button><output id="libraryPageCount"></output><button id="libraryNext" type="button" data-i18n="nextPage">Next</button><button id="libraryRetry" hidden type="button" data-i18n="retryLibrary">Retry</button></div>
+</dialog>
+
+<script src="fill-patterns.js?v=fill-library-1"></script>
+<script src="i18n.js?v=fill-library-1"></script><script src="canvas-zoom.js?v=colorful-save-1"></script>
 <script src="save-picture.js?v=colorful-save-1"></script>
-<script src="app.js?v=picture-templates-1"></script>
-<script src="mobile-ui.js?v=colorful-save-1"></script>
+<script src="app.js?v=fill-library-1"></script>
+<script src="selection-resize.js?v=fill-library-1"></script>
+<script src="mobile-ui.js?v=fill-library-1"></script>
 <dialog aria-describedby="languageHint" aria-labelledby="languageTitle" class="language-dialog" id="languageDialog"><div class="language-heading"><h2 data-i18n="chooseLanguage" id="languageTitle">Choose a language</h2><button aria-label="Close" class="icon-button" data-i18n-aria="close" id="closeLanguage" type="button"><svg aria-hidden="true" class="ui-icon" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"></path></svg></button></div><p data-i18n="languageHint" id="languageHint">Change the menus, not your drawing.</p><div class="language-options"><button aria-pressed="false" class="language-option" data-language="en" lang="en" type="button"><span>English</span><span aria-hidden="true" class="language-check"></span></button><button aria-pressed="false" class="language-option" data-language="fr" lang="fr" type="button"><span>Français</span><span aria-hidden="true" class="language-check"></span></button><button aria-pressed="false" class="language-option" data-language="pt" lang="pt" type="button"><span>Português</span><span aria-hidden="true" class="language-check"></span></button><button aria-pressed="false" class="language-option" data-language="es" lang="es" type="button"><span>Español</span><span aria-hidden="true" class="language-check"></span></button><button aria-pressed="false" class="language-option" data-language="zh-Hans" lang="zh-Hans" type="button"><span>简体中文</span><span aria-hidden="true" class="language-check"></span></button><button aria-pressed="false" class="language-option" data-language="ja" lang="ja" type="button"><span>日本語</span><span aria-hidden="true" class="language-check"></span></button><button aria-pressed="false" class="language-option" data-language="ko" lang="ko" type="button"><span>한국어</span><span aria-hidden="true" class="language-check"></span></button></div></dialog>
 <dialog id="saveDialog" class="save-dialog" aria-labelledby="saveTitle" aria-describedby="saveInstructions">
   <div class="save-heading">
@@ -141,5 +168,6 @@
     </div>
   </div>
 </dialog>
+<script src="fill-library-ui.js?v=fill-library-1"></script>
 </body>
 </html>

@@ -1,0 +1,546 @@
+{
+  "version": 1,
+  "pageSize": 6,
+  "items": [
+    {
+      "id": "easy-kitten",
+      "level": "easy",
+      "title": {
+        "en": "Smiling kitten",
+        "fr": "Petit chat",
+        "pt": "Gatinho",
+        "es": "Gatito",
+        "zh-Hans": "微笑小猫",
+        "ja": "にっこりねこ",
+        "ko": "웃는 고양이"
+      },
+      "src": "assets/coloring-pages/cat.png",
+      "thumb": "assets/template-library/thumbs/easy-kitten.png",
+      "width": 1254,
+      "height": 1254,
+      "provenance": "supplied-original"
+    },
+    {
+      "id": "easy-butterfly",
+      "level": "easy",
+      "title": {
+        "en": "Butterfly",
+        "fr": "Papillon",
+        "pt": "Borboleta",
+        "es": "Mariposa",
+        "zh-Hans": "蝴蝶",
+        "ja": "ちょうちょ",
+        "ko": "나비"
+      },
+      "src": "assets/coloring-pages/butterfly.png",
+      "thumb": "assets/template-library/thumbs/easy-butterfly.png",
+      "width": 1254,
+      "height": 1254,
+      "provenance": "supplied-original"
+    },
+    {
+      "id": "easy-dinosaur",
+      "level": "easy",
+      "title": {
+        "en": "Baby dinosaur",
+        "fr": "Bébé dinosaure",
+        "pt": "Dinossauro bebé",
+        "es": "Dinosaurio bebé",
+        "zh-Hans": "小恐龙",
+        "ja": "あかちゃん恐竜",
+        "ko": "아기 공룡"
+      },
+      "src": "assets/coloring-pages/dinosaur.png",
+      "thumb": "assets/template-library/thumbs/easy-dinosaur.png",
+      "width": 1254,
+      "height": 1254,
+      "provenance": "supplied-original"
+    },
+    {
+      "id": "easy-princess",
+      "level": "easy",
+      "title": {
+        "en": "Little princess",
+        "fr": "Petite princesse",
+        "pt": "Princesinha",
+        "es": "Princesita",
+        "zh-Hans": "小公主",
+        "ja": "小さなプリンセス",
+        "ko": "작은 공주"
+      },
+      "src": "assets/coloring-pages/princess.png",
+      "thumb": "assets/template-library/thumbs/easy-princess.png",
+      "width": 1254,
+      "height": 1254,
+      "provenance": "supplied-original"
+    },
+    {
+      "id": "easy-turtle",
+      "level": "easy",
+      "title": {
+        "en": "Friendly turtle",
+        "fr": "Gentille tortue",
+        "pt": "Tartaruga simpática",
+        "es": "Tortuga amable",
+        "zh-Hans": "小乌龟",
+        "ja": "やさしいかめ",
+        "ko": "친절한 거북이"
+      },
+      "src": "assets/template-library/full/easy-turtle.png",
+      "thumb": "assets/template-library/thumbs/easy-turtle.png",
+      "width": 1200,
+      "height": 1200,
+      "provenance": "original-vector-scene"
+    },
+    {
+      "id": "easy-rocket",
+      "level": "easy",
+      "title": {
+        "en": "Little rocket",
+        "fr": "Petite fusée",
+        "pt": "Foguetão",
+        "es": "Cohete",
+        "zh-Hans": "小火箭",
+        "ja": "小さなロケット",
+        "ko": "작은 로켓"
+      },
+      "src": "assets/template-library/full/easy-rocket.png",
+      "thumb": "assets/template-library/thumbs/easy-rocket.png",
+      "width": 1200,
+      "height": 1200,
+      "provenance": "original-vector-scene"
+    },
+    {
+      "id": "easy-house",
+      "level": "easy",
+      "title": {
+        "en": "Cozy house",
+        "fr": "Jolie maison",
+        "pt": "Casinha",
+        "es": "Casita",
+        "zh-Hans": "温馨小屋",
+        "ja": "かわいいおうち",
+        "ko": "아늑한 집"
+      },
+      "src": "assets/template-library/full/easy-house.png",
+      "thumb": "assets/template-library/thumbs/easy-house.png",
+      "width": 1200,
+      "height": 1200,
+      "provenance": "original-vector-scene"
+    },
+    {
+      "id": "easy-fish",
+      "level": "easy",
+      "title": {
+        "en": "Happy fish",
+        "fr": "Poisson joyeux",
+        "pt": "Peixinho feliz",
+        "es": "Pez feliz",
+        "zh-Hans": "快乐小鱼",
+        "ja": "にこにこさかな",
+        "ko": "행복한 물고기"
+      },
+      "src": "assets/template-library/full/easy-fish.png",
+      "thumb": "assets/template-library/thumbs/easy-fish.png",
+      "width": 1200,
+      "height": 1200,
+      "provenance": "original-vector-scene"
+    },
+    {
+      "id": "easy-cupcake",
+      "level": "easy",
+      "title": {
+        "en": "Cupcake",
+        "fr": "Petit gâteau",
+        "pt": "Queque",
+        "es": "Magdalena",
+        "zh-Hans": "杯子蛋糕",
+        "ja": "カップケーキ",
+        "ko": "컵케이크"
+      },
+      "src": "assets/template-library/full/easy-cupcake.png",
+      "thumb": "assets/template-library/thumbs/easy-cupcake.png",
+      "width": 1200,
+      "height": 1200,
+      "provenance": "original-vector-scene"
+    },
+    {
+      "id": "easy-balloon",
+      "level": "easy",
+      "title": {
+        "en": "Hot-air balloon",
+        "fr": "Montgolfière",
+        "pt": "Balão de ar quente",
+        "es": "Globo aerostático",
+        "zh-Hans": "热气球",
+        "ja": "気球",
+        "ko": "열기구"
+      },
+      "src": "assets/template-library/full/easy-balloon.png",
+      "thumb": "assets/template-library/thumbs/easy-balloon.png",
+      "width": 1200,
+      "height": 1200,
+      "provenance": "original-vector-scene"
+    },
+    {
+      "id": "medium-rainbow-unicorn",
+      "level": "medium",
+      "title": {
+        "en": "Rainbow unicorn",
+        "fr": "Licorne arc-en-ciel",
+        "pt": "Unicórnio e arco-íris",
+        "es": "Unicornio y arcoíris",
+        "zh-Hans": "彩虹独角兽",
+        "ja": "虹のユニコーン",
+        "ko": "무지개 유니콘"
+      },
+      "src": "assets/coloring-pages/unicorn.png",
+      "thumb": "assets/template-library/thumbs/medium-rainbow-unicorn.png",
+      "width": 1254,
+      "height": 1254,
+      "provenance": "supplied-original"
+    },
+    {
+      "id": "medium-garden-kitten",
+      "level": "medium",
+      "title": {
+        "en": "Kitten garden",
+        "fr": "Chat au jardin",
+        "pt": "Gatinho no jardim",
+        "es": "Gatito en el jardín",
+        "zh-Hans": "花园小猫",
+        "ja": "お庭のこねこ",
+        "ko": "정원의 고양이"
+      },
+      "src": "assets/template-library/full/medium-garden-kitten.png",
+      "thumb": "assets/template-library/thumbs/medium-garden-kitten.png",
+      "width": 1200,
+      "height": 1200,
+      "provenance": "original-vector-scene-with-supplied-character"
+    },
+    {
+      "id": "medium-butterfly-meadow",
+      "level": "medium",
+      "title": {
+        "en": "Butterfly meadow",
+        "fr": "Prairie aux papillons",
+        "pt": "Prado de borboletas",
+        "es": "Prado de mariposas",
+        "zh-Hans": "蝴蝶花丛",
+        "ja": "花とちょうちょ",
+        "ko": "꽃밭의 나비"
+      },
+      "src": "assets/template-library/full/medium-butterfly-meadow.png",
+      "thumb": "assets/template-library/thumbs/medium-butterfly-meadow.png",
+      "width": 1200,
+      "height": 1200,
+      "provenance": "original-vector-scene-with-supplied-character"
+    },
+    {
+      "id": "medium-dino-volcano",
+      "level": "medium",
+      "title": {
+        "en": "Dinosaur volcano",
+        "fr": "Dinosaure et volcan",
+        "pt": "Dinossauro e vulcão",
+        "es": "Dinosaurio y volcán",
+        "zh-Hans": "恐龙和火山",
+        "ja": "恐竜と火山",
+        "ko": "공룡과 화산"
+      },
+      "src": "assets/template-library/full/medium-dino-volcano.png",
+      "thumb": "assets/template-library/thumbs/medium-dino-volcano.png",
+      "width": 1200,
+      "height": 1200,
+      "provenance": "original-vector-scene-with-supplied-character"
+    },
+    {
+      "id": "medium-princess-castle",
+      "level": "medium",
+      "title": {
+        "en": "Princess castle",
+        "fr": "Château de princesse",
+        "pt": "Castelo da princesa",
+        "es": "Castillo de la princesa",
+        "zh-Hans": "公主城堡",
+        "ja": "プリンセスのお城",
+        "ko": "공주의 성"
+      },
+      "src": "assets/template-library/full/medium-princess-castle.png",
+      "thumb": "assets/template-library/thumbs/medium-princess-castle.png",
+      "width": 1200,
+      "height": 1200,
+      "provenance": "original-vector-scene-with-supplied-character"
+    },
+    {
+      "id": "medium-turtle-pond",
+      "level": "medium",
+      "title": {
+        "en": "Turtle pond",
+        "fr": "Étang des tortues",
+        "pt": "Lago das tartarugas",
+        "es": "Estanque de tortugas",
+        "zh-Hans": "池塘乌龟",
+        "ja": "かめの池",
+        "ko": "거북이 연못"
+      },
+      "src": "assets/template-library/full/medium-turtle-pond.png",
+      "thumb": "assets/template-library/thumbs/medium-turtle-pond.png",
+      "width": 1200,
+      "height": 1200,
+      "provenance": "original-vector-scene"
+    },
+    {
+      "id": "medium-rocket-moon",
+      "level": "medium",
+      "title": {
+        "en": "Rocket and moon",
+        "fr": "Fusée et lune",
+        "pt": "Foguetão e lua",
+        "es": "Cohete y luna",
+        "zh-Hans": "火箭与月亮",
+        "ja": "ロケットと月",
+        "ko": "로켓과 달"
+      },
+      "src": "assets/template-library/full/medium-rocket-moon.png",
+      "thumb": "assets/template-library/thumbs/medium-rocket-moon.png",
+      "width": 1200,
+      "height": 1200,
+      "provenance": "original-vector-scene"
+    },
+    {
+      "id": "medium-boat",
+      "level": "medium",
+      "title": {
+        "en": "Sailing boat",
+        "fr": "Voilier",
+        "pt": "Veleiro",
+        "es": "Velero",
+        "zh-Hans": "小帆船",
+        "ja": "帆船",
+        "ko": "돛단배"
+      },
+      "src": "assets/template-library/full/medium-boat.png",
+      "thumb": "assets/template-library/thumbs/medium-boat.png",
+      "width": 1200,
+      "height": 1200,
+      "provenance": "original-vector-scene"
+    },
+    {
+      "id": "medium-cottage-garden",
+      "level": "medium",
+      "title": {
+        "en": "Cottage garden",
+        "fr": "Jardin du cottage",
+        "pt": "Jardim da casinha",
+        "es": "Jardín de la casita",
+        "zh-Hans": "花园小屋",
+        "ja": "お花の家",
+        "ko": "정원 오두막"
+      },
+      "src": "assets/template-library/full/medium-cottage-garden.png",
+      "thumb": "assets/template-library/thumbs/medium-cottage-garden.png",
+      "width": 1200,
+      "height": 1200,
+      "provenance": "original-vector-scene"
+    },
+    {
+      "id": "medium-birthday-cake",
+      "level": "medium",
+      "title": {
+        "en": "Birthday cake",
+        "fr": "Gâteau de fête",
+        "pt": "Bolo de aniversário",
+        "es": "Tarta de cumpleaños",
+        "zh-Hans": "生日蛋糕",
+        "ja": "お誕生日ケーキ",
+        "ko": "생일 케이크"
+      },
+      "src": "assets/template-library/full/medium-birthday-cake.png",
+      "thumb": "assets/template-library/thumbs/medium-birthday-cake.png",
+      "width": 1200,
+      "height": 1200,
+      "provenance": "original-vector-scene"
+    },
+    {
+      "id": "hard-unicorn-garden",
+      "level": "hard",
+      "title": {
+        "en": "Magic unicorn garden",
+        "fr": "Jardin des licornes",
+        "pt": "Jardim mágico",
+        "es": "Jardín de unicornios",
+        "zh-Hans": "独角兽魔法花园",
+        "ja": "ユニコーンの庭",
+        "ko": "유니콘 마법 정원"
+      },
+      "src": "assets/template-library/full/hard-unicorn-garden.png",
+      "thumb": "assets/template-library/thumbs/hard-unicorn-garden.png",
+      "width": 1200,
+      "height": 1200,
+      "provenance": "original-vector-scene-with-supplied-character"
+    },
+    {
+      "id": "hard-palace-princess",
+      "level": "hard",
+      "title": {
+        "en": "Royal palace",
+        "fr": "Palais royal",
+        "pt": "Palácio real",
+        "es": "Palacio real",
+        "zh-Hans": "公主的宫殿",
+        "ja": "プリンセスの宮殿",
+        "ko": "공주의 궁전"
+      },
+      "src": "assets/template-library/full/hard-palace-princess.png",
+      "thumb": "assets/template-library/thumbs/hard-palace-princess.png",
+      "width": 1200,
+      "height": 1200,
+      "provenance": "original-vector-scene-with-supplied-character"
+    },
+    {
+      "id": "hard-cats-greenhouse",
+      "level": "hard",
+      "title": {
+        "en": "Cats in a greenhouse",
+        "fr": "Chats dans la serre",
+        "pt": "Gatos na estufa",
+        "es": "Gatos en el invernadero",
+        "zh-Hans": "温室里的小猫",
+        "ja": "温室のこねこたち",
+        "ko": "온실 속 고양이"
+      },
+      "src": "assets/template-library/full/hard-cats-greenhouse.png",
+      "thumb": "assets/template-library/thumbs/hard-cats-greenhouse.png",
+      "width": 1200,
+      "height": 1200,
+      "provenance": "original-vector-scene-with-supplied-character"
+    },
+    {
+      "id": "hard-butterfly-mandala",
+      "level": "hard",
+      "title": {
+        "en": "Butterfly wreath",
+        "fr": "Couronne de papillons",
+        "pt": "Grinalda de borboletas",
+        "es": "Corona de mariposas",
+        "zh-Hans": "蝴蝶花环",
+        "ja": "ちょうちょの花輪",
+        "ko": "나비 꽃장식"
+      },
+      "src": "assets/template-library/full/hard-butterfly-mandala.png",
+      "thumb": "assets/template-library/thumbs/hard-butterfly-mandala.png",
+      "width": 1200,
+      "height": 1200,
+      "provenance": "original-vector-scene-with-supplied-character"
+    },
+    {
+      "id": "hard-dinosaur-valley",
+      "level": "hard",
+      "title": {
+        "en": "Dinosaur valley",
+        "fr": "Vallée des dinosaures",
+        "pt": "Vale dos dinossauros",
+        "es": "Valle de dinosaurios",
+        "zh-Hans": "恐龙山谷",
+        "ja": "恐竜の谷",
+        "ko": "공룡 계곡"
+      },
+      "src": "assets/template-library/full/hard-dinosaur-valley.png",
+      "thumb": "assets/template-library/thumbs/hard-dinosaur-valley.png",
+      "width": 1200,
+      "height": 1200,
+      "provenance": "original-vector-scene-with-supplied-character"
+    },
+    {
+      "id": "hard-coral-reef",
+      "level": "hard",
+      "title": {
+        "en": "Coral reef",
+        "fr": "Récif de corail",
+        "pt": "Recife de coral",
+        "es": "Arrecife de coral",
+        "zh-Hans": "珊瑚海底世界",
+        "ja": "さんごの海",
+        "ko": "산호 바다"
+      },
+      "src": "assets/template-library/full/hard-coral-reef.png",
+      "thumb": "assets/template-library/thumbs/hard-coral-reef.png",
+      "width": 1200,
+      "height": 1200,
+      "provenance": "original-vector-scene"
+    },
+    {
+      "id": "hard-space-adventure",
+      "level": "hard",
+      "title": {
+        "en": "Space adventure",
+        "fr": "Aventure spatiale",
+        "pt": "Aventura espacial",
+        "es": "Aventura espacial",
+        "zh-Hans": "太空探险",
+        "ja": "宇宙の冒険",
+        "ko": "우주 탐험"
+      },
+      "src": "assets/template-library/full/hard-space-adventure.png",
+      "thumb": "assets/template-library/thumbs/hard-space-adventure.png",
+      "width": 1200,
+      "height": 1200,
+      "provenance": "original-vector-scene"
+    },
+    {
+      "id": "hard-fairy-village",
+      "level": "hard",
+      "title": {
+        "en": "Fairy village",
+        "fr": "Village féerique",
+        "pt": "Aldeia encantada",
+        "es": "Pueblo de hadas",
+        "zh-Hans": "童话村庄",
+        "ja": "おとぎの村",
+        "ko": "동화 마을"
+      },
+      "src": "assets/template-library/full/hard-fairy-village.png",
+      "thumb": "assets/template-library/thumbs/hard-fairy-village.png",
+      "width": 1200,
+      "height": 1200,
+      "provenance": "original-vector-scene"
+    },
+    {
+      "id": "hard-sweet-shop",
+      "level": "hard",
+      "title": {
+        "en": "Sweet shop",
+        "fr": "Boutique de douceurs",
+        "pt": "Loja de doces",
+        "es": "Tienda de dulces",
+        "zh-Hans": "甜点小店",
+        "ja": "おかしのお店",
+        "ko": "과자 가게"
+      },
+      "src": "assets/template-library/full/hard-sweet-shop.png",
+      "thumb": "assets/template-library/thumbs/hard-sweet-shop.png",
+      "width": 1200,
+      "height": 1200,
+      "provenance": "original-vector-scene"
+    },
+    {
+      "id": "hard-woodland-owl",
+      "level": "hard",
+      "title": {
+        "en": "Woodland owl",
+        "fr": "Hibou de la forêt",
+        "pt": "Coruja da floresta",
+        "es": "Búho del bosque",
+        "zh-Hans": "森林猫头鹰",
+        "ja": "森のふくろう",
+        "ko": "숲속 부엉이"
+      },
+      "src": "assets/template-library/full/hard-woodland-owl.png",
+      "thumb": "assets/template-library/thumbs/hard-woodland-owl.png",
+      "width": 1200,
+      "height": 1200,
+      "provenance": "original-vector-scene"
+    }
+  ]
+}

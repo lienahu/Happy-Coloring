@@ -1,0 +1,104 @@
+[
+  {
+    "path": "index.html",
+    "status": 200,
+    "bytes": 21052,
+    "sha256": "cafda5a4a763baae4c3ee3e496699fb3337511f3442c7761385e62a57c9008a6"
+  },
+  {
+    "path": "style.css?v=colorful-save-1",
+    "status": 200,
+    "bytes": 10603,
+    "sha256": "7608015428db8eb337dba3823085be8b6b7bc969cabd01ec20dbe6a4e91cf104"
+  },
+  {
+    "path": "apple-colorful.css?v=colorful-save-1",
+    "status": 200,
+    "bytes": 17889,
+    "sha256": "d2c816ab4bb184cfb7681b8e82cb119e27b32ae66a739c59c6208a67a1bf8890"
+  },
+  {
+    "path": "languages.css?v=colorful-save-1",
+    "status": 200,
+    "bytes": 3559,
+    "sha256": "e1bcb1e1518cebdb4746a901b8110f88a4487c63e846348ee8003bc8e37d047f"
+  },
+  {
+    "path": "save-picture.css?v=colorful-save-1",
+    "status": 200,
+    "bytes": 2861,
+    "sha256": "12e189202f4772dd80a3f3a495ab78dcdb4d80b218baf970c51f753019c871ce"
+  },
+  {
+    "path": "context-tools.css?v=context-edit-1",
+    "status": 200,
+    "bytes": 3072,
+    "sha256": "6e9067471e801656cafa28efb363aa5d6fb88dbd428671e49b467f6d093bc411"
+  },
+  {
+    "path": "i18n.js?v=context-edit-1",
+    "status": 200,
+    "bytes": 46724,
+    "sha256": "96152b2a55a55b4903625514f636a537d8da260e2b0df937a7b9378c28d1e877"
+  },
+  {
+    "path": "canvas-zoom.js?v=colorful-save-1",
+    "status": 200,
+    "bytes": 9544,
+    "sha256": "d5889b50df3b8e24c627dde0c7b98156996512da93285b4b1fb574dba5ded5ff"
+  },
+  {
+    "path": "save-picture.js?v=colorful-save-1",
+    "status": 200,
+    "bytes": 8066,
+    "sha256": "1b18e7379d0dbf0483bb2c8e0f565641427ff250967cae86e2e9424c332c3086"
+  },
+  {
+    "path": "app.js?v=picture-templates-1",
+    "status": 200,
+    "bytes": 16017,
+    "sha256": "b128123de42058bbc1aff3f667acb25bd567cad7cbfa83abe27f242719092f0c"
+  },
+  {
+    "path": "selection-resize.js?v=context-edit-1",
+    "status": 200,
+    "bytes": 13366,
+    "sha256": "c8ec8386dbe07331f22f867038786d1530216d0e2cb79f304628728b54d6b2c3"
+  },
+  {
+    "path": "mobile-ui.js?v=context-edit-1",
+    "status": 200,
+    "bytes": 9346,
+    "sha256": "61f23ae0f68412846eef876df4667438872e6d688505182a54dfff7116278be2"
+  },
+  {
+    "path": "assets/coloring-pages/butterfly.png",
+    "status": 200,
+    "bytes": 1624560,
+    "sha256": "5c4f42c85fea79c2a3e9ec7fdee2d03acf93b325d4d9b3315ead1ca3c67603a0"
+  },
+  {
+    "path": "assets/coloring-pages/unicorn.png",
+    "status": 200,
+    "bytes": 1920275,
+    "sha256": "4594a4968dc309cc523b065859242a8dd43e93394aac6f58338e82733f2d360a"
+  },
+  {
+    "path": "assets/coloring-pages/cat.png",
+    "status": 200,
+    "bytes": 1546665,
+    "sha256": "78e55c615905dd198a9265f26c184d88c1c7d753252e81d63d98a738b1966b23"
+  },
+  {
+    "path": "assets/coloring-pages/dinosaur.png",
+    "status": 200,
+    "bytes": 1565728,
+    "sha256": "cd058009616929d676c09b5471cce4f1888c2fe9190ca3552d7c945a767f5010"
+  },
+  {
+    "path": "assets/coloring-pages/princess.png",
+    "status": 200,
+    "bytes": 1587651,
+    "sha256": "d2f251a473a40392bc6aea4444534d306f6234feb76e923b0876c501eda421ab"
+  }
+]
