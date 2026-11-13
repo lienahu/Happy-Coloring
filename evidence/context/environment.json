@@ -1,0 +1,11 @@
+{
+  "node": "v22.16.0",
+  "python": "3.13.5",
+  "chromium": "144.0.7559.96",
+  "actual_iOS_test": false,
+  "actual_WebKit_test": false,
+  "http_browser_navigation": "attempted; net::ERR_BLOCKED_BY_ADMINISTRATOR",
+  "browser_transport": "exact source injection + original PNG bytes mapped to data URLs",
+  "native_share": "mocked capability / promise API, not Apple share sheet",
+  "new_selection_touch": "Chromium CDP input pipeline, not physical iPad"
+}

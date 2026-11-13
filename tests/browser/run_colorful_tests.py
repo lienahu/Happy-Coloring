@@ -27,23 +27,38 @@ class ColorfulCases(old.BrowserCases):
   h=re.sub(r'<link[^>]+rel="stylesheet"[^>]*>','',h)
   h=re.sub(r'<script[^>]+src="[^"]+"[^>]*></script>','',h)
   self.page.set_content(h, wait_until="domcontentloaded")
-  for f in ['style.css','apple-colorful.css','languages.css','save-picture.css']:self.page.add_style_tag(content=(self.app_root/f).read_text())
-  for f in ['i18n.js','canvas-zoom.js','save-picture.js','app.js','mobile-ui.js']:self.page.add_script_tag(content=(self.app_root/f).read_text())
+  for f in ['style.css','apple-colorful.css','languages.css','save-picture.css','context-tools.css','fill-library.css']:self.page.add_style_tag(content=(self.app_root/f).read_text())
+  for f in ['fill-patterns.js','i18n.js','canvas-zoom.js','save-picture.js','app.js','selection-resize.js','mobile-ui.js','fill-library-ui.js']:self.page.add_script_tag(content=(self.app_root/f).read_text())
  def compact(self):return self.page.locator('#toolsToggle').is_visible()
- def open_tools(self):
-  if self.compact() and not self.page.locator('body').evaluate("e=>e.classList.contains('tools-open')"):
-   old.BrowserCases.click(self,'#toolsToggle');self.settle()
+ def open_tools(self,section='toolsSection'):
+  if not self.compact():return
+  opened=self.page.locator('body').evaluate("e=>e.classList.contains('tools-open')")
+  if opened and self.page.locator('#'+section).is_visible():return
+  if opened:self.close_tools()
+  selector='#toolsToggle' if section=='toolsSection' else f'[data-open-section="{section}"]'
+  old.BrowserCases.click(self,selector);self.settle()
  def close_tools(self):
   if self.page.locator('body').evaluate("e=>e.classList.contains('tools-open')"):
    self.page.locator('#closeTools').click();self.settle()
- def click(self,selector):
+ def prepare_control(self,selector):
   loc=self.page.locator(selector)
-  inside_tools=loc.evaluate("e=>!!e.closest('.tools')")
-  if inside_tools:self.open_tools()
-  super().click(selector)
+  if not loc.evaluate("e=>!!e.closest('.tools')"):return False
+  section=loc.evaluate("e=>e.closest('section')?.id")
+  panel={'sizesSection':'toolsSection','uploadSection':'pagesSection','backgroundSection':'colorsSection'}.get(section,section)
+  self.open_tools(panel or 'toolsSection')
+  if section=='sizesSection' and not loc.is_visible():
+   # Existing regression cases request a width directly. Reach that same width
+   # through the newly required contextual picker, without changing their pixel checks.
+   active=self.page.evaluate('tool')
+   bid={'brush':'brushBtn','sparkle':'sparkleBtn','outline':'outlineBtn','eraser':'eraserBtn'}.get(active,'brushBtn')
+   old.BrowserCases.click(self,'#'+bid);self.settle()
+  return True
+ def click(self,selector):
+  inside_tools=self.prepare_control(selector)
+  old.BrowserCases.click(self,selector)
   if inside_tools and selector!='#imageUpload':self.close_tools()
  def color(self,value):
-  self.open_tools();self.page.locator('#colorPicker').fill(value);self.close_tools()
+  self.open_tools('colorsSection');self.page.locator('#colorPicker').fill(value);self.close_tools()
  def assert_layout(self):
   # Canvas may exceed its viewport intentionally; chrome must remain on-screen.
   data=self.page.evaluate('''()=>{const box=s=>{const r=document.querySelector(s).getBoundingClientRect();return {x:r.x,y:r.y,w:r.width,h:r.height}};return {w:innerWidth,h:innerHeight,boxes:['header','main','.canvas-stage','.canvas-board','.top-actions'].map(box),scroll:[scrollX,scrollY],buttons:[...document.querySelectorAll('.top-actions button')].map(e=>{const r=e.getBoundingClientRect();return [r.x,r.y,r.right,r.bottom,r.width,r.height]})}}''')
@@ -60,7 +75,7 @@ class ColorfulCases(old.BrowserCases):
   self.color('#00cc66');self.click('#bucketBtn');self.tap_art(100,100)
   self.assertEqual(self.pixel(100,100),[0,204,102,255]);self.assertEqual(self.pixel(30,30)[3],0)
  def test_10_upload_after_scrolling_opens_native_filechooser(self):
-  self.open_tools()
+  self.open_tools("pagesSection")
   # Upload is now higher in the drawer; scroll away first to exercise returning to it.
   self.page.locator('.tools').evaluate('e=>{e.scrollTop=e.scrollHeight}')
   self.settle();super().test_10_upload_after_scrolling_opens_native_filechooser()
@@ -68,7 +83,7 @@ class ColorfulCases(old.BrowserCases):
   v=PROFILES[self.profile_name]['viewport'];self.page.set_viewport_size(dict(width=v['height'],height=v['width']));self.settle();self.click('#zoomFitBtn')
   self.stroke([(70,90),(170,90)]);self.assertGreater(self.pixel(120,90)[3],0);self.assertEqual(self.pixel(120,180)[3],0)
  def test_19_actual_toolbar_touch_scroll_keeps_header(self):
-  self.open_tools();super().test_19_actual_toolbar_touch_scroll_keeps_header()
+  self.open_tools("colorsSection");super().test_19_actual_toolbar_touch_scroll_keeps_header()
  def test_41_single_fixed_interface_no_style_switcher(self):
   self.assertEqual(self.page.locator('html').get_attribute('data-ui'),'colorful-1')
   self.assertEqual(self.page.locator('#themeBtn,#themeDialog,[data-theme-choice]').count(),0)

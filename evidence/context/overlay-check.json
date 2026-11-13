@@ -1,0 +1,9 @@
+{
+  "base_commit": "497b49e8d94fa666f2b524b9082fbb406b00e94e",
+  "files_added_or_updated": 39,
+  "old_files_deleted": 0,
+  "runtime_match": true,
+  "unit_tests": 304,
+  "passed": true,
+  "evidence_note": "Incremental archive retains logs/JSON and two previews; all browser screenshots are in the full preview archive."
+}

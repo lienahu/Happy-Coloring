@@ -1,0 +1,182 @@
+{
+  "easy-kitten": {
+    "x": 0.4585326953748006,
+    "y": 0.24960127591706538,
+    "closedRegions": 6,
+    "maxInterior": 407243
+  },
+  "easy-butterfly": {
+    "x": 0.6666666666666666,
+    "y": 0.5430622009569378,
+    "closedRegions": 15,
+    "maxInterior": 147353
+  },
+  "easy-dinosaur": {
+    "x": 0.44577352472089316,
+    "y": 0.7065390749601276,
+    "closedRegions": 14,
+    "maxInterior": 428249
+  },
+  "easy-princess": {
+    "x": 0.361244019138756,
+    "y": 0.22488038277511962,
+    "closedRegions": 20,
+    "maxInterior": 113214
+  },
+  "easy-turtle": {
+    "x": 0.21916666666666668,
+    "y": 0.5058333333333334,
+    "closedRegions": 18,
+    "maxInterior": 70912
+  },
+  "easy-rocket": {
+    "x": 0.5783333333333334,
+    "y": 0.555,
+    "closedRegions": 19,
+    "maxInterior": 62866
+  },
+  "easy-house": {
+    "x": 0.37333333333333335,
+    "y": 0.7558333333333334,
+    "closedRegions": 28,
+    "maxInterior": 153971
+  },
+  "easy-fish": {
+    "x": 0.3725,
+    "y": 0.5408333333333334,
+    "closedRegions": 10,
+    "maxInterior": 104258
+  },
+  "easy-cupcake": {
+    "x": 0.5141666666666667,
+    "y": 0.3875,
+    "closedRegions": 6,
+    "maxInterior": 166163
+  },
+  "easy-balloon": {
+    "x": 0.49916666666666665,
+    "y": 0.37416666666666665,
+    "closedRegions": 11,
+    "maxInterior": 55947
+  },
+  "medium-rainbow-unicorn": {
+    "x": 0.4098883572567783,
+    "y": 0.5885167464114832,
+    "closedRegions": 56,
+    "maxInterior": 228641
+  },
+  "medium-garden-kitten": {
+    "x": 0.44666666666666666,
+    "y": 0.4141666666666667,
+    "closedRegions": 64,
+    "maxInterior": 160888
+  },
+  "medium-butterfly-meadow": {
+    "x": 0.6016666666666667,
+    "y": 0.5158333333333334,
+    "closedRegions": 36,
+    "maxInterior": 49380
+  },
+  "medium-dino-volcano": {
+    "x": 0.4825,
+    "y": 0.72,
+    "closedRegions": 75,
+    "maxInterior": 161439
+  },
+  "medium-princess-castle": {
+    "x": 0.7566666666666667,
+    "y": 0.8575,
+    "closedRegions": 101,
+    "maxInterior": 110343
+  },
+  "medium-turtle-pond": {
+    "x": 0.18166666666666667,
+    "y": 0.55,
+    "closedRegions": 40,
+    "maxInterior": 226842
+  },
+  "medium-rocket-moon": {
+    "x": 0.5083333333333333,
+    "y": 0.5591666666666667,
+    "closedRegions": 29,
+    "maxInterior": 57916
+  },
+  "medium-boat": {
+    "x": 0.21083333333333334,
+    "y": 0.855,
+    "closedRegions": 10,
+    "maxInterior": 179100
+  },
+  "medium-cottage-garden": {
+    "x": 0.6483333333333333,
+    "y": 0.8758333333333334,
+    "closedRegions": 107,
+    "maxInterior": 169150
+  },
+  "medium-birthday-cake": {
+    "x": 0.32666666666666666,
+    "y": 0.7216666666666667,
+    "closedRegions": 16,
+    "maxInterior": 229233
+  },
+  "hard-unicorn-garden": {
+    "x": 0.3908333333333333,
+    "y": 0.165,
+    "closedRegions": 209,
+    "maxInterior": 535293
+  },
+  "hard-palace-princess": {
+    "x": 0.19916666666666666,
+    "y": 0.2,
+    "closedRegions": 148,
+    "maxInterior": 703800
+  },
+  "hard-cats-greenhouse": {
+    "x": 0.16583333333333333,
+    "y": 0.1675,
+    "closedRegions": 95,
+    "maxInterior": 488767
+  },
+  "hard-butterfly-mandala": {
+    "x": 0.14333333333333334,
+    "y": 0.8541666666666666,
+    "closedRegions": 136,
+    "maxInterior": 401778
+  },
+  "hard-dinosaur-valley": {
+    "x": 0.4866666666666667,
+    "y": 0.2075,
+    "closedRegions": 135,
+    "maxInterior": 572656
+  },
+  "hard-coral-reef": {
+    "x": 0.3575,
+    "y": 0.655,
+    "closedRegions": 61,
+    "maxInterior": 916645
+  },
+  "hard-space-adventure": {
+    "x": 0.6825,
+    "y": 0.47583333333333333,
+    "closedRegions": 60,
+    "maxInterior": 889293
+  },
+  "hard-fairy-village": {
+    "x": 0.49083333333333334,
+    "y": 0.49166666666666664,
+    "closedRegions": 151,
+    "maxInterior": 918102
+  },
+  "hard-sweet-shop": {
+    "x": 0.8916666666666667,
+    "y": 0.08916666666666667,
+    "closedRegions": 59,
+    "maxInterior": 352276
+  },
+  "hard-woodland-owl": {
+    "x": 0.4725,
+    "y": 0.20916666666666667,
+    "closedRegions": 53,
+    "maxInterior": 826736
+  }
+}

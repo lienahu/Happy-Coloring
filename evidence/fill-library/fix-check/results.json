@@ -1,0 +1,23 @@
+{
+  "browser": "Chromium",
+  "browser_version": "144.0.7559.96",
+  "transport": "exact local source injection; catalog fetch and image source requests supplied with original local bytes",
+  "tests_run": 2,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "results": [
+    {
+      "test": "__main__.chromium_phone_landscape.test_309_pattern_picker_and_sizes_do_not_stack",
+      "status": "passed",
+      "seconds": 2.515,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_landscape.test_312_only_active_thumbnail_page_loaded_no_full_images",
+      "status": "passed",
+      "seconds": 1.985,
+      "detail": ""
+    }
+  ]
+}

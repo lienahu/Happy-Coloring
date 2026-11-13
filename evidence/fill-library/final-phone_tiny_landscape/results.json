@@ -1,0 +1,149 @@
+{
+  "browser": "Chromium",
+  "browser_version": "144.0.7559.96",
+  "transport": "exact local source injection; catalog fetch and image source requests supplied with original local bytes",
+  "tests_run": 23,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "results": [
+    {
+      "test": "__main__.chromium_phone_tiny_landscape.test_300_fill_picker_has_15_choices_and_closes_after_selection",
+      "status": "passed",
+      "seconds": 2.296,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_tiny_landscape.test_301_all_15_styles_fill_inside_closed_square_only",
+      "status": "passed",
+      "seconds": 10.63,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_tiny_landscape.test_302_refill_dots_to_stars_to_solid_replaces_entire_region",
+      "status": "passed",
+      "seconds": 3.584,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_tiny_landscape.test_303_undo_redo_restore_pattern_membership",
+      "status": "passed",
+      "seconds": 3.274,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_tiny_landscape.test_304_black_and_white_patterns_are_visible_and_refillable",
+      "status": "passed",
+      "seconds": 3.237,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_tiny_landscape.test_305_zoomed_pattern_fill_uses_artwork_coordinates",
+      "status": "passed",
+      "seconds": 2.267,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_tiny_landscape.test_306_brush_boundary_after_pattern_keeps_other_side",
+      "status": "passed",
+      "seconds": 3.271,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_tiny_landscape.test_307_clear_and_import_reset_region_records",
+      "status": "passed",
+      "seconds": 2.752,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_tiny_landscape.test_308_pattern_survives_save_with_full_pixels_and_background",
+      "status": "passed",
+      "seconds": 2.584,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_tiny_landscape.test_309_pattern_picker_and_sizes_do_not_stack",
+      "status": "passed",
+      "seconds": 2.112,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_tiny_landscape.test_310_no_catalog_or_template_library_reads_at_startup",
+      "status": "passed",
+      "seconds": 1.426,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_tiny_landscape.test_311_catalog_three_tiers_each_ten_and_pagination",
+      "status": "passed",
+      "seconds": 3.375,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_tiny_landscape.test_312_only_active_thumbnail_page_loaded_no_full_images",
+      "status": "passed",
+      "seconds": 2.123,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_tiny_landscape.test_313_selected_card_alone_reads_full_picture",
+      "status": "passed",
+      "seconds": 1.826,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_tiny_landscape.test_314_all_30_templates_load_and_pattern_fill_closed_region",
+      "status": "passed",
+      "seconds": 35.153,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_tiny_landscape.test_315_library_failure_preserves_art_and_retry",
+      "status": "passed",
+      "seconds": 2.133,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_tiny_landscape.test_316_image_failure_preserves_art_and_history",
+      "status": "passed",
+      "seconds": 1.934,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_tiny_landscape.test_317_closing_while_loading_cancels_change",
+      "status": "passed",
+      "seconds": 2.747,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_tiny_landscape.test_318_newest_library_selection_wins",
+      "status": "passed",
+      "seconds": 2.433,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_tiny_landscape.test_319_seven_languages_fit_picker_and_library",
+      "status": "passed",
+      "seconds": 8.082,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_tiny_landscape.test_320_browsing_tabs_never_changes_drawing_or_history",
+      "status": "passed",
+      "seconds": 2.224,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_tiny_landscape.test_321_keyboard_tabs_and_escape",
+      "status": "passed",
+      "seconds": 1.8,
+      "detail": ""
+    },
+    {
+      "test": "__main__.chromium_phone_tiny_landscape.test_322_preview_screenshots",
+      "status": "passed",
+      "seconds": 4.475,
+      "detail": ""
+    }
+  ]
+}

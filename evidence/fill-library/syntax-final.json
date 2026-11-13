@@ -1,0 +1,42 @@
+[
+  {
+    "file": "app.js",
+    "exit_code": 0,
+    "output": ""
+  },
+  {
+    "file": "canvas-zoom.js",
+    "exit_code": 0,
+    "output": ""
+  },
+  {
+    "file": "fill-library-ui.js",
+    "exit_code": 0,
+    "output": ""
+  },
+  {
+    "file": "fill-patterns.js",
+    "exit_code": 0,
+    "output": ""
+  },
+  {
+    "file": "i18n.js",
+    "exit_code": 0,
+    "output": ""
+  },
+  {
+    "file": "mobile-ui.js",
+    "exit_code": 0,
+    "output": ""
+  },
+  {
+    "file": "save-picture.js",
+    "exit_code": 0,
+    "output": ""
+  },
+  {
+    "file": "selection-resize.js",
+    "exit_code": 0,
+    "output": ""
+  }
+]

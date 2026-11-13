@@ -1,0 +1,11 @@
+{
+  "base": "P1 complete test build; runtime verified previously against main@497b49e8d94fa666f2b524b9082fbb406b00e94e",
+  "includes_E1_and_F1": true,
+  "restored_or_deleted_paths": [],
+  "runtime_hash_checks": 76,
+  "runtime_mismatch": [],
+  "overlay_unit_exit": 0,
+  "overlay_unit_summary": "1..378\n# tests 378\n# suites 0\n# pass 378\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 421.574638\n",
+  "update_files_at_check": 220,
+  "note": "File overlay only; no git reset, delete, push or remote write."
+}

@@ -45,7 +45,7 @@ test('valid storage roundtrip restores all seven choices',()=>{
  for(const l of locales){assert.ok(i18n.savePreference(s,l));assert.equal(i18n.readPreference(s),l)}
 });
 test('app changes remain confined to Clear, Save, and the shared picture import block',()=>{
- const js=source('app.js').replace(/\/\/ PICTURE-SOURCE-BEGIN:[\s\S]*?\/\/ PICTURE-SOURCE-END\n\n/,source('tests/fixtures/picture-base-handlers.txt')).replace('// Keep export UI separate from the drawing and gesture engines.\nsaveBtn.onclick=()=>window.HappySave.open(canvas,background,saveBtn);',source('tests/fixtures/save-base-handler.txt')).replace('confirm(window.HappyI18n ? window.HappyI18n.t("clearQuestion") : "Clear this picture?")','confirm("Clear this picture?")');
+ const js=require('./fill-source-bridge.cjs').withoutFillHooks(source('app.js')).replace(/\/\/ PICTURE-SOURCE-BEGIN:[\s\S]*?\/\/ PICTURE-SOURCE-END\n\n/,source('tests/fixtures/picture-base-handlers.txt')).replace('// Keep export UI separate from the drawing and gesture engines.\nsaveBtn.onclick=()=>window.HappySave.open(canvas,background,saveBtn);',source('tests/fixtures/save-base-handler.txt')).replace('confirm(window.HappyI18n ? window.HappyI18n.t("clearQuestion") : "Clear this picture?")','confirm("Clear this picture?")');
  assert.equal(crypto.createHash('sha256').update(js).digest('hex'),'dea51ef0e04a1786ce224562649882db42bf5fb4311030b1e9826f3ab1ce21f5');
 });
 test('canvas zoom source is unchanged, allowing LF/CRLF checkout conversion',()=>{

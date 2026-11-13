@@ -1,0 +1,10 @@
+{
+  "node": "v22.16.0",
+  "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+  "playwright": "1.57.0",
+  "browser": "Chromium 144.0.7559.96",
+  "OS": "Linux",
+  "browser_mode": "--inline, local catalog/image byte adapters; native Share mocked; no real iOS/Safari",
+  "GitHub_main_read_only": "497b49e8d94fa666f2b524b9082fbb406b00e94e",
+  "local_baseline": "exact happy-coloring-context-tools-tested.zip (E1)"
+}
